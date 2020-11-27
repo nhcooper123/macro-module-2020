@@ -1,6 +1,6 @@
 # Methods in Macroecology and Macroevolution Course Materials
 
-![Frogs love PCMs.](frogs_keyboard.JPG)
+![Frogs love PCMs.](images/frogs_keyboard.JPG)
 
 The material in this repository is designed to be used as practical exercises for my (one week full-time) Masters level module on *Methods in Macroecology and Macroevolution*. For various reasons this has mostly become a course on phylogenetic comparative methods in R. 
 
