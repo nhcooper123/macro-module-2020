@@ -1,8 +1,10 @@
 # Methods in Macroecology and Macroevolution Course Materials
 
-![Frogs love PCMs.](frogs_keyboard.JPG)
+
 
 The material in this repository is designed to be used as practical exercises for my (one week full-time) Masters level module on *Methods in Macroecology and Macroevolution*. For various reasons this has mostly become a course on phylogenetic comparative methods in R. 
+
+![Frogs love PCMs.](frogs_keyboard.JPG)
 
 The exercises are versions of materials I've developed over the years, but this most recent iteration was designed to support the *Primer on Phylogenetic Comparative Methods for the Biological Sciences* by Natalie Cooper and Rob P Freckleton, which is part of the new *Oxford Biology Primer series. Primers in Ecology and Evolutionary Biology*. In places the materials refer to this *Primer*. But you won't need the *Primer* to run the exercises. 
 
