@@ -1,0 +1,683 @@
+# Answers to practical exercises
+
+Below are all the questions and answers to the practical exercises at the end of each exercise. 
+
+## Diversity indices
+In the folder there is another (invented) dataset using British bats called `bat-communities.csv`. Read in the data, manipulate it as required by `vegan`, then answer the following questions.
+
+```{r, message = FALSE}
+# Load packages
+library(vegan)
+library(picante)
+
+# Read in the dataset
+bat <- read.csv("data/bat-communities.csv")
+# Create a matrix we can use with vegan
+bat.matrix <- sample2matrix(bat)
+```
+
+1. Which site has the fewest species?
+```{r}
+specnumber(bat.matrix)
+```
+
+*Site B*
+
+2. How many different species are there in total?
+```{r}
+# How many unique species are there?
+length(unique(bat$Species[bat$Abundance >0]))
+```
+
+*18*
+
+3. What is Simpson's diversity index for Site J?
+```{r}
+# Simpson's index
+diversity(bat.matrix, index = "simpson")
+```
+
+*0.8198242*
+
+4. Draw a species accumulation curve for the bats and estimate the total number of species. If you round up numbers with decimal places, what is the maximum number of species estimated by any metric?
+```{r}
+# Fit species accumulation curve
+bat.curve <- specaccum(bat.matrix, method = "random", permutations = 1000)
+
+# Plot the curve
+plot(bat.curve, ci.type = "poly", col = "blue", ci.col = "lightblue", 
+     lwd = 2, ci.lty = 0, xlab = "number of sites", 
+     ylab = "cumulative number of bat species")
+
+# Estimate diversity
+specpool(bat.matrix)
+```
+
+*18.267 + 0.476, i.e. 19 species in total*
+
+## Phylogenies
+Read in the `frog-tree.nex` phylogeny from the folder. This comes from @feng2017phylogenomics. Then do the following:
+
+Read the tree into R.
+```{r, message = FALSE}
+# Load packages
+library(ape)
+library(ggtree)
+library(tidyverse)
+
+# Read in the tree
+tree <- read.nexus("data/frog-tree.nex")
+
+# Look at it
+tree
+```
+
+1. Use R functions to determine: 
+a) how many species are in the tree?
+```{r}
+# Look at the tree structure
+str(tree)
+# Or the whole tree
+tree
+```    
+
+*There are 214 tips*
+
+b) is the tree fully resolved?
+```{r}
+# Check whether the tree is binary/fully resolved
+is.binary.tree(tree)
+```
+
+*Yes*
+
+c) is the tree rooted?
+```{r}
+# Check whether the tree is rooted
+is.rooted(tree)
+```    
+
+*Yes*
+
+2. Use `plot.phylo` to plot the tree.
+    a) Can you change the size of the tip labels?
+    b) Can you make a fan-shaped plot? 
+    c) Can you change the colour of the tips and branches?
+```{r}
+# Plot the tree
+plot(tree, 
+     no.margin = TRUE, # to make sure it fills the whole space
+     type = "fan", # to make a fan tree
+     cex = 0.6, # to reduce the tip label size (default = 1)
+     tip.color = "deeppink", # to change the tip colour
+     edge.color = "springgreen") # to change the branch colour
+# yuk!
+```
+
+3. Save the tree to file as "mysuperdoopertree.nex"    
+```{r, eval = FALSE}
+# Save the tree
+write.nexus(tree, file = "data/mysuperdoopertree.nex")
+``` 
+
+## Preparation
+In the data folder there is another tree (`primate-tree.nex`) and dataset (`primate-data.csv`) for investigating the evolution of primate life-history variables. These data come from the PanTHERIA database [@jones2009pantheria] and 10kTrees [@arnold201010ktrees]. 
+
+Read in the tree and data then prepare them for a PCM analysis.
+```{r, eval = FALSE}
+# Load packages
+library(ape)
+library(geiger)
+library(tidyverse)
+library(treeplyr)
+
+# Read in the tree
+primatetree <- read.nexus("data/primate-tree.nex")
+# Look at the tree summary
+str(primatetree)
+
+# Plot the tree as a circular/fan phylogeny with small labels
+plot(primatetree, cex = 0.2, typ = "fan", no.margin = TRUE)
+
+# Check whether the tree is binary
+# We want this to be TRUE
+is.binary.tree(primatetree) 
+
+# It is FALSE so make the tree binary:
+primatetree <- multi2di(primatetree)
+
+# Check whether the tree is binary now...
+is.binary.tree(primatetree) 
+
+# Check whether the tree is rooted
+# We want this to be TRUE
+is.rooted(primatetree)
+
+# Check whether the tree is ultrametric
+# We want this to be TRUE, but it is FALSE
+is.ultrametric(primatetree)
+# Force ultrametric
+primatetree <- force.ultrametric(primatetree)
+
+# Read in the data
+primatedata <- read_csv("data/primate-data.csv")
+
+# Look at the data
+glimpse(primatedata)
+
+# Replace spaces with underscores in species names
+primatedata <- 
+  primatedata %>%
+  mutate(Binomial = str_replace(string = Binomial, pattern = " ", replacement = "_"))
+# Check it worked
+glimpse(primatedata)
+
+# Check whether the names match in the data and the tree
+check <- name.check(phy = primatetree, data = primatedata, 
+                    data.names = primatedata$Binomial)
+# Look at check
+check
+
+# 149 species are in the tree but not the data
+# 0 species are in the data but not the tree
+  
+# Combine and match the tree and data
+primatestuff <- make.treedata(tree = primatetree,  data = primatedata, 
+                              name_column = "Binomial")
+
+# Look at the tree summary
+primatestuff$phy
+# Look at the data
+glimpse(primatestuff$dat)
+## There are 77 species in the tree and the data
+
+# Make a new column called tiplabel with the tip labels in it
+primatestuff$dat$tiplabel <- primatestuff$phy$tip.label
+
+# Save tree as mytree
+mytree <- primatestuff$phy
+# Save data as mydata
+mydata <- primatestuff$dat
+
+# Force mydata to be a data frame
+mydata <- as.data.frame(mydata)
+# Check mydata is now a dataframe
+str(mydata)
+
+## OPTIONAL
+# Make any required subsets of the tree/data
+
+## OPTIONAL
+# Write the cleaned data to a new file
+# write_csv(mydata, path = "data/clean-primate-data.csv")
+
+# Write the cleaned tree to a new file
+# write.nexus(mytree, file = "data/clean-primate-tree.nex")
+```
+
+## Phylogenetic signal
+In the data folder there is another tree (`primate-tree.nex`) and dataset (`primate-data.csv`) for investigating the evolution of primate life-history variables. These data come from the PanTHERIA database [@jones2009pantheria] and 10kTrees [@arnold201010ktrees]. 
+
+Read in the tree and data, then prepare them for a PCM analysis (you may have already done this in the previous exercise which should save you some time). Then use `phylosig` to answer the following questions:
+
+```{r, message = FALSE, eval = FALSE}
+# Load the packages
+library(ape)
+library(geiger)
+library(treeplyr)
+library(caper)
+library(tidyverse)
+library(phytools)
+
+### Prepare the tree and the data as shown in the Preparation answer above ###
+### This should mean you now have mydata and mytree ready to work with ###
+```
+
+1. What is $\lambda$ for log gestation length?
+```{r}
+# First create logGestation containing just log gestation length values
+logGestation <- log(pull(mydata, GestationLen_d))
+# Give log Eye names = species names at the tips of the phylogeny
+names(logGestation) <- mydata$tiplabel
+# Look at the first few rows
+head(logGestation)
+
+# Estimate lambda
+lambdaGestation <- phylosig(mytree, logGestation, method = "lambda", test = TRUE)
+# Look at the results
+lambdaGestation
+```
+
+*0.948*
+
+2. What is *K* for log gestation length?
+```{r}
+# Estimate Blomberg’s *K*
+KGestation <- phylosig(mytree, logGestation, method = "K", test = TRUE, nsim = 1000)
+# Look at the results
+KGestation
+```
+
+*0.776*
+
+3. What is D for social status?
+```{r}
+# Prepare the data for use in caper
+primate <- comparative.data(phy = mytree, data = mydata, 
+                            names.col = tiplabel, vcv = TRUE, 
+                            na.omit = FALSE, warn.dropped = TRUE)
+
+# Force the phylogeny to have polytomies again nrather than zero length branches
+primate$phy <- di2multi(primate$phy)
+
+# Estimate D
+Dsocial <- phylo.d(data = primate, names.col = tiplabel, binvar = SocialStatus, 
+                  permut = 1000)
+
+# Look at the output
+Dsocial
+```
+
+*~ -0.72, this is a randomisation test so may vary*
+
+## PGLS
+In the data folder there is another tree (`primate-tree.nex`) and dataset (`primate-data.csv`) for investigating the evolution of primate life-history variables. These data come from the PanTHERIA database [@jones2009pantheria] and 10kTrees [@arnold201010ktrees]. 
+
+Let's investigate the relationship between gestation length in Primates and their body size. Theory leads us to believe that bigger mammals have longer gestation lengths (compare mice to elephants), but is this true in Primates?
+
+Read in the tree and data, then prepare them for a PCM analysis (you may have already done this in a previous exercise which should save you some time). Fit a PGLS model to investigate the relationship between log gestation length (`y = log(GestationLen_d)`) and log body size (`x = log(AdultBodyMass_g)`) in Primates. Don't forget to look at the model diagnostics! 
+```{r, message = FALSE}
+# Load the packages
+library(ape)
+library(geiger)
+library(treeplyr)
+library(caper)
+library(tidyverse)
+
+### Prepare the tree and the data as shown in the Preparation answer above ###
+### This should mean you now have mydata and mytree ready to work with ###
+
+# Prepare the data for use in caper
+primate <- comparative.data(phy = mytree, data = mydata, 
+                            names.col = tiplabel, vcv = TRUE, 
+                            na.omit = FALSE, warn.dropped = TRUE)
+
+# Check the list of dropped species is what you expected
+primate$dropped$tips
+primate$dropped$unmatched.rows
+
+# Fit a PGLS model
+model.pgls <- pgls(log(GestationLen_d) ~ log(AdultBodyMass_g), 
+                   data = primate, lambda = "ML", bounds = list(lambda = c(0.01, 1)))
+
+### Model diagnostics
+# Make a plotting window with 4 panes as there are four plots
+par(mfrow = c(2, 2))
+# Now plot the model diagnostics
+plot(model.pgls)
+# Return the plot window to one pane for later plotting
+par(mfrow = c(1, 1))
+
+# Look at the model outputs
+summary(model.pgls)
+
+# Plot the results
+ggplot(mydata, aes(x = log(AdultBodyMass_g), 
+                     y = log(GestationLen_d))) +
+  geom_point() +
+  geom_abline(slope = coefficients(model.pgls)[2], 
+              intercept = coefficients(model.pgls)[1]) +
+  theme_bw()
+```
+
+Then answer the following questions.
+
+1. What is the maximum likelihood estimate of $\lambda$ in the model? 
+```{r}
+# Look at the model outputs. Lambda is near the middle
+summary(model.pgls)
+```
+
+*0.892*
+
+2. What are the confidence intervals on the maximum likelihood estimate of $\lambda$. How would you interpret these?
+```{r}
+# Extract the confidence intervals on lambda
+pgls.confint(model.pgls, "lambda")$ci.val
+```
+
+*0.753434, 0.966543. We are 95% certain that lambda is between these two values.*
+
+3. Plot the $\lambda$ profile for the the maximum likelihood estimate of $\lambda$. What does it look like?
+```{r}
+# Create a likelihood profile of the lambda estimate
+lambda.profile <- pgls.profile(model.pgls, "lambda")
+# Plot the likelihood profile
+plot(lambda.profile)
+```
+
+4. Is there a significant relationship between log gestation length and log body size? What is the slope of this relationship? 
+```{r}
+# Look at the model outputs. 
+summary(model.pgls)
+```
+
+*Yes. p < 0.001. Slope = 0.105 $\pm$ 0.019*
+
+## Models of evolution with continuous traits
+In the data folder there is another tree (`primate-tree.nex`) and dataset (`primate-data.csv`) for investigating the evolution of primate life-history variables. These data come from the PanTHERIA database [@jones2009pantheria] and 10kTrees [@arnold201010ktrees]. 
+
+Read in the tree and data, then prepare them for a PCM analysis (you may have already done this in a previous exercise which should save you some time). Fit Brownian and OU models to log adult body mass for Primates (`AdultBodyMass_g`). Then answer the following questions.
+
+```{r}
+# Load the packages
+library(ape)
+library(geiger)
+library(treeplyr)
+library(caper)
+library(tidyverse)
+
+### Prepare the tree and the data as shown in the Preparation answer above ###
+### This should mean you now have mydata and mytree ready to work with ###
+
+# Create logBodyMass containing just log body mass values
+logBodyMass <- log(pull(mydata, AdultBodyMass_g))
+# Give log body mass names = species names at the tips of the phylogeny
+names(logBodyMass) <- mydata$tiplabel
+# Look at the first few rows
+head(logBodyMass)
+# Fit the Brownian model
+BM <- fitContinuous(mytree, logBodyMass, model = c("BM"))
+# Fit the OU model
+OU <- fitContinuous(mytree, logBodyMass, model = c("OU"))
+```
+
+1. Which model fits best? 
+```{r}
+# Could look at AIC weights...
+aic.scores <- setNames(c(BM$opt$aic, OU$opt$aic), c("BM","OU"))
+aicw(aic.scores)
+
+# Or just the raw AIC values
+BM$opt$aic
+OU$opt$aic
+```
+
+*BM but only by a small amount*
+
+2. What is the rate of evolution for the Brownian model?
+```{r}
+# Look at the whole output
+BM
+# Or just the one parameter
+BM$opt$sigsq
+```
+
+*0.028655*
+
+3. What is the strength of pull towards the long-term mean in the OU model? What does this value suggest?
+```{r}
+# Look at the whole output
+OU
+# Or just the one parameter
+OU$opt$alpha
+```
+
+*8.080092e-49, i.e. very close to zero which makes it very close to a Brownian model*
+
+## Models of evolution with discrete traits
+In the data folder there is another tree (`primate-tree.nex`) and dataset (`primate-data.csv`) for investigating the evolution of primate life-history variables. These data come from the PanTHERIA database [@jones2009pantheria] and 10kTrees [@arnold201010ktrees]. 
+
+Read in the tree and data, then prepare them for a PCM analysis (you may have already done this in a previous exercise which should save you some time). Fit equal rates, symmetric rates and all rates different models to the social status variable for Primates (`SocialStatus`). Note that social status has two states: non-social (1) or social (2).
+
+```{r}
+# Load the packages
+library(ape)
+library(geiger)
+library(treeplyr)
+library(caper)
+library(tidyverse)
+
+### Prepare the tree and the data as shown in the Preparation answer above ###
+### This should mean you now have mydata and mytree ready to work with ###
+
+# Create Social containing just social status values
+Social <- pull(mydata, SocialStatus)
+# Give social status names = species names at the tips of the phylogeny
+names(Social) <- mydata$tiplabel
+# Look at the first few rows
+head(Social)
+# Fit the ER model
+equal <- fitDiscrete(mytree, Social, model = "ER")
+# Fit the ARD model
+ard <- fitDiscrete(mytree, Social, model = "ARD")
+```
+
+Then answer the following questions.
+
+1. Which model fits best? 
+```{r}
+# Using AIC weights
+aic.scores <- setNames(c(equal$opt$aic, ard$opt$aic), 
+                       c("equal", "different"))
+aicw(aic.scores)
+
+# Or just the raw AIC values
+equal$opt$aic
+ard$opt$aic
+```
+
+*All rates different*
+
+2. What is the transition rate from non-social (1) to social (2), and vice versa, in the all rates different model? What does this mean biologically?
+
+```{r}
+# Could look at the model output
+ard
+# Or plot the Q matrix as network
+plot.gfit(ard)
+```
+
+*1 to 2 is ~0.009, 2 to 1 is very close to zero. Transitions from social (2) to non-social (1) behaviour are extremely rare.*
+
+3. Plot ancestral state estimates of social status (from the ARD model) on the phylogeny. Is the root node estimated as being non-social or social?
+```{r, message = FALSE}
+# Ancestral state estimation (ignore the warnings)
+ancestral_social <- ace(Social, mytree, type = "discrete", model = "ARD")
+
+# Choose colours
+social_colours <- c("deeppink", "goldenrod")
+
+# Plot the tree with colours at the tips and nodes to represent socail status
+plot(mytree, cex = 0.5, adj = c(0.2), type = "fan", 
+     no.margin = TRUE, show.tip.label = TRUE)
+tiplabels(pch = 16, col = social_colours[mydata$SocialStatus])
+nodelabels(pie = ancestral_social$lik.anc, piecol = social_colours, cex = 0.5)
+legend("bottomleft", pch = 15, bty = "n",
+       legend = c("Non Social", "Social"), 
+       col = social_colours)
+```
+
+*Root is non-social*
+
+4. Why didn't I ask you to fit the symmetric model?
+
+*Because with only two states the symmetric model is equivalent to the equal rates model*
+
+## Beyond simple macroevolutionary models of trait evolution
+In the data folder there is another tree (`primate-tree.nex`) and dataset (`primate-data.csv`) for investigating the evolution of primate life-history variables. These data come from the PanTHERIA database [@jones2009pantheria] and 10kTrees [@arnold201010ktrees]. 
+
+Read in the tree and data, then prepare them for a PCM analysis (you may have already done this in a previous exercise which should save you some time). 
+
+Using log body size (`AdultBodyMass_g`) as your continuous trait, and social status (`SocialStatus`) to define the selective regimes, fit (A) a multi-rate Brownian motion model and (B) an OU model with trait optima or long-term mean values for different evolutionary regimes but the same $\sigma^2$ and $\alpha$. Note that social status has two states: non-social (1) or social (2). Assume it is evolving according to an all rates different model.
+
+```{r, message = FALSE}
+# Load the packages
+library(ape)
+library(geiger)
+library(treeplyr)
+library(caper)
+library(tidyverse)
+library(OUwie)
+
+### Prepare the tree and the data as shown in the Preparation answer above ###
+### This should mean you now have mydata and mytree ready to work with ###
+
+# Create Social containing just social status values
+Social <- pull(mydata, SocialStatus)
+# Give social status names = species names at the tips of the phylogeny
+names(Social) <- mydata$tiplabel
+
+# Simulate node and tip values for 500 trees using the ARD model
+trees.ARD <- make.simmap(mytree, Social, model = "ARD", nsim = 500)
+# Store the results of the summary of the 500 trees
+summary.ARD <- summary(trees.ARD)
+
+# Get the max likelihood state at each node
+best <- apply(summary.ARD$ace, 1, which.max)
+
+# Assign to the tree node labels
+mytree$node.label <- levels(as.factor(mydata$SocialStatus))[best]
+
+# Make new dataset with just three columns for OUwie
+bodymass <- data.frame(species = mydata$tiplabel, 
+                    regime = mydata$SocialStatus, 
+                    trait = log(mydata$AdultBodyMass_g))
+
+# Fit BMS model
+BMS <- OUwie(mytree, bodymass, model = "BMS", root.station = FALSE)
+
+# Fit OUM model
+OUM <- OUwie(mytree, bodymass, model = "OUM")
+```
+
+Then answer the following questions:
+
+1. Which is the best fitting model?
+```{r}
+# Extract AICc scores from the models
+aic.scores <- setNames(c(BMS$AICc, OUM$AICc), 
+                           c("BMS", "OUM"))
+# Get aic weights
+aicw(aic.scores)
+```
+*OUM*
+
+2. If you were running these analyses for a publication, what additional models would you compare these models to?
+
+*BM and single peak OU for sure. Possibly one or more of the more complex models if you had a good biological reason to*
+
+3. In the multi rate Brownian model, which social status state has the higher rate of log body mass evolution?
+```{r}
+# Look at the model output
+BMS
+```
+
+*Non-social (1) has the higher rate of body mass evolution 0.04031313*
+
+4. Look at the parameter estimates of the multi peak OU model. Do you see anything worrying there? It might help to look at a histogram showing the body sizes of species in the non-social and the social categories.
+```{r}
+# Look at the output
+OUM
+
+# Plot the body sizes for the different groups
+ggplot(mydata, aes(x = log(AdultBodyMass_g), fill = as.factor(SocialStatus))) +
+  geom_histogram(bins = 20, alpha = 0.5) +
+  scale_fill_manual(values = social_colours) +
+  facet_wrap(~SocialStatus, ncol = 1) +
+  theme(legend.position = "none") +
+  theme_bw()
+```
+
+*The optima estimates are way off. Non-social species have a long-term mean log body size estimate of 5.918899, which makes sense looking at the histograms of the data. But social species have a long-term mean log body size estimate of 18607801, which if you exponentiate it is infinity. Even King Kong was not infinitely large! Something has clearly gone wrong here, but if we had not looked at the model parameters we would have said this was the best model...It's likely we just don't have enough data to fit a model that is as complex as this, so the parameter optimisations are not reliable.*
+
+## Diversification 
+`BAMMtools` has a several inbuilt example datasets. For this practical exercise we will use the cetacean (`whales`; from @steeman2009radiation) and the ray-finned fishes (`fishes`; from @rabosky2013rates) datasets.
+
+Load the whales and fishes trees and BAMM outputs data into R (__there is no `mcmc.fishes` file___).
+```{r}
+# Load the packages
+library(ape)
+library(BAMMtools)
+library(coda)
+library(phytools)
+library(viridis)
+
+# Load whales data from BAMMtools
+data(whales)
+data(mcmc.whales)
+data(events.whales)
+
+# Load fishes data from BAMMtools
+data(fishes)
+data(mcmc.fishes)
+data(events.fishes)
+
+# Read in the tree, mcmc, and edata for whales
+whales_tree <- whales
+whales_mcmc <- mcmc.whales
+whales_edata <- getEventData(whales, eventdata = events.whales, burnin = 0.1)
+
+# Read in the tree, mcmc, and edata for fishes
+fishes_tree <- fishes
+fishes_edata <- getEventData(fishes, eventdata = events.fishes, burnin = 0.1)
+```
+
+Then answer the following questions: 
+
+1. How can we tell that the BAMM model for whales has converged? What is the effective sample size for number of shifts?
+```{r}
+# Take a look at the plot
+plot(mcmc$logLik ~ mcmc$generation)
+
+# What is 10% of rows?
+burnstart <- floor(0.1 * nrow(mcmc))
+# Remove the first 10% from the runs 
+postburn <- mcmc[burnstart:nrow(mcmc), ]
+
+# Extract ESS for the number of rate shifts parameter
+effectiveSize(postburn$N_shifts)
+
+# Extract ESS for the log likelihood
+effectiveSize(postburn$logLik)
+```
+
+*The plot looks like a furry caterpillar (!), and effective sample sizes are well over 200. ESS = 1225.609*
+
+2. What is the most common number of rate shifts in the posterior for the whales data?
+```{r}
+# Look at the posterior for number of shifts
+summary(whales_edata)
+```
+
+*1*
+
+3. Plot the 95% credible set of rate shift configurations for whales.
+```{r}
+# Extract 95% credible set of rate shift configurations
+whales_css <- credibleShiftSet(whales_edata, expectedNumberOfShifts = 1, 
+                        threshold = 5, set.limit = 0.95)
+# Look at the summary
+summary(whales_css)
+
+# Plot 95 % credible set of rate shift configurations
+plot.credibleshiftset(whales_css)
+```
+
+4. Plot the mean phylorate plot for fishes.
+```{r}
+# Plot mean phylorate plot with legend and slighting larger line width (lwd)
+plot.bammdata(fishes_edata, legend = TRUE, lwd = 2)
+```
+
+5. What are the mean speciation rate and the 90% posterior density for mean speciation rate in fishes?
+```{r}
+# Extract speciation and extinction rates from the whole posterior
+allrates <- getCladeRates(fishes_edata)
+# Calculate overall mean speciation rate
+mean(allrates$lambda)
+# Calculate 90% highest posterior density for speciation rate
+quantile(allrates$lambda, c(0.05, 0.95))
+```
+
+*Mean = 0.09470252, 5% = 0.09020489, 95% =  0.09960825*

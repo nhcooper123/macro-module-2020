@@ -1,0 +1,383 @@
+# Preparing your tree and data for PCMs in R
+
+Before we do any analysis in R we will generally need to clean and tidy our data. Data cleaning involves looking for errors, for example we might need to remove duplicate columns, or correct typos in species names, or make sure column headers are all unique and easy enough for us to type in R. We also often need to tidy our data. For data to be *tidy*:
+
+* Each variable must have its own column.
+* Each observation must have its own row.
+* Each value must have its own cell.
+
+The R packages `dplyr`, `tidyr` are great for data cleaning and tidying. See [https://r4ds.had.co.nz/tidy-data.html](https://r4ds.had.co.nz/tidy-data.html) for more details on what tidy data is and how to do this in R. Of course you are welcome to do this in Excel or another package if you're more comfortable with that. The important thing is that when you begin your analyses, your data are in a suitable format. Note that a detailed introduction to data manipulation in R is beyond the scope of this *Primer*, but if in doubt about your data, try and make it look as much like our example datasets as possible. If you can do that, these R analyses should work for you! :)
+
+In this exercise we will take an existing tree and some data and prepare them for a PCM analysis. Note that prior to this step, it is important that your data is in a tidy format, and has been thoroughly checked for errors. The exercise below only shows you how to deal with additional issues caused by using trees and then matching species data to those trees. We assume the tree and data themselves are fit for purpose.
+
+```{block, type = "info"}
+We will be using the evolution of eye size in frogs as an example. The data and modified tree come from @thomas2020eye, and the original tree comes from @feng2017phylogenomics. I've removed a few species and a few variables to make things a bit more straightforward. If you want to see the full results check out @thomas2020eye!
+```
+
+## Before you start
+- Open the `04-Preparation.RProj` file in the `04-Preparation` folder to open your R Project for this exercise.
+- Make yourself a new R script for your code.
+
+You will also need to install the following packages: 
+
+* `ape`
+* `geiger`
+* `tidyverse`
+* `treeplyr`
+
+## Preparation 
+To begin we need to load the packages for this practical.
+
+```{r, message = FALSE}
+# Load packages
+library(ape)
+library(geiger)
+library(tidyverse)
+library(treeplyr)
+```
+
+## Reading and checking your phylogeny in R
+We already learned how to do these things in `03-Phylogenies`. If you haven't looked at that exercise I suggest you check it out before doing the steps below.
+
+First let's read in the tree and look at its structure:
+```{r}
+# Read in the tree
+frogtree <- read.nexus("data/frog-tree.nex")
+# Look at the tree summary
+frogtree
+```
+
+It's usually a good idea to quickly plot the tree too...
+```{r}
+# Plot the tree as a circular/fan phylogeny with small labels
+plot(frogtree, cex = 0.2, typ = "fan", no.margin = TRUE)
+```
+
+`frogtree` is a fully resolved tree with branch lengths. There are 214 species and 213 internal nodes. Note that the species names at the tips also have family names added to them...
+
+```{r}
+# Look at the first 5 tip labels
+frogtree$tip.label[1:5]
+```
+Most trees will have just the genus and species names, but some will have additional information like here, or numbering etc. This is not a problem as long as the names match those in your data (see below).
+
+Most R functions require your tree to be dichotomous, i.e. to have no polytomies. To check whether your tree is dichotomous use `is.binary.tree`. 
+
+```{r}
+# Check whether the tree is binary
+# We want this to be TRUE
+is.binary.tree(frogtree) 
+```
+
+If this was FALSE, we'd use `multi2di` to make the tree dichotomous, but here it is TRUE so we can leave it as it is.
+
+Most functions also require the tree to be rooted, i.e., to have one taxon designated as the outgroup. We can check whether the tree is rooted as follows.
+
+```{r}
+# Check whether the tree is rooted
+# We want this to be TRUE
+is.rooted(frogtree)
+```
+
+Our tree is rooted so it's ready to go.
+
+Finally we might want to check that the tree is ultrametric. Most functions will assume this, and although we can see the tree looks ultrametric when we plotted it above, we should still check.
+
+```{r}
+# Check the tree is ultrametric
+is.ultrametric(frogtree)
+```
+
+If this is `FALSE` there are two options. If the tree really is non-ultrametric, for example if it contains fossil species, then we can't use it in methods that require an ultrametric tree. However, there are cases (the dragonfly tree in *Chapter 11* is one example) where the tree is non-ultrametric due to a rounding error. In the latter case we can use the `phytools` function `force.ultrametric` to fix this.
+
+```{block, type = "detail"}
+**When can a tree that looks ultrametric appear to be non-ultrametric?** Most of the methods we use expect trees to be ultrametric, i.e. that all the tips line up, generally at the present day (time 0). Sometimes (see *Chapter 11* the tree and it looks ultrametric, but when we check using `is.ultrametric` the answer returned is `FALSE`. What is going on? The tree is actually ultrametric, and will run in most analyses with R treating it as an ultrametric tree. The reason `is.ultrametric` tells us it is not ultrametric is related to rounding errors. When you save a tree file, it will save the branch lengths to a certain level of accuracy, but not always the full level of accuracy if your branch lengths have lots and lots of decimal places. When you read these trees back into R, a teeny tiny bit of the accuracy is lost which sometimes means that when R adds up the root-to-tip distances for each tip, they aren't all exactly the same length, so therefore technically the tree is not ultrametric. For most implementations this tiny difference is not a big deal. A quick fix to this problem is to use the function `force.ultrametric` which essentially fudges the numbers to force the tree to be ultrametric. __If your tree is genuinely non-ultrametric you should not use this function__ as it can introduce negative branch lengths which will break most functions you might want to use in R.
+```
+
+## Reading the data into R
+The data are in a comma-delimited text file called `frog-eyes.csv`. Load these data as follows.
+
+```{r, message = FALSE}
+# Read in the data
+frogdata <- read_csv("data/frog-eyes.csv")
+```
+
+Check everything loaded correctly:
+
+```{r}
+# Look at the data
+glimpse(frogdata)
+```
+
+As you can see, the data contains 215 species, and the following 11 variables: 
+
+* `Binomial` - the species binomial name.        
+* `Family` - the family the species belongs to.        
+* `Genus` - the genus the species belongs to.              
+* `tiplabel` - the name used for the species in the phylogeny.       
+* `Adult_habitat` - habitat of adults. Categories are: Ground-dwelling, Subfossorial, Scansorial (i.e. tree-dwelling), Semiaquatic, Aquatic, or Fossorial (i.e. burrowers).       
+* `Life_history` - whether the larvae are free-living (Free-living larvae) or not (No free-living larvae).     
+* `Sex_dichromatism` - whether different sexes are different colours (Present) or not (Absent).
+* `SVL` - snout vent length (in mm). This is a common way to measure body size in amphibians.            
+* `mass` - body mass (in g).
+* `rootmass` - cube root of the body mass.        
+* `eyesize` - eye size (in mm) for the species. This is an everage across left and right eyes from three individuals per species.
+
+```{block, type = "detail"}
+Note that in some comparative datasets (most of mine for instance) the species names column (here `Binomial`) also contains the names of the species in the tree so we would match up that column to the species names in the tree (see below). In this dataset and others, the authors have instead included the names of the tips of the tree as a separate column (here `tiplabel`). This is often done when the tips of the tree are not species names, but are instead some kind of code. This is common where the tree contains multiple tips for one species, or where the tip labels contain additional information (here they include family names). A final approach used by some authors is to have the species names as the row names of the dataset. Any approach is fine, but make sure you know which column contains the names that should match up with the tree.
+```
+
+## Matching your data to your phylogeny
+Now we have the tree and the data in R, we need to match the two up if we want to perform any kind of PCM analyses. Below are some common issues you might encounter, and how to fix them.
+
+### Species names with spaces
+Species names in phylogenies are generally written as *Genus_species* (the gap between the genus name and species name is replaced by an underscore `_`). If the species names in the data are written as *Genus species* with a space, then you will have to replace the spaces with `_` so that they match up with the species names in the tree. You can do this as follows using `str_replace`.
+
+We don't need to do this in our frog data, but if we did we could use code like this:
+```{r, eval = FALSE}
+# Replace spaces with underscores in species names
+frogdata <- 
+  frogdata %>%
+  mutate(Binomial = str_replace(string = Binomial, pattern = " ", replacement = "_"))
+
+# Check it worked
+head(frogdata$Binomial)
+```
+
+```{block, type = "warning"}
+Beware trailing spaces! If you're trying to match up species names and are having some trouble, check what happened when you replaced spaces with underscores (`\_`). Sometimes we accidentally leave extra spaces when typing, and R will convert these to underscores too which can cause problems. For example, `Genus\_species` can become `Genus\_species\_` if you accidentally left a trailing space. Check all the names in your dataset after replacing the spaces to make sure this is not a problem.
+```
+
+### Mismatches between species in your data and phylogeny
+Often you will have data for species which are not in your phylogeny and/or species in your phylogeny which are not in your data. Many functions in R can deal with this and will match the species for you, others will produce an error telling you the tree and data do not match (e.g. most `ape` functions). 
+
+Even in functions that can cope with this, it's useful to match up the species *before* your analyses. This can help you identify things like spelling mistakes or variations in the taxonomy of the tree and the data. 
+
+```{block, type = "info"}
+If you have even slightly misspelled a species name in the tree or the data it will automatically be dropped from the analyses. It is therefore **very important** to check this before running an analysis, especially one with lots of taxa.
+```
+
+We can use the `geiger` function `name.check` to find out which names do not match. Remember that the species names that match up with the tree from `frogdata` are in the variable called `tiplabel`.
+
+```{r, message = FALSE}
+# Check whether the names match in the data and the tree
+check <- name.check(phy = frogtree, data = frogdata, 
+                    data.names = frogdata$tiplabel)
+```
+
+The output of `check` has two parts, `tree_not_data` for species in the tree but not in the dataset, and `data_not_tree` for species in the dataset but not in the tree. You need to look at both of these in turn.
+
+```{r}
+# Look at species in the tree but not the data
+check$tree_not_data
+```
+
+There are four species in the tree and not the data. We were expecting this here, so no worries.
+
+For your analyses you should *always* check this list carefully. If I were running this analysis for the first time I'd want to check that these species really weren't in my data. Maybe they are misspelled in the data? If so correct this now. Maybe the species name has changed? If so change this now. It doesn't really matter whether you make the change in the tree or the data, but make sure anything that *should* match up, does. I'd usually fix issues in the dataset in Excel or another spreadsheet program, unless it's a blatant typo in the tree.
+
+Next check the species in the data but not the tree.
+
+```{r}
+# Look at species in the data but not the tree
+check$data_not_tree
+```
+This gives us five species in the data but not in the tree. As above, make sure to correct any errors before moving to the next step. Make sure anything that *should* match up, does match up.
+
+Here we know that these species are missing from our data, so we don't need to worry.
+
+### Matching the tree and the data 
+Finally, once we know which species do not match up, we need to remove species missing from the data from the tree, and remove species missing from the tree from the data. This used to be a bit of a pain, but `treeplyr` makes it easy. `treeplyr` has a lot of really cool functions, see the [wiki](https://github.com/uyedaj/treeplyr/wiki) for more details. However, here we are just going to use it just to match up the tree and the data.
+
+We'll use the function `make.treedata` to combine the tree and the dataset into one object. We need to provide the name of the tree, the name of the data, and specify which column our species names are in. 
+
+```{r}
+# Combine and match the tree and data
+frogstuff <- make.treedata(tree = frogtree,  data = frogdata, 
+                              name_column = "tiplabel")
+```
+
+Note that we could leave out the `name_column = tiplabel` argument, in which case the function `make.treedata` will search the data for the column with the contents that have most matches to the tree, and automatically use this column for matching up species names. It will also search the rownames.
+
+To look at the tree and data combined we can use `summary`:
+
+```{r}
+summary(frogstuff)
+```
+
+You may notice that `make.treedata` has two objects within it, the tree and the data. You can access the tree using `frogstuff$phy` and the data using `frogstuff$dat`. 
+
+Let's look at the phylogeny first...
+
+```{r}
+# Look at the tree summary
+frogstuff$phy
+```
+
+The matched phylogeny has 210 species in it (instead of the original 214 species in `frogtree` because the four that weren't in the data have been removed).
+
+Now let's look at the data. What is missing?
+```{r}
+# Look at the data
+glimpse(frogstuff$dat)
+```
+
+We now have 210 species in the dataset too, great! But hopefully you noticed that the column with the species names in it (`tiplabel`) has disappeared! `treeplyr` is designed to work with R functions that assume species names will be in the row names of your data. However, not all PCMs in R work this way, and I personally like to be able to see species names when I quickly look at a dataset. We can make a new species names column using the tip labels from the phylogeny, as `make.treedata` orders the data so it's the same as the tip labels.
+
+```{r}
+# Make a new column called tiplabel with the tip labels in it
+frogstuff$dat$tiplabel <- frogstuff$phy$tip.label
+```
+
+Finally we might want to rename the tree and data to make them a bit less clunky when typing in your code.
+
+```{r}
+# Save tree as mytree
+mytree <- frogstuff$phy
+# Save data as mydata
+mydata <- frogstuff$dat
+```
+
+For the data, I'm also going to add one last trick to make our lives easier. `treeplyr` relies on the `tidyverse` set of packages, which create special data frames of a class called *tibbles*. Tibbles are great, *but* some older PCM functions cannot work with them, and need the data to be in an ordinary data frame instead. We can fix this using `as.data.frame`.
+
+```{r}
+# Look at the class of mydata
+class(mydata)
+```
+
+```{r}
+# Force mydata to be a data frame
+mydata <- as.data.frame(mydata)
+# Check mydata is now a dataframe
+class(mydata)
+```
+
+Finally, we might want to output these cleaned and tidied data and tree to our folder so rather than doing this every time we start an analysis, we can just use these tidy versions. To do this we can use:
+
+```{r, eval = FALSE}
+# Write the cleaned data to a new file
+write_csv(mydata, path = "data/clean-frog-data.csv")
+
+# Write the cleaned tree to a new file
+write.nexus(mytree, file = "data/clean-frog-tree.nex")
+```
+
+Note, however, that you will have to repeat this preparation process if you add species or data to your tree or dataset at a later date.
+
+### Subsetting your tree and data 
+Another thing that `treeplyr` makes a lot easier is subsetting your tree and data. It's fairly common, especially with large phylogenies, that we might want to run our analyses on subsets of the data. Generally these are taxonomic divisions, but you might also want to divide your analyses into large and small body size species, for example.
+
+One solution would be to make a new dataset, and then run through the same procedure as we've used above. However, we can instead just subset the tree data object itself using `filter`. This works the same as `filter` normally does in `dplyr`. As an example, let's select only species in the family Bufonidae (toads).
+
+```{r}
+# Subset only the species in the Bufonidae family 
+bufonidae <- filter(frogstuff, Family == "Bufonidae")
+
+# Plot tree to check it worked
+plot(bufonidae$phy)
+```
+
+If you want to use this in later analyses, you might want to save these as separate data and phylogeny objects, and don't forget to make the data into a dataframe. 
+
+Another thing that could be useful here is to subset so that you have a complete set of variables for certain analyses. For example let's see how many "NAs" there are in each of our variables (don't worry too much about this code if it seems confusing to you!):
+
+```{r}
+mydata %>%
+  dplyr::select(everything()) %>%
+  summarise_all(list(~ sum(is.na(.))))
+```
+22 species don't have a value for `Life_history`, and 36 species don't have a value for `Sex_dichromatism`. Many PCMs will just ignore NA values, but if you needed to remove these you could subset them out as follows, leaving only the 163 species with complete data.
+
+```{r}
+# Subset out the species with NA values for some variables
+frog_noNA <- filter(frogstuff, 
+                    !is.na(Life_history) & !is.na(Sex_dichromatism))
+
+# Look at the data
+glimpse(frog_noNA$dat)
+```
+
+## Quick template code
+To help you do this with your own data, I've condensed the above into one script below so you don't forget any of the steps.
+
+```{r, eval = FALSE}
+# Load packages
+library(ape)
+library(geiger)
+library(tidyverse)
+library(treeplyr)
+
+# Read in the tree
+frogtree <- read.nexus("data/frog-tree.nex")
+# Look at the tree summary
+str(frogtree)
+
+# Plot the tree as a circular/fan phylogeny with small labels
+plot(frogtree, cex = 0.2, typ = "fan", no.margin = TRUE)
+
+# Check whether the tree is binary
+# We want this to be TRUE
+is.binary.tree(frogtree) 
+
+# Check whether the tree is rooted
+# We want this to be TRUE
+is.rooted(frogtree)
+
+# Check whether the tree is ultrametric
+# We want this to be TRUE 
+is.ultrametric(frogtree)
+
+# Read in the data
+frogdata <- read_csv("data/frog-eyes.csv")
+
+# Look at the data
+glimpse(frogdata)
+
+# Check whether the names match in the data and the tree
+check <- name.check(phy = frogtree, data = frogdata, 
+                    data.names = frogdata$tiplabel)
+# Look at check
+check
+
+### Correct any typos/taxonomic errors in the tree or data ###
+  
+# Combine and match the tree and data
+frogstuff <- make.treedata(tree = frogtree,  data = frogdata, 
+                              name_column = "tiplabel")
+
+# Look at the tree summary
+frogstuff$phy
+
+# Look at the data
+glimpse(frogstuff$dat)
+
+# Make a new column called tiplabel with the tip labels in it
+frogstuff$dat$tiplabel <- frogstuff$phy$tip.label
+
+# Save tree as mytree
+mytree <- frogstuff$phy
+# Save data as mydata
+mydata <- frogstuff$dat
+
+# Force mydata to be a data frame
+mydata <- as.data.frame(mydata)
+# Check mydata is now a dataframe
+str(mydata)
+
+## OPTIONAL
+# Make any required subsets of the tree/data
+
+## OPTIONAL
+# Write the cleaned data to a new file
+write_csv(mydata, path = "data/clean-frog-data.csv")
+
+# Write the cleaned tree to a new file
+write.nexus(mytree, file = "data/clean-frog-tree.nex")
+```
+## Summary
+You should now know how to prepare your tree and dataset for a PCM analysis in R.
+
+## Practical exercise
+In the data folder there is another tree (`consensusTree_10kTrees_Version2.nex`) and dataset (`primate-life-history-data.csv`) for investigating the evolution of primate life-history variables. These data come from the PanTHERIA database [@jones2009pantheria] and 10kTrees [@arnold201010ktrees]. 
+
+Read in the tree and data, then prepare them for a PCM analysis. You will need to do this for the practical exercises in the next few practicals so save your code!

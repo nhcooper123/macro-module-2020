@@ -1,0 +1,376 @@
+# Beyond simple macroevolutionary models of trait evolution 
+
+The aims of this exercise are to learn how to use R to fit slightly more complex macroevolutionary models.
+
+Our question here still revolves around the snake head shape data. In `08-ModelsContinuous` we fitted simple Brownian Motion (BM) and Ornstein-Uhlenbeck (OU) models to the head length data. We found that the OU model was a better fit, but we didn't account for any of the limitations of the BM or OU models (see *Primer*). In the both models we only allowed head length to have one rate of evolution across the tree, and in the OU model we only fit a single optimum. We can extend these models by relaxing these assumptions.
+
+In `09-ModelsDiscrete` we fitted three simple models of evolution to discrete data to see how ecomorph changed across the tree. We found the best fitting model was the symmetric (SYM) model, where rates of transition between ecomorphs were the same in both directions, but were different for the different pairs of ecomorphs. A more interesting question is how do these different ecomorphs relate to the head shape data? Do aquatic species have wider heads than terrestrial species? Are burrowers evolving their head shape more quickly than semi-aquatic species? We can use more complex evolutionary models to approach these questions.
+
+```{block, type = "info"}
+We will be using the evolution of head shape in natricine snakes as an example. The data and modified tree come from DEEPAK [CITE PAPER], and the tree comes from DEEPAK [CITE PAPER]. I've removed a few species and a few variables to make things a bit more straightforward. If you want to see the full results check out DEEPAK [CITE PAPER]!
+```
+
+## Before you start
+- Open the `09-ModelsBeyond.RProj` file in the `09-ModelsBeyond` folder to open your R Project for this exercise.
+- Make yourself a new R script for your code.
+
+You will also need to install the following packages: 
+
+* `ape`
+* `geiger`
+* `treeplyr`
+* `OUwie`
+* `phytools`
+
+## Preparation
+
+To begin we need to load the packages for this practical.
+
+```{r, message = FALSE}
+# Load the packages
+library(ape)
+library(geiger)
+library(treeplyr)
+library(phytools)
+library(OUwie)
+```
+
+Next we need to prepare the tree and data for the analyses. In the `04-Preparation` exercise we read in our tree and data, checked them, and matched them so only species in both were retained. Please refer to that exercise for more details on how and why we do these things, or run through it now if you haven't previously. 
+
+It is important to do these things before beginning a phylogenetic comparative analysis, so let's run through that code again here.
+
+```{r, message = FALSE}
+# Read in the data
+snakedata <- read_csv("data/snake-heads.csv")
+# Check everything loaded corrected
+glimpse(snakedata)
+```
+
+To load the tree we will use `read.nexus`.
+```{r}
+# Read in the tree
+snaketree <- read.nexus("data/snake-tree.nex")
+# Check it loaded correctly
+str(snaketree)
+```
+
+Remember to check the tree is dichotomous, i.e. has no polytomies, rooted, and ultrametric. 
+```{r}
+# Check whether the tree is binary
+# We want this to be TRUE
+is.binary.tree(snaketree)
+# Check whether the tree is rooted 
+# We want this to be TRUE 
+is.rooted(snaketree)
+# Check whether the tree is ultrametric
+# We want this to be TRUE 
+is.ultrametric(snaketree)
+```
+
+Next check that the species names match up in the tree and the data. This should reveal any typos and/or taxonomic differences that need to be fixed before going any further.I haven't printed `check` here as we already did this in `08-ModelsContinuous` and it's a long list but we have already checked these in advance. Do not skip this step for your own analyses!
+```{r}
+# Check whether the names match in the data and the tree
+check <- name.check(phy = snaketree, data = snakedata, 
+                    data.names = snakedata$Species)
+# Look at check
+# check
+```
+
+Next we combine the tree and data to exclude species that are not in both, using the `treeplyr` function `make.treedata`.
+```{r}
+# Combine and match the tree and data
+snakestuff <- make.treedata(tree = snaketree,  data = snakedata, 
+                              name_column = "Species")
+
+# Look at the tree
+snakestuff$phy
+# Look at the data
+glimpse(snakestuff$dat)
+```
+
+Overall we have 162 species in the data and the tree.
+
+Then we replace the removed species names column, and save the data as a data frame for later analyses.
+```{r}
+# Make a new column called tiplabel with the tip labels in it
+snakestuff$dat$tiplabel <- snakestuff$phy$tip.label
+# Force mydata to be a data frame
+mydata <- as.data.frame(snakestuff$dat)
+```
+
+Finally we save the tree:
+```{r}
+# Save tree as mytree
+mytree <- snakestuff$phy
+```
+
+Now we're ready to run our analyses!
+
+## More complex models of trait evolution
+We are now going to fit some of the slightly more complicated models of trait evolution that we discussed in the *Primer*. We will fit these using the package `OUwie`. There's a little bit of extra preparation required to fit these models which we will do first. 
+
+### Preparing the tree and data for OUwie
+To use OUwie we need to do a couple of things. We need to estimate the node values for each evolutionary regime in the analysis (see below), and we have to set up a dataframe in a particular way. Let's sort out our node values first.
+
+#### Estimating node values for the tree
+In `09-ModelsDiscrete` we fitted three simple models of evolution to discrete data to see how ecomorph changed across the tree. We found the best fitting model was the symmetric (SYM) model, where rates of transition between ecomorphs were the same in both directions, but were different for the different pairs of ecomorphs. To extend this we can test whether head shape evolution varies among snakes with different ecomorphs. We refer to the different ecomorphs as representing different **evolutionary regimes**.
+
+To fit these more complex models using `OUwie` we need to assign each node in the tree to one of the ecomorph categories. This is of course a massive assumption, but we need it to determine which branches should belong to which evolutionary regimes.
+
+First we need to determine which model of evolution best fits the ecomorph data. We can do this using `fitDiscrete` in `geiger`. In fact this is exactly what we did in `09-ModelsDiscrete`, so I'll just quickly recap this here:
+
+To get the data into the correct format, we use the function `pull` to extract just the ecomorph values. We then name these values with the species names from `mydata` using the function `names`. Note that this requires the trait data is in the _same order_ as the tree tip labels, but luckily `make.treedata` does this automatically.
+
+```{r}
+# Create ecomorph containing just ecomorph values
+ecomorph <- pull(mydata, Ecomorph)
+# Make sure ecomorph is a character, not a factor
+ecomorph <- as.character(ecomorph)
+# Look at the first few rows
+head(ecomorph)
+# Give log head length names = species names at the tips of the phylogeny
+names(ecomorph) <- mydata$tiplabel
+# Look at the first few rows
+head(ecomorph)
+```
+
+To fit the ER, SYM and ARD models we can then use the code below. I've commented these out here on the assumption that you've already run this in `09-ModelsDiscrete`. The SYM and ARD models take a while to run so don't rerun thee unless you need to!
+```{r}
+# Fit the models
+# equal <- fitDiscrete(mytree, ecomorph, model = "ER")
+# sym <- fitDiscrete(mytree, ecomorph, model = "SYM")
+# ard <- fitDiscrete(mytree, ecomorph, model = "ARD")
+```
+
+We can then use AIC to determine the "best model" from these three:
+```{r}
+# Extract AICc values for each model and give them names
+aic.discrete <- setNames(c(equal$opt$aic, sym$opt$aic, ard$opt$aic), 
+                       c("equal", "symmetric", "different"))
+# Compare AICw values
+aicw(aic.discrete)
+```
+
+The best model of evolution is the symmetric model, the same as we found in `09-ModelsDiscrete`. Phew!
+
+Next we use this model to determine what the best fit state value is for each node. Let's remind ourselves of the ancestral state estimates we got for ecomorphs in `09-ModelsDiscrete`...
+
+```{r, message = FALSE}
+# Ancestral state estimation of ecomorph under the SYM model
+ancestral_ecomorphs <- ace(ecomorph, mytree, type = "discrete", model = "SYM")
+```
+
+You should notice a series of warning messages appear that say `NaNs produced` and `NA/Inf replaced by maximum positive value`. These can be ignored (see `09-ModelsDiscrete`).
+
+```{r}
+# Plot the tree with colours at the tips and nodes to represent ecomorph
+plot(mytree, cex = 0.5, adj = c(0.2), type = "fan", 
+     no.margin = TRUE, show.tip.label = FALSE)
+tiplabels(pch = 16, col = ecomorph.colors[mydata$Ecomorph])
+nodelabels(pie = ancestral_ecomorphs$lik.anc, piecol = ecomorph.colors, cex = 0.5)
+legend("bottomleft", pch = 15, bty = "n",
+       legend = c("Aquatic", "Semi-aquatic", "Aquatic burrower", 
+                  "Burrower", "Terrestrial"), 
+       col = c("darkblue", "lightblue", "plum", 
+               "chocolate", "lightgreen"))
+```
+Each pie shows the scaled likelihoods of the node being within each of the five ecomorphs. Many of these are ambiguous, so how do we pick the "best" state? To solve this problem we use simulations. We use the transition or $Q$ matrix from the SYM model and use it to simulate tip values and node values of ecomorph category for the tree. We repeat this a number of times - below I use 500 simulations but if the states are fairly simply distributed across the tree you could use fewer. This takes a bit of time to run...
+
+```{r}
+# Simulate node and tip values for 500 trees using the SYM model
+trees.SYM <- make.simmap(mytree, ecomorph, model = "SYM", nsim = 500)
+# Store the results of the summary of the 500 trees
+summary.SYM <- summary(trees.SYM)
+```
+
+Now we can use a simple trick to extract the most likely states. We use `apply` to extract the maximum value for each node from the `summary.SYM`.
+
+```{r}
+# Get the max likelihood state at each node
+best <- apply(summary.SYM$ace, 1, which.max)
+# Look at first few rows of the output
+head(best)
+```
+
+Finally we assign these "best" node states to the tree node labels. Note that `best` only contains the numerical versions of the ecomorphs, i.e. 1, 2, 3 etc. rather than the ecomorph names, so we need to use `levels(mydata$Ecomorph)[best]` to select the names that go with the numbers.
+
+```{r}
+# Assign to the tree node labels
+mytree$node.label <- levels(as.factor(mydata$Ecomorph))[best]
+```
+
+#### Preparing the data
+Finally for `OUwie` to work we need to set up a dataset with *three columns*: the species names first, then the evolutionary regime which in this case is the ecomorphs, and then the continuous variable we think might be evolving differently in response to different regimes. Here we are going to look at head width, as we predict that burrowing snakes and aquatic snakes may have narrower heads than terrestrial species. Note that I have also log transformed head width.
+
+```{r}
+# Make new dataset with just three columns for OUwie
+headw <- data.frame(species = mydata$tiplabel, 
+                    regime = mydata$Ecomorph, 
+                    trait = log(mydata$HeadWidth))
+# look at the first few rows
+head(headw)
+```
+We are now ready to run some more complex models with `OUwie`!
+
+```{block, warning}
+This is a key point to remember the "Jurassic Park caveat"; just because we *can* fit all of these models to our data doesn't mean that we *should*. Before applying any of the models below, think very carefully. What questions are you trying to answer? What would a result one way or the other tell you about evolution in your study group? It is often tempting to just fit all of these models, then tell a "just so" story about why one model fits best. But without a clear question and a prediction about what you might find, at best the results might not tell you anything interesting about evolution in your group, and at worst the results may be nonsensical. This is especially true when sample sizes are low, and/or we expect there is error in our data or our phylogeny. Pay close attention to the caveats discussed below. Especially for the complex models near the end of the exercise.
+```
+
+### Running models using OUwie
+Before we dive into the exciting new models, it's worth using `OUwie` to fit the simple BM and OU models we already learned how to fit in `08-ModelsContinuous` first. Why? Well, it's always a good idea to compare complex models to simpler models to see if adding complexity is worthwhile. Sometimes a BM model fits just as well as these more complex ones. We'll fit the simple models and the more complex ones so we can compare them all using AIC at the end of the exercise.
+
+### Single rate BM models
+As a quick reminder, the BM model is a so called “random walk” model where traits change gradually through time. The model has two parameters, the Brownian rate parameter, $\sigma^2$ and the state of the root at time zero, $z(0)$. 
+
+To fit a BM model in `OUwie` we use the following code. The model name here is `BM1` to indicate this is a simple BM model with only one rate of evolution. 
+```{r}
+BM <- OUwie(mytree, headw, model = "BM1")
+```
+You should see some messages here. `An algorithm was not specified. Defaulting to computing the determinant and inversion of the vcv.` just tells you that the model will use the older (slower) method to fit the likelihood, rather than the faster three-point algorithm. The other messages just tell you the code is working, and when it is finished. This is for people running complex analyses that take some time, just so they know the code is running!
+
+Let's look at the results. 
+```{r}
+BM
+```
+
+The `Rates` section shows us what the parameter estimates are for $\sigma^2$ and $\alpha$. We don't fit $\alpha$ in a BM model so it's NA in this output. The `Optima` section tells us what the trait "optima" are for each regime. In a BM model we don't have any different regimes so this is just estimated value of log head width at the root, $z(0)$. `Arrived at a reliable solution` tells us that the model converged on a reliable set of parameter estimates. The rest of the output includes log likelihood and AIC of the model etc. 
+
+### Single optimum OU models
+Again as a reminder, the OU model is a random walk where trait values are pulled back towards some “optimal” value with an attraction strength proportional to the "rubber-band" parameter $\alpha$. The OU model has four parameters the Brownian rate parameter, $\sigma^2$, the state of the root at time zero, $z(0)$, the long-term mean, $\mu$, and the strength of evolutionary force that returns traits back towards the long-term mean if they evolve away from it, $\alpha$. If $\alpha$ is close to zero then evolution is approximately Brownian.
+
+To fit a single peak OU model in `OUwie` we use the following code. The model name here is `OU1` to indicate this is a simple OU model with only one rate of evolution and one peak. 
+```{r}
+OU <- OUwie(mytree, headw, model = "OU1")
+```
+Let's look at the results. 
+```{r}
+OU
+```
+
+The `Rates` section shows us what the parameter estimates are for $\sigma^2$ and $\alpha$. The `Optima` section tells us what the trait "optima" are for each regime. In a one peak OU model we only have one optimum, so here there is only one estimate for the overall long-term mean for log head width. Finally, the OU model output also reports the `Half life` of $\alpha$. This is how long it takes for the trait to get half way to its long-term mean. Here the half life is 0.07621254, i.e. it takes 0.07621254 units of branch length for log head width to get half way to the optima of head width. That's pretty fast!
+
+### Multi-rate BM (BMS) models
+Now we've fitted the simple models, let's make things more complex and, hopefully, more realistic. The first model we will fit is a BM model where different rates of evolution are allowed for each evolutionary regime. Here the evolutionary regimes are the ecomorphs. 
+
+BMS models allow different $\sigma^2$ values for different regimes. We can use the code below to fit them. 
+
+```{r, message = FALSE}
+# Fit BMS model
+BMS <- OUwie(mytree, headw, model = "BMS", root.station = FALSE)
+```
+
+```{block, type = "detail"}
+Note that we set the root to invoke the non-censored model of @o2006testing, by using `root.station = FALSE`. This means a single regime at the root is estimated. If we instead want to use the censored model of @o2006testing or the group means model of @thomas2006comparative, where the number of means equals the number of regimes, we use `root.station == TRUE`. However, the beaviour of these latter two models appears to approximate OUMV (see below) and is not fully understood, so the authors of `OUwie` recommend using `root.station = FALSE` whenever you fit a BMS model. 
+```
+
+Let's look at the results. 
+```{r}
+BMS
+```
+
+The `Rates` section shows us what the parameter estimates are for $\sigma^2$ for each of the ecomorphs or evolutionary regimes. The semi-aquatic ecomorphs have a much higher rate of evolution than the others. Again as this is a BM model it does not have $\alpha$ estimates. The `Optima` section tells us what root state $z0$ is for each ecomorph. In the BMS model this is the same for each evolutionary regime.
+
+### Multi-optima OU (OUM) models
+Next let's fit an OUM model. These models allow different trait optima or long-term mean values for different evolutionary regimes but the same $\sigma^2$ and $\alpha$. Here the evolutionary regimes are the ecomorphs. 
+
+We fit the model as follows:
+```{r, message = FALSE}
+# Fit OUM model
+OUM <- OUwie(mytree, headw, model = "OUM")
+```
+
+Let's look at the results. 
+```{r}
+OUM
+```
+
+The `Rates` section shows us what the parameter estimates are for $\sigma^2$ and $\alpha$. In an OUM model these are the same for each regime/ecomorph, so the `Half life` of $\alpha$ is also the same for each regime. The key part in this output is the `Optima` section as the OUM model fits a trait "optimum" or long-term mean for each regime. So here we have an  estimate for the long-term mean for log head width for each ecomorph. Note that the value for Burrowing species is quite a lot lower than for the other ecomorphs, perhaps reflecting evolution towards narrower heads in that ecomorph? 
+
+```{block, type = "warning"}
+It's important to stop and think carefully before interpreting these "optima" or long-term means. Do they make sense in terms of what we know about head shape in these snake ecomorphs? I think it looks pretty sensible given where they plot (see DEEPAK) but it's always good to check there's nothing weird going on.
+```
+
+### Multi-rate multi-optima OU motion models (OUMV)
+Next let's fit an OUMV model. These models allow different $\sigma^2$ values and different trait optima or long-term mean values for different evolutionary regimes but the same $\alpha$.  Here the evolutionary regimes are the ecomorphs. 
+
+We fit the model as follows:
+```{r, message = FALSE}
+# Fit OUMV model
+OUMV <- OUwie(mytree, headw, model = "OUMV")
+```
+
+Let's look at the results. 
+```{r}
+OUMV
+```
+
+The `Rates` section shows us what the parameter estimates are for $\sigma^2$ and $\alpha$. $\alpha$ (and the `Half life` of $\alpha$) are the same across the whole tree in OUMV, but $\sigma^2$ varies for each ecomorph, with highest rates of log head width evolution in the semi-aquatic and aquatic species. In the `Optima` section we have an estimate for the long-term mean for log head width for each ecomorph. As for the OUM model, the value for Burrowing species is quite a lot lower than for the other ecomorphs, perhaps reflecting evolution towards narrower heads in that ecomorph? 
+
+### Multi-alpha multi-optima OU motion models (OUMA)
+The OUMA models allow different $\alpha$ values and different trait optima or long-term mean values for different evolutionary regimes but the same $\sigma^2$ across the whole tree. 
+
+To fit the model:
+```{r, message = FALSE}
+OUMA <- OUwie(mytree, headw, model = "OUMA")
+```
+
+Let's look at the results. 
+```{r}
+OUMA
+```
+
+The `Rates` section shows us what the parameter estimates are for $\sigma^2$ and $\alpha$. $\sigma^2$ is the same across the whole tree in OUMA, but $\alpha$ (and the `Half life` of $\alpha$) varies for each ecomorph, with highest pull back to the long-term mean of log head width evolution in the aquatic burrowing species. In the `Optima` section we have an estimate for the long-term mean for log head width for each ecomorph. The value for Burrowing and Aquatic burrowing species is lower than for the other ecomorphs, perhaps reflecting evolution towards narrower heads in these ecomorphs? 
+
+### Multi-rate multi-optima OU motion models (OUMVA)
+Finally, OUMVA models allow us to vary everything! We fit different $\sigma^2$ and $\alpha$ values and different trait optima or long-term mean values for different evolutionary regimes. We don't have enough data to fit this model but I've included it for completeness. It takes a while to run...
+
+```{r, message = FALSE}
+OUMVA <- OUwie(mytree, headw, model = "OUMVA")
+```
+
+Let's look at the results. 
+```{r}
+OUMVA
+```
+
+The `Rates` section shows how $\sigma^2$ and $\alpha$ vary for each ecomorph, and in the `Optima` section we have an estimate for the long-term mean for log head width for each ecomorph. It would not be sensible to over-interpret these results given the complexity of the model and the relative paucity (n = 162) of the data.
+
+```{block, type = "warning"}
+Above I included code for all of the complex models discussed in the *Primer*. However, it is likely that the complexity of some of these models is greater than the information contained within the data. As a result one or more parameters may be poorly estimated. **Always check parameter estimates** from your models to ensure that they make biological sense. If you don't check, you might unknowingly pick a poor model with incorrect biological interpretations. The more complex your models the more likely this is. Beware!
+```
+
+### Comparing models of evolution using AIC
+As we have done in the last few exercises, we're going to compare models using AIC, $\Delta$AIC and AIC weights (AICw). The “best” model is the one with the smallest AIC, with $\Delta$AIC = 0 or with AICw closest to 1.
+
+```{r}
+# Extract AICc scores from the models
+aic.scores <- setNames(c(BM$AICc, OU$AICc, BMS$AICc,
+                             OUM$AICc, OUMV$AICc, OUMA$AICc, OUMVA$AICc), 
+                           c("BM", "OU", "BMS", "OUM", 
+                             "OUMV", "OUMA", "OUMVA"))
+# Get aic weights
+aicw(aic.scores)
+```
+The best fitting model for the data is the OUM model, i.e. where there are different trait optima or long-term mean values for different ecomorphs but the same $\sigma^2$ and $\alpha$. A second look at the output for this model suggests that there is a rather strong pull towards the ecomorph optima for log head width, and that burrowing species have the narrowest heads. 
+
+Does this make sense biologically?
+
+```{r}
+# Look at the output
+OUM
+```
+
+## Summary
+You should now know how to fit some of the more complex models of evolution in R.
+
+## Practical exercises
+In the data folder there is another tree (`primate-tree.nex`) and dataset (`primate-data.csv`) for investigating the evolution of primate life-history variables. These data come from the PanTHERIA database [@jones2009pantheria] and 10kTrees [@arnold201010ktrees]. 
+
+Read in the tree and data, then prepare them for a PCM analysis (you may have already done this in a previous exercise which should save you some time). 
+
+Using log body size (`AdultBodyMass_g`) as your continuous trait, and social status (`SocialStatus`) to define the selective regimes, fit (A) a multi-rate Brownian motion model and (B) an OU model with different long-term mean values for different evolutionary regimes but the same $\sigma^2$ and $\alpha$. Note that social status has two states: non-social (1) or social (2). Assume it is evolving according to an all rates different model. Then answer the following questions:
+
+1. Which is the best fitting model?
+2. If you were running these analyses for a publication, what additional models would you compare these models to?
+3. In the multi rate Brownian model, which social status state has the higher rate of log body mass evolution?
+4. Look at the parameter estimates of the multi peak OU model. Do you see anything worrying there? It might help to look at a histogram showing the body sizes of species in the non-social and the social categories.

@@ -1,0 +1,254 @@
+# Macroevolutionary models for continuous traits
+
+The aims of this exercise are to learn how to use R to fit macroevolutionary models in R to continuous traits.
+
+```{block, type = "info"}
+We will be using the evolution of head shape in natricine snakes as an example. The data and modified tree come from DEEPAK [CITE PAPER], and the tree comes from DEEPAK [CITE PAPER]. I've removed a few species and a few variables to make things a bit more straightforward. If you want to see the full results check out DEEPAK [CITE PAPER]!
+```
+
+## Before you start
+- Open the `07-ModelsContinuous.RProj` file in the `07-ModelsContinuous` folder to open your R Project for this exercise.
+- Make yourself a new R script for your code.
+
+You will also need to install the following packages: 
+
+* `ape`
+* `geiger`
+* `treeplyr`
+
+## Preparation
+
+To begin we need to load the packages for this practical.
+
+```{r, message = FALSE}
+# Load the packages
+library(ape)
+library(geiger)
+library(treeplyr)
+```
+
+Next we need to prepare the tree and data for the analyses. In the `04-Preparation` exercise we read in our tree and data, checked them, and matched them so only species in both were retained. Please refer to that exercise for more details on how and why we do these things, or run through it now if you haven't previously. 
+
+It is important to do these things before beginning a phylogenetic comparative analysis, so let's run through that code again here.
+
+```{r, message = FALSE}
+# Read in the data
+snakedata <- read_csv("data/snake-heads.csv")
+# Check everything loaded corrected
+glimpse(snakedata)
+```
+
+To load the tree we will use `read.nexus`.
+```{r}
+# Read in the tree
+snaketree <- read.nexus("data/snake-tree.nex")
+# Check it loaded correctly
+str(snaketree)
+```
+
+Remember to check the tree is dichotomous, i.e. has no polytomies, rooted, and ultrametric. 
+
+```{r}
+# Check whether the tree is binary
+# We want this to be TRUE
+is.binary.tree(snaketree)
+# Check whether the tree is rooted 
+# We want this to be TRUE 
+is.rooted(snaketree)
+# Check whether the tree is ultrametric
+# We want this to be TRUE 
+is.ultrametric(snaketree)
+```
+
+Next check that the species names match up in the tree and the data. This should reveal any typos and/or taxonomic differences that need to be fixed before going any further. Note that in this dataset the species names are in the column `Species`.
+
+```{r}
+# Check whether the names match in the data and the tree
+check <- name.check(phy = snaketree, data = snakedata, 
+                    data.names = snakedata$Species)
+# Look at check
+check
+```
+There are a lot of species in the tree that are not in the data and vice versa! But (you'll have to take my word for it!) all the excluded species are excluded because they are genuinely missing, not because of any typos, so we can move on. 
+
+```{block, type = "info"}
+Having a lot of species missing from trees and data is not uncommon. To build trees we usually need molecular data which may be absent for newly collected specimens, or for older specimens. Likewise, it can be really difficult to gather all the data required for all of the species in a group - we know very little about the natural history of some species for example. This is nothing to panic about in your own datasets, but knowing which species are in the tree could help you target species to collate extra data for.
+```
+
+Next we combine the tree and data to exclude species that are not in both, using the `treeplyr` function `make.treedata`.
+
+```{r}
+# Combine and match the tree and data
+snakestuff <- make.treedata(tree = snaketree,  data = snakedata, 
+                              name_column = "Species")
+
+# Look at the tree
+snakestuff$phy
+# Look at the data
+glimpse(snakestuff$dat)
+```
+
+Overall we have 162 species in the data and the tree.
+
+Then we replace the removed species names column, and save the data as a data frame for later analyses.
+
+```{r}
+# Make a new column called tiplabel with the tip labels in it
+snakestuff$dat$tiplabel <- snakestuff$phy$tip.label
+# Force mydata to be a data frame
+mydata <- as.data.frame(snakestuff$dat)
+```
+
+Finally we save the tree:
+
+```{r}
+# Save tree as mytree
+mytree <- snakestuff$phy
+```
+
+Now we're ready to run our analyses!
+
+## Models of evolution for continuous traits
+
+For fitting models of evolution to continuous data we will use the `fitContinuous` function in the R package `geiger`. `fitContinuous` is a likelihood based method, so the output will give the maximum likelihood (ML) estimates of the parameters. Bayesian methods are becoming preferred for these kinds of analyses and `fitContinuousMCMC` will perform these analyses, but I'm not going to cover it here.
+
+As an example, let's look at the evolution of head length in our snake data. Snake head shape is closely related to the ecology of the species, so we are interested in understanding how it evolves. These first analyses are quite simple, but would be the first step in a more detailed analysis.
+
+### loook at the data????
+
+### Fitting the Brownian motion and OU models of evolution using `fitContinuous`
+
+We'll fit two commonly used evolutionary models to the data; the Brownian motion (BM) model and the single peak Ornstein-Uhlenbeck (OU) model. 
+
+As a quick reminder, the BM model is a so called “random walk” model where traits change gradually through time. The model has two parameters, the Brownian rate parameter, $\sigma^2$ and the state of the root at time zero, $z(0)$. 
+
+The OU model is a random walk where trait values are pulled back towards some “optimal” value with an attraction strength proportional to the "rubber-band" parameter $\alpha$. The OU model has four parameters the Brownian rate parameter, $\sigma^2$, the state of the root at time zero, $z(0)$, the long-term mean, $\mu$, and the strength of evolutionary force that returns traits back towards the long-term mean if they evolve away from it, $\alpha$. If $\alpha$ is close to zero then evolution is approximately Brownian.
+
+For more details on these models please see the *Primer*.
+
+```{block, type = "detail"}
+`fitContinuous` can also fit several other models. For more details look at the help file by typing: `?fitContinuous`
+```
+
+We are going to use the package `geiger` to fit models in this exercise, which means there is an important additional preparation step that you may remember from when we used the package `phytools` and the function `phylosig` when were looking at phylogenetic signal in `05-PhyloSignal`.
+
+```{block, type = "info"}
+At this point you may be thinking, argh why can't all R packages work in the same way? This is because different packages were written by different people. We all have different programming styles, preferences and biases (some people *really* hate the `tidyverse` and `ggplot2` for example!) and these feed into the code we write. My advice is to follow these tutorials (and others) carefully, and don't worry about the differences too much. To put a positive spin on this, yes there may be lots of different ways to do things in R but at least they exist! Back in the day people published methods without the accompanying R packages. If you were lucky you might get some FORTRAN or C++ or C code, but generally you'd be expected to program the new methods yourself if you wanted to use them. Dealing with the idiosyncrasies of different people's R packages is a breeze compared to that! 
+```
+
+The first thing we need to do is to create an object in R that only contains the variable required, and the species names (so we can match it up to the tree). 
+
+We can use the function `pull` to extract just the head length values, and we can log transform all these numbers using `log` if we want to work with log head length values.
+
+```{r}
+# Create logHL containing just log head length length values
+logHL <- log(pull(mydata, HeadLength))
+# Look at the first few rows
+head(logHL)
+```
+
+Notice that this is currently just a long list of numbers. We can then name these values with the species names from `mydata` using the function `names`. Note that this requires the trait data is in the _same order_ as the tree tip labels, but luckily `make.treedata` does this automatically.
+
+```{r}
+# Give log head length names = species names at the tips of the phylogeny
+names(logHL) <- mydata$tiplabel
+# Look at the first few rows
+head(logHL)
+```
+
+Now we have a list of values with associated species names.
+
+To fit the Brownian model we can then use the code below. 
+```{r}
+BM <- fitContinuous(mytree, logHL, model = c("BM"))
+```
+
+To look at the output type:
+```{r}
+BM
+```
+
+The maximum likelihood estimates of the model parameters are found near the top of the output. In a Brownian motion (BM) model we estimate the Brownian rate parameter, $\sigma^2$ or `sigsq` in the output above, which is `0.037` and the value of the trait at the root of the tree, $z(0)$ or `z0` in the output above, which is `2.854`.
+
+Other useful things in the output are the maximum-likelihood estimate of the model (log-likelihood), the Akaike Information Criterion (`AIC`), sample-size corrected AIC (`AICc`) and the number of model parameters (free parameters) also known as $k$ in the literature. We will return to the AIC values below.
+
+To fit an Ornstein-Uhlenbeck model we only need to change the model in the formula we used above:
+```{r, message = FALSE}
+OU <- fitContinuous(mytree, logHL, model = c("OU"))
+```
+
+This gives us a warning message (it doesn't say `Error` so it's not an error message). This means the analysis has run, but there's something we should be aware of. This warning is telling us something about the bounds of the parameter estimates, specifically the alpha or "rubber-band" parameter.
+
+```{block, type = "detail"}
+**What's the deal with bounds?** These BM and OU models are fitted using Maximum Likelihood. We talk more about this in the *Primer*. But as a quick reminder, to get the Maximum Likelihood for a model, we need to find the values of the parameters that maximise the likelihood function. Rather than trying every possible combination of parameter values we instead use some kind of *optimisation* procedure. Optimisations are often described in terms of hills and valleys. If you're in the mountains looking for the highest peak, you could wander around the whole area, recording the height at each point, or we can make the process faster by always walking towards higher ground. If we did this we'd spend less time in the valleys and more time climbing towards the highest peaks. This is optimisation. To prevent us from spending lots of time looking in the wrong place, we could also define the boundaries of our search area, so we only look within a certain region. Our models do this by having *bounds* on the parameter values. So, for example, instead of looking at models with all possible values of $\alpha$ in an OU model, `fitContinuous` constrains the values of $\alpha$ to be between exp(-500) and exp(1). 
+```
+
+To fix this issue we just change the bounds and refit the model. If you check out the help file for `fitContinuous` it tells us:
+
+> Default bounds are alpha = c(min = exp(-500), max = exp(1))
+
+We can see what the value of alpha was in the model we fitted as follows:
+
+```{r}
+OU$opt$alpha
+```
+
+This is the same as `exp(1)`. So alpha is the same as the upper bound, meaning that is the bound we need to change. We can do that as follows:
+
+```{r}
+OU <- fitContinuous(mytree, logHL, model = c("OU"), 
+                    bounds = list(alpha = c(exp(-500), 10)))
+```
+We don't get any kind of message this time so it looks like we fixed the problem!
+
+To look at the output type:
+```{r}
+OU
+```
+
+As for Brownian motion, the maximum likelihood estimates of the model parameters are found near the top of the output. In an Ornstein-Uhlenbeck (OU) model we estimate the Brownian rate parameter, $\sigma^2$ or `sigsq` in the output above, the value of the trait at the root of the tree, $z(0)$ or `z0` in the output above, and the "rubber-band" parameter, $\alpha$ or `alpha` in the output above. 
+
+As `alpha = 9.014` here, it suggests that there is evolution towards a particular head length.
+
+```{block, type = "detail"}
+I mentioned above that the OU model has four parameters, $\sigma^2$, $z(0)$, $\mu$ and $\alpha$. But only three appear on the output above. This is because  `fitContinuous` only estimates $\sigma^2$, $z(0)$, and $\alpha$. It does not estimate $\mu$ but in this implementation of the model, $\mu$ is equivalent to $X(0)$. 
+```
+
+```{block, type = "info"}
+Sometimes these models will tell you they have **not converged**. This just means the model has failed to find the optimal values for the parameters. This is most common in the OU model, and tends to happen when the likelihood surface for the parameter has long flat ridges that cause the likelihood search to get “stuck” and unable to find the peak (in our mountain climbing analogy it's like getting stuck in a massive flat valley when it's foggy and you can't see the mountains around you to work out how to get to higher ground). If this happens, try changing the bounds on the alpha parameter. Moving the lower bound away from zero can help, as can increasing the upper bound.
+```
+
+### Comparing models of evolution using AIC
+Often we want to know which of the models fits our variable best. We can use `fitContinuous` to fit the models we are interested in and can then compare them using AIC. We can extract the AICs from the models we fitted above as follows:
+
+```{r}
+BM$opt$aic
+```
+
+```{r}
+OU$opt$aic
+```
+
+The “best” model is the one with the smallest AIC, in this case the OU model. 
+There is much debate about how big of a difference in AIC values can be classed as substantial improvement to a model fit (it usually ranges from 2-10 AIC units). Generally we use 4 units, so OU fits this data substantially better than BM.
+
+Alternatively we can use $\Delta$AIC or AIC weights to compare our models using the following code and the `geiger` function `aicw`:
+
+```{r}
+aic.scores <- setNames(c(BM$opt$aic, OU$opt$aic), c("BM","OU"))
+aicw(aic.scores)
+```
+
+`aicw` outputs the AIC (`fit`), $\Delta$AIC (`delta`) and AIC weights (`w`) for each of the models we fitted. The best model is the model with $\Delta$AIC = 0 or with AICw closest to 1. Using $\Delta$AIC we can conclude that the OU model is the best fit to the data.
+
+## Summary
+You should now know how to fit simple BM and OU models of evolution to continuous trait data in R.
+
+## Practical exercises
+In the data folder there is another tree (`primate-tree.nex`) and dataset (`primate-data.csv`) for investigating the evolution of primate life-history variables. These data come from the PanTHERIA database [@jones2009pantheria] and 10kTrees [@arnold201010ktrees]. 
+
+Read in the tree and data, then prepare them for a PCM analysis (you may have already done this in a previous exercise which should save you some time). Fit Brownian and OU models to log adult body mass for Primates (`AdultBodyMass_g`). Then answer the following questions.
+
+1. Which model fits best? 
+2. What is the rate of evolution for the Brownian model?
+3. What is the strength of pull towards the long-term mean in the OU model? What does this value suggest?

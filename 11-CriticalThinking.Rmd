@@ -1,0 +1,56 @@
+# Critical thinking about methods and analyses
+
+Often it is tempting accept the results of papers at face value. They were published so they *must* be correct, right? Sadly no. Even the best papers have flaws. There may be problems with the data, method or interpretation of the results. Some of these are unavoidable, some reflect misunderstandings of the methods used, and others are just mistakes. Learning to critically read the scientific literature (or indeed any literature in this age of fake news!) is therefore a key skill to develop.
+
+As practice we will split into groups and critically evaluate recent papers using some of the methods we've worked with in this module. I'll assign papers to everyone on the first day. Read the paper before class, and make notes of things you don't understand or disagree with. I have provided some guidance of things to look for below. The question you should keep asking yourself throughout is __given the data and methods, do I trust the conclusions of the paper?__
+
+```{block, type = "info"}
+I know you're all very busy and stressed so might be tempted to skip this session. That's up to you obviously, but in feedback I'm often told this session is the most generally useful one of this module as it helps you think think carefully about how you read papers. This will be vital for your projects. We generally have a wide ranging discussion about publishing, ethics, writing in the active voice (please do this, the passive voice is the worst!), and all sorts of things. So even if you only find time to skim the paper I recommend coming along :).
+```
+
+## How to critically evaluate a paper that uses phylogenetic comparative methods
+You should never take results from PCMs (or any other statistical analysis) at face value. When reading any paper it's worth having a check list in your head of things to look out for. Below we've shared our version of this. Although it's aimed at papers using PCMs, most of the questions can be used with any paper.
+
+It's worth remembering that not everything you see in a paper is an author's fault or choice. In some cases, editors and reviewers may suggest using PCMs where they are not appropriate. Glamour journals like Nature and Science will also often encourage authors to oversell their results. And of course we all make mistakes or change our minds from time to time. So remember to be gentle and kind to people at the same time as being brutal and cynical with papers!
+
+### Logic/interpretation {-}
+
+* What questions does the paper address?
+* Do the analyses/data actually answer the questions the paper is meant to be asking, or do they answer a different question?
+* What are the conclusions? Do the analyses/data support the conclusions?
+* Is importance of the conclusions exaggerated?
+* Is the logic of the paper clear and justifiable, given the assumptions?
+* Are there any flaws in the logic of the paper?
+* Do you agree with how the results have been interpretted?
+
+### Data {-}
+
+* What's the sample size? Is it large enough to support the conclusions of the paper?
+* How many species are missing from the analysis? Does this worry you? 
+    * Is two species missing from a group of 50 species a problem?
+    * Can 50 species be used to make conclusions about a group containing thousands of species? 
+* Are species missing in a way which might influence the results?
+    * Would you be concerned if all species from one clade were missing?
+    * Are the species present well distributed across the phylogeny?
+* Are fossil/extinct species considered? Would this influence the results/conclusions?
+* How were the data collected? Could this bias the results at all?
+* Are there biases in the age, sex, geographic locality etc. of species included?
+* Do you think the data quality is high enough?
+* Would other data have been better to answer this question?
+
+### Methods {-}
+
+* Check the text carefully for caveats. These may appear in the introduction, methods, results or discussion. Were these dealt with or just mentioned?
+* What are the assumptions/limitations of the method being used? These may be mentioned in the text, or you may need to dig into the literature to find them.
+* Are the assumptions made reasonable? For example, a big assumption underlying all phylogenetic methods is that the phylogeny is correct. Do you agree?
+* Be aware that some older methods may have been superseded by better methods.
+* Be aware that sometimes there is debate in a community about the best method to use (e.g. the BAMM debate).
+
+### Moving forwards {-}
+
+* What are the good things in the paper? Make sure that you don't ignore the positive in your hunt for the negative!
+* Do these ideas have other applications or extensions that the authors might not have thought of? 
+* How would you fix the flaws in this paper? 
+
+## Further reading
+These papers involve critiques/reviews of some of the methods we've been learning about in this module. They may be helpful for some of the papers: @cooper2016, @coopermeedata, @freckleton2009seven, @losos2011seeing, @kamilar2013phylogenetic, @moore2016critically, @rabosky2015model.

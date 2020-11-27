@@ -1,0 +1,317 @@
+# Macroevolutionary models for discrete traits
+
+The aims of this exercise are to learn how to use R to fit macroevolutionary models in R to discrete traits.
+
+```{block, type = "info"}
+We will be using the evolution of head shape in natricine snakes as an example. The data and modified tree come from DEEPAK [CITE PAPER], and the tree comes from DEEPAK [CITE PAPER]. I've removed a few species and a few variables to make things a bit more straightforward. If you want to see the full results check out DEEPAK [CITE PAPER]!
+```
+
+## Before you start
+- Open the `08-ModelsDiscrete.RProj` file in the `08-ModelsDiscrete` folder to open your R Project for this exercise.
+- Make yourself a new R script for your code.
+
+You will also need to install the following packages: 
+
+* `ape`
+* `geiger`
+* `treeplyr`
+* `phytools`
+
+## Preparation
+
+To begin we need to load the packages for this practical.
+
+```{r, message = FALSE}
+# Load the packages
+library(ape)
+library(geiger)
+library(treeplyr)
+library(phytools)
+```
+
+Next we need to prepare the tree and data for the analyses. In the `04-Preparation` exercise we read in our tree and data, checked them, and matched them so only species in both were retained. Please refer to that exercise for more details on how and why we do these things, or run through it now if you haven't previously. 
+
+It is important to do these things before beginning a phylogenetic comparative analysis, so let's run through that code again here.
+
+```{r, message = FALSE}
+# Read in the data
+snakedata <- read_csv("data/snake-heads.csv")
+# Check everything loaded corrected
+glimpse(snakedata)
+```
+
+To load the tree we will use `read.nexus`.
+```{r}
+# Read in the tree
+snaketree <- read.nexus("data/snake-tree.nex")
+# Check it loaded correctly
+str(snaketree)
+```
+
+Remember to check the tree is dichotomous, i.e. has no polytomies, rooted, and ultrametric. 
+
+```{r}
+# Check whether the tree is binary
+# We want this to be TRUE
+is.binary.tree(snaketree)
+# Check whether the tree is rooted 
+# We want this to be TRUE 
+is.rooted(snaketree)
+# Check whether the tree is ultrametric
+# We want this to be TRUE 
+is.ultrametric(snaketree)
+```
+
+Next check that the species names match up in the tree and the data. This should reveal any typos and/or taxonomic differences that need to be fixed before going any further. I haven't printed `check` here as we already did this in the previous exercise and it's a long list but we have already checked these in advance. Do not skip this step for your own analyses!
+
+```{r}
+# Check whether the names match in the data and the tree
+check <- name.check(phy = snaketree, data = snakedata, 
+                    data.names = snakedata$Species)
+# check
+```
+
+Next we combine the tree and data to exclude species that are not in both, using the `treeplyr` function `make.treedata`.
+
+```{r}
+# Combine and match the tree and data
+snakestuff <- make.treedata(tree = snaketree,  data = snakedata, 
+                              name_column = "Species")
+
+# Look at the tree
+snakestuff$phy
+# Look at the data
+glimpse(snakestuff$dat)
+```
+
+Overall we have 162 species in the data and the tree.
+
+Then we replace the removed species names column, and save the data as a data frame for later analyses.
+
+```{r}
+# Make a new column called tiplabel with the tip labels in it
+snakestuff$dat$tiplabel <- snakestuff$phy$tip.label
+# Force mydata to be a data frame
+mydata <- as.data.frame(snakestuff$dat)
+```
+
+Finally we save the tree:
+
+```{r}
+# Save tree as mytree
+mytree <- snakestuff$phy
+```
+
+Now we're ready to run our analyses!
+
+## Models of evolution for discrete traits
+
+For fitting simple models of evolution to discrete data we will use the `fitDiscrete` function in the R package `geiger`. `fitDiscrete` is a likelihood based method, so the output will give the maximum likelihood (ML) estimates of the parameters. 
+
+As an example, let's look at the evolution of ecomorphs in our snake data. Before we start let's make sure we have an idea of what these data look like.
+
+```{r, message = FALSE}
+# How many species are in each category of ecomorph?
+mydata %>%
+  group_by(Ecomorph) %>%
+  summarise(number = n())
+```
+
+We can also visualize these variables on our tree by plotting them with colours. We'll then create a vector of five colours for the ecomorphs. These need to be in alphabetical order, so the colours should be in the order Aquatic, Aquatic burrower, Burrower, Semi-aquatic, Terrestrial.
+
+```{r}
+# Set up list of colours
+ecomorph.colors <- c("darkblue", "plum", "chocolate", "lightblue", "lightgreen")
+```
+
+Finally we can plot the tree with coloured tip labels to match the ecomorphs. I've rearranged the colour order in the legend so it makes more sense biologically (i.e. putting the aquatic and Semi-aquatic next to each other rather than ordering it alphabetically). To make things a bit easier to see I've left off the tip labels.
+
+```{r}
+# Plot the tree with colours at the tips to represent ecomorph
+plot(mytree, cex = 0.5, adj = c(0.2), type = "fan", 
+     no.margin = TRUE, show.tip.label = FALSE)
+tiplabels(pch = 16, col = ecomorph.colors[mydata$Ecomorph])
+legend("bottomleft", pch = 15, bty = "n",
+       legend = c("Aquatic", "Semi-aquatic", "Aquatic burrower", 
+                  "Burrower", "Terrestrial"), 
+       col = c("darkblue", "lightblue", "plum", 
+               "chocolate", "lightgreen"))
+```
+
+Some ecomorphs are clustered, but others appear across the phylogeny (this is the result of some pretty cool convergent evolution - check out DEEPAK CITE PAPER for more details).
+
+### Fitting the ER, SYM and ARD models of evolution using `fitDiscrete`
+
+We'll fit three commonly used evolutionary models to the data; the equal rates (ER) model, the symmetric rates (SYM) model and the all rates different (ARD) model. 
+
+As a quick reminder, in the ER model, transitions between any pair of states occur at the same rate and are therefore equally probable. This is also known as the Mk1 model because it as a Markov model (Mk) with only 1 parameter (k). 
+
+In the SYM model transitions between any pair of states occurs at the same rate regardless of direction, but that the rate of change differs among states. A  symmetric model with only 2 states becomes an equal rates (Mk1) model.
+
+Finally, in the ARD model all transitions between pairs of states occurs at different rates. It's important to be wary of over-fitting with this model as it can result in a lot of rates when you have more than a few states.
+
+For more details on these models please see the *Primer*.
+
+We are going to use the package `geiger` to fit models in this exercise, so we need the additional preparation step we first met in chapter `05-PhyloSignal`. We need to create an object in R that only contains the variable required, and the species names (so we can match it up to the tree). 
+
+We use the function `pull` to extract just the ecomorph values. We then name these values with the species names from `mydata` using the function `names`. Note that this requires the trait data is in the _same order_ as the tree tip labels, but luckily `make.treedata` does this automatically.
+
+```{r}
+# Create ecomorph containing just ecomorph values
+ecomorph <- pull(mydata, Ecomorph)
+# Make sure ecomorph is a character, not a factor
+ecomorph <- as.character(ecomorph)
+# Look at the first few rows
+head(ecomorph)
+# Give log head length names = species names at the tips of the phylogeny
+names(ecomorph) <- mydata$tiplabel
+# Look at the first few rows
+head(ecomorph)
+```
+
+Now we have a list of values with associated species names.
+
+To fit the ER model we can then use the code below. 
+```{r}
+# Fit the ER model
+equal <- fitDiscrete(mytree, ecomorph, model = "ER")
+```
+
+Let's look at the output for the equal rates model:
+```{r}
+# Look at the output
+equal
+```
+
+This looks very similar to the output from `fitContinuous` in the `08-ModelsContinuous` exercise. We've got a model summary, with log likelihoods and AIC scores, convergence diagnostics and an object summary. The only major difference is the first part, which gives us a fitted transition matrix or $Q$ matrix, rather than a summary of model parameters. In fact the $Q$ matrix **is** the model parameters for these models as it contains all the rates of change between different states. This is an equal rates model, so the off-diagonal elements are all same and show that the rate of change from one state to any other state is 0.00874. 
+
+```{block, type = "detail"}
+Why are the diagonal elements of the $Q$ matrix -0.034973712? The rows of the $Q$ matrix must sum to zero: -0.034973712 + (4 * 0.008743428) = 0. 
+```
+
+To fit the SYM model we just switch the model name. Note that this might be a bit slow on your computer as we have quite a lot of different ecomorphs, so a lot of different rates to fit. A good point to grab a coffee/tea/biscuit!
+```{r}
+# Fit the SYM model
+sym <- fitDiscrete(mytree, ecomorph, model = "SYM")
+# Look at the output
+sym
+```
+
+Again the $Q$ matrix is the key output here. You could just read the numbers, we can see this more clearly if we plot the $Q$ matrix for the model:
+
+```{r}
+# Plot Q matrix as network
+plot.gfit(sym)
+```
+The transition rate between Semi-aquatic and Terrestrial is highest (0.043), followed by transitions between Semi-aquatic and Aquatic (0.019). Burrowing and Aquatic (0.009) and Aquatic Burrowing and Aquatic (0.007) have the next highest rates, followed by Burrowing and Semi-aquatic (0.003). All the other rates are < 0.001 so they appear as zeros on this plot
+
+Finally let's fit the ARD model. Again this may take some time! Go and grab a tea/coffee/biscuit or take a short break.
+
+```{r}
+# Fit the ARD model
+ard <- fitDiscrete(mytree, ecomorph, model = "ARD")
+# Look at the output
+ard
+```
+
+Again the $Q$ matrix is the key output. We can plot the $Q$ matrix for the model:
+
+```{r}
+# Plot Q matrix as network
+plot.gfit(ard)
+```
+This is quite complex because in the ARD model we have different rates for each type of state change. Here, for example, the bottom left hand arrows joining Semi-aquatic and Terrestrial show that rates of change from Semi-aquatic to Terrestrial (0.037) are higher than those from Terrestrial to Semi-aquatic (0.003). These plots can be a little easier to read if we hide all the transitions where rates are < 0.001 as follows.
+
+```{r}
+# Plot Q matrix as network without zeros
+plot.gfit(ard, show.zeros = FALSE)
+```
+
+```{block, type = "detail"}
+For now these plots are pretty simple, but you can add some code to make the arrows different sizes etc. if you need to using the code here http://blog.phytools.org/2020/09/graphing-fitted-m-k-model-with.html. Also check out future versions of `phytools` which should have these functions added.
+```
+
+### Comparing models of evolution using AIC
+As we discussed in the continuous traits exercise in `08-ModelsContinuous`, we often want to know which of the models fits our variable best. We can use `fitDiscrete` to fit the models we are interested in and then compare them using AIC. We can extract the AICs from the models we fitted above as follows:
+
+```{r}
+equal$opt$aic
+sym$opt$aic
+ard$opt$aic
+```
+
+The “best” model is the one with the smallest AIC. Here the best model of evolution appears to be the SYM model, whereby rates of transition are the same in both directions, but are different for the different pairs of ecomorphs. 
+
+Alternatively we can use $\Delta$AIC or AIC weights to compare our models using the following code and the `geiger` function `aicw`:
+```{r}
+aic.scores <- setNames(c(equal$opt$aic, sym$opt$aic, ard$opt$aic), 
+                       c("equal", "symmetric", "different"))
+aicw(aic.scores)
+```
+
+`aicw` outputs the AIC (`fit`), $\Delta$AIC (`delta`) and AIC weights (`w`) for each of the models we fitted. The best model is the model with $\Delta$AIC = 0 or with AICw closest to 1. Using $\Delta$AIC we can conclude that the SYM model is the best fit to the data.
+
+## Ancestral state estimations
+I'm not a big fan of ancestral state estimation as you probably realised from the *Primer*! There are many reasons to be highly sceptical of ancestral state estimates and interpretations of macroevolutionary patterns and process that are based on them. However, if you want to know if evolutionary tempo or mode have varied over clade history based on the state of a discrete trait as we intend to do in the next chapter, you'll need to do it so you can assign each node to a particular state.
+
+We'll use `ape`'s `ace` function here. There are other options out there, for example in the `phytools` package, but `ace` will work for our purposes. 
+
+To perform ancestral state estimation of ecomorphs for snakes we can use the `ecomorph` object we made earlier and used to fit the ER, SYM and ARD models. Recall that `ecomorph` is just the Ecomorph column from the snake heads dataset, in the same order as the tips in the tree, with names equal to the tip labels/Species names in the tree.
+
+```{r}
+# Take a quick look at the first few rows of ecomorph
+head(ecomorph)
+```
+
+To perform an ancestral state estimation of ecomorphs under the symmetric model (the best fitting model for the data as discovered above) we use this code:
+```{r, message = FALSE}
+# Ancestral state estimation of ecomorph under the SYM model
+ancestral_ecomorphs <- ace(ecomorph, mytree, type = "discrete", model = "SYM")
+```
+
+You should notice a series of warning messages appear that say `NaNs produced` and `NA/Inf replaced by maximum positive value`. Don't worry about this – it happens when rates for one transition are particularly low (and we know from above that many of the transition rates were < 0.001) but doesn't really affect our node state estimates. 
+
+```{block, type = "detail"}
+`ace` now defaults to a joint estimation procedure, where the ancestral states are optimized based on all information in the tree, not just the states at descendant tips. Older versions of `ace` did not do this, so be wary of this when reading older critiques of this method
+```
+
+We can look at the first few rows of our ancestral state estimates by typing:
+```{r, eval = FALSE}
+head(ancestral_ecomorphs$lik.anc)
+```
+
+In this matrix the rows correspond to nodes in the tree (although the numbering is bit off; we don't need to worry about this here but it will come up in the next exercise) and the five columns give the *scaled likelihoods* that the node is in each of the different ecomorphs. 
+
+The scaled likelihoods are like probabilities, so for the first node, the probability of it being Aquatic is highest (probability = 0.5417), followed by the probability of it being Semi-aquatic (0.3587), Terrestrial (0.0755), Burrowing (0.0206), or Aquatic Burrowing (0.0035). These scaled likelihoods can be visualized with pie charts on the tree we plotted earlier byt adding the `nodelabels` line of code below.
+
+```{r}
+# Plot the tree with colours at the tips and nodes to represent ecomorph
+plot(mytree, cex = 0.5, adj = c(0.2), type = "fan", 
+     no.margin = TRUE, show.tip.label = FALSE)
+tiplabels(pch = 16, col = ecomorph.colors[mydata$Ecomorph])
+nodelabels(pie = ancestral_ecomorphs$lik.anc, piecol = ecomorph.colors, cex = 0.5)
+legend("bottomleft", pch = 15, bty = "n",
+       legend = c("Aquatic", "Semi-aquatic", "Aquatic burrower", 
+                  "Burrower", "Terrestrial"), 
+       col = c("darkblue", "lightblue", "plum", 
+               "chocolate", "lightgreen"))
+```
+
+Aquatic is most commonly estimated as the ancestral ecomorph for natricine snakes, with Semi-aquatic as a close second, and with multiple transitions to other ecomorphs throughout the tree. 
+
+```{block, type = "warning"}
+Ancestral state estimates (**not** reconstructions) are, at best, weighted averages of your trait based on branch lengths of the phylogeny and the model of evolution used. If your phylogeny or traits or model have error (and they always will) then your ancestral state estimates should be interpreted with care.
+```
+
+## Summary
+You should now know how to fit simple models of evolution to discrete trait data in R.
+
+## Practical exercises
+In the data folder there is another tree (`primate-tree.nex`) and dataset (`primate-data.csv`) for investigating the evolution of primate life-history variables. These data come from the PanTHERIA database [@jones2009pantheria] and 10kTrees [@arnold201010ktrees]. 
+
+Read in the tree and data, then prepare them for a PCM analysis (you may have already done this in a previous exercise which should save you some time). Fit equal rates, symmetric rates and all rates different models to the social status variable for Primates (`SocialStatus`). Note that social status has two states: non-social (1) or social (2). Then answer the following questions.
+
+1. Which model fits best? 
+2. What is the transition rate from non-social (1) to social (2), and vice versa, in the all rates different model? What does this mean biologically?
+3. Plot ancestral state estimates of social status (from the ARD model) on the phylogeny. Is the root node estimated as being non-social or social?
+4. Why didn't I ask you to fit the symmetric model?
