@@ -1,0 +1,207 @@
+Species,Ecomorph,Diet,ReproductiveMode,HeadLength,HeadWidth,HeadHeight,EyeDistance,TotalLength
+Adelophis_foxi,Burrowing,annelids,Viviparous,12.56,6.6,5.43,4.01,105
+Afronatrix_anoscopus_2,Aquatic,aquatic generalist,Oviparous,25.1,15.8,10.3,7.4,194
+Amphiesma_beddomei,Terrestrial,anurans,Oviparous,15.06,7.82,5.4,4.85,106
+Amphiesma_monticola,Terrestrial,anurans,Oviparous,20.105,9.13,6.61,5.85,185
+Amphiesma_stolatum,Terrestrial,generalist,Oviparous,19.95,10.32,7.56,5.84,165
+Amphiesma_stolatum_1,Terrestrial,generalist,Oviparous,18.81,9.82,5.8,5.42,155
+Amphiesma_stolatum_2,Terrestrial,generalist,Oviparous,16.375,8.39,6.4,6,NA
+Amphiesma_stolatum_3,Terrestrial,generalist,Oviparous,22.64,11.3,8.7,6.05,163
+Amphiesma_stolatum_WII,Terrestrial,generalist,Oviparous,17.35,9.04,5.68,5.01,130
+Amphiesmoides_ornaticeps,Semiaquatic,anurans,Oviparous,19.76,9.55,6.64,6.39,309
+Aspidura_brachyorrhos,Burrowing,annelids,Oviparous,9.68,4.49,4.19,3.12,31
+Aspidura_ceylonensis,Burrowing,annelids,Oviparous,10.43,4.03,3.24,3.34,62
+Aspidura_copei,Burrowing,unknown,Oviparous,15.91,6.64,5.85,3.53,56
+Aspidura_drummondhayi,Burrowing,annelids,Oviparous,9.75,4.9,4.41,2.27,35
+Aspidura_guentheri,Burrowing,annelids,Oviparous,6.65,3.44,3.12,1.7,16
+Aspidura_trachyprocta,Burrowing,annelids,Oviparous,12.38,6.84,4.55,3.44,23
+Atretium_schistosum_2,Aquatic,aquatic generalist,Oviparous,23.87,10.34,8.27,6.53,NA
+Blythia_reticulata,Burrowing,annelids,Oviparous,13.16,5.4,4.36,3.86,33
+Clonophis_kirtlandii,Semiaquatic,generalist,Viviparous,14.82,8.82,5.97,5.21,81
+Fowlea_asperrimus,Aquatic,aquatic generalist,Oviparous,23.97,13.3,9.84,7.29,169
+Fowlea_flavipunctatus,Aquatic,aquatic generalist,Oviparous,18.135,10.26,7.89,6.13,134
+Fowlea_flavipunctatus_1,Aquatic,aquatic generalist,Oviparous,24.35,12.68,9.94,6.7,170
+Fowlea_flavipunctatus_2,Aquatic,aquatic generalist,Oviparous,23.375,11.63,9.57,6.85,NA
+Fowlea_melanzostus,Aquatic,aquatic generalist,Oviparous,24.5,11.58,8.39,5.98,147
+Fowlea_piscator_2,Aquatic,aquatic generalist,Oviparous,24.695,12.15,9.16,7.03,130
+Fowlea_punctulatus,Aquatic,unknown,Oviparous,20.185,10.07,7.07,6.31,117
+Fowlea_sanctijohannis,Aquatic,aquatic generalist,Oviparous,21,10.89,8.16,6.29,180
+Fowlea_schnurrenbergeri,Aquatic,aquatic generalist,Oviparous,25.005,12.92,9.58,7.25,137
+Fowlea_sp2,Aquatic,aquatic generalist,Oviparous,45.495,27.28,16.87,11.8,NA
+Fowlea_tytleri,Aquatic,aquatic generalist,Oviparous,34.785,17.52,12.47,7.81,222
+Fowlea_yunnanensis,Aquatic,aquatic generalist,Oviparous,29.005,15.58,11.03,8.07,NA
+Haldea_striatula,Burrowing,annelids,Viviparous,8.7,5.24,3.58,2.71,38
+Hebius_annamensis,Semiaquatic,unknown,NA,13.63,7.62,4.48,4.35,154
+Hebius_atemporale_1,Terrestrial,unknown,Oviparous,11.785,6.09,3.88,4.18,NA
+Hebius_bitaeniatum_4,Terrestrial,anurans,Oviparous,14.44,6.18,5.08,4.17,115
+Hebius_boulengeri_2,Terrestrial,unknown,Oviparous,17.44,9.99,5.58,5.36,NA
+Hebius_celabicus,Semiaquatic,unknown,Oviparous,15.145,7.58,5.13,5.06,NA
+Hebius_chapaensis,Semiaquatic,unknown,Oviparous,18.285,9.67,5.97,6.05,NA
+Hebius_clerki,Semiaquatic,unknown,Oviparous,20.245,10.38,6.41,5.75,NA
+Hebius_craspedogaster_2,Semiaquatic,anurans,Oviparous,16.165,8.79,5.88,5.11,167
+Hebius_flavifrons,Semiaquatic,generalist,Oviparous,16.41,8.17,6.64,5.29,185
+Hebius_groundwateri,Semiaquatic,unknown,Oviparous,12.035,6.66,3.91,3.95,166
+Hebius_inas,Semiaquatic,unknown,Oviparous,12.235,6.99,4.05,3.9,122
+Hebius_johannis,Semiaquatic,fish,Oviparous,26.61,14.61,9.61,7.56,NA
+Hebius_khasiense_1,Semiaquatic,generalist,Oviparous,14.93,6.69,4.76,4.44,182
+Hebius_metusium,Semiaquatic,unknown,Oviparous,21.71,11.01,6.48,6.46,NA
+Hebius_modestum,Terrestrial,anurans,Oviparous,18.11,9.73,6.11,5.65,164
+Hebius_octolineatum_3,Terrestrial,anurans,Oviparous,18.975,8.61,6.92,5.62,193
+Hebius_optatum_1,Semiaquatic,fish,Oviparous,17.205,7,5.55,5.44,NA
+Hebius_parallelum,Semiaquatic,generalist,Oviparous,16.21,7.57,5.45,4.38,96
+Hebius_petersi,Semiaquatic,lizards,Oviparous,18.31,9.46,6.73,5.83,NA
+Hebius_pryeri_2,Semiaquatic,generalist,Oviparous,25.135,12.39,9.62,7.83,NA
+Hebius_sanguinea,Semiaquatic,unknown,Oviparous,16.15,8.64,5.28,4.79,180
+Hebius_sarasinorum,Semiaquatic,lizards,Oviparous,12.005,6.07,4.38,4.11,61
+Hebius_sarawacensis,Semiaquatic,generalist,Oviparous,19.94,10,7.63,5.91,194
+Hebius_sauteri_1,Terrestrial,generalist,Oviparous,13.87,7.37,4.59,4.65,120
+Hebius_venningi_2,Semiaquatic,anurans,Oviparous,19.14,11.85,5.57,5.04,236
+Hebius_vibakari_1,Terrestrial,generalist,Oviparous,15.515,7.62,5.29,4.9,115
+Hebius_vibakari_2,Terrestrial,generalist,Oviparous,16.225,8.68,5.47,5.18,120
+Hebius_vibakari_ruthveni,Terrestrial,generalist,Oviparous,15.81,6,5.54,4.63,119
+Helophis_schoutedeni,Aquatic,unknown,NA,21,12.6,9.5,5.9,75
+Herpetoreas_sieboldi,Terrestrial,lizards,NA,19.325,8.22,6.17,5.73,177
+Herpetoreas_pealii,Semiaquatic,unknown,NA,15.515,7.27,5.23,5.03,117
+Herpetoreas_platyceps,Terrestrial,lizards,Oviparous,16.48,7.68,5.83,5.3,134
+Herpetoreas_sp1,Terrestrial,generalist,Oviparous,17.75,9.65,5.88,5.67,NA
+Herpetoreas_xenura,Terrestrial,generalist,Oviparous,19.675,10.37,6.31,5.91,186
+Hydrablabes_periops,Aquatic Burrowing,unknown,Oviparous,11.165,6.56,3.99,4.33,94
+Hydrablabes_prafrontalis,Aquatic Burrowing,unknown,Oviparous,13.005,7.36,3.95,4.26,93
+Hydraethiops_laevis,Aquatic,unknown,Oviparous,13.7,7.5,4.3,3.9,77
+Hydraethiops_melanogaster,Aquatic,aquatic generalist,Oviparous,20.1,11.7,8.1,5.7,115
+Isanophis_boonsongi,Aquatic,aquatic generalist,Oviparous,25.34,14.36,10.43,8.2,102
+Limnophis_bangweolicus,Aquatic,aquatic generalist,Oviparous,18.1,6.9,5.7,4.6,114
+Limnophis_bicolor,Aquatic,aquatic generalist,Oviparous,23.1,13.1,10.8,5.6,103
+Liodytes_alleni,Aquatic,crayfish,Oviparous,18.46,7.82,7.18,4.28,109
+Liodytes_pygaea,Aquatic,aquatic generalist,Viviparous,12.965,8.35,4.69,3.53,53
+Liodytes_rigida,Aquatic,crayfish,Viviparous,18.835,9.92,7.03,5.4,128
+Lycognathophis_seychellensis,Terrestrial,lizards,Oviparous,19.1,10.3,6.5,5.8,200
+Natriciteres_fuliginoides,Semiaquatic,anurans,Oviparous,14.4,7.4,4.4,3.8,NA
+Natriciteres_olivacea_1,Semiaquatic,generalist,Oviparous,18.1,9.5,6.6,5.1,115
+Natriciteres_sylvatica_1,Semiaquatic,generalist,Oviparous,12.2,5.6,4,3.3,111
+Natrix_astreptophora,Semiaquatic,generalist,Oviparous,23.505,12.09,7.5,7.14,196
+Natrix_cetti,Semiaquatic,generalist,Oviparous,23.96,14.53,8.23,7.91,160
+Natrix_maura_1,Semiaquatic,aquatic generalist,Oviparous,22.9,12.39,7.73,5.88,110
+Natrix_natrix,Semiaquatic,generalist,Oviparous,30.68,19.2,11.14,9.34,179
+Natrix_natrix_persa,Semiaquatic,generalist,Oviparous,27.975,15.04,10.31,8.41,145
+Natrix_tessellata_3,Aquatic,aquatic generalist,Oviparous,24.505,10.53,7.99,5.75,133
+Nerodia_clarkii,Aquatic,aquatic generalist,Viviparous,24.24,14.75,7.37,6.29,153
+Nerodia_cyclopion,Aquatic,aquatic generalist,Viviparous,31.04,14.49,12.42,6.82,165
+Nerodia_erythrogaster,Aquatic,aquatic generalist,Viviparous,44.1,25.24,15.53,10.35,245
+Nerodia_fasciata,Aquatic,aquatic generalist,Viviparous,32.185,19.36,12.47,8.45,NA
+Nerodia_floridana,Aquatic,aquatic generalist,Viviparous,41.8,23.93,18.23,8.99,255
+Nerodia_harteri,Aquatic,aquatic generalist,Viviparous,25.41,10.73,8.88,6.44,157
+Nerodia_paucimaculata,Aquatic,aquatic generalist,Viviparous,25.27,11.74,8.29,6.55,149
+Nerodia_rhombifer,Aquatic,aquatic generalist,Viviparous,53.41,37.77,21.05,11,NA
+Nerodia_sipedon,Aquatic,aquatic generalist,Viviparous,38.305,21.33,13.1,9.53,240
+Nerodia_taxispilota,Aquatic,aquatic generalist,Viviparous,24.27,13.35,10.05,7.6,NA
+Opisthotropis_andersonii_1,Aquatic Burrowing,aquatic generalist,Oviparous,14.035,6.99,4.66,4.06,NA
+Opisthotropis_jacobi,Aquatic Burrowing,annelids,Oviparous,13.55,6.61,3.86,4.57,105
+Opisthotropis_lateralis_1,Aquatic Burrowing,aquatic generalist,Oviparous,14.335,8.55,5.78,5.41,64
+Opisthotropis_latouchii,Aquatic Burrowing,annelids,Oviparous,12.485,6.63,3.85,4.09,82
+Opisthotropis_spenceri,Aquatic Burrowing,aquatic generalist,Oviparous,11.9,6.46,3.78,3.92,124
+Opisthotropis_typica,Aquatic Burrowing,aquatic generalist,Oviparous,13.455,7.66,4.93,4.63,125
+Paratapinophis_praemaxillaris,Aquatic,fish,NA,36.065,19.93,11.38,9.39,NA
+Pseudagkistrodon_rudis,Terrestrial,generalist,Viviparous,36.645,22.31,13.09,12.86,164
+R_lineatus,Semiaquatic,unknown,NA,22.36,13.95,9.15,7.61,164
+Regina_grahami,Aquatic,crayfish,Viviparous,24.35,11.54,8.74,6.78,123
+Regina_septemvittata,Aquatic,crayfish,Viviparous,13.57,6.47,4.93,4.84,95
+Rhabdophis_auriculata,Semiaquatic,anurans,Oviparous,12.58,6.75,4.39,4.5,80
+Rhabdophis_barbouri,Unknown,unknown,Oviparous,18.53,9.13,6.51,5.83,225
+Rhabdophis_ceylonensis,Terrestrial,generalist,Oviparous,18.4,9.86,5.78,5.28,NA
+Rhabdophis_chrysargoides,Semiaquatic,unknown,Oviparous,23.1,11.74,8.24,7.62,NA
+Rhabdophis_chrysargos,Semiaquatic,generalist,Oviparous,22.49,12.41,8.52,7.14,NA
+Rhabdophis_chrysargos_1,Semiaquatic,generalist,Oviparous,20.34,9.68,8.07,6.43,162
+Rhabdophis_chrysargos_2,Semiaquatic,generalist,Oviparous,20.94,10.17,7.17,6.5,NA
+Rhabdophis_chrysargos_3,Semiaquatic,generalist,Oviparous,24.78,13.34,8.6,7.5,NA
+Rhabdophis_conspicillatus,Terrestrial,unknown,Oviparous,13.17,7.6,3.95,4.6,70
+Rhabdophis_flaviceps,Semiaquatic,generalist,Oviparous,27.71,14.82,11.23,9.69,NA
+Rhabdophis_himalayanus_1,Semiaquatic,generalist,Oviparous,24.9,11.79,8.46,8.27,226
+Rhabdophis_himalayanus_2,Semiaquatic,generalist,Oviparous,23.74,12.11,8.69,8.43,224
+Rhabdophis_leonardi,Semiaquatic,unknown,Oviparous,25.64,13.72,10.81,8.16,120
+Rhabdophis_murudensis,Terrestrial,anurans,Oviparous,26.59,13.23,10.47,9.43,160
+Rhabdophis_nigrocinctus,Terrestrial,generalist,Oviparous,26.685,14.62,9.83,9.5,262
+Rhabdophis_nuchalis_3,Terrestrial,generalist,Oviparous,14.59,7.42,5.79,5.17,79
+Rhabdophis_plumbicolor,Terrestrial,anurans,Oviparous,25.35,15.02,9.5,8.27,80
+Rhabdophis_rhodomelas,Semiaquatic,generalist,Oviparous,19.03,9.86,6.89,6.06,86
+Rhabdophis_subminiatus_1,Semiaquatic,anurans,Oviparous,34.33,19,11.68,9.17,241
+Rhabdophis_subminiatus_2,Semiaquatic,anurans,Oviparous,32.48,15.87,9.78,9.23,242
+Rhabdophis_swinhonis_1,Semiaquatic,anurans,Oviparous,18.03,8.58,6.68,5.74,123
+Rhabdophis_tigrinus,Terrestrial,generalist,Oviparous,23.76,13.94,8.88,7.89,132
+Rhabdophis_tigrinus_lateralis,Terrestrial,generalist,Oviparous,34.135,19.33,12.9,10.39,199
+Rhabdops_aquaticus,Aquatic Burrowing,annelids,Oviparous,12.455,6.6,4.81,4.74,65
+Rhabdops_olivaceous,Aquatic Burrowing,aquatic generalist,Oviparous,16.945,9.04,7.86,6.69,124
+Smithophis_atemporalis,Aquatic Burrowing,generalist,Oviparous,13.805,5.96,5.82,4.22,153
+Smithophis_bicolor,Aquatic Burrowing,annelids,Oviparous,15.335,9.4,5.02,5.7,126
+Smithophis_linearis,Aquatic Burrowing,annelids,Oviparous,13.65,7.73,5.06,5.39,NA
+Smithophis_sp,Aquatic Burrowing,generalist,Oviparous,14.58,8.31,3.77,4.6,102
+Storeria_dekayi,Burrowing,mollusc,Viviparous,7.82,3.93,2.75,3.1,33
+Storeria_hidalgoensis,Burrowing,mollusc,Viviparous,9.49,5.2,3.07,3.52,NA
+Storeria_occipitomaculata,Burrowing,mollusc,Viviparous,9.44,5.15,3.76,3.39,47
+Storeria_storerioides,Burrowing,mollusc,Viviparous,8.88,4.74,3.25,3.34,55
+Thamnophis_rufipunctatus_unilabialis,Aquatic,aquatic generalist,Viviparous,16.93,6.85,5.34,4.27,90
+Thamnophis_atratus,Semiaquatic,aquatic generalist,Viviparous,21.595,11.06,7.5,6.22,142
+Thamnophis_bogerti,Semiaquatic,generalist,Viviparous,17.74,8.35,5.7,5.14,100
+Thamnophis_brachystoma,Terrestrial,annelids,Viviparous,12.74,6.32,4.46,4.2,NA
+Thamnophis_butleri,Semiaquatic,generalist,Viviparous,16.72,8.54,5.97,4.95,95
+Thamnophis_chrysocephalus,Semiaquatic,unknown,Viviparous,23.55,12.51,8.46,7.24,NA
+Thamnophis_conanti,Semiaquatic,unknown,Viviparous,19.97,9.24,6.41,6.05,116
+Thamnophis_couchii,Aquatic,unknown,Viviparous,18.13,9.18,6.71,5.75,146
+Thamnophis_cyrtopsis,Semiaquatic,generalist,Viviparous,18.185,8.92,6.87,5.37,138
+Thamnophis_elegans,Semiaquatic,generalist,Viviparous,22.66,11.98,8.29,7.46,169
+Thamnophis_elegans_lineolata,Semiaquatic,generalist,Viviparous,17,8.18,6.58,5.73,160
+Thamnophis_eques,Semiaquatic,anurans,Viviparous,27.215,13.54,9.48,6.95,162
+Thamnophis_errans,Terrestrial,unknown,Viviparous,20.51,9.08,7.06,6.64,143
+Thamnophis_exsul,Terrestrial,unknown,Viviparous,16.17,7.85,5.36,5.52,100
+Thamnophis_fulvus,Semiaquatic,anurans,Viviparous,32.865,15.97,13.59,9.82,194
+Thamnophis_godmani,Semiaquatic,unknown,Viviparous,25.54,13.78,8.5,7.61,160
+Thamnophis_hammondii,Semiaquatic,aquatic generalist,Viviparous,19.32,7.53,6.46,5.97,105
+Thamnophis_lineri,Semiaquatic,unknown,Viviparous,19.38,10.35,7.31,5.53,95
+Thamnophis_marcianus,Semiaquatic,generalist,Viviparous,31.26,16.75,10.12,8.77,193
+Thamnophis_melanogaster,Semiaquatic,generalist,Viviparous,20.515,10.63,6.68,5.41,110
+Thamnophis_proximus,Semiaquatic,aquatic generalist,Viviparous,20.28,10.02,6.5,5.75,NA
+Thamnophis_pulchrilatus,Semiaquatic,unknown,Viviparous,22.12,11.26,7.53,6.83,157
+Thamnophis_radix,Semiaquatic,generalist,Viviparous,26.27,14.26,10.94,8.64,170
+Thamnophis_rossmani,Aquatic,fish,Viviparous,28.75,15.36,10.15,7.95,160
+Thamnophis_rufipunctatus,Aquatic,aquatic generalist,Viviparous,21.29,8.83,7.12,4.83,131
+Thamnophis_sauritus,Semiaquatic,generalist,Viviparous,14.74,6.78,5.21,5.04,207
+Thamnophis_scalaris_2,Terrestrial,generalist,Viviparous,16.36,8.16,5.27,4.82,128
+Thamnophis_scaliger_1,Terrestrial,generalist,Viviparous,19.52,9.61,7.63,6.81,NA
+Thamnophis_sirtalis,Semiaquatic,generalist,Viviparous,24.61,13.64,9.51,7.59,NA
+Thamnophis_sumichrasti,Aquatic,generalist,Viviparous,26.25,14.57,8.73,7.72,211
+Thamnophis_validus,Aquatic,aquatic generalist,Viviparous,22.13,12.14,8.62,5.98,143
+Trachischium_fuscum,Burrowing,annelids,Oviparous,12.57,7.05,4.64,3.66,63
+Trachischium_guentheri,Burrowing,annelids,Oviparous,10.97,6.18,4.53,3.24,49
+Trachischium_laeve,Burrowing,annelids,Oviparous,9.47,5.32,4.22,3.51,40
+Trachischium_monticola_1,Burrowing,annelids,Oviparous,8.22,4.66,3.49,3.12,39
+Trachischium_susantai,Burrowing,annelids,Oviparous,11.01,5.04,4.22,3.03,35
+Trachischium_tenuiceps,Burrowing,annelids,Oviparous,8.76,4.93,3.81,2.79,34
+Trimerodytes_aequifasciata,Aquatic,aquatic generalist,Oviparous,25.06,12.89,7.59,7.43,164
+Trimerodytes_annularis,Aquatic,aquatic generalist,Viviparous,23.625,10.46,9.53,6.55,138
+Trimerodytes_balteata,Aquatic Burrowing,fish,Oviparous,28.735,16.02,11.91,8.8,160
+Trimerodytes_percarinata,Aquatic,aquatic generalist,Oviparous,25.57,13.16,9.74,8.26,NA
+Tropidoclonion_lineatum,Burrowing,annelids,Oviparous,9.83,5.42,3.67,3.08,34
+Tropidonophis_elongatus,Terrestrial,anurans,Oviparous,17.965,8.55,3.25,5.87,186
+Tropidonophis_novaeguinea,Terrestrial,unknown,Oviparous,23.275,13.79,9.34,7.89,120
+Tropidonophis_aenigmaticus,Terrestrial,unknown,Viviparous,21.13,10.52,7.11,6.19,NA
+Tropidonophis_celebicus,Terrestrial,unknown,Oviparous,18.76,7.6,6.58,4.52,164
+Tropidonophis_dolasii,Terrestrial,unknown,Oviparous,33.58,18.18,10.52,9.63,NA
+Tropidonophis_doriae,Terrestrial,unknown,Oviparous,27.305,12.47,9.21,8.03,NA
+Tropidonophis_halmahericus,Terrestrial,anurans,Oviparous,20.545,9.74,6.81,7.48,240
+Tropidonophis_hypomelas,Terrestrial,unknown,Oviparous,24.275,13.14,9.34,8.68,194
+Tropidonophis_mairii_brongersmai,Terrestrial,anurans,Oviparous,22.07,11.27,6.61,6,150
+Tropidonophis_mairii_mairii,Terrestrial,anurans,Oviparous,22.715,12.18,7.92,6.78,164
+Tropidonophis_mcdowelli,Terrestrial,unknown,Oviparous,19.53,8.3,5.92,5.82,NA
+Tropidonophis_multiscutellatus_3,Terrestrial,anurans,Oviparous,19.36,8.67,7.3,6.29,NA
+Tropidonophis_parkeri,Terrestrial,unknown,Oviparous,18.29,8.55,6.34,6.19,184
+Tropidonophis_picturatus,Terrestrial,unknown,Oviparous,22.37,14.39,7.78,6.61,158
+Tropidonophis_spilogaster,Terrestrial,anurans,Oviparous,22.93,10.98,8.58,7.04,NA
+Tropidonophis_statisticus_1,Terrestrial,unknown,Oviparous,18.93,9.64,6.35,6.25,156
+Tropidonophis_truncatus,Terrestrial,lizards,Oviparous,18.56,8.52,5.69,5.87,79
+Virginia_valeriae_1,Burrowing,annelids,Viviparous,8.9,5.12,3.5,3,39
+Xenochrophis_bellula,Semiaquatic,aquatic generalist,Oviparous,15.07,7.79,6.1,5.09,144
+Xenochrophis_cerasogaster,Aquatic,aquatic generalist,Oviparous,25.525,10.14,7.2,6.11,168
+Xenochrophis_maculatus,Semiaquatic,aquatic generalist,Oviparous,24.48,10.86,9.04,7.88,275
+Xenochrophis_trianguligerus_1,Aquatic,generalist,Oviparous,23.22,12.83,9.56,7.58,NA
+Xenochrophis_trianguligerus_2,Aquatic,generalist,Oviparous,32.37,17.93,12.4,9.6,NA
+Xenochrophis_vittatus,Aquatic,aquatic generalist,Oviparous,21.835,10.9,8.01,5.8,141
