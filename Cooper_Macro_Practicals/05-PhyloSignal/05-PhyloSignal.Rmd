@@ -1,0 +1,327 @@
+# Phylogenetic Signal in R
+
+Phylogenetic signal is the pattern where close relatives have more similar trait values than more distant relatives. The aims of this exercise are to learn how to use R to estimate phylogenetic signal using Pagel's $\lambda$ [@pagel1997inferring, @pagel1999inferring] and Blomberg's *K* [@blomberg2003testing]. 
+
+```{block, type = "info"}
+We will be using the evolution of eye size in frogs as an example. The data and modified tree come from @thomas2020eye, and the original tree comes from @feng2017phylogenomics. I've removed a few species and a few variables to make things a bit more straightforward. If you want to see the full results check out @thomas2020eye!
+```
+
+## Before you start
+- Open the `05-PhyloSignal.RProj` file in the `05-PhyloSignal` folder to open your R Project for this exercise.
+- Make yourself a new R script for your code.
+
+You will also need to install the following packages: 
+
+* `tidyverse`
+* `ape`
+* `geiger`
+* `treeplyr`
+* `phytools`
+* `caper`
+
+
+## Preparation
+
+To begin we need to load the packages for this practical.
+
+```{r, message = FALSE}
+# Load the packages
+library(tidyverse)
+library(ape)
+library(geiger)
+library(treeplyr)
+library(phytools)
+library(caper)
+```
+
+Next we need to prepare the tree and data for the analyses. In the `04-Preparation` exercise we read in our tree and data, checked them, and matched them so only species in both were retained. Please refer to that exercise for more details on how and why we do these things, or run through it now if you haven't previously. 
+
+It is important to do these things before beginning a phylogenetic comparative analysis, so let's run through that code again here.
+
+```{r, message = FALSE}
+# Read in the data
+frogdata <- read_csv("data/frog-eyes.csv")
+# Check everything loaded corrected
+glimpse(frogdata)
+```
+
+To load the tree we will use `read.nexus`.
+```{r}
+# Read in the tree
+frogtree <- read.nexus("data/frog-tree.nex")
+# Check it loaded correctly
+str(frogtree)
+```
+
+Remember to check the tree is dichotomous, i.e. has no polytomies, rooted, and ultrametric. 
+
+```{r}
+# Check whether the tree is binary
+# We want this to be TRUE
+is.binary.tree(frogtree)
+# Check whether the tree is rooted 
+# We want this to be TRUE 
+is.rooted(frogtree)
+# Check whether the tree is ultrametric
+# We want this to be TRUE 
+is.ultrametric(frogtree)
+```
+
+Next check that the species names match up in the tree and the data. This should reveal any typos and/or taxonomic differences that need to be fixed before going any further.
+
+```{r}
+# Check whether the names match in the data and the tree
+check <- name.check(phy = frogtree, data = frogdata, 
+                    data.names = frogdata$tiplabel)
+# Look at check
+check
+```
+Here all the excluded species are excluded because they are genuinely missing, not because of any typos, so we can move on.
+
+Next we combine the tree and data to exclude species that are not in both, using the `treeplyr` function `make.treedata`.
+
+```{r}
+# Combine and match the tree and data
+frogstuff <- make.treedata(tree = frogtree,  data = frogdata, 
+                              name_column = "tiplabel")
+
+# Look at the tree
+frogstuff$phy
+# Look at the data
+glimpse(frogstuff$dat)
+```
+
+Then we replace the removed species names column, and save the data as a dataframe for later analyses.
+
+```{r}
+# Make a new column called tiplabel with the tip labels in it
+frogstuff$dat$tiplabel <- frogstuff$phy$tip.label
+# Force mydata to be a data frame
+mydata <- as.data.frame(frogstuff$dat)
+```
+
+Finally we save the tree:
+```{r}
+# Save tree as mytree
+mytree <- frogstuff$phy
+```
+
+Note that is is possible to use the `make.treedata` object directly to run some analyses, but we have saved these separately here as many PCMs cannot work with this.
+
+Now we're ready to run our analyses!
+
+## Estimating phylogenetic signal for continuous variables
+As is common in R, there are a number of ways to estimate Pagel's $\lambda$ and Blomberg's *K*. I've chosen to show you the way implemented in the package `phytools` because it allows you to use the same function for both.
+
+```{block, type = "info"}
+Why do we look at two different measures of phylogenetic signal? We don't have to, you could choose one and stick to it. However, I guarantee if you choose one then a reviewer/your supervisor/boss will ask for the other, so why not do both and pop one in the appendix?
+```
+
+Let's estimate $\lambda$ for log eye size.
+
+The first thing we need to do is to create an object in R that only contains the variable required, and the species names (so we can match it up to the tree). 
+
+We can use the function `pull` to extract just the eye size values, and we can log transform all these numbers using `log` if we want to work with log eye size values.
+
+```{r}
+# Create logEye containing just log eye size length values
+logEye <- log(pull(mydata, eyesize))
+# Look at the first few rows
+head(logEye)
+```
+
+Notice that this is currently just a long list of numbers. We can then name these values with the species names from `mydata` using the function `names`. Note that this requires the trait data is in the _same order_ as the tree tip labels, but luckily `make.treedata` does this automatically.
+
+```{r}
+# Give log Eye names = species names at the tips of the phylogeny
+names(logEye) <- mydata$tiplabel
+# Look at the first few rows
+head(logEye)
+```
+
+Now we have a list of values with associated species names.
+
+### Pagel's $\lambda$
+
+We can now estimate $\lambda$ using the function `phylosig`:
+```{r}
+# Estimate lambda
+lambdaEye <- phylosig(mytree, logEye, method = "lambda", test = TRUE)
+```
+`test = TRUE` specifies that we want to run a likelihood ratio test to determine if $\lambda$ is significantly different from 0.
+
+To look at the output we just type in the name of the model; `lambdaEye` in this case
+```{r}
+lambdaEye
+```
+The $\lambda$ estimate for log eye size is around 0.803. `logL` is the log-likelihood, `LR(lambda=0)` is	the log-likelihood for $\lambda$ of 0, and `P-value` is the p value from a likelihood ratio test testing whether $\lambda$ is significantly different from 0 (no phylogenetic signal).
+
+Here P < 0.001. We interpret this as $\lambda$ being significantly different from 0, i.e. there is significant phylogenetic signal in log eye size.
+
+### Blomberg's *K* (Blomberg et al 2003)
+To estimate Blomberg’s *K* we also use `phylosig` but with `method = K`.
+
+```{r}
+# Estimate Blomberg’s *K*
+KEye <- phylosig(mytree, logEye, method = "K", test = TRUE, nsim = 1000)
+```
+Additionally we add the argument `nsim = 1000`. This is because we need to use a randomisation test to determine whether *K* is significantly different from 0. `phylosig` randomly assigns the trait values to the species and then calculates *K* as many times as we ask it to in `nsim` (number of simulations). Here we asked for 1000. After the random simulations are run, the observed value of K is then compared to the randomized values. The p value tells us how many times out of 1000, a randomised value of *K* is more extreme than the observed value. If this number is low, the p value is low (e.g. if 5 out of 1000 randomised values of *K* are more extreme than the observed value p = 5/1000 = 0.005). 
+
+As above, to look at the output we just type in the name of the model; `KEye` in this case
+```{r}
+KEye
+```
+*K* for log eye size is 0.283. The p value tells us how many times out of 1000, a randomised value of *K* is more extreme than the observed value. If this number is low, the p value is low (e.g. if 5 out of 1000 randomised values of *K* are more extreme than the observed value p = 5/1000 = 0.005). Here p = 0.001, suggesting that only 1 randomised value of *K* was more extreme than the observed value. 
+
+We interpret this as *K* being significantly different from 0, i.e. there is significant phylogenetic signal in log eye size.
+
+```{block, type = "warning"}
+Remember that when fitting models to account for phylogenetic non-independence, it is *not* phylogenetic signal in the individual variables that is important. It is phylogenetic signal in the __residuals__ of the model that matters. Evidence of phylogenetic signal in variable X (or variable Y) does not necessarily mean that there will be phylogenetic signal in the residuals of a model correlating variable X with variable Y. Conversely, lack of evidence of phylogenetic signal in variable X (or variable Y) does not necessarily mean that there will be no phylogenetic signal in the residuals of a model correlating variable X with variable Y.
+```
+
+## Estimating phylogenetic signal for non-continuous variables
+Not all variables are continuous, some are categorical, some are binary. For example in the frog data `Adult_habitat`, `Life_history` and `Sex_dichromatism` are categorical variables. We can also code `Sex_dichromatism` as a binary variable if we code Absent as 0 and Present as 1.
+ 
+```{r}
+glimpse(mydata)
+```
+
+Estimating phylogenetic signal in categorical variables is tricky. Let's take `Adult_habitat` as an example. In this variable we have the following categories:
+
+```{r}
+mydata %>%
+ dplyr::select(Adult_habitat) %>%
+ distinct()
+```
+
+Remember with phylogenetic signal we are looking for the pattern where close relatives are more similar to one another than more distant relatives. For these categories, it would be sensible to say we had high phylogenetic signal if, for example, all toads are Semiaquatic, and all tree frogs are Scansorial (climbers). But what if some toads are Semiaquatic but others are Ground-dwelling? If we don't know how species transition from state to state, it's hard to know what we might expect to see as evolutionary distance between species increases. We might sensibly assume that species easily evolve from Semiaquatic to Aquatic, or from Subfossorial to Fossorial (burrowing), but what about changes from Aquatic to Fossorial? All of this makes phylogenetic signal for categorical variables a bit of a mess.
+
+There are a couple of, more or less satisfying, solutions...
+
+1. Do we actually *need* to know the phylogenetic signal for these variables? For the models we are interested in phylogenetic signal in the *residuals*, so maybe we don't care about phylogenetic signal in the variables? Unless there is a real need, don't bother! You could visualise what is going on instead by adding colours to the tips of the phylogeny to represent the different categories. This should give you an idea about whether categories cluster in different clades or not.
+
+2. We could code our categories numerically then use $\lambda$ and *K* as usual. *This is only suitable if the categories are ordered, and if the difference between each pair of categories can be considered equal*. For example, a variable that has low, medium and high values could be coded as low = 1, medium = 2, and high = 3. Again this is not ideal, but will give you an answer. I'd avoid this if possible.
+
+3. We could recode these as binary variables and use D [@fritz2010selectivity]. For example, creating a new variable called Aquatic, and coding each species as 0 = not aquatic; 1 = aquatic. This is probably the best solution.
+
+### *D*
+
+We can estimate D using the function `phylo.d` in the `caper` package.
+
+First we'd need to set up a binary (0,1) variable. Let's look at `Sex_dichromatism` as this only has two categories already (Absent and Present). 
+
+```{r}
+mydata %>%
+  group_by(Sex_dichromatism) %>%
+  summarise(n())
+```
+
+There are 36 species without data for this variable. If we were doing something like PGLS (see next exercise), `caper` would be fine with this, but for `phylo.d` we can only work with data without NAs. To fix this, we can use `filter` to exclude the species with NAs, but we also want to remove these species from the tree. It's easiest to go back to our `treeplyr` functions to do this.
+
+Let's first go back to `frogstuff`, the combined object with our data and our tree in it, so we can exclude the species without `Sex_dichromatism` data, making `frogstuff2`.
+```{r}
+# Filter out species with no Sex_dichromatism data
+frogstuff2 <-
+  frogstuff %>%
+  filter(!is.na(Sex_dichromatism))
+```
+
+Now we can go back to our usual workflow, but using `frogstuff2`.
+
+Replace the removed species names column, save the data as a dataframe for later analyses, and save the tree.
+
+```{r}
+# Make a new column called tiplabel with the tip labels in it
+frogstuff2$dat$tiplabel <- frogstuff2$phy$tip.label
+# Force mydata to be a data frame
+mydata <- as.data.frame(frogstuff2$dat)
+# Save tree as mytree
+mytree <- frogstuff2$phy
+```
+
+We also need the variable Sex_dichromatism to be either 0 or 1. We can do this fairly easily using mutate to create a new variable called `sex_di_binary`. 
+```{r}
+mydata <- 
+  mydata %>%
+  # Make a new variable called sex_di_binary
+  # which is Sex_dichromatism expressed as numbers
+  # Absent = 1 and Present = 2. To make these 0 and 1 instead we just use -1
+  mutate(sex_di_binary = as.numeric(Sex_dichromatism) - 1)
+```
+
+To use `phylo.d` we need the `caper` package. `caper` requires you to first combine the phylogeny and data into one object using the function `comparative.data`. This is similar to what we did with `make.treedata`, but it does some stuff that is particular to how `caper` works so we still need to do this here.
+
+Note that `vcv = TRUE` stores a variance covariance matrix of your tree (you will need this for the `pgls` function in the next exercise). `na.omit = FALSE` stops the function from removing species without data for all variables. `warn.dropped = TRUE` will tell you if any species are not in both the tree and the data and are therefore dropped from the comparative data object. 
+
+```{r}
+frog <- comparative.data(phy = mytree, data = mydata, 
+                            names.col = tiplabel, vcv = TRUE, 
+                            na.omit = FALSE, warn.dropped = TRUE)
+```
+
+This function will give a warning telling you that some species have been dropped. **Always** make sure you check the list of dropped species is what you expected, as it often reveals typos in your species names, or mismatches in taxonomies used etc. 
+
+You can view the dropped species using:
+
+```{r}
+frog$dropped$unmatched.rows
+```
+
+This shows nothing because we already fixed the data so that all the species in the data are in the tree.
+
+```{r}
+frog$dropped$tips
+```
+
+This also shows nothing because we already fixed the tree so that all the species in the tree are in the data.
+
+One last bit of prep required is that *D* cannot be estimated where trees have zero length branches. In `04-Preparation` you may recall that we dealt with polytomies by replacing them with zero length branches using the `ape` function `mutli2di`. To remove the zero length branches we are going to use the opposite function: `di2multi`. This deletes all zero length branches and collapses them back into polytomies.
+
+```{r}
+frog$phy <- di2multi(frog$phy)
+```
+
+Now we are ready to to estimate *D*.
+
+```{r}
+# Estimate D
+Dsexdi <- phylo.d(data = frog, names.col = tiplabel, binvar = sex_di_binary, 
+                  permut = 1000)
+
+# Look at the output
+Dsexdi
+```
+
+`phylo.d` estimates the D value, then tests the estimated D value for significant departure from random association and a Brownian evolution threshold model (see *Primer* and @fritz2010selectivity for more details).
+
+Here *D* for `Sex_dichromatism` is `r round(Dsexdi$DEstimate[[1]], digits = 3)`. This is significantly different from the expectation under a Brownian threshold model (p = `r round(Dsexdi$Pval0[[1]], digits = 3)`) but not significantly different from the trait being randomly assorted on the phylogeny (p = `r round(Dsexdi$Pval1[[1]], digits = 3)`). So here we can say there is no significant phylogenetic signal in the trait.
+
+We can make a really quick plot to check we agree with that statement (never take the results of any analysis at face value). It doesn't seem like sexual dichromatism (red text) is a trait that is particularly clustered within certain taxonomic groups, so seems that *D* is giving us a sensible answer.
+
+```{r}
+mycolours <- c("black", "red")
+
+plot(frog$phy, show.tip.label = TRUE, tip.color =     
+       mycolours[as.numeric(mydata$sex_di_binary)+1], 
+       no.margin = TRUE, cex = 0.4)
+# Add a legend
+legend("bottomleft", fill = mycolours, 
+       legend = c("Absent", "Present"), 
+       bty = "n")
+
+```
+```{block, type = "warning"}
+Always carefully consider what variation in values of $\lambda$ and *K* and *D* across traits and groups really means. It may not tell you as much about your system as you think it does. Phylogenetic signal is only a pattern, not a process!
+```
+
+## Summary
+You should now know how to estimate the phylogenetic signal of your variables using R.
+
+## Practical exercises
+In the data folder there is another tree (`primate-tree.nex`) and dataset (`primate-data.csv`) for investigating the evolution of primate life-history variables. These data come from the PanTHERIA database [@jones2009pantheria] and 10kTrees [@arnold201010ktrees]. 
+
+Read in the tree and data, then prepare them for a PCM analysis (you may have already done this in the previous exercise which should save you some time). Then answer the following questions:
+
+1. What is $\lambda$ for log gestation length? (`GestationLen_d`)
+2. What is *K* for log gestation length? (`GestationLen_d`)
+3. What is D for social status? (`SocialStatus`)
