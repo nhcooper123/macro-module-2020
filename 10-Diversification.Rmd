@@ -237,7 +237,7 @@ The message this produces tells you how many samples were read and how many excl
 #### How many rate shifts?
 The first thing we might like to know is how many rate shifts occur in our tree? We can do this using our event data (`edata`) to look at the posterior probabilities of models sampled by BAMM.
 
-```{r, eval = FALSE}
+```{r}
 # Look at the posterior for number of shifts
 summary(edata)
 ```

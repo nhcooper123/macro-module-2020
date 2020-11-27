@@ -124,7 +124,7 @@ write.nexus(tree, file = "data/mysuperdoopertree.nex")
 In the data folder there is another tree (`primate-tree.nex`) and dataset (`primate-data.csv`) for investigating the evolution of primate life-history variables. These data come from the PanTHERIA database [@jones2009pantheria] and 10kTrees [@arnold201010ktrees]. 
 
 Read in the tree and data then prepare them for a PCM analysis.
-```{r, eval = FALSE}
+```{r}
 # Load packages
 library(ape)
 library(geiger)
@@ -220,7 +220,7 @@ In the data folder there is another tree (`primate-tree.nex`) and dataset (`prim
 
 Read in the tree and data, then prepare them for a PCM analysis (you may have already done this in the previous exercise which should save you some time). Then use `phylosig` to answer the following questions:
 
-```{r, message = FALSE, eval = FALSE}
+```{r, message = FALSE}
 # Load the packages
 library(ape)
 library(geiger)
