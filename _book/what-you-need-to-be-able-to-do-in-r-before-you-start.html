@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 1 What you need to be able to do in R before you start | Practical exercises for Methods in Macroecology and Macroevolution module</title>
+  <meta name="description" content="Chapter 1 What you need to be able to do in R before you start | Practical exercises for Methods in Macroecology and Macroevolution module" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 1 What you need to be able to do in R before you start | Practical exercises for Methods in Macroecology and Macroevolution module" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 1 What you need to be able to do in R before you start | Practical exercises for Methods in Macroecology and Macroevolution module" />
+  
+  
+  
+
+<meta name="author" content="Natalie Cooper" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="diversity-indices-in-r.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">PCM Primer</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#datasets-and-scripts"><i class="fa fa-check"></i>Datasets and scripts</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-to-use-these-materials"><i class="fa fa-check"></i>How to use these materials</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#boxes"><i class="fa fa-check"></i>Boxes</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#example-datasets"><i class="fa fa-check"></i>Example datasets</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#frog-eye-size-evolution"><i class="fa fa-check"></i>Frog eye size evolution</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#natricine-snake-head-shape-evolution"><i class="fa fa-check"></i>Natricine snake head shape evolution</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#diversification-in-dragonflies"><i class="fa fa-check"></i>Diversification in dragonflies</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#citing-r-and-r-packages"><i class="fa fa-check"></i>Citing R and R packages</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><i class="fa fa-check"></i><b>1</b> What you need to be able to do in R before you start</a><ul>
+<li class="chapter" data-level="1.1" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#installing-r-and-rstudio"><i class="fa fa-check"></i><b>1.1</b> Installing R (and RStudio)</a></li>
+<li class="chapter" data-level="1.2" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#downloading-the-data"><i class="fa fa-check"></i><b>1.2</b> Downloading the data</a></li>
+<li class="chapter" data-level="1.3" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#r-projects"><i class="fa fa-check"></i><b>1.3</b> R Projects</a></li>
+<li class="chapter" data-level="1.4" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#using-a-script"><i class="fa fa-check"></i><b>1.4</b> Using a script</a></li>
+<li class="chapter" data-level="1.5" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#installing-and-loading-extra-packages-in-r"><i class="fa fa-check"></i><b>1.5</b> Installing and loading extra packages in R</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#loading-packages-into-r"><i class="fa fa-check"></i><b>1.5.1</b> Loading packages into R</a></li>
+<li class="chapter" data-level="1.5.2" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#ggtree-a-special-case-for-package-installation"><i class="fa fa-check"></i><b>1.5.2</b> <code>ggtree</code>, a special case for package installation</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#loading-and-viewing-your-data-in-r"><i class="fa fa-check"></i><b>1.6</b> Loading and viewing your data in R</a></li>
+<li class="chapter" data-level="1.7" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#errors-and-warnings"><i class="fa fa-check"></i><b>1.7</b> Errors and warnings</a><ul>
+<li class="chapter" data-level="1.7.1" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#removing-the"><i class="fa fa-check"></i><b>1.7.1</b> Removing the <code>+</code></a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#summary"><i class="fa fa-check"></i><b>1.8</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html"><i class="fa fa-check"></i><b>2</b> Diversity Indices in R</a><ul>
+<li class="chapter" data-level="2.1" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#before-you-start"><i class="fa fa-check"></i><b>2.1</b> Before you start</a></li>
+<li class="chapter" data-level="2.2" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#preparation"><i class="fa fa-check"></i><b>2.2</b> Preparation</a></li>
+<li class="chapter" data-level="2.3" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#what-are-diversity-indices"><i class="fa fa-check"></i><b>2.3</b> What are diversity indices?</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#alpha-beta-and-gamma-diversity"><i class="fa fa-check"></i><b>2.3.1</b> <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\gamma\)</span> diversity</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#practical-example-using-pokemon"><i class="fa fa-check"></i><b>2.4</b> Practical example using Pokemon…</a></li>
+<li class="chapter" data-level="2.5" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#species-diversity-indices"><i class="fa fa-check"></i><b>2.5</b> Species diversity indices</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#alpha-diversity"><i class="fa fa-check"></i><b>2.5.1</b> <span class="math inline">\(\alpha\)</span> diversity</a></li>
+<li class="chapter" data-level="2.5.2" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#beta-diversity"><i class="fa fa-check"></i><b>2.5.2</b> <span class="math inline">\(\beta\)</span> diversity</a></li>
+<li class="chapter" data-level="2.5.3" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#gamma-diversity"><i class="fa fa-check"></i><b>2.5.3</b> <span class="math inline">\(\gamma\)</span> diversity</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#species-accumulation-curves-colwell-coddington-1994"><i class="fa fa-check"></i><b>2.6</b> Species accumulation curves (Colwell &amp; Coddington 1994)</a><ul>
+<li class="chapter" data-level="2.6.1" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#pokemon-species-accumulation-curves"><i class="fa fa-check"></i><b>2.6.1</b> Pokemon species accumulation curves</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#practical-exercise"><i class="fa fa-check"></i><b>2.7</b> Practical exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html"><i class="fa fa-check"></i><b>3</b> Understanding, plotting and manipulating phylogenies in R</a><ul>
+<li class="chapter" data-level="3.1" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#before-you-start-1"><i class="fa fa-check"></i><b>3.1</b> Before you start</a></li>
+<li class="chapter" data-level="3.2" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#what-do-phylogeny-files-look-like"><i class="fa fa-check"></i><b>3.2</b> What do phylogeny files look like?</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#newick-trees"><i class="fa fa-check"></i><b>3.2.1</b> Newick trees</a></li>
+<li class="chapter" data-level="3.2.2" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#nexus-trees"><i class="fa fa-check"></i><b>3.2.2</b> NEXUS trees</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#how-are-phylogenies-formatted-in-r"><i class="fa fa-check"></i><b>3.3</b> How are phylogenies formatted in R?</a></li>
+<li class="chapter" data-level="3.4" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#plotting-phylogenies"><i class="fa fa-check"></i><b>3.4</b> Plotting phylogenies</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#basic-phylogeny-plotting-with-ape"><i class="fa fa-check"></i><b>3.4.1</b> Basic phylogeny plotting with APE</a></li>
+<li class="chapter" data-level="3.4.2" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#basic-phylogeny-plotting-with-ggtree"><i class="fa fa-check"></i><b>3.4.2</b> Basic phylogeny plotting with <code>ggtree</code></a></li>
+<li class="chapter" data-level="3.4.3" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#back-to-ggtree"><i class="fa fa-check"></i><b>3.4.3</b> Back to <code>ggtree</code></a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#phylogeny-manipulation"><i class="fa fa-check"></i><b>3.5</b> Phylogeny manipulation</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#removing-polytomies"><i class="fa fa-check"></i><b>3.5.1</b> Removing polytomies</a></li>
+<li class="chapter" data-level="3.5.2" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#rooting-your-phylogeny"><i class="fa fa-check"></i><b>3.5.2</b> Rooting your phylogeny</a></li>
+<li class="chapter" data-level="3.5.3" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#manipulating-the-species-in-your-phlyogeny"><i class="fa fa-check"></i><b>3.5.3</b> Manipulating the species in your phlyogeny</a></li>
+<li class="chapter" data-level="3.5.4" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#writing-phylogenies-to-file"><i class="fa fa-check"></i><b>3.5.4</b> Writing phylogenies to file</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#summary-1"><i class="fa fa-check"></i><b>3.6</b> Summary</a></li>
+<li class="chapter" data-level="3.7" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#practical-exercise-1"><i class="fa fa-check"></i><b>3.7</b> Practical exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html"><i class="fa fa-check"></i><b>4</b> Preparing your tree and data for PCMs in R</a><ul>
+<li class="chapter" data-level="4.1" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#before-you-start-2"><i class="fa fa-check"></i><b>4.1</b> Before you start</a></li>
+<li class="chapter" data-level="4.2" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#preparation-1"><i class="fa fa-check"></i><b>4.2</b> Preparation</a></li>
+<li class="chapter" data-level="4.3" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#reading-and-checking-your-phylogeny-in-r"><i class="fa fa-check"></i><b>4.3</b> Reading and checking your phylogeny in R</a></li>
+<li class="chapter" data-level="4.4" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#reading-the-data-into-r"><i class="fa fa-check"></i><b>4.4</b> Reading the data into R</a></li>
+<li class="chapter" data-level="4.5" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#matching-your-data-to-your-phylogeny"><i class="fa fa-check"></i><b>4.5</b> Matching your data to your phylogeny</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#species-names-with-spaces"><i class="fa fa-check"></i><b>4.5.1</b> Species names with spaces</a></li>
+<li class="chapter" data-level="4.5.2" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#mismatches-between-species-in-your-data-and-phylogeny"><i class="fa fa-check"></i><b>4.5.2</b> Mismatches between species in your data and phylogeny</a></li>
+<li class="chapter" data-level="4.5.3" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#matching-the-tree-and-the-data"><i class="fa fa-check"></i><b>4.5.3</b> Matching the tree and the data</a></li>
+<li class="chapter" data-level="4.5.4" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#subsetting-your-tree-and-data"><i class="fa fa-check"></i><b>4.5.4</b> Subsetting your tree and data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#quick-template-code"><i class="fa fa-check"></i><b>4.6</b> Quick template code</a></li>
+<li class="chapter" data-level="4.7" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#summary-2"><i class="fa fa-check"></i><b>4.7</b> Summary</a></li>
+<li class="chapter" data-level="4.8" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#practical-exercise-2"><i class="fa fa-check"></i><b>4.8</b> Practical exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html"><i class="fa fa-check"></i><b>5</b> Phylogenetic Signal in R</a><ul>
+<li class="chapter" data-level="5.1" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#before-you-start-3"><i class="fa fa-check"></i><b>5.1</b> Before you start</a></li>
+<li class="chapter" data-level="5.2" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#preparation-2"><i class="fa fa-check"></i><b>5.2</b> Preparation</a></li>
+<li class="chapter" data-level="5.3" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#estimating-phylogenetic-signal-for-continuous-variables"><i class="fa fa-check"></i><b>5.3</b> Estimating phylogenetic signal for continuous variables</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#pagels-lambda"><i class="fa fa-check"></i><b>5.3.1</b> Pagel’s <span class="math inline">\(\lambda\)</span></a></li>
+<li class="chapter" data-level="5.3.2" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#blombergs-k-blomberg-et-al-2003"><i class="fa fa-check"></i><b>5.3.2</b> Blomberg’s <em>K</em> (Blomberg et al 2003)</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#estimating-phylogenetic-signal-for-non-continuous-variables"><i class="fa fa-check"></i><b>5.4</b> Estimating phylogenetic signal for non-continuous variables</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#d"><i class="fa fa-check"></i><b>5.4.1</b> <em>D</em></a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#summary-3"><i class="fa fa-check"></i><b>5.5</b> Summary</a></li>
+<li class="chapter" data-level="5.6" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#practical-exercises"><i class="fa fa-check"></i><b>5.6</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html"><i class="fa fa-check"></i><b>6</b> Phylogenetic Generalised Least Squares (PGLS) in R</a><ul>
+<li class="chapter" data-level="6.1" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#before-you-start-4"><i class="fa fa-check"></i><b>6.1</b> Before you start</a></li>
+<li class="chapter" data-level="6.2" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#preparation-3"><i class="fa fa-check"></i><b>6.2</b> Preparation</a></li>
+<li class="chapter" data-level="6.3" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#phylogenetic-generalized-least-squares-models-pgls"><i class="fa fa-check"></i><b>6.3</b> Phylogenetic generalized least squares models (PGLS)</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#fitting-pgls-models-in-r"><i class="fa fa-check"></i><b>6.3.1</b> Fitting PGLS models in R</a></li>
+<li class="chapter" data-level="6.3.2" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#model-diagnostics-for-pgls-models"><i class="fa fa-check"></i><b>6.3.2</b> Model diagnostics for PGLS models</a></li>
+<li class="chapter" data-level="6.3.3" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#likelihood-profiles-for-lambda-in-pgls-models"><i class="fa fa-check"></i><b>6.3.3</b> Likelihood profiles for <span class="math inline">\(\lambda\)</span> in PGLS models</a></li>
+<li class="chapter" data-level="6.3.4" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#a-pgls-example-with-more-than-one-predictor-variable"><i class="fa fa-check"></i><b>6.3.4</b> A PGLS example with more than one predictor variable</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#common-issues-when-running-pgls-models-in-r"><i class="fa fa-check"></i><b>6.4</b> Common issues when running PGLS models in R</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#optim-errors"><i class="fa fa-check"></i><b>6.4.1</b> Optim errors</a></li>
+<li class="chapter" data-level="6.4.2" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#big-problems-with-small-datasets"><i class="fa fa-check"></i><b>6.4.2</b> Big problems with small datasets</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#summary-4"><i class="fa fa-check"></i><b>6.5</b> Summary</a></li>
+<li class="chapter" data-level="6.6" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#practical-exercises-1"><i class="fa fa-check"></i><b>6.6</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html"><i class="fa fa-check"></i><b>7</b> Macroevolutionary models for continuous traits</a><ul>
+<li class="chapter" data-level="7.1" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#before-you-start-5"><i class="fa fa-check"></i><b>7.1</b> Before you start</a></li>
+<li class="chapter" data-level="7.2" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#preparation-4"><i class="fa fa-check"></i><b>7.2</b> Preparation</a></li>
+<li class="chapter" data-level="7.3" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#models-of-evolution-for-continuous-traits"><i class="fa fa-check"></i><b>7.3</b> Models of evolution for continuous traits</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#loook-at-the-data"><i class="fa fa-check"></i><b>7.3.1</b> loook at the data????</a></li>
+<li class="chapter" data-level="7.3.2" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#fitting-the-brownian-motion-and-ou-models-of-evolution-using-fitcontinuous"><i class="fa fa-check"></i><b>7.3.2</b> Fitting the Brownian motion and OU models of evolution using <code>fitContinuous</code></a></li>
+<li class="chapter" data-level="7.3.3" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#comparing-models-of-evolution-using-aic"><i class="fa fa-check"></i><b>7.3.3</b> Comparing models of evolution using AIC</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#summary-5"><i class="fa fa-check"></i><b>7.4</b> Summary</a></li>
+<li class="chapter" data-level="7.5" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#practical-exercises-2"><i class="fa fa-check"></i><b>7.5</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html"><i class="fa fa-check"></i><b>8</b> Macroevolutionary models for discrete traits</a><ul>
+<li class="chapter" data-level="8.1" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#before-you-start-6"><i class="fa fa-check"></i><b>8.1</b> Before you start</a></li>
+<li class="chapter" data-level="8.2" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#preparation-5"><i class="fa fa-check"></i><b>8.2</b> Preparation</a></li>
+<li class="chapter" data-level="8.3" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#models-of-evolution-for-discrete-traits"><i class="fa fa-check"></i><b>8.3</b> Models of evolution for discrete traits</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#fitting-the-er-sym-and-ard-models-of-evolution-using-fitdiscrete"><i class="fa fa-check"></i><b>8.3.1</b> Fitting the ER, SYM and ARD models of evolution using <code>fitDiscrete</code></a></li>
+<li class="chapter" data-level="8.3.2" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#comparing-models-of-evolution-using-aic-1"><i class="fa fa-check"></i><b>8.3.2</b> Comparing models of evolution using AIC</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#ancestral-state-estimations"><i class="fa fa-check"></i><b>8.4</b> Ancestral state estimations</a></li>
+<li class="chapter" data-level="8.5" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#summary-6"><i class="fa fa-check"></i><b>8.5</b> Summary</a></li>
+<li class="chapter" data-level="8.6" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#practical-exercises-3"><i class="fa fa-check"></i><b>8.6</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><i class="fa fa-check"></i><b>9</b> Beyond simple macroevolutionary models of trait evolution</a><ul>
+<li class="chapter" data-level="9.1" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#before-you-start-7"><i class="fa fa-check"></i><b>9.1</b> Before you start</a></li>
+<li class="chapter" data-level="9.2" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#preparation-6"><i class="fa fa-check"></i><b>9.2</b> Preparation</a></li>
+<li class="chapter" data-level="9.3" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#more-complex-models-of-trait-evolution"><i class="fa fa-check"></i><b>9.3</b> More complex models of trait evolution</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#preparing-the-tree-and-data-for-ouwie"><i class="fa fa-check"></i><b>9.3.1</b> Preparing the tree and data for OUwie</a></li>
+<li class="chapter" data-level="9.3.2" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#running-models-using-ouwie"><i class="fa fa-check"></i><b>9.3.2</b> Running models using OUwie</a></li>
+<li class="chapter" data-level="9.3.3" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#single-rate-bm-models"><i class="fa fa-check"></i><b>9.3.3</b> Single rate BM models</a></li>
+<li class="chapter" data-level="9.3.4" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#single-optimum-ou-models"><i class="fa fa-check"></i><b>9.3.4</b> Single optimum OU models</a></li>
+<li class="chapter" data-level="9.3.5" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#multi-rate-bm-bms-models"><i class="fa fa-check"></i><b>9.3.5</b> Multi-rate BM (BMS) models</a></li>
+<li class="chapter" data-level="9.3.6" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#multi-optima-ou-oum-models"><i class="fa fa-check"></i><b>9.3.6</b> Multi-optima OU (OUM) models</a></li>
+<li class="chapter" data-level="9.3.7" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#multi-rate-multi-optima-ou-motion-models-oumv"><i class="fa fa-check"></i><b>9.3.7</b> Multi-rate multi-optima OU motion models (OUMV)</a></li>
+<li class="chapter" data-level="9.3.8" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#multi-alpha-multi-optima-ou-motion-models-ouma"><i class="fa fa-check"></i><b>9.3.8</b> Multi-alpha multi-optima OU motion models (OUMA)</a></li>
+<li class="chapter" data-level="9.3.9" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#multi-rate-multi-optima-ou-motion-models-oumva"><i class="fa fa-check"></i><b>9.3.9</b> Multi-rate multi-optima OU motion models (OUMVA)</a></li>
+<li class="chapter" data-level="9.3.10" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#comparing-models-of-evolution-using-aic-2"><i class="fa fa-check"></i><b>9.3.10</b> Comparing models of evolution using AIC</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#summary-7"><i class="fa fa-check"></i><b>9.4</b> Summary</a></li>
+<li class="chapter" data-level="9.5" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#practical-exercises-4"><i class="fa fa-check"></i><b>9.5</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html"><i class="fa fa-check"></i><b>10</b> Diversification rate analyses</a><ul>
+<li class="chapter" data-level="10.1" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#before-you-start-8"><i class="fa fa-check"></i><b>10.1</b> Before you start</a></li>
+<li class="chapter" data-level="10.2" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#preparation-7"><i class="fa fa-check"></i><b>10.2</b> Preparation</a></li>
+<li class="chapter" data-level="10.3" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#lineage-through-time-plots-and-the-gamma-statistic"><i class="fa fa-check"></i><b>10.3</b> Lineage through time plots and the <span class="math inline">\(\gamma\)</span> statistic</a></li>
+<li class="chapter" data-level="10.4" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#bamm-bayesian-analysis-of-macroevolutionary-mixtures"><i class="fa fa-check"></i><b>10.4</b> BAMM: Bayesian Analysis of Macroevolutionary Mixtures</a></li>
+<li class="chapter" data-level="10.5" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#running-bamm"><i class="fa fa-check"></i><b>10.5</b> Running BAMM</a></li>
+<li class="chapter" data-level="10.6" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#looking-at-the-output-of-bamm-using-bammtools-in-r"><i class="fa fa-check"></i><b>10.6</b> Looking at the output of BAMM using BAMMtools in R</a><ul>
+<li class="chapter" data-level="10.6.1" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#assessing-mcmc-convergence"><i class="fa fa-check"></i><b>10.6.1</b> Assessing MCMC convergence</a></li>
+<li class="chapter" data-level="10.6.2" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#analysis-of-rate-shifts-in-the-dragonfly-phylogeny"><i class="fa fa-check"></i><b>10.6.2</b> Analysis of rate shifts in the dragonfly phylogeny</a></li>
+<li class="chapter" data-level="10.6.3" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#mean-phylorate-plot"><i class="fa fa-check"></i><b>10.6.3</b> Mean phylorate plot</a></li>
+<li class="chapter" data-level="10.6.4" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#best-single-distinct-shift-configuration"><i class="fa fa-check"></i><b>10.6.4</b> Best single distinct shift configuration</a></li>
+</ul></li>
+<li class="chapter" data-level="10.7" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#credible-sets-of-shifts"><i class="fa fa-check"></i><b>10.7</b> Credible sets of shifts</a></li>
+<li class="chapter" data-level="10.8" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#clade-specific-evolutionary-rates"><i class="fa fa-check"></i><b>10.8</b> Clade specific evolutionary rates</a></li>
+<li class="chapter" data-level="10.9" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#rate-through-time-analysis"><i class="fa fa-check"></i><b>10.9</b> Rate-through-time analysis</a></li>
+<li class="chapter" data-level="10.10" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#macroevolutionary-cohort-analysis"><i class="fa fa-check"></i><b>10.10</b> Macroevolutionary cohort analysis</a></li>
+<li class="chapter" data-level="10.11" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#assumptions-and-issues-with-bamm"><i class="fa fa-check"></i><b>10.11</b> Assumptions and issues with BAMM</a></li>
+<li class="chapter" data-level="10.12" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#summary-8"><i class="fa fa-check"></i><b>10.12</b> Summary</a></li>
+<li class="chapter" data-level="10.13" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#practical-exercises-5"><i class="fa fa-check"></i><b>10.13</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html"><i class="fa fa-check"></i><b>11</b> Critical thinking about methods and analyses</a><ul>
+<li class="chapter" data-level="11.1" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#how-to-critically-evaluate-a-paper-that-uses-phylogenetic-comparative-methods"><i class="fa fa-check"></i><b>11.1</b> How to critically evaluate a paper that uses phylogenetic comparative methods</a><ul>
+<li class="chapter" data-level="" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#logicinterpretation"><i class="fa fa-check"></i>Logic/interpretation</a></li>
+<li class="chapter" data-level="" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#data"><i class="fa fa-check"></i>Data</a></li>
+<li class="chapter" data-level="" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#methods"><i class="fa fa-check"></i>Methods</a></li>
+<li class="chapter" data-level="" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#moving-forwards"><i class="fa fa-check"></i>Moving forwards</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#further-reading"><i class="fa fa-check"></i><b>11.2</b> Further reading</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html"><i class="fa fa-check"></i><b>12</b> Answers to practical exercises</a><ul>
+<li class="chapter" data-level="12.1" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#diversity-indices"><i class="fa fa-check"></i><b>12.1</b> Diversity indices</a></li>
+<li class="chapter" data-level="12.2" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#phylogenies"><i class="fa fa-check"></i><b>12.2</b> Phylogenies</a></li>
+<li class="chapter" data-level="12.3" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#preparation-8"><i class="fa fa-check"></i><b>12.3</b> Preparation</a></li>
+<li class="chapter" data-level="12.4" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#phylogenetic-signal"><i class="fa fa-check"></i><b>12.4</b> Phylogenetic signal</a></li>
+<li class="chapter" data-level="12.5" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#pgls"><i class="fa fa-check"></i><b>12.5</b> PGLS</a></li>
+<li class="chapter" data-level="12.6" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#models-of-evolution-with-continuous-traits"><i class="fa fa-check"></i><b>12.6</b> Models of evolution with continuous traits</a></li>
+<li class="chapter" data-level="12.7" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#models-of-evolution-with-discrete-traits"><i class="fa fa-check"></i><b>12.7</b> Models of evolution with discrete traits</a></li>
+<li class="chapter" data-level="12.8" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#beyond-simple-macroevolutionary-models-of-trait-evolution-1"><i class="fa fa-check"></i><b>12.8</b> Beyond simple macroevolutionary models of trait evolution</a></li>
+<li class="chapter" data-level="12.9" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#diversification"><i class="fa fa-check"></i><b>12.9</b> Diversification</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Practical exercises for Methods in Macroecology and Macroevolution module</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="what-you-need-to-be-able-to-do-in-r-before-you-start" class="section level1">
+<h1><span class="header-section-number">Chapter 1</span> What you need to be able to do in R before you start</h1>
+<p>These days most people have used R a bit, but it is possible you’re a bit rusty, or have no R experience. This isn’t a problem, I will try and summarise what you need to be able to do to get these exercises running below. I am not, however, going to write a full introductory guide to R here, so if you’ve never used R before or find it a bit of a struggle, I strongly recommend the book <a href="http://www.r4all.org/">Getting Started With R</a> or there are lots of great tutorials online.</p>
+<p>Throughout, R code will be in shaded boxes:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#cb10-1"></a><span class="kw">library</span>(ape)</span></code></pre></div>
+<p>R output will be preceded by ## and important comments will be in quote blocks:</p>
+<div class="info">
+<p>
+Note that many things in R can be done in multiple ways. You should choose the methods you feel most comfortable with. Don’t panic if I do it differently!
+</p>
+</div>
+<div id="installing-r-and-rstudio" class="section level2">
+<h2><span class="header-section-number">1.1</span> Installing R (and RStudio)</h2>
+<ul>
+<li>Install R from <a href="https://cran.r-project.org" class="uri">https://cran.r-project.org</a></li>
+<li>You can install RStudio (Desktop) from <a href="http://www.rstudio.com/products/rstudio/download/" class="uri">http://www.rstudio.com/products/rstudio/download/</a>.
+I highly recommend using RStudio and I will assume you are using it throughout. RStudio is just a wrapper around R, so you <em>still need to install R</em> to use RStudio.</li>
+<li>If using a Mac, you should also install XQuartz: <a href="https://www.xquartz.org/" class="uri">https://www.xquartz.org/</a></li>
+</ul>
+</div>
+<div id="downloading-the-data" class="section level2">
+<h2><span class="header-section-number">1.2</span> Downloading the data</h2>
+<p>As mentioned in the Preface, the data/trees and an R Project (<code>.Rproj</code>) file for each exercise are in the appropriate folder for each practical exercise. To work through the exercises you need to download all the files into a folder somewhere on your computer. Don’t forget to <strong>unzip</strong> this before starting. Note that there is a folder for each of the exercises in the book.</p>
+<p>Some datasets are built into R and/or various R packages (see below), so you may see me access these just using code like this (<code>cars</code> is a dataset built into R):</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#cb11-1"></a><span class="kw">data</span>(cars)</span></code></pre></div>
+<p>Note that this won’t produce any output unless we then ask it to do something with the data, for example print the first six rows…</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#cb12-1"></a><span class="kw">head</span>(cars)</span></code></pre></div>
+<pre><code>##   speed dist
+## 1     4    2
+## 2     4   10
+## 3     7    4
+## 4     7   22
+## 5     8   16
+## 6     9   10</code></pre>
+</div>
+<div id="r-projects" class="section level2">
+<h2><span class="header-section-number">1.3</span> R Projects</h2>
+<p>One feature of R that tends to trip up beginners is that to read data into R you need to tell R where to look for the data. In the past we might have solved this problem by setting the working directory, or writing the full path to a file into our code. This works fine, but if you later move the folder or the data, or send it to a collaborator/supervisor the code stops working. Luckily RStudio has a great solution to the problem: R Projects. If you’re working in an R Project, R will automatically look for data in the folder you’ve chosen to be the project folder!</p>
+<p>What’s a Project? A “Project” is just a folder that contains a sensible unit of work, for example your undergraduate or masters thesis, a chapter of your PhD thesis, a paper, or a coursework project. Projects will likely contain several files, including data and R scripts. You may also want to store information related to the report/thesis chapter/coursework that you’re writing.</p>
+<p>To make an R Project for practical exercises in <code>05-PGLSinR</code>, for example, go to the menu in RStudio and click <strong>File &gt; New Project</strong>. You should now see a dialogue box with three options: <em>New Directory</em>, <em>Existing Directory</em>, or <em>Version Control</em> (<em>Directory</em> just means a folder on your computer). Because we already have a folder choose the option <em>Existing Directory</em>. The dialogue box moves on so we can use the <em>Browse</em> button to locate the folder <code>05-PGLSinR</code>. Finally, click the <em>Create Project</em> button.</p>
+<p>This will cause a few things to happen. First, RStudio may ask if you want to save any unsaved files if you were already doing something in RStudio. Save them if they are important! Second, RStudio will look like it restarted. And third, a new file will appear in the folder: the <code>.Rproj</code> file, with the same file name as your R Project. When you want to use that R Project in future just double click the <code>.Rproj</code> icon in the folder and it will open the R Project in RStudio for you.</p>
+<div class="info">
+<p>
+To save you some time we have made an <code>.Rproj</code> file for each chapter of this book. They should have been downloaded with the data. To use these just navigate to the appropriate chapter folder and double click the <code>.Rproj</code> icon to start.
+</p>
+</div>
+</div>
+<div id="using-a-script" class="section level2">
+<h2><span class="header-section-number">1.4</span> Using a script</h2>
+<p>We can use R straight from the Console (the bottom left hand window in a standard RStudio set up), but this is not ideal for various reasons. Firstly, if we want to run a series of separate commands, and perhaps run them again in the future, or alter one of the commands thus needing to re-run all the subsequent ones, then typing commands into the Console is a pain. Equally we might want to save our commands for future use. To do this we use a script.</p>
+<p>To get a new script in RStudio use the menus to go from <strong>File &gt; New File &gt; R Script</strong>. You should type (or copy and paste) your code into the script, edit it until you think it’ll work, and then either paste it into R’s console window, or you can highlight the bit of code you want to run and press <code>ctrl</code> or <code>cmd</code> and <code>enter</code> or <code>R</code> (different computers seem to do this differently). This will automatically send it to the console.</p>
+<p>Saving the script file lets you keep a record of the code you used, which can be a great time saver if you want to use it again, especially as you know this code will work!</p>
+<div class="info">
+<p>
+You can cut and paste code from these materials into your script. You don’t need to retype everything!
+</p>
+</div>
+<p>If you want to add comments to the file (i.e., notes to remind yourself what the code is doing), put a hash/pound sign (#) in front of the comment. Comments are really important to you remember what you did and why. Always write comments, and generally write more than you think you will need. Future you will thank past you when you need to rerun these analyses in six months!</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#cb14-1"></a><span class="co"># Comments are ignored by R but remind you what the code is doing. </span></span>
+<span id="cb14-2"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#cb14-2"></a><span class="co"># You need a # at the start of each line of a comment.</span></span>
+<span id="cb14-3"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#cb14-3"></a><span class="co"># Always make plenty of notes to help you remember what you did and why</span></span></code></pre></div>
+</div>
+<div id="installing-and-loading-extra-packages-in-r" class="section level2">
+<h2><span class="header-section-number">1.5</span> Installing and loading extra packages in R</h2>
+<p>You’ll notice at the start of each exercise we remind you of the packages you need to install and load. To run any specialised analysis in R, you need to download one or more additional packages on top of the basic R installation. <strong>You need to be connected to the internet to do this</strong>.</p>
+<p>To install the package <code>ape</code>:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#cb15-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;ape&quot;</span>)</span></code></pre></div>
+<p>Pick the closest mirror to you if asked. Do not put this code into your script as you only need to do this <em>once</em> (until you need to update R), and it’s a waste of your time to do it each time you run your script.</p>
+<p>You can also install more than one package at a time:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#cb16-1"></a><span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">&quot;ape&quot;</span>, <span class="st">&quot;picante&quot;</span>))</span></code></pre></div>
+<p>Alternatively, you can use the <em>Packages</em> tab in RStudio (in the bottom left hand window in a standard RStudio set up). If you click the <em>Install</em> button this will open a pop up where you can type in a list of the packages you want to install, and then just click Install. If you do this, you’ll see the appropriate <code>install.packages</code> code appear in your console.</p>
+<p>If everything worked you will see some (often a lot if you’re installing a big package like <code>tidyverse</code> or <code>ggtree</code>) text appearing in the console, and the occasional <em>warning</em> message but importantly <strong>no error messages</strong>. Don’t let this worry you. If you’re in doubt about whether a package has installed correctly, go to the next step (see <em>Loading packages into R</em> below) to check.</p>
+<p>If you see an error message (these will contain the preface<code>Error:</code>, see section below on <em>Errors and warnings</em> for more details), then something, somewhere has gone wrong. Installation errors will generally say something about <code>non-zero exit status</code> of the package, which just tells you that it was not installed. You might need to scroll up a bit to find this.</p>
+<p>Some common issues that might arise when installing packages are:</p>
+<ol style="list-style-type: decimal">
+<li><p>R asks if you would like to update other packages that the package you are installing needs to work. You might see the question <code>Update all/some/none? [a/s/n]:</code>. In that case type <code>a</code> and press enter, and R will update these packages too.</p></li>
+<li><p>R asks if you <code>Do you want to install from sources the packages which need compilation? (Yes/no/cancel)</code> or similar. In this case, type <code>Yes</code> or <code>y</code> or whatever the suggested option is for yes. <strong>However</strong> if this doesn’t work and the installation gives you an error, try installing again and this time choose the option for <em>no</em>. Some packages will need to be compiled from source. If you’re using a Mac you may also need to install <code>clang</code> from this page <a href="https://cran.r-project.org/bin/macosx/tools/" class="uri">https://cran.r-project.org/bin/macosx/tools/</a> before this will work.</p></li>
+<li><p>An annoying error you may encounter (generally on a Mac), is that you keep seeing error messages when trying to install some packages, even after trying the solutions above. This might be because you’re installing via the RStudio default server for packages. To fix this, change your default by going to <strong>RStudio &gt; Preferences &gt; Packages</strong>. You should see a box with <strong>CRAN mirror</strong> above it. Change this from <code>Global (CDN) RStudio</code> to your closest mirror on the list and click <strong>Apply</strong>. This should fix the problem and only needs to be done once. Note that this issue may be fixed soon by RStudio, but has been an issue in the current version.</p></li>
+<li><p>If you see <code>non-zero exit status</code> and the name of a package you weren’t trying to install, it just means that this package is needed for the package you are trying to install to work. In these cases, try installing that package, then if that works try again with the package you wanted to try and install.</p></li>
+<li><p>If it still won’t work, it’s also worth trying to install packages both in RStudio, and just in the normal version of R you downloaded. For this there is no Packages tab so you need to use <code>install.packages</code>.</p></li>
+</ol>
+<div class="info">
+<p>
+If you get other kinds of errors don’t panic. Check you are connected to the internet. Read the error message carefully to see if it gives you any clues. If that fails, try pasting the error message into Google and seeing if anyone else has had the same error.
+</p>
+</div>
+<div id="loading-packages-into-r" class="section level3">
+<h3><span class="header-section-number">1.5.1</span> Loading packages into R</h3>
+<p>You’ve <em>installed</em> the packages but they don’t automatically get loaded into your R session. Instead you need to tell R to load them <strong>every time</strong> you start a new R session and want to use functions from these packages. To load the package <code>ape</code> into your current R session:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#cb17-1"></a><span class="kw">library</span>(ape)</span></code></pre></div>
+<p>You can think of <code>install.packages</code> like installing an app from the App Store on your smart phone - <em>you only do this once</em> - and <code>library</code> as being like pushing the app button on your phone - <em>you do this every time you want to use the app</em> (credit to Dylan Childs for this great analogy!).</p>
+<p>For many packages, you won’t see any message at all when you run <code>library(package_name)</code>. That means the code has worked. Some packages will print a message explaining some feature of the package, or telling you that it is also loading some other package, or highlighting that the package was written for a newer version of R. As long as you don’t see an error message, everything is fine.</p>
+<div class="info">
+<p>
+If you run <code>library(package_name)</code> and you get the error message <code>Error in library(package_name) : there is no package called ‘package_name’package not found</code>, this means you have not installed the package properly. Often just going back and trying to install it again will work. Or check out the list of possible solutions above.
+</p>
+</div>
+</div>
+<div id="ggtree-a-special-case-for-package-installation" class="section level3">
+<h3><span class="header-section-number">1.5.2</span> <code>ggtree</code>, a special case for package installation</h3>
+<p>Packages are generally installed from CRAN, the same place you downloaded R from. But some communities share their packages in different ways. <code>ggtree</code> is one such package. To install <code>ggtree</code> we need to use Bioconductor instead as follows:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#cb18-1"></a><span class="cf">if</span> (<span class="op">!</span><span class="kw">requireNamespace</span>(<span class="st">&quot;BiocManager&quot;</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>))</span>
+<span id="cb18-2"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#cb18-2"></a>    <span class="kw">install.packages</span>(<span class="st">&quot;BiocManager&quot;</span>)</span>
+<span id="cb18-3"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#cb18-3"></a></span>
+<span id="cb18-4"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#cb18-4"></a>BiocManager<span class="op">::</span><span class="kw">install</span>(<span class="st">&quot;ggtree&quot;</span>)</span></code></pre></div>
+<p>You still need to load it using <code>library</code> as usual. Note that <code>ggtree</code> will produce a long message when you first load it telling you how to cite the package, and some functions it contains with the same names as functions in other packages (I’ve supressed this here).</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#cb19-1"></a><span class="kw">library</span>(ggtree)</span></code></pre></div>
+</div>
+</div>
+<div id="loading-and-viewing-your-data-in-r" class="section level2">
+<h2><span class="header-section-number">1.6</span> Loading and viewing your data in R</h2>
+<p>R can read files in lots of formats, but for simplicity we’ll use comma-delimited or <code>.csv</code> files in these exercises. Excel (and many other applications) can output files in this format (it’s an option in the <code>Save As</code> dialogue box under the <code>File</code> menu).</p>
+<p>As an example, here is how you would read in a comma-delimited text file called <code>Primatedata.csv</code> using the <code>readr</code> package:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#cb20-1"></a><span class="kw">library</span>(readr)</span>
+<span id="cb20-2"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#cb20-2"></a>primatedata &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;Primatedata.csv&quot;</span>)</span></code></pre></div>
+<p>This is a good point to note that unless you <strong>tell</strong> R you want to do something, it won’t do it automatically. So here if you successfully entered the data, R won’t give you any indication that it worked. Instead you need to specifically ask R to look at the data.</p>
+<p>We can look at the data by typing:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#cb21-1"></a><span class="kw">str</span>(primatedata)</span></code></pre></div>
+<p>Or if we are using the <code>tidyverse</code> packages</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#cb22-1"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb22-2"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#cb22-2"></a><span class="kw">glimpse</span>(primatedata)</span></code></pre></div>
+<p>I’ve suppressed the output here to keep things simple. <strong>Always</strong> look at your data before beginning any analysis to check it read in correctly. We will cover this in more detail in later sections.</p>
+</div>
+<div id="errors-and-warnings" class="section level2">
+<h2><span class="header-section-number">1.7</span> Errors and warnings</h2>
+<p><em>Errors</em> are where the code fails to run and you see an <em>error message</em> prefaced in R by <code>Error:</code>. Often these mistakes are caused by typos, missing commas, or missing brackets. R is <em>very</em> pedantic so this happens a lot! But they can also be caused by applying functions incorrectly or to the wrong kinds of data. Error messages are sometimes helpful, but often pretty baffling especially for beginners.</p>
+<p>If you get an error message don’t panic. Read the message and see if you can work out what the issue is. Check your code carefully for typos. Make sure you’re using the correct data and variable names etc. If you can’t work out what the error means, try Googling it (remove any words specific to your data from it first). Google may be able to tell you what the issue is. If that still doesn’t help, try asking colleagues or post a question online.</p>
+<p>The important thing about errors is that the code does not run. <em>Warnings</em>, on the other hand, appear when the code runs fine, but R wants to alert us to something, for example that the code might not be doing what you intended, or R has recognised that something you asked it to do is a bit risky. <strong>Do not ignore warning messages!</strong>. Always read the warning message and try to understand what it means. You may figure out that you can safely ignore the warning (we will try and note these situations in the exercises here). Otherwise you probably need to try and fix it.</p>
+<div id="removing-the" class="section level3">
+<h3><span class="header-section-number">1.7.1</span> Removing the <code>+</code></h3>
+<p>Some R functions are pretty long, meaning that they need to appear on more than one line in the Console. In a long function, you therefore see a <code>+</code> in front of all lines except the first one. This tells you that R is running the code together.</p>
+<p>Unfortunately, if you accidentally fail to finish a line of code (for example by not closing " or brackets), R will assume you haven’t finished and will add a <code>+</code> on the next line. If that wasn’t your intention, and you try to run another bit of code on the next line, then that next line of code won’t work leading to an error.</p>
+<p>Don’t worry, this happens all the time! If you’re getting error messages and can’t see why, just check that the Console is showing the prompt <code>&gt;</code> not the <code>+</code> at the start of your line of code. If you see the <code>+</code>, just hit the Escape key to get back to the prompt <code>&gt;</code> and then go back to your code.</p>
+</div>
+</div>
+<div id="summary" class="section level2">
+<h2><span class="header-section-number">1.8</span> Summary</h2>
+<p>This covers the main introductory elements of R and means you should be able to run the code in the exercises.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="diversity-indices-in-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/01-NeedToKnowR.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["pcm-primer.pdf", "pcm-primer.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Preparing your tree and data for PCMs in R | Practical exercises for Methods in Macroecology and Macroevolution module</title>
+  <meta name="description" content="Chapter 4 Preparing your tree and data for PCMs in R | Practical exercises for Methods in Macroecology and Macroevolution module" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Preparing your tree and data for PCMs in R | Practical exercises for Methods in Macroecology and Macroevolution module" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Preparing your tree and data for PCMs in R | Practical exercises for Methods in Macroecology and Macroevolution module" />
+  
+  
+  
+
+<meta name="author" content="Natalie Cooper" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="understanding-plotting-and-manipulating-phylogenies-in-r.html"/>
+<link rel="next" href="phylogenetic-signal-in-r.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">PCM Primer</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#datasets-and-scripts"><i class="fa fa-check"></i>Datasets and scripts</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-to-use-these-materials"><i class="fa fa-check"></i>How to use these materials</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#boxes"><i class="fa fa-check"></i>Boxes</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#example-datasets"><i class="fa fa-check"></i>Example datasets</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#frog-eye-size-evolution"><i class="fa fa-check"></i>Frog eye size evolution</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#natricine-snake-head-shape-evolution"><i class="fa fa-check"></i>Natricine snake head shape evolution</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#diversification-in-dragonflies"><i class="fa fa-check"></i>Diversification in dragonflies</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#citing-r-and-r-packages"><i class="fa fa-check"></i>Citing R and R packages</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><i class="fa fa-check"></i><b>1</b> What you need to be able to do in R before you start</a><ul>
+<li class="chapter" data-level="1.1" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#installing-r-and-rstudio"><i class="fa fa-check"></i><b>1.1</b> Installing R (and RStudio)</a></li>
+<li class="chapter" data-level="1.2" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#downloading-the-data"><i class="fa fa-check"></i><b>1.2</b> Downloading the data</a></li>
+<li class="chapter" data-level="1.3" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#r-projects"><i class="fa fa-check"></i><b>1.3</b> R Projects</a></li>
+<li class="chapter" data-level="1.4" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#using-a-script"><i class="fa fa-check"></i><b>1.4</b> Using a script</a></li>
+<li class="chapter" data-level="1.5" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#installing-and-loading-extra-packages-in-r"><i class="fa fa-check"></i><b>1.5</b> Installing and loading extra packages in R</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#loading-packages-into-r"><i class="fa fa-check"></i><b>1.5.1</b> Loading packages into R</a></li>
+<li class="chapter" data-level="1.5.2" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#ggtree-a-special-case-for-package-installation"><i class="fa fa-check"></i><b>1.5.2</b> <code>ggtree</code>, a special case for package installation</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#loading-and-viewing-your-data-in-r"><i class="fa fa-check"></i><b>1.6</b> Loading and viewing your data in R</a></li>
+<li class="chapter" data-level="1.7" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#errors-and-warnings"><i class="fa fa-check"></i><b>1.7</b> Errors and warnings</a><ul>
+<li class="chapter" data-level="1.7.1" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#removing-the"><i class="fa fa-check"></i><b>1.7.1</b> Removing the <code>+</code></a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#summary"><i class="fa fa-check"></i><b>1.8</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html"><i class="fa fa-check"></i><b>2</b> Diversity Indices in R</a><ul>
+<li class="chapter" data-level="2.1" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#before-you-start"><i class="fa fa-check"></i><b>2.1</b> Before you start</a></li>
+<li class="chapter" data-level="2.2" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#preparation"><i class="fa fa-check"></i><b>2.2</b> Preparation</a></li>
+<li class="chapter" data-level="2.3" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#what-are-diversity-indices"><i class="fa fa-check"></i><b>2.3</b> What are diversity indices?</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#alpha-beta-and-gamma-diversity"><i class="fa fa-check"></i><b>2.3.1</b> <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\gamma\)</span> diversity</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#practical-example-using-pokemon"><i class="fa fa-check"></i><b>2.4</b> Practical example using Pokemon…</a></li>
+<li class="chapter" data-level="2.5" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#species-diversity-indices"><i class="fa fa-check"></i><b>2.5</b> Species diversity indices</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#alpha-diversity"><i class="fa fa-check"></i><b>2.5.1</b> <span class="math inline">\(\alpha\)</span> diversity</a></li>
+<li class="chapter" data-level="2.5.2" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#beta-diversity"><i class="fa fa-check"></i><b>2.5.2</b> <span class="math inline">\(\beta\)</span> diversity</a></li>
+<li class="chapter" data-level="2.5.3" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#gamma-diversity"><i class="fa fa-check"></i><b>2.5.3</b> <span class="math inline">\(\gamma\)</span> diversity</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#species-accumulation-curves-colwell-coddington-1994"><i class="fa fa-check"></i><b>2.6</b> Species accumulation curves (Colwell &amp; Coddington 1994)</a><ul>
+<li class="chapter" data-level="2.6.1" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#pokemon-species-accumulation-curves"><i class="fa fa-check"></i><b>2.6.1</b> Pokemon species accumulation curves</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#practical-exercise"><i class="fa fa-check"></i><b>2.7</b> Practical exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html"><i class="fa fa-check"></i><b>3</b> Understanding, plotting and manipulating phylogenies in R</a><ul>
+<li class="chapter" data-level="3.1" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#before-you-start-1"><i class="fa fa-check"></i><b>3.1</b> Before you start</a></li>
+<li class="chapter" data-level="3.2" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#what-do-phylogeny-files-look-like"><i class="fa fa-check"></i><b>3.2</b> What do phylogeny files look like?</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#newick-trees"><i class="fa fa-check"></i><b>3.2.1</b> Newick trees</a></li>
+<li class="chapter" data-level="3.2.2" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#nexus-trees"><i class="fa fa-check"></i><b>3.2.2</b> NEXUS trees</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#how-are-phylogenies-formatted-in-r"><i class="fa fa-check"></i><b>3.3</b> How are phylogenies formatted in R?</a></li>
+<li class="chapter" data-level="3.4" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#plotting-phylogenies"><i class="fa fa-check"></i><b>3.4</b> Plotting phylogenies</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#basic-phylogeny-plotting-with-ape"><i class="fa fa-check"></i><b>3.4.1</b> Basic phylogeny plotting with APE</a></li>
+<li class="chapter" data-level="3.4.2" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#basic-phylogeny-plotting-with-ggtree"><i class="fa fa-check"></i><b>3.4.2</b> Basic phylogeny plotting with <code>ggtree</code></a></li>
+<li class="chapter" data-level="3.4.3" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#back-to-ggtree"><i class="fa fa-check"></i><b>3.4.3</b> Back to <code>ggtree</code></a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#phylogeny-manipulation"><i class="fa fa-check"></i><b>3.5</b> Phylogeny manipulation</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#removing-polytomies"><i class="fa fa-check"></i><b>3.5.1</b> Removing polytomies</a></li>
+<li class="chapter" data-level="3.5.2" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#rooting-your-phylogeny"><i class="fa fa-check"></i><b>3.5.2</b> Rooting your phylogeny</a></li>
+<li class="chapter" data-level="3.5.3" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#manipulating-the-species-in-your-phlyogeny"><i class="fa fa-check"></i><b>3.5.3</b> Manipulating the species in your phlyogeny</a></li>
+<li class="chapter" data-level="3.5.4" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#writing-phylogenies-to-file"><i class="fa fa-check"></i><b>3.5.4</b> Writing phylogenies to file</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#summary-1"><i class="fa fa-check"></i><b>3.6</b> Summary</a></li>
+<li class="chapter" data-level="3.7" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#practical-exercise-1"><i class="fa fa-check"></i><b>3.7</b> Practical exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html"><i class="fa fa-check"></i><b>4</b> Preparing your tree and data for PCMs in R</a><ul>
+<li class="chapter" data-level="4.1" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#before-you-start-2"><i class="fa fa-check"></i><b>4.1</b> Before you start</a></li>
+<li class="chapter" data-level="4.2" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#preparation-1"><i class="fa fa-check"></i><b>4.2</b> Preparation</a></li>
+<li class="chapter" data-level="4.3" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#reading-and-checking-your-phylogeny-in-r"><i class="fa fa-check"></i><b>4.3</b> Reading and checking your phylogeny in R</a></li>
+<li class="chapter" data-level="4.4" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#reading-the-data-into-r"><i class="fa fa-check"></i><b>4.4</b> Reading the data into R</a></li>
+<li class="chapter" data-level="4.5" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#matching-your-data-to-your-phylogeny"><i class="fa fa-check"></i><b>4.5</b> Matching your data to your phylogeny</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#species-names-with-spaces"><i class="fa fa-check"></i><b>4.5.1</b> Species names with spaces</a></li>
+<li class="chapter" data-level="4.5.2" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#mismatches-between-species-in-your-data-and-phylogeny"><i class="fa fa-check"></i><b>4.5.2</b> Mismatches between species in your data and phylogeny</a></li>
+<li class="chapter" data-level="4.5.3" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#matching-the-tree-and-the-data"><i class="fa fa-check"></i><b>4.5.3</b> Matching the tree and the data</a></li>
+<li class="chapter" data-level="4.5.4" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#subsetting-your-tree-and-data"><i class="fa fa-check"></i><b>4.5.4</b> Subsetting your tree and data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#quick-template-code"><i class="fa fa-check"></i><b>4.6</b> Quick template code</a></li>
+<li class="chapter" data-level="4.7" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#summary-2"><i class="fa fa-check"></i><b>4.7</b> Summary</a></li>
+<li class="chapter" data-level="4.8" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#practical-exercise-2"><i class="fa fa-check"></i><b>4.8</b> Practical exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html"><i class="fa fa-check"></i><b>5</b> Phylogenetic Signal in R</a><ul>
+<li class="chapter" data-level="5.1" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#before-you-start-3"><i class="fa fa-check"></i><b>5.1</b> Before you start</a></li>
+<li class="chapter" data-level="5.2" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#preparation-2"><i class="fa fa-check"></i><b>5.2</b> Preparation</a></li>
+<li class="chapter" data-level="5.3" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#estimating-phylogenetic-signal-for-continuous-variables"><i class="fa fa-check"></i><b>5.3</b> Estimating phylogenetic signal for continuous variables</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#pagels-lambda"><i class="fa fa-check"></i><b>5.3.1</b> Pagel’s <span class="math inline">\(\lambda\)</span></a></li>
+<li class="chapter" data-level="5.3.2" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#blombergs-k-blomberg-et-al-2003"><i class="fa fa-check"></i><b>5.3.2</b> Blomberg’s <em>K</em> (Blomberg et al 2003)</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#estimating-phylogenetic-signal-for-non-continuous-variables"><i class="fa fa-check"></i><b>5.4</b> Estimating phylogenetic signal for non-continuous variables</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#d"><i class="fa fa-check"></i><b>5.4.1</b> <em>D</em></a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#summary-3"><i class="fa fa-check"></i><b>5.5</b> Summary</a></li>
+<li class="chapter" data-level="5.6" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#practical-exercises"><i class="fa fa-check"></i><b>5.6</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html"><i class="fa fa-check"></i><b>6</b> Phylogenetic Generalised Least Squares (PGLS) in R</a><ul>
+<li class="chapter" data-level="6.1" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#before-you-start-4"><i class="fa fa-check"></i><b>6.1</b> Before you start</a></li>
+<li class="chapter" data-level="6.2" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#preparation-3"><i class="fa fa-check"></i><b>6.2</b> Preparation</a></li>
+<li class="chapter" data-level="6.3" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#phylogenetic-generalized-least-squares-models-pgls"><i class="fa fa-check"></i><b>6.3</b> Phylogenetic generalized least squares models (PGLS)</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#fitting-pgls-models-in-r"><i class="fa fa-check"></i><b>6.3.1</b> Fitting PGLS models in R</a></li>
+<li class="chapter" data-level="6.3.2" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#model-diagnostics-for-pgls-models"><i class="fa fa-check"></i><b>6.3.2</b> Model diagnostics for PGLS models</a></li>
+<li class="chapter" data-level="6.3.3" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#likelihood-profiles-for-lambda-in-pgls-models"><i class="fa fa-check"></i><b>6.3.3</b> Likelihood profiles for <span class="math inline">\(\lambda\)</span> in PGLS models</a></li>
+<li class="chapter" data-level="6.3.4" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#a-pgls-example-with-more-than-one-predictor-variable"><i class="fa fa-check"></i><b>6.3.4</b> A PGLS example with more than one predictor variable</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#common-issues-when-running-pgls-models-in-r"><i class="fa fa-check"></i><b>6.4</b> Common issues when running PGLS models in R</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#optim-errors"><i class="fa fa-check"></i><b>6.4.1</b> Optim errors</a></li>
+<li class="chapter" data-level="6.4.2" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#big-problems-with-small-datasets"><i class="fa fa-check"></i><b>6.4.2</b> Big problems with small datasets</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#summary-4"><i class="fa fa-check"></i><b>6.5</b> Summary</a></li>
+<li class="chapter" data-level="6.6" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#practical-exercises-1"><i class="fa fa-check"></i><b>6.6</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html"><i class="fa fa-check"></i><b>7</b> Macroevolutionary models for continuous traits</a><ul>
+<li class="chapter" data-level="7.1" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#before-you-start-5"><i class="fa fa-check"></i><b>7.1</b> Before you start</a></li>
+<li class="chapter" data-level="7.2" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#preparation-4"><i class="fa fa-check"></i><b>7.2</b> Preparation</a></li>
+<li class="chapter" data-level="7.3" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#models-of-evolution-for-continuous-traits"><i class="fa fa-check"></i><b>7.3</b> Models of evolution for continuous traits</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#loook-at-the-data"><i class="fa fa-check"></i><b>7.3.1</b> loook at the data????</a></li>
+<li class="chapter" data-level="7.3.2" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#fitting-the-brownian-motion-and-ou-models-of-evolution-using-fitcontinuous"><i class="fa fa-check"></i><b>7.3.2</b> Fitting the Brownian motion and OU models of evolution using <code>fitContinuous</code></a></li>
+<li class="chapter" data-level="7.3.3" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#comparing-models-of-evolution-using-aic"><i class="fa fa-check"></i><b>7.3.3</b> Comparing models of evolution using AIC</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#summary-5"><i class="fa fa-check"></i><b>7.4</b> Summary</a></li>
+<li class="chapter" data-level="7.5" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#practical-exercises-2"><i class="fa fa-check"></i><b>7.5</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html"><i class="fa fa-check"></i><b>8</b> Macroevolutionary models for discrete traits</a><ul>
+<li class="chapter" data-level="8.1" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#before-you-start-6"><i class="fa fa-check"></i><b>8.1</b> Before you start</a></li>
+<li class="chapter" data-level="8.2" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#preparation-5"><i class="fa fa-check"></i><b>8.2</b> Preparation</a></li>
+<li class="chapter" data-level="8.3" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#models-of-evolution-for-discrete-traits"><i class="fa fa-check"></i><b>8.3</b> Models of evolution for discrete traits</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#fitting-the-er-sym-and-ard-models-of-evolution-using-fitdiscrete"><i class="fa fa-check"></i><b>8.3.1</b> Fitting the ER, SYM and ARD models of evolution using <code>fitDiscrete</code></a></li>
+<li class="chapter" data-level="8.3.2" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#comparing-models-of-evolution-using-aic-1"><i class="fa fa-check"></i><b>8.3.2</b> Comparing models of evolution using AIC</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#ancestral-state-estimations"><i class="fa fa-check"></i><b>8.4</b> Ancestral state estimations</a></li>
+<li class="chapter" data-level="8.5" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#summary-6"><i class="fa fa-check"></i><b>8.5</b> Summary</a></li>
+<li class="chapter" data-level="8.6" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#practical-exercises-3"><i class="fa fa-check"></i><b>8.6</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><i class="fa fa-check"></i><b>9</b> Beyond simple macroevolutionary models of trait evolution</a><ul>
+<li class="chapter" data-level="9.1" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#before-you-start-7"><i class="fa fa-check"></i><b>9.1</b> Before you start</a></li>
+<li class="chapter" data-level="9.2" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#preparation-6"><i class="fa fa-check"></i><b>9.2</b> Preparation</a></li>
+<li class="chapter" data-level="9.3" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#more-complex-models-of-trait-evolution"><i class="fa fa-check"></i><b>9.3</b> More complex models of trait evolution</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#preparing-the-tree-and-data-for-ouwie"><i class="fa fa-check"></i><b>9.3.1</b> Preparing the tree and data for OUwie</a></li>
+<li class="chapter" data-level="9.3.2" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#running-models-using-ouwie"><i class="fa fa-check"></i><b>9.3.2</b> Running models using OUwie</a></li>
+<li class="chapter" data-level="9.3.3" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#single-rate-bm-models"><i class="fa fa-check"></i><b>9.3.3</b> Single rate BM models</a></li>
+<li class="chapter" data-level="9.3.4" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#single-optimum-ou-models"><i class="fa fa-check"></i><b>9.3.4</b> Single optimum OU models</a></li>
+<li class="chapter" data-level="9.3.5" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#multi-rate-bm-bms-models"><i class="fa fa-check"></i><b>9.3.5</b> Multi-rate BM (BMS) models</a></li>
+<li class="chapter" data-level="9.3.6" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#multi-optima-ou-oum-models"><i class="fa fa-check"></i><b>9.3.6</b> Multi-optima OU (OUM) models</a></li>
+<li class="chapter" data-level="9.3.7" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#multi-rate-multi-optima-ou-motion-models-oumv"><i class="fa fa-check"></i><b>9.3.7</b> Multi-rate multi-optima OU motion models (OUMV)</a></li>
+<li class="chapter" data-level="9.3.8" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#multi-alpha-multi-optima-ou-motion-models-ouma"><i class="fa fa-check"></i><b>9.3.8</b> Multi-alpha multi-optima OU motion models (OUMA)</a></li>
+<li class="chapter" data-level="9.3.9" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#multi-rate-multi-optima-ou-motion-models-oumva"><i class="fa fa-check"></i><b>9.3.9</b> Multi-rate multi-optima OU motion models (OUMVA)</a></li>
+<li class="chapter" data-level="9.3.10" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#comparing-models-of-evolution-using-aic-2"><i class="fa fa-check"></i><b>9.3.10</b> Comparing models of evolution using AIC</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#summary-7"><i class="fa fa-check"></i><b>9.4</b> Summary</a></li>
+<li class="chapter" data-level="9.5" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#practical-exercises-4"><i class="fa fa-check"></i><b>9.5</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html"><i class="fa fa-check"></i><b>10</b> Diversification rate analyses</a><ul>
+<li class="chapter" data-level="10.1" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#before-you-start-8"><i class="fa fa-check"></i><b>10.1</b> Before you start</a></li>
+<li class="chapter" data-level="10.2" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#preparation-7"><i class="fa fa-check"></i><b>10.2</b> Preparation</a></li>
+<li class="chapter" data-level="10.3" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#lineage-through-time-plots-and-the-gamma-statistic"><i class="fa fa-check"></i><b>10.3</b> Lineage through time plots and the <span class="math inline">\(\gamma\)</span> statistic</a></li>
+<li class="chapter" data-level="10.4" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#bamm-bayesian-analysis-of-macroevolutionary-mixtures"><i class="fa fa-check"></i><b>10.4</b> BAMM: Bayesian Analysis of Macroevolutionary Mixtures</a></li>
+<li class="chapter" data-level="10.5" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#running-bamm"><i class="fa fa-check"></i><b>10.5</b> Running BAMM</a></li>
+<li class="chapter" data-level="10.6" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#looking-at-the-output-of-bamm-using-bammtools-in-r"><i class="fa fa-check"></i><b>10.6</b> Looking at the output of BAMM using BAMMtools in R</a><ul>
+<li class="chapter" data-level="10.6.1" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#assessing-mcmc-convergence"><i class="fa fa-check"></i><b>10.6.1</b> Assessing MCMC convergence</a></li>
+<li class="chapter" data-level="10.6.2" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#analysis-of-rate-shifts-in-the-dragonfly-phylogeny"><i class="fa fa-check"></i><b>10.6.2</b> Analysis of rate shifts in the dragonfly phylogeny</a></li>
+<li class="chapter" data-level="10.6.3" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#mean-phylorate-plot"><i class="fa fa-check"></i><b>10.6.3</b> Mean phylorate plot</a></li>
+<li class="chapter" data-level="10.6.4" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#best-single-distinct-shift-configuration"><i class="fa fa-check"></i><b>10.6.4</b> Best single distinct shift configuration</a></li>
+</ul></li>
+<li class="chapter" data-level="10.7" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#credible-sets-of-shifts"><i class="fa fa-check"></i><b>10.7</b> Credible sets of shifts</a></li>
+<li class="chapter" data-level="10.8" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#clade-specific-evolutionary-rates"><i class="fa fa-check"></i><b>10.8</b> Clade specific evolutionary rates</a></li>
+<li class="chapter" data-level="10.9" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#rate-through-time-analysis"><i class="fa fa-check"></i><b>10.9</b> Rate-through-time analysis</a></li>
+<li class="chapter" data-level="10.10" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#macroevolutionary-cohort-analysis"><i class="fa fa-check"></i><b>10.10</b> Macroevolutionary cohort analysis</a></li>
+<li class="chapter" data-level="10.11" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#assumptions-and-issues-with-bamm"><i class="fa fa-check"></i><b>10.11</b> Assumptions and issues with BAMM</a></li>
+<li class="chapter" data-level="10.12" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#summary-8"><i class="fa fa-check"></i><b>10.12</b> Summary</a></li>
+<li class="chapter" data-level="10.13" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#practical-exercises-5"><i class="fa fa-check"></i><b>10.13</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html"><i class="fa fa-check"></i><b>11</b> Critical thinking about methods and analyses</a><ul>
+<li class="chapter" data-level="11.1" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#how-to-critically-evaluate-a-paper-that-uses-phylogenetic-comparative-methods"><i class="fa fa-check"></i><b>11.1</b> How to critically evaluate a paper that uses phylogenetic comparative methods</a><ul>
+<li class="chapter" data-level="" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#logicinterpretation"><i class="fa fa-check"></i>Logic/interpretation</a></li>
+<li class="chapter" data-level="" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#data"><i class="fa fa-check"></i>Data</a></li>
+<li class="chapter" data-level="" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#methods"><i class="fa fa-check"></i>Methods</a></li>
+<li class="chapter" data-level="" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#moving-forwards"><i class="fa fa-check"></i>Moving forwards</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#further-reading"><i class="fa fa-check"></i><b>11.2</b> Further reading</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html"><i class="fa fa-check"></i><b>12</b> Answers to practical exercises</a><ul>
+<li class="chapter" data-level="12.1" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#diversity-indices"><i class="fa fa-check"></i><b>12.1</b> Diversity indices</a></li>
+<li class="chapter" data-level="12.2" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#phylogenies"><i class="fa fa-check"></i><b>12.2</b> Phylogenies</a></li>
+<li class="chapter" data-level="12.3" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#preparation-8"><i class="fa fa-check"></i><b>12.3</b> Preparation</a></li>
+<li class="chapter" data-level="12.4" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#phylogenetic-signal"><i class="fa fa-check"></i><b>12.4</b> Phylogenetic signal</a></li>
+<li class="chapter" data-level="12.5" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#pgls"><i class="fa fa-check"></i><b>12.5</b> PGLS</a></li>
+<li class="chapter" data-level="12.6" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#models-of-evolution-with-continuous-traits"><i class="fa fa-check"></i><b>12.6</b> Models of evolution with continuous traits</a></li>
+<li class="chapter" data-level="12.7" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#models-of-evolution-with-discrete-traits"><i class="fa fa-check"></i><b>12.7</b> Models of evolution with discrete traits</a></li>
+<li class="chapter" data-level="12.8" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#beyond-simple-macroevolutionary-models-of-trait-evolution-1"><i class="fa fa-check"></i><b>12.8</b> Beyond simple macroevolutionary models of trait evolution</a></li>
+<li class="chapter" data-level="12.9" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#diversification"><i class="fa fa-check"></i><b>12.9</b> Diversification</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Practical exercises for Methods in Macroecology and Macroevolution module</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="preparing-your-tree-and-data-for-pcms-in-r" class="section level1">
+<h1><span class="header-section-number">Chapter 4</span> Preparing your tree and data for PCMs in R</h1>
+<p>Before we do any analysis in R we will generally need to clean and tidy our data. Data cleaning involves looking for errors, for example we might need to remove duplicate columns, or correct typos in species names, or make sure column headers are all unique and easy enough for us to type in R. We also often need to tidy our data. For data to be <em>tidy</em>:</p>
+<ul>
+<li>Each variable must have its own column.</li>
+<li>Each observation must have its own row.</li>
+<li>Each value must have its own cell.</li>
+</ul>
+<p>The R packages <code>dplyr</code>, <code>tidyr</code> are great for data cleaning and tidying. See <a href="https://r4ds.had.co.nz/tidy-data.html">https://r4ds.had.co.nz/tidy-data.html</a> for more details on what tidy data is and how to do this in R. Of course you are welcome to do this in Excel or another package if you’re more comfortable with that. The important thing is that when you begin your analyses, your data are in a suitable format. Note that a detailed introduction to data manipulation in R is beyond the scope of this <em>Primer</em>, but if in doubt about your data, try and make it look as much like our example datasets as possible. If you can do that, these R analyses should work for you! :)</p>
+<p>In this exercise we will take an existing tree and some data and prepare them for a PCM analysis. Note that prior to this step, it is important that your data is in a tidy format, and has been thoroughly checked for errors. The exercise below only shows you how to deal with additional issues caused by using trees and then matching species data to those trees. We assume the tree and data themselves are fit for purpose.</p>
+<div class="info">
+<p>
+We will be using the evolution of eye size in frogs as an example. The data and modified tree come from <span class="citation"><span class="citation">Thomas et al. (<a href="#ref-thomas2020eye" role="doc-biblioref">2020</a>)</span></span>, and the original tree comes from <span class="citation"><span class="citation">Feng et al. (<a href="#ref-feng2017phylogenomics" role="doc-biblioref">2017</a>)</span></span>. I’ve removed a few species and a few variables to make things a bit more straightforward. If you want to see the full results check out <span class="citation"><span class="citation">Thomas et al. (<a href="#ref-thomas2020eye" role="doc-biblioref">2020</a>)</span></span>!
+</p>
+</div>
+<div id="before-you-start-2" class="section level2">
+<h2><span class="header-section-number">4.1</span> Before you start</h2>
+<ul>
+<li>Open the <code>04-Preparation.RProj</code> file in the <code>04-Preparation</code> folder to open your R Project for this exercise.</li>
+<li>Make yourself a new R script for your code.</li>
+</ul>
+<p>You will also need to install the following packages:</p>
+<ul>
+<li><code>ape</code></li>
+<li><code>geiger</code></li>
+<li><code>tidyverse</code></li>
+<li><code>treeplyr</code></li>
+</ul>
+</div>
+<div id="preparation-1" class="section level2">
+<h2><span class="header-section-number">4.2</span> Preparation</h2>
+<p>To begin we need to load the packages for this practical.</p>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb100-1"></a><span class="co"># Load packages</span></span>
+<span id="cb100-2"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb100-2"></a><span class="kw">library</span>(ape)</span>
+<span id="cb100-3"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb100-3"></a><span class="kw">library</span>(geiger)</span>
+<span id="cb100-4"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb100-4"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb100-5"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb100-5"></a><span class="kw">library</span>(treeplyr)</span></code></pre></div>
+</div>
+<div id="reading-and-checking-your-phylogeny-in-r" class="section level2">
+<h2><span class="header-section-number">4.3</span> Reading and checking your phylogeny in R</h2>
+<p>We already learned how to do these things in <code>03-Phylogenies</code>. If you haven’t looked at that exercise I suggest you check it out before doing the steps below.</p>
+<p>First let’s read in the tree and look at its structure:</p>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb101-1"></a><span class="co"># Read in the tree</span></span>
+<span id="cb101-2"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb101-2"></a>frogtree &lt;-<span class="st"> </span><span class="kw">read.nexus</span>(<span class="st">&quot;data/frog-tree.nex&quot;</span>)</span>
+<span id="cb101-3"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb101-3"></a><span class="co"># Look at the tree summary</span></span>
+<span id="cb101-4"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb101-4"></a>frogtree</span></code></pre></div>
+<pre><code>## 
+## Phylogenetic tree with 214 tips and 213 internal nodes.
+## 
+## Tip labels:
+##   Ascaphus_truei_Ascaphidae, Leiopelma_hochstetteri_Leiopelmatidae, Alytes_obstetricans_Alytidae, Discoglossus_pictus_Alytidae, Barbourula_busuangensis_Bombinatoridae, Bombina_orientalis_Bombinatoridae, ...
+## 
+## Rooted; includes branch lengths.</code></pre>
+<p>It’s usually a good idea to quickly plot the tree too…</p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb103-1"></a><span class="co"># Plot the tree as a circular/fan phylogeny with small labels</span></span>
+<span id="cb103-2"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb103-2"></a><span class="kw">plot</span>(frogtree, <span class="dt">cex =</span> <span class="fl">0.2</span>, <span class="dt">typ =</span> <span class="st">&quot;fan&quot;</span>, <span class="dt">no.margin =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-90-1.png" width="672" /></p>
+<p><code>frogtree</code> is a fully resolved tree with branch lengths. There are 214 species and 213 internal nodes. Note that the species names at the tips also have family names added to them…</p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb104-1"></a><span class="co"># Look at the first 5 tip labels</span></span>
+<span id="cb104-2"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb104-2"></a>frogtree<span class="op">$</span>tip.label[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</span></code></pre></div>
+<pre><code>## [1] &quot;Ascaphus_truei_Ascaphidae&quot;             
+## [2] &quot;Leiopelma_hochstetteri_Leiopelmatidae&quot; 
+## [3] &quot;Alytes_obstetricans_Alytidae&quot;          
+## [4] &quot;Discoglossus_pictus_Alytidae&quot;          
+## [5] &quot;Barbourula_busuangensis_Bombinatoridae&quot;</code></pre>
+<p>Most trees will have just the genus and species names, but some will have additional information like here, or numbering etc. This is not a problem as long as the names match those in your data (see below).</p>
+<p>Most R functions require your tree to be dichotomous, i.e. to have no polytomies. To check whether your tree is dichotomous use <code>is.binary.tree</code>.</p>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb106-1"></a><span class="co"># Check whether the tree is binary</span></span>
+<span id="cb106-2"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb106-2"></a><span class="co"># We want this to be TRUE</span></span>
+<span id="cb106-3"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb106-3"></a><span class="kw">is.binary.tree</span>(frogtree) </span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>If this was FALSE, we’d use <code>multi2di</code> to make the tree dichotomous, but here it is TRUE so we can leave it as it is.</p>
+<p>Most functions also require the tree to be rooted, i.e., to have one taxon designated as the outgroup. We can check whether the tree is rooted as follows.</p>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb108-1"></a><span class="co"># Check whether the tree is rooted</span></span>
+<span id="cb108-2"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb108-2"></a><span class="co"># We want this to be TRUE</span></span>
+<span id="cb108-3"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb108-3"></a><span class="kw">is.rooted</span>(frogtree)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>Our tree is rooted so it’s ready to go.</p>
+<p>Finally we might want to check that the tree is ultrametric. Most functions will assume this, and although we can see the tree looks ultrametric when we plotted it above, we should still check.</p>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb110-1"></a><span class="co"># Check the tree is ultrametric</span></span>
+<span id="cb110-2"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb110-2"></a><span class="kw">is.ultrametric</span>(frogtree)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>If this is <code>FALSE</code> there are two options. If the tree really is non-ultrametric, for example if it contains fossil species, then we can’t use it in methods that require an ultrametric tree. However, there are cases (the dragonfly tree in <em>Chapter 11</em> is one example) where the tree is non-ultrametric due to a rounding error. In the latter case we can use the <code>phytools</code> function <code>force.ultrametric</code> to fix this.</p>
+<div class="detail">
+<p>
+<strong>When can a tree that looks ultrametric appear to be non-ultrametric?</strong> Most of the methods we use expect trees to be ultrametric, i.e. that all the tips line up, generally at the present day (time 0). Sometimes (see <em>Chapter 11</em> the tree and it looks ultrametric, but when we check using <code>is.ultrametric</code> the answer returned is <code>FALSE</code>. What is going on? The tree is actually ultrametric, and will run in most analyses with R treating it as an ultrametric tree. The reason <code>is.ultrametric</code> tells us it is not ultrametric is related to rounding errors. When you save a tree file, it will save the branch lengths to a certain level of accuracy, but not always the full level of accuracy if your branch lengths have lots and lots of decimal places. When you read these trees back into R, a teeny tiny bit of the accuracy is lost which sometimes means that when R adds up the root-to-tip distances for each tip, they aren’t all exactly the same length, so therefore technically the tree is not ultrametric. For most implementations this tiny difference is not a big deal. A quick fix to this problem is to use the function <code>force.ultrametric</code> which essentially fudges the numbers to force the tree to be ultrametric. <strong>If your tree is genuinely non-ultrametric you should not use this function</strong> as it can introduce negative branch lengths which will break most functions you might want to use in R.
+</p>
+</div>
+</div>
+<div id="reading-the-data-into-r" class="section level2">
+<h2><span class="header-section-number">4.4</span> Reading the data into R</h2>
+<p>The data are in a comma-delimited text file called <code>frog-eyes.csv</code>. Load these data as follows.</p>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb112-1"></a><span class="co"># Read in the data</span></span>
+<span id="cb112-2"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb112-2"></a>frogdata &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/frog-eyes.csv&quot;</span>)</span></code></pre></div>
+<p>Check everything loaded correctly:</p>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb113-1"></a><span class="co"># Look at the data</span></span>
+<span id="cb113-2"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb113-2"></a><span class="kw">glimpse</span>(frogdata)</span></code></pre></div>
+<pre><code>## Rows: 215
+## Columns: 11
+## $ Binomial         &lt;chr&gt; &quot;Allophryne_ruthveni&quot;, &quot;Eupsophus_roseus&quot;, &quot;Aly…
+## $ Family           &lt;chr&gt; &quot;Allophrynidae&quot;, &quot;Alsodidae&quot;, &quot;Alytidae&quot;, &quot;Alyt…
+## $ Genus            &lt;chr&gt; &quot;Allophryne&quot;, &quot;Eupsophus&quot;, &quot;Alytes&quot;, &quot;Discoglos…
+## $ tiplabel         &lt;chr&gt; &quot;Allophryne_ruthveni_Allophrynidae&quot;, &quot;Eupsophus…
+## $ Adult_habitat    &lt;chr&gt; &quot;Scansorial&quot;, &quot;Ground-dwelling&quot;, &quot;Ground-dwelli…
+## $ Life_history     &lt;chr&gt; &quot;Free-living larvae&quot;, &quot;Free-living larvae&quot;, &quot;Fr…
+## $ Sex_dichromatism &lt;chr&gt; &quot;Absent&quot;, &quot;Absent&quot;, &quot;Absent&quot;, &quot;Absent&quot;, &quot;Absent…
+## $ SVL              &lt;dbl&gt; 23.76667, 38.37500, 37.46667, 62.64000, 25.6000…
+## $ mass             &lt;dbl&gt; 1.0000000, 7.5000000, 6.6666667, 24.4000000, 2.…
+## $ rootmass         &lt;dbl&gt; 0.9917748, 1.9273451, 1.8690601, 2.8885465, 1.2…
+## $ eyesize          &lt;dbl&gt; 3.200000, 5.362500, 6.366667, 7.550000, 4.11666…</code></pre>
+<p>As you can see, the data contains 215 species, and the following 11 variables:</p>
+<ul>
+<li><code>Binomial</code> - the species binomial name.<br />
+</li>
+<li><code>Family</code> - the family the species belongs to.<br />
+</li>
+<li><code>Genus</code> - the genus the species belongs to.<br />
+</li>
+<li><code>tiplabel</code> - the name used for the species in the phylogeny.<br />
+</li>
+<li><code>Adult_habitat</code> - habitat of adults. Categories are: Ground-dwelling, Subfossorial, Scansorial (i.e. tree-dwelling), Semiaquatic, Aquatic, or Fossorial (i.e. burrowers).<br />
+</li>
+<li><code>Life_history</code> - whether the larvae are free-living (Free-living larvae) or not (No free-living larvae).<br />
+</li>
+<li><code>Sex_dichromatism</code> - whether different sexes are different colours (Present) or not (Absent).</li>
+<li><code>SVL</code> - snout vent length (in mm). This is a common way to measure body size in amphibians.<br />
+</li>
+<li><code>mass</code> - body mass (in g).</li>
+<li><code>rootmass</code> - cube root of the body mass.<br />
+</li>
+<li><code>eyesize</code> - eye size (in mm) for the species. This is an everage across left and right eyes from three individuals per species.</li>
+</ul>
+<div class="detail">
+<p>
+Note that in some comparative datasets (most of mine for instance) the species names column (here <code>Binomial</code>) also contains the names of the species in the tree so we would match up that column to the species names in the tree (see below). In this dataset and others, the authors have instead included the names of the tips of the tree as a separate column (here <code>tiplabel</code>). This is often done when the tips of the tree are not species names, but are instead some kind of code. This is common where the tree contains multiple tips for one species, or where the tip labels contain additional information (here they include family names). A final approach used by some authors is to have the species names as the row names of the dataset. Any approach is fine, but make sure you know which column contains the names that should match up with the tree.
+</p>
+</div>
+</div>
+<div id="matching-your-data-to-your-phylogeny" class="section level2">
+<h2><span class="header-section-number">4.5</span> Matching your data to your phylogeny</h2>
+<p>Now we have the tree and the data in R, we need to match the two up if we want to perform any kind of PCM analyses. Below are some common issues you might encounter, and how to fix them.</p>
+<div id="species-names-with-spaces" class="section level3">
+<h3><span class="header-section-number">4.5.1</span> Species names with spaces</h3>
+<p>Species names in phylogenies are generally written as <em>Genus_species</em> (the gap between the genus name and species name is replaced by an underscore <code>_</code>). If the species names in the data are written as <em>Genus species</em> with a space, then you will have to replace the spaces with <code>_</code> so that they match up with the species names in the tree. You can do this as follows using <code>str_replace</code>.</p>
+<p>We don’t need to do this in our frog data, but if we did we could use code like this:</p>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb115-1"></a><span class="co"># Replace spaces with underscores in species names</span></span>
+<span id="cb115-2"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb115-2"></a>frogdata &lt;-<span class="st"> </span></span>
+<span id="cb115-3"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb115-3"></a><span class="st">  </span>frogdata <span class="op">%&gt;%</span></span>
+<span id="cb115-4"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb115-4"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Binomial =</span> <span class="kw">str_replace</span>(<span class="dt">string =</span> Binomial, <span class="dt">pattern =</span> <span class="st">&quot; &quot;</span>, <span class="dt">replacement =</span> <span class="st">&quot;_&quot;</span>))</span>
+<span id="cb115-5"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb115-5"></a></span>
+<span id="cb115-6"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb115-6"></a><span class="co"># Check it worked</span></span>
+<span id="cb115-7"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb115-7"></a><span class="kw">head</span>(frogdata<span class="op">$</span>Binomial)</span></code></pre></div>
+<div class="warning">
+<p>
+Beware trailing spaces! If you’re trying to match up species names and are having some trouble, check what happened when you replaced spaces with underscores (<code>_</code>). Sometimes we accidentally leave extra spaces when typing, and R will convert these to underscores too which can cause problems. For example, <code>Genus_species</code> can become <code>Genus_species_</code> if you accidentally left a trailing space. Check all the names in your dataset after replacing the spaces to make sure this is not a problem.
+</p>
+</div>
+</div>
+<div id="mismatches-between-species-in-your-data-and-phylogeny" class="section level3">
+<h3><span class="header-section-number">4.5.2</span> Mismatches between species in your data and phylogeny</h3>
+<p>Often you will have data for species which are not in your phylogeny and/or species in your phylogeny which are not in your data. Many functions in R can deal with this and will match the species for you, others will produce an error telling you the tree and data do not match (e.g. most <code>ape</code> functions).</p>
+<p>Even in functions that can cope with this, it’s useful to match up the species <em>before</em> your analyses. This can help you identify things like spelling mistakes or variations in the taxonomy of the tree and the data.</p>
+<div class="info">
+<p>
+If you have even slightly misspelled a species name in the tree or the data it will automatically be dropped from the analyses. It is therefore <strong>very important</strong> to check this before running an analysis, especially one with lots of taxa.
+</p>
+</div>
+<p>We can use the <code>geiger</code> function <code>name.check</code> to find out which names do not match. Remember that the species names that match up with the tree from <code>frogdata</code> are in the variable called <code>tiplabel</code>.</p>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb116-1"></a><span class="co"># Check whether the names match in the data and the tree</span></span>
+<span id="cb116-2"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb116-2"></a>check &lt;-<span class="st"> </span><span class="kw">name.check</span>(<span class="dt">phy =</span> frogtree, <span class="dt">data =</span> frogdata, </span>
+<span id="cb116-3"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb116-3"></a>                    <span class="dt">data.names =</span> frogdata<span class="op">$</span>tiplabel)</span></code></pre></div>
+<p>The output of <code>check</code> has two parts, <code>tree_not_data</code> for species in the tree but not in the dataset, and <code>data_not_tree</code> for species in the dataset but not in the tree. You need to look at both of these in turn.</p>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb117-1"></a><span class="co"># Look at species in the tree but not the data</span></span>
+<span id="cb117-2"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb117-2"></a>check<span class="op">$</span>tree_not_data</span></code></pre></div>
+<pre><code>## [1] &quot;Incilius_nebulifer_Bufonidae&quot;           
+## [2] &quot;Leptobrachella_bidoupensis_Megophryidae&quot;
+## [3] &quot;Microhyla_fissipes_Microhylidae&quot;        
+## [4] &quot;Microhyla_marmorata_Microhylidae&quot;</code></pre>
+<p>There are four species in the tree and not the data. We were expecting this here, so no worries.</p>
+<p>For your analyses you should <em>always</em> check this list carefully. If I were running this analysis for the first time I’d want to check that these species really weren’t in my data. Maybe they are misspelled in the data? If so correct this now. Maybe the species name has changed? If so change this now. It doesn’t really matter whether you make the change in the tree or the data, but make sure anything that <em>should</em> match up, does. I’d usually fix issues in the dataset in Excel or another spreadsheet program, unless it’s a blatant typo in the tree.</p>
+<p>Next check the species in the data but not the tree.</p>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb119-1"></a><span class="co"># Look at species in the data but not the tree</span></span>
+<span id="cb119-2"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb119-2"></a>check<span class="op">$</span>data_not_tree</span></code></pre></div>
+<pre><code>## [1] &quot;Gastrophryne_carolinensis_Microhylidae&quot;
+## [2] &quot;Leptobrachella_dringi_Megophryidae&quot;    
+## [3] &quot;Megophrys_gerti_Megophryidae&quot;          
+## [4] &quot;Microhyla_pulverata_Microhylidae&quot;      
+## [5] &quot;Oreobates_quixensis_Strabomantidae&quot;</code></pre>
+<p>This gives us five species in the data but not in the tree. As above, make sure to correct any errors before moving to the next step. Make sure anything that <em>should</em> match up, does match up.</p>
+<p>Here we know that these species are missing from our data, so we don’t need to worry.</p>
+</div>
+<div id="matching-the-tree-and-the-data" class="section level3">
+<h3><span class="header-section-number">4.5.3</span> Matching the tree and the data</h3>
+<p>Finally, once we know which species do not match up, we need to remove species missing from the data from the tree, and remove species missing from the tree from the data. This used to be a bit of a pain, but <code>treeplyr</code> makes it easy. <code>treeplyr</code> has a lot of really cool functions, see the <a href="https://github.com/uyedaj/treeplyr/wiki">wiki</a> for more details. However, here we are just going to use it just to match up the tree and the data.</p>
+<p>We’ll use the function <code>make.treedata</code> to combine the tree and the dataset into one object. We need to provide the name of the tree, the name of the data, and specify which column our species names are in.</p>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb121-1"></a><span class="co"># Combine and match the tree and data</span></span>
+<span id="cb121-2"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb121-2"></a>frogstuff &lt;-<span class="st"> </span><span class="kw">make.treedata</span>(<span class="dt">tree =</span> frogtree,  <span class="dt">data =</span> frogdata, </span>
+<span id="cb121-3"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb121-3"></a>                              <span class="dt">name_column =</span> <span class="st">&quot;tiplabel&quot;</span>)</span></code></pre></div>
+<p>Note that we could leave out the <code>name_column = tiplabel</code> argument, in which case the function <code>make.treedata</code> will search the data for the column with the contents that have most matches to the tree, and automatically use this column for matching up species names. It will also search the rownames.</p>
+<p>To look at the tree and data combined we can use <code>summary</code>:</p>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb122-1"></a><span class="kw">summary</span>(frogstuff)</span></code></pre></div>
+<pre><code>## A treeplyr treedata object 
+## The dataset contains  10  traits 
+## Continuous traits:  Binomial Family Genus SVL mass rootmass eyesize 
+## Discrete traits:  Adult_habitat Life_history Sex_dichromatism 
+## The following traits have missing values: Life_history, Sex_dichromatism 
+## These taxa were dropped from the tree: Oreobates_quixensis_Strabomantidae, Leptobrachella_dringi_Megophryidae, Megophrys_gerti_Megophryidae, Gastrophryne_carolinensis_Microhylidae, Microhyla_pulverata_Microhylidae 
+## These taxa were dropped from the data: Leptobrachella_bidoupensis_Megophryidae, Incilius_nebulifer_Bufonidae, Microhyla_fissipes_Microhylidae, Microhyla_marmorata_Microhylidae 
+## $phy 
+## 
+## Phylogenetic tree with 210 tips and 209 internal nodes.
+## 
+## Tip labels:
+##   Ascaphus_truei_Ascaphidae, Leiopelma_hochstetteri_Leiopelmatidae, Alytes_obstetricans_Alytidae, Discoglossus_pictus_Alytidae, Barbourula_busuangensis_Bombinatoridae, Bombina_orientalis_Bombinatoridae, ...
+## 
+## Rooted; includes branch lengths.
+## 
+## $dat 
+## # A tibble: 210 x 10
+##    Binomial Family Genus Adult_habitat Life_history Sex_dichromatism   SVL
+##    &lt;fct&gt;    &lt;fct&gt;  &lt;fct&gt; &lt;fct&gt;         &lt;fct&gt;        &lt;fct&gt;            &lt;dbl&gt;
+##  1 Ascaphu… Ascap… Asca… Semiaquatic   Free-living… Absent            39.0
+##  2 Leiopel… Leiop… Leio… Semiaquatic   Free-living… Absent            39.0
+##  3 Alytes_… Alyti… Alyt… Ground-dwell… Free-living… Absent            37.5
+##  4 Discogl… Alyti… Disc… Ground-dwell… Free-living… Absent            62.6
+##  5 Barbour… Bombi… Barb… Aquatic       &lt;NA&gt;         Absent            59.5
+##  6 Bombina… Bombi… Bomb… Semiaquatic   Free-living… Absent            42.8
+##  7 Bombina… Bombi… Bomb… Semiaquatic   Free-living… Absent            76.6
+##  8 Rhinoph… Rhino… Rhin… Fossorial     Free-living… Absent            67.7
+##  9 Pipa_ca… Pipid… Pipa  Aquatic       Free-living… Absent            46.7
+## 10 Pipa_pi… Pipid… Pipa  Aquatic       No free-liv… Absent           119. 
+## # … with 200 more rows, and 3 more variables: mass &lt;dbl&gt;, rootmass &lt;dbl&gt;,
+## #   eyesize &lt;dbl&gt;</code></pre>
+<p>You may notice that <code>make.treedata</code> has two objects within it, the tree and the data. You can access the tree using <code>frogstuff$phy</code> and the data using <code>frogstuff$dat</code>.</p>
+<p>Let’s look at the phylogeny first…</p>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb124-1"></a><span class="co"># Look at the tree summary</span></span>
+<span id="cb124-2"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb124-2"></a>frogstuff<span class="op">$</span>phy</span></code></pre></div>
+<pre><code>## 
+## Phylogenetic tree with 210 tips and 209 internal nodes.
+## 
+## Tip labels:
+##   Ascaphus_truei_Ascaphidae, Leiopelma_hochstetteri_Leiopelmatidae, Alytes_obstetricans_Alytidae, Discoglossus_pictus_Alytidae, Barbourula_busuangensis_Bombinatoridae, Bombina_orientalis_Bombinatoridae, ...
+## 
+## Rooted; includes branch lengths.</code></pre>
+<p>The matched phylogeny has 210 species in it (instead of the original 214 species in <code>frogtree</code> because the four that weren’t in the data have been removed).</p>
+<p>Now let’s look at the data. What is missing?</p>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb126-1"></a><span class="co"># Look at the data</span></span>
+<span id="cb126-2"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb126-2"></a><span class="kw">glimpse</span>(frogstuff<span class="op">$</span>dat)</span></code></pre></div>
+<pre><code>## Rows: 210
+## Columns: 10
+## $ Binomial         &lt;fct&gt; Ascaphus_truei, Leiopelma_hochstetteri, Alytes_…
+## $ Family           &lt;fct&gt; Ascaphidae, Leiopelmatidae, Alytidae, Alytidae,…
+## $ Genus            &lt;fct&gt; Ascaphus, Leiopelma, Alytes, Discoglossus, Barb…
+## $ Adult_habitat    &lt;fct&gt; Semiaquatic, Semiaquatic, Ground-dwelling, Grou…
+## $ Life_history     &lt;fct&gt; Free-living larvae, Free-living larvae, Free-li…
+## $ Sex_dichromatism &lt;fct&gt; Absent, Absent, Absent, Absent, Absent, Absent,…
+## $ SVL              &lt;dbl&gt; 38.95000, 38.96667, 37.46667, 62.64000, 59.4750…
+## $ mass             &lt;dbl&gt; 6.000000, 5.333333, 6.666667, 24.400000, 24.250…
+## $ rootmass         &lt;dbl&gt; 1.809268, 1.740547, 1.869060, 2.888547, 2.73310…
+## $ eyesize          &lt;dbl&gt; 5.587500, 6.283333, 6.366667, 7.550000, 8.23750…</code></pre>
+<p>We now have 210 species in the dataset too, great! But hopefully you noticed that the column with the species names in it (<code>tiplabel</code>) has disappeared! <code>treeplyr</code> is designed to work with R functions that assume species names will be in the row names of your data. However, not all PCMs in R work this way, and I personally like to be able to see species names when I quickly look at a dataset. We can make a new species names column using the tip labels from the phylogeny, as <code>make.treedata</code> orders the data so it’s the same as the tip labels.</p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb128-1"></a><span class="co"># Make a new column called tiplabel with the tip labels in it</span></span>
+<span id="cb128-2"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb128-2"></a>frogstuff<span class="op">$</span>dat<span class="op">$</span>tiplabel &lt;-<span class="st"> </span>frogstuff<span class="op">$</span>phy<span class="op">$</span>tip.label</span></code></pre></div>
+<p>Finally we might want to rename the tree and data to make them a bit less clunky when typing in your code.</p>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb129-1"></a><span class="co"># Save tree as mytree</span></span>
+<span id="cb129-2"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb129-2"></a>mytree &lt;-<span class="st"> </span>frogstuff<span class="op">$</span>phy</span>
+<span id="cb129-3"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb129-3"></a><span class="co"># Save data as mydata</span></span>
+<span id="cb129-4"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb129-4"></a>mydata &lt;-<span class="st"> </span>frogstuff<span class="op">$</span>dat</span></code></pre></div>
+<p>For the data, I’m also going to add one last trick to make our lives easier. <code>treeplyr</code> relies on the <code>tidyverse</code> set of packages, which create special data frames of a class called <em>tibbles</em>. Tibbles are great, <em>but</em> some older PCM functions cannot work with them, and need the data to be in an ordinary data frame instead. We can fix this using <code>as.data.frame</code>.</p>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb130-1"></a><span class="co"># Look at the class of mydata</span></span>
+<span id="cb130-2"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb130-2"></a><span class="kw">class</span>(mydata)</span></code></pre></div>
+<pre><code>## [1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</code></pre>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb132-1"></a><span class="co"># Force mydata to be a data frame</span></span>
+<span id="cb132-2"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb132-2"></a>mydata &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(mydata)</span>
+<span id="cb132-3"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb132-3"></a><span class="co"># Check mydata is now a dataframe</span></span>
+<span id="cb132-4"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb132-4"></a><span class="kw">class</span>(mydata)</span></code></pre></div>
+<pre><code>## [1] &quot;data.frame&quot;</code></pre>
+<p>Finally, we might want to output these cleaned and tidied data and tree to our folder so rather than doing this every time we start an analysis, we can just use these tidy versions. To do this we can use:</p>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb134-1"></a><span class="co"># Write the cleaned data to a new file</span></span>
+<span id="cb134-2"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb134-2"></a><span class="kw">write_csv</span>(mydata, <span class="dt">path =</span> <span class="st">&quot;data/clean-frog-data.csv&quot;</span>)</span>
+<span id="cb134-3"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb134-3"></a></span>
+<span id="cb134-4"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb134-4"></a><span class="co"># Write the cleaned tree to a new file</span></span>
+<span id="cb134-5"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb134-5"></a><span class="kw">write.nexus</span>(mytree, <span class="dt">file =</span> <span class="st">&quot;data/clean-frog-tree.nex&quot;</span>)</span></code></pre></div>
+<p>Note, however, that you will have to repeat this preparation process if you add species or data to your tree or dataset at a later date.</p>
+</div>
+<div id="subsetting-your-tree-and-data" class="section level3">
+<h3><span class="header-section-number">4.5.4</span> Subsetting your tree and data</h3>
+<p>Another thing that <code>treeplyr</code> makes a lot easier is subsetting your tree and data. It’s fairly common, especially with large phylogenies, that we might want to run our analyses on subsets of the data. Generally these are taxonomic divisions, but you might also want to divide your analyses into large and small body size species, for example.</p>
+<p>One solution would be to make a new dataset, and then run through the same procedure as we’ve used above. However, we can instead just subset the tree data object itself using <code>filter</code>. This works the same as <code>filter</code> normally does in <code>dplyr</code>. As an example, let’s select only species in the family Bufonidae (toads).</p>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb135-1"></a><span class="co"># Subset only the species in the Bufonidae family </span></span>
+<span id="cb135-2"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb135-2"></a>bufonidae &lt;-<span class="st"> </span><span class="kw">filter</span>(frogstuff, Family <span class="op">==</span><span class="st"> &quot;Bufonidae&quot;</span>)</span>
+<span id="cb135-3"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb135-3"></a></span>
+<span id="cb135-4"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb135-4"></a><span class="co"># Plot tree to check it worked</span></span>
+<span id="cb135-5"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb135-5"></a><span class="kw">plot</span>(bufonidae<span class="op">$</span>phy)</span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-114-1.png" width="672" /></p>
+<p>If you want to use this in later analyses, you might want to save these as separate data and phylogeny objects, and don’t forget to make the data into a dataframe.</p>
+<p>Another thing that could be useful here is to subset so that you have a complete set of variables for certain analyses. For example let’s see how many “NAs” there are in each of our variables (don’t worry too much about this code if it seems confusing to you!):</p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb136-1"></a>mydata <span class="op">%&gt;%</span></span>
+<span id="cb136-2"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb136-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="kw">everything</span>()) <span class="op">%&gt;%</span></span>
+<span id="cb136-3"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb136-3"></a><span class="st">  </span><span class="kw">summarise_all</span>(<span class="kw">list</span>(<span class="op">~</span><span class="st"> </span><span class="kw">sum</span>(<span class="kw">is.na</span>(.))))</span></code></pre></div>
+<pre><code>##   Binomial Family Genus Adult_habitat Life_history Sex_dichromatism SVL
+## 1        0      0     0             0           22               36   0
+##   mass rootmass eyesize tiplabel
+## 1    0        0       0        0</code></pre>
+<p>22 species don’t have a value for <code>Life_history</code>, and 36 species don’t have a value for <code>Sex_dichromatism</code>. Many PCMs will just ignore NA values, but if you needed to remove these you could subset them out as follows, leaving only the 163 species with complete data.</p>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb138-1"></a><span class="co"># Subset out the species with NA values for some variables</span></span>
+<span id="cb138-2"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb138-2"></a>frog_noNA &lt;-<span class="st"> </span><span class="kw">filter</span>(frogstuff, </span>
+<span id="cb138-3"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb138-3"></a>                    <span class="op">!</span><span class="kw">is.na</span>(Life_history) <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span><span class="kw">is.na</span>(Sex_dichromatism))</span>
+<span id="cb138-4"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb138-4"></a></span>
+<span id="cb138-5"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb138-5"></a><span class="co"># Look at the data</span></span>
+<span id="cb138-6"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb138-6"></a><span class="kw">glimpse</span>(frog_noNA<span class="op">$</span>dat)</span></code></pre></div>
+<pre><code>## Rows: 163
+## Columns: 11
+## $ Binomial         &lt;fct&gt; Ascaphus_truei, Leiopelma_hochstetteri, Alytes_…
+## $ Family           &lt;fct&gt; Ascaphidae, Leiopelmatidae, Alytidae, Alytidae,…
+## $ Genus            &lt;fct&gt; Ascaphus, Leiopelma, Alytes, Discoglossus, Bomb…
+## $ Adult_habitat    &lt;fct&gt; Semiaquatic, Semiaquatic, Ground-dwelling, Grou…
+## $ Life_history     &lt;fct&gt; Free-living larvae, Free-living larvae, Free-li…
+## $ Sex_dichromatism &lt;fct&gt; Absent, Absent, Absent, Absent, Absent, Absent,…
+## $ SVL              &lt;dbl&gt; 38.95000, 38.96667, 37.46667, 62.64000, 42.7666…
+## $ mass             &lt;dbl&gt; 6.000000, 5.333333, 6.666667, 24.400000, 5.3333…
+## $ rootmass         &lt;dbl&gt; 1.809268, 1.740547, 1.869060, 2.888547, 1.74054…
+## $ eyesize          &lt;dbl&gt; 5.587500, 6.283333, 6.366667, 7.550000, 5.70000…
+## $ tiplabel         &lt;chr&gt; &quot;Ascaphus_truei_Ascaphidae&quot;, &quot;Leiopelma_hochste…</code></pre>
+</div>
+</div>
+<div id="quick-template-code" class="section level2">
+<h2><span class="header-section-number">4.6</span> Quick template code</h2>
+<p>To help you do this with your own data, I’ve condensed the above into one script below so you don’t forget any of the steps.</p>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-1"></a><span class="co"># Load packages</span></span>
+<span id="cb140-2"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-2"></a><span class="kw">library</span>(ape)</span>
+<span id="cb140-3"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-3"></a><span class="kw">library</span>(geiger)</span>
+<span id="cb140-4"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-4"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb140-5"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-5"></a><span class="kw">library</span>(treeplyr)</span>
+<span id="cb140-6"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-6"></a></span>
+<span id="cb140-7"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-7"></a><span class="co"># Read in the tree</span></span>
+<span id="cb140-8"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-8"></a>frogtree &lt;-<span class="st"> </span><span class="kw">read.nexus</span>(<span class="st">&quot;data/frog-tree.nex&quot;</span>)</span>
+<span id="cb140-9"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-9"></a><span class="co"># Look at the tree summary</span></span>
+<span id="cb140-10"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-10"></a><span class="kw">str</span>(frogtree)</span>
+<span id="cb140-11"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-11"></a></span>
+<span id="cb140-12"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-12"></a><span class="co"># Plot the tree as a circular/fan phylogeny with small labels</span></span>
+<span id="cb140-13"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-13"></a><span class="kw">plot</span>(frogtree, <span class="dt">cex =</span> <span class="fl">0.2</span>, <span class="dt">typ =</span> <span class="st">&quot;fan&quot;</span>, <span class="dt">no.margin =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb140-14"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-14"></a></span>
+<span id="cb140-15"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-15"></a><span class="co"># Check whether the tree is binary</span></span>
+<span id="cb140-16"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-16"></a><span class="co"># We want this to be TRUE</span></span>
+<span id="cb140-17"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-17"></a><span class="kw">is.binary.tree</span>(frogtree) </span>
+<span id="cb140-18"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-18"></a></span>
+<span id="cb140-19"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-19"></a><span class="co"># Check whether the tree is rooted</span></span>
+<span id="cb140-20"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-20"></a><span class="co"># We want this to be TRUE</span></span>
+<span id="cb140-21"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-21"></a><span class="kw">is.rooted</span>(frogtree)</span>
+<span id="cb140-22"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-22"></a></span>
+<span id="cb140-23"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-23"></a><span class="co"># Check whether the tree is ultrametric</span></span>
+<span id="cb140-24"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-24"></a><span class="co"># We want this to be TRUE </span></span>
+<span id="cb140-25"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-25"></a><span class="kw">is.ultrametric</span>(frogtree)</span>
+<span id="cb140-26"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-26"></a></span>
+<span id="cb140-27"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-27"></a><span class="co"># Read in the data</span></span>
+<span id="cb140-28"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-28"></a>frogdata &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/frog-eyes.csv&quot;</span>)</span>
+<span id="cb140-29"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-29"></a></span>
+<span id="cb140-30"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-30"></a><span class="co"># Look at the data</span></span>
+<span id="cb140-31"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-31"></a><span class="kw">glimpse</span>(frogdata)</span>
+<span id="cb140-32"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-32"></a></span>
+<span id="cb140-33"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-33"></a><span class="co"># Check whether the names match in the data and the tree</span></span>
+<span id="cb140-34"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-34"></a>check &lt;-<span class="st"> </span><span class="kw">name.check</span>(<span class="dt">phy =</span> frogtree, <span class="dt">data =</span> frogdata, </span>
+<span id="cb140-35"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-35"></a>                    <span class="dt">data.names =</span> frogdata<span class="op">$</span>tiplabel)</span>
+<span id="cb140-36"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-36"></a><span class="co"># Look at check</span></span>
+<span id="cb140-37"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-37"></a>check</span>
+<span id="cb140-38"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-38"></a></span>
+<span id="cb140-39"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-39"></a><span class="co">### Correct any typos/taxonomic errors in the tree or data </span><span class="al">###</span></span>
+<span id="cb140-40"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-40"></a>  </span>
+<span id="cb140-41"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-41"></a><span class="co"># Combine and match the tree and data</span></span>
+<span id="cb140-42"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-42"></a>frogstuff &lt;-<span class="st"> </span><span class="kw">make.treedata</span>(<span class="dt">tree =</span> frogtree,  <span class="dt">data =</span> frogdata, </span>
+<span id="cb140-43"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-43"></a>                              <span class="dt">name_column =</span> <span class="st">&quot;tiplabel&quot;</span>)</span>
+<span id="cb140-44"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-44"></a></span>
+<span id="cb140-45"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-45"></a><span class="co"># Look at the tree summary</span></span>
+<span id="cb140-46"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-46"></a>frogstuff<span class="op">$</span>phy</span>
+<span id="cb140-47"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-47"></a></span>
+<span id="cb140-48"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-48"></a><span class="co"># Look at the data</span></span>
+<span id="cb140-49"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-49"></a><span class="kw">glimpse</span>(frogstuff<span class="op">$</span>dat)</span>
+<span id="cb140-50"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-50"></a></span>
+<span id="cb140-51"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-51"></a><span class="co"># Make a new column called tiplabel with the tip labels in it</span></span>
+<span id="cb140-52"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-52"></a>frogstuff<span class="op">$</span>dat<span class="op">$</span>tiplabel &lt;-<span class="st"> </span>frogstuff<span class="op">$</span>phy<span class="op">$</span>tip.label</span>
+<span id="cb140-53"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-53"></a></span>
+<span id="cb140-54"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-54"></a><span class="co"># Save tree as mytree</span></span>
+<span id="cb140-55"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-55"></a>mytree &lt;-<span class="st"> </span>frogstuff<span class="op">$</span>phy</span>
+<span id="cb140-56"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-56"></a><span class="co"># Save data as mydata</span></span>
+<span id="cb140-57"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-57"></a>mydata &lt;-<span class="st"> </span>frogstuff<span class="op">$</span>dat</span>
+<span id="cb140-58"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-58"></a></span>
+<span id="cb140-59"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-59"></a><span class="co"># Force mydata to be a data frame</span></span>
+<span id="cb140-60"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-60"></a>mydata &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(mydata)</span>
+<span id="cb140-61"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-61"></a><span class="co"># Check mydata is now a dataframe</span></span>
+<span id="cb140-62"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-62"></a><span class="kw">str</span>(mydata)</span>
+<span id="cb140-63"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-63"></a></span>
+<span id="cb140-64"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-64"></a><span class="co">## OPTIONAL</span></span>
+<span id="cb140-65"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-65"></a><span class="co"># Make any required subsets of the tree/data</span></span>
+<span id="cb140-66"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-66"></a></span>
+<span id="cb140-67"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-67"></a><span class="co">## OPTIONAL</span></span>
+<span id="cb140-68"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-68"></a><span class="co"># Write the cleaned data to a new file</span></span>
+<span id="cb140-69"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-69"></a><span class="kw">write_csv</span>(mydata, <span class="dt">path =</span> <span class="st">&quot;data/clean-frog-data.csv&quot;</span>)</span>
+<span id="cb140-70"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-70"></a></span>
+<span id="cb140-71"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-71"></a><span class="co"># Write the cleaned tree to a new file</span></span>
+<span id="cb140-72"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#cb140-72"></a><span class="kw">write.nexus</span>(mytree, <span class="dt">file =</span> <span class="st">&quot;data/clean-frog-tree.nex&quot;</span>)</span></code></pre></div>
+</div>
+<div id="summary-2" class="section level2">
+<h2><span class="header-section-number">4.7</span> Summary</h2>
+<p>You should now know how to prepare your tree and dataset for a PCM analysis in R.</p>
+</div>
+<div id="practical-exercise-2" class="section level2">
+<h2><span class="header-section-number">4.8</span> Practical exercise</h2>
+<p>In the data folder there is another tree (<code>consensusTree_10kTrees_Version2.nex</code>) and dataset (<code>primate-life-history-data.csv</code>) for investigating the evolution of primate life-history variables. These data come from the PanTHERIA database <span class="citation">(Jones et al. <a href="#ref-jones2009pantheria" role="doc-biblioref">2009</a>)</span> and 10kTrees <span class="citation">(Arnold, Matthews, and Nunn <a href="#ref-arnold201010ktrees" role="doc-biblioref">2010</a>)</span>.</p>
+<p>Read in the tree and data, then prepare them for a PCM analysis. You will need to do this for the practical exercises in the next few practicals so save your code!</p>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-arnold201010ktrees">
+<p>Arnold, Christian, Luke J Matthews, and Charles L Nunn. 2010. “The 10kTrees Website: A New Online Resource for Primate Phylogeny.” <em>Evolutionary Anthropology: Issues, News, and Reviews</em> 19 (3): 114–18.</p>
+</div>
+<div id="ref-feng2017phylogenomics">
+<p>Feng, Yan-Jie, David C Blackburn, Dan Liang, David M Hillis, David B Wake, David C Cannatella, and Peng Zhang. 2017. “Phylogenomics Reveals Rapid, Simultaneous Diversification of Three Major Clades of Gondwanan Frogs at the Cretaceous–Paleogene Boundary.” <em>Proceedings of the National Academy of Sciences</em> 114 (29): E5864–E5870.</p>
+</div>
+<div id="ref-jones2009pantheria">
+<p>Jones, Kate E, Jon Bielby, Marcel Cardillo, Susanne A Fritz, Justin O’Dell, C David L Orme, Kamran Safi, et al. 2009. “PanTHERIA: A Species-Level Database of Life History, Ecology, and Geography of Extant and Recently Extinct Mammals: Ecological Archives E090-184.” <em>Ecology</em> 90 (9): 2648–8.</p>
+</div>
+<div id="ref-thomas2020eye">
+<p>Thomas, Kate N, David J Gower, Rayna C Bell, Matthew K Fujita, Ryan K Schott, and Jeffrey W Streicher. 2020. “Eye Size and Investment in Frogs and Toads Correlate with Adult Habitat, Activity Pattern and Breeding Ecology.” <em>Proceedings of the Royal Society B</em> 287 (1935): 20201393.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="understanding-plotting-and-manipulating-phylogenies-in-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="phylogenetic-signal-in-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/04-Preparation.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["pcm-primer.pdf", "pcm-primer.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

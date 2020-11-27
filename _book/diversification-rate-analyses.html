@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 10 Diversification rate analyses | Practical exercises for Methods in Macroecology and Macroevolution module</title>
+  <meta name="description" content="Chapter 10 Diversification rate analyses | Practical exercises for Methods in Macroecology and Macroevolution module" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 10 Diversification rate analyses | Practical exercises for Methods in Macroecology and Macroevolution module" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 10 Diversification rate analyses | Practical exercises for Methods in Macroecology and Macroevolution module" />
+  
+  
+  
+
+<meta name="author" content="Natalie Cooper" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="beyond-simple-macroevolutionary-models-of-trait-evolution.html"/>
+<link rel="next" href="critical-thinking-about-methods-and-analyses.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">PCM Primer</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#datasets-and-scripts"><i class="fa fa-check"></i>Datasets and scripts</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-to-use-these-materials"><i class="fa fa-check"></i>How to use these materials</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#boxes"><i class="fa fa-check"></i>Boxes</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#example-datasets"><i class="fa fa-check"></i>Example datasets</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#frog-eye-size-evolution"><i class="fa fa-check"></i>Frog eye size evolution</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#natricine-snake-head-shape-evolution"><i class="fa fa-check"></i>Natricine snake head shape evolution</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#diversification-in-dragonflies"><i class="fa fa-check"></i>Diversification in dragonflies</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#citing-r-and-r-packages"><i class="fa fa-check"></i>Citing R and R packages</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><i class="fa fa-check"></i><b>1</b> What you need to be able to do in R before you start</a><ul>
+<li class="chapter" data-level="1.1" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#installing-r-and-rstudio"><i class="fa fa-check"></i><b>1.1</b> Installing R (and RStudio)</a></li>
+<li class="chapter" data-level="1.2" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#downloading-the-data"><i class="fa fa-check"></i><b>1.2</b> Downloading the data</a></li>
+<li class="chapter" data-level="1.3" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#r-projects"><i class="fa fa-check"></i><b>1.3</b> R Projects</a></li>
+<li class="chapter" data-level="1.4" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#using-a-script"><i class="fa fa-check"></i><b>1.4</b> Using a script</a></li>
+<li class="chapter" data-level="1.5" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#installing-and-loading-extra-packages-in-r"><i class="fa fa-check"></i><b>1.5</b> Installing and loading extra packages in R</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#loading-packages-into-r"><i class="fa fa-check"></i><b>1.5.1</b> Loading packages into R</a></li>
+<li class="chapter" data-level="1.5.2" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#ggtree-a-special-case-for-package-installation"><i class="fa fa-check"></i><b>1.5.2</b> <code>ggtree</code>, a special case for package installation</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#loading-and-viewing-your-data-in-r"><i class="fa fa-check"></i><b>1.6</b> Loading and viewing your data in R</a></li>
+<li class="chapter" data-level="1.7" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#errors-and-warnings"><i class="fa fa-check"></i><b>1.7</b> Errors and warnings</a><ul>
+<li class="chapter" data-level="1.7.1" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#removing-the"><i class="fa fa-check"></i><b>1.7.1</b> Removing the <code>+</code></a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#summary"><i class="fa fa-check"></i><b>1.8</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html"><i class="fa fa-check"></i><b>2</b> Diversity Indices in R</a><ul>
+<li class="chapter" data-level="2.1" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#before-you-start"><i class="fa fa-check"></i><b>2.1</b> Before you start</a></li>
+<li class="chapter" data-level="2.2" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#preparation"><i class="fa fa-check"></i><b>2.2</b> Preparation</a></li>
+<li class="chapter" data-level="2.3" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#what-are-diversity-indices"><i class="fa fa-check"></i><b>2.3</b> What are diversity indices?</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#alpha-beta-and-gamma-diversity"><i class="fa fa-check"></i><b>2.3.1</b> <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\gamma\)</span> diversity</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#practical-example-using-pokemon"><i class="fa fa-check"></i><b>2.4</b> Practical example using Pokemon…</a></li>
+<li class="chapter" data-level="2.5" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#species-diversity-indices"><i class="fa fa-check"></i><b>2.5</b> Species diversity indices</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#alpha-diversity"><i class="fa fa-check"></i><b>2.5.1</b> <span class="math inline">\(\alpha\)</span> diversity</a></li>
+<li class="chapter" data-level="2.5.2" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#beta-diversity"><i class="fa fa-check"></i><b>2.5.2</b> <span class="math inline">\(\beta\)</span> diversity</a></li>
+<li class="chapter" data-level="2.5.3" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#gamma-diversity"><i class="fa fa-check"></i><b>2.5.3</b> <span class="math inline">\(\gamma\)</span> diversity</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#species-accumulation-curves-colwell-coddington-1994"><i class="fa fa-check"></i><b>2.6</b> Species accumulation curves (Colwell &amp; Coddington 1994)</a><ul>
+<li class="chapter" data-level="2.6.1" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#pokemon-species-accumulation-curves"><i class="fa fa-check"></i><b>2.6.1</b> Pokemon species accumulation curves</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#practical-exercise"><i class="fa fa-check"></i><b>2.7</b> Practical exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html"><i class="fa fa-check"></i><b>3</b> Understanding, plotting and manipulating phylogenies in R</a><ul>
+<li class="chapter" data-level="3.1" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#before-you-start-1"><i class="fa fa-check"></i><b>3.1</b> Before you start</a></li>
+<li class="chapter" data-level="3.2" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#what-do-phylogeny-files-look-like"><i class="fa fa-check"></i><b>3.2</b> What do phylogeny files look like?</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#newick-trees"><i class="fa fa-check"></i><b>3.2.1</b> Newick trees</a></li>
+<li class="chapter" data-level="3.2.2" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#nexus-trees"><i class="fa fa-check"></i><b>3.2.2</b> NEXUS trees</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#how-are-phylogenies-formatted-in-r"><i class="fa fa-check"></i><b>3.3</b> How are phylogenies formatted in R?</a></li>
+<li class="chapter" data-level="3.4" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#plotting-phylogenies"><i class="fa fa-check"></i><b>3.4</b> Plotting phylogenies</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#basic-phylogeny-plotting-with-ape"><i class="fa fa-check"></i><b>3.4.1</b> Basic phylogeny plotting with APE</a></li>
+<li class="chapter" data-level="3.4.2" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#basic-phylogeny-plotting-with-ggtree"><i class="fa fa-check"></i><b>3.4.2</b> Basic phylogeny plotting with <code>ggtree</code></a></li>
+<li class="chapter" data-level="3.4.3" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#back-to-ggtree"><i class="fa fa-check"></i><b>3.4.3</b> Back to <code>ggtree</code></a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#phylogeny-manipulation"><i class="fa fa-check"></i><b>3.5</b> Phylogeny manipulation</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#removing-polytomies"><i class="fa fa-check"></i><b>3.5.1</b> Removing polytomies</a></li>
+<li class="chapter" data-level="3.5.2" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#rooting-your-phylogeny"><i class="fa fa-check"></i><b>3.5.2</b> Rooting your phylogeny</a></li>
+<li class="chapter" data-level="3.5.3" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#manipulating-the-species-in-your-phlyogeny"><i class="fa fa-check"></i><b>3.5.3</b> Manipulating the species in your phlyogeny</a></li>
+<li class="chapter" data-level="3.5.4" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#writing-phylogenies-to-file"><i class="fa fa-check"></i><b>3.5.4</b> Writing phylogenies to file</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#summary-1"><i class="fa fa-check"></i><b>3.6</b> Summary</a></li>
+<li class="chapter" data-level="3.7" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#practical-exercise-1"><i class="fa fa-check"></i><b>3.7</b> Practical exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html"><i class="fa fa-check"></i><b>4</b> Preparing your tree and data for PCMs in R</a><ul>
+<li class="chapter" data-level="4.1" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#before-you-start-2"><i class="fa fa-check"></i><b>4.1</b> Before you start</a></li>
+<li class="chapter" data-level="4.2" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#preparation-1"><i class="fa fa-check"></i><b>4.2</b> Preparation</a></li>
+<li class="chapter" data-level="4.3" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#reading-and-checking-your-phylogeny-in-r"><i class="fa fa-check"></i><b>4.3</b> Reading and checking your phylogeny in R</a></li>
+<li class="chapter" data-level="4.4" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#reading-the-data-into-r"><i class="fa fa-check"></i><b>4.4</b> Reading the data into R</a></li>
+<li class="chapter" data-level="4.5" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#matching-your-data-to-your-phylogeny"><i class="fa fa-check"></i><b>4.5</b> Matching your data to your phylogeny</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#species-names-with-spaces"><i class="fa fa-check"></i><b>4.5.1</b> Species names with spaces</a></li>
+<li class="chapter" data-level="4.5.2" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#mismatches-between-species-in-your-data-and-phylogeny"><i class="fa fa-check"></i><b>4.5.2</b> Mismatches between species in your data and phylogeny</a></li>
+<li class="chapter" data-level="4.5.3" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#matching-the-tree-and-the-data"><i class="fa fa-check"></i><b>4.5.3</b> Matching the tree and the data</a></li>
+<li class="chapter" data-level="4.5.4" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#subsetting-your-tree-and-data"><i class="fa fa-check"></i><b>4.5.4</b> Subsetting your tree and data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#quick-template-code"><i class="fa fa-check"></i><b>4.6</b> Quick template code</a></li>
+<li class="chapter" data-level="4.7" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#summary-2"><i class="fa fa-check"></i><b>4.7</b> Summary</a></li>
+<li class="chapter" data-level="4.8" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#practical-exercise-2"><i class="fa fa-check"></i><b>4.8</b> Practical exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html"><i class="fa fa-check"></i><b>5</b> Phylogenetic Signal in R</a><ul>
+<li class="chapter" data-level="5.1" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#before-you-start-3"><i class="fa fa-check"></i><b>5.1</b> Before you start</a></li>
+<li class="chapter" data-level="5.2" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#preparation-2"><i class="fa fa-check"></i><b>5.2</b> Preparation</a></li>
+<li class="chapter" data-level="5.3" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#estimating-phylogenetic-signal-for-continuous-variables"><i class="fa fa-check"></i><b>5.3</b> Estimating phylogenetic signal for continuous variables</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#pagels-lambda"><i class="fa fa-check"></i><b>5.3.1</b> Pagel’s <span class="math inline">\(\lambda\)</span></a></li>
+<li class="chapter" data-level="5.3.2" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#blombergs-k-blomberg-et-al-2003"><i class="fa fa-check"></i><b>5.3.2</b> Blomberg’s <em>K</em> (Blomberg et al 2003)</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#estimating-phylogenetic-signal-for-non-continuous-variables"><i class="fa fa-check"></i><b>5.4</b> Estimating phylogenetic signal for non-continuous variables</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#d"><i class="fa fa-check"></i><b>5.4.1</b> <em>D</em></a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#summary-3"><i class="fa fa-check"></i><b>5.5</b> Summary</a></li>
+<li class="chapter" data-level="5.6" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#practical-exercises"><i class="fa fa-check"></i><b>5.6</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html"><i class="fa fa-check"></i><b>6</b> Phylogenetic Generalised Least Squares (PGLS) in R</a><ul>
+<li class="chapter" data-level="6.1" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#before-you-start-4"><i class="fa fa-check"></i><b>6.1</b> Before you start</a></li>
+<li class="chapter" data-level="6.2" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#preparation-3"><i class="fa fa-check"></i><b>6.2</b> Preparation</a></li>
+<li class="chapter" data-level="6.3" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#phylogenetic-generalized-least-squares-models-pgls"><i class="fa fa-check"></i><b>6.3</b> Phylogenetic generalized least squares models (PGLS)</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#fitting-pgls-models-in-r"><i class="fa fa-check"></i><b>6.3.1</b> Fitting PGLS models in R</a></li>
+<li class="chapter" data-level="6.3.2" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#model-diagnostics-for-pgls-models"><i class="fa fa-check"></i><b>6.3.2</b> Model diagnostics for PGLS models</a></li>
+<li class="chapter" data-level="6.3.3" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#likelihood-profiles-for-lambda-in-pgls-models"><i class="fa fa-check"></i><b>6.3.3</b> Likelihood profiles for <span class="math inline">\(\lambda\)</span> in PGLS models</a></li>
+<li class="chapter" data-level="6.3.4" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#a-pgls-example-with-more-than-one-predictor-variable"><i class="fa fa-check"></i><b>6.3.4</b> A PGLS example with more than one predictor variable</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#common-issues-when-running-pgls-models-in-r"><i class="fa fa-check"></i><b>6.4</b> Common issues when running PGLS models in R</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#optim-errors"><i class="fa fa-check"></i><b>6.4.1</b> Optim errors</a></li>
+<li class="chapter" data-level="6.4.2" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#big-problems-with-small-datasets"><i class="fa fa-check"></i><b>6.4.2</b> Big problems with small datasets</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#summary-4"><i class="fa fa-check"></i><b>6.5</b> Summary</a></li>
+<li class="chapter" data-level="6.6" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#practical-exercises-1"><i class="fa fa-check"></i><b>6.6</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html"><i class="fa fa-check"></i><b>7</b> Macroevolutionary models for continuous traits</a><ul>
+<li class="chapter" data-level="7.1" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#before-you-start-5"><i class="fa fa-check"></i><b>7.1</b> Before you start</a></li>
+<li class="chapter" data-level="7.2" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#preparation-4"><i class="fa fa-check"></i><b>7.2</b> Preparation</a></li>
+<li class="chapter" data-level="7.3" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#models-of-evolution-for-continuous-traits"><i class="fa fa-check"></i><b>7.3</b> Models of evolution for continuous traits</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#loook-at-the-data"><i class="fa fa-check"></i><b>7.3.1</b> loook at the data????</a></li>
+<li class="chapter" data-level="7.3.2" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#fitting-the-brownian-motion-and-ou-models-of-evolution-using-fitcontinuous"><i class="fa fa-check"></i><b>7.3.2</b> Fitting the Brownian motion and OU models of evolution using <code>fitContinuous</code></a></li>
+<li class="chapter" data-level="7.3.3" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#comparing-models-of-evolution-using-aic"><i class="fa fa-check"></i><b>7.3.3</b> Comparing models of evolution using AIC</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#summary-5"><i class="fa fa-check"></i><b>7.4</b> Summary</a></li>
+<li class="chapter" data-level="7.5" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#practical-exercises-2"><i class="fa fa-check"></i><b>7.5</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html"><i class="fa fa-check"></i><b>8</b> Macroevolutionary models for discrete traits</a><ul>
+<li class="chapter" data-level="8.1" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#before-you-start-6"><i class="fa fa-check"></i><b>8.1</b> Before you start</a></li>
+<li class="chapter" data-level="8.2" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#preparation-5"><i class="fa fa-check"></i><b>8.2</b> Preparation</a></li>
+<li class="chapter" data-level="8.3" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#models-of-evolution-for-discrete-traits"><i class="fa fa-check"></i><b>8.3</b> Models of evolution for discrete traits</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#fitting-the-er-sym-and-ard-models-of-evolution-using-fitdiscrete"><i class="fa fa-check"></i><b>8.3.1</b> Fitting the ER, SYM and ARD models of evolution using <code>fitDiscrete</code></a></li>
+<li class="chapter" data-level="8.3.2" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#comparing-models-of-evolution-using-aic-1"><i class="fa fa-check"></i><b>8.3.2</b> Comparing models of evolution using AIC</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#ancestral-state-estimations"><i class="fa fa-check"></i><b>8.4</b> Ancestral state estimations</a></li>
+<li class="chapter" data-level="8.5" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#summary-6"><i class="fa fa-check"></i><b>8.5</b> Summary</a></li>
+<li class="chapter" data-level="8.6" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#practical-exercises-3"><i class="fa fa-check"></i><b>8.6</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><i class="fa fa-check"></i><b>9</b> Beyond simple macroevolutionary models of trait evolution</a><ul>
+<li class="chapter" data-level="9.1" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#before-you-start-7"><i class="fa fa-check"></i><b>9.1</b> Before you start</a></li>
+<li class="chapter" data-level="9.2" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#preparation-6"><i class="fa fa-check"></i><b>9.2</b> Preparation</a></li>
+<li class="chapter" data-level="9.3" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#more-complex-models-of-trait-evolution"><i class="fa fa-check"></i><b>9.3</b> More complex models of trait evolution</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#preparing-the-tree-and-data-for-ouwie"><i class="fa fa-check"></i><b>9.3.1</b> Preparing the tree and data for OUwie</a></li>
+<li class="chapter" data-level="9.3.2" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#running-models-using-ouwie"><i class="fa fa-check"></i><b>9.3.2</b> Running models using OUwie</a></li>
+<li class="chapter" data-level="9.3.3" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#single-rate-bm-models"><i class="fa fa-check"></i><b>9.3.3</b> Single rate BM models</a></li>
+<li class="chapter" data-level="9.3.4" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#single-optimum-ou-models"><i class="fa fa-check"></i><b>9.3.4</b> Single optimum OU models</a></li>
+<li class="chapter" data-level="9.3.5" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#multi-rate-bm-bms-models"><i class="fa fa-check"></i><b>9.3.5</b> Multi-rate BM (BMS) models</a></li>
+<li class="chapter" data-level="9.3.6" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#multi-optima-ou-oum-models"><i class="fa fa-check"></i><b>9.3.6</b> Multi-optima OU (OUM) models</a></li>
+<li class="chapter" data-level="9.3.7" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#multi-rate-multi-optima-ou-motion-models-oumv"><i class="fa fa-check"></i><b>9.3.7</b> Multi-rate multi-optima OU motion models (OUMV)</a></li>
+<li class="chapter" data-level="9.3.8" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#multi-alpha-multi-optima-ou-motion-models-ouma"><i class="fa fa-check"></i><b>9.3.8</b> Multi-alpha multi-optima OU motion models (OUMA)</a></li>
+<li class="chapter" data-level="9.3.9" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#multi-rate-multi-optima-ou-motion-models-oumva"><i class="fa fa-check"></i><b>9.3.9</b> Multi-rate multi-optima OU motion models (OUMVA)</a></li>
+<li class="chapter" data-level="9.3.10" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#comparing-models-of-evolution-using-aic-2"><i class="fa fa-check"></i><b>9.3.10</b> Comparing models of evolution using AIC</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#summary-7"><i class="fa fa-check"></i><b>9.4</b> Summary</a></li>
+<li class="chapter" data-level="9.5" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#practical-exercises-4"><i class="fa fa-check"></i><b>9.5</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html"><i class="fa fa-check"></i><b>10</b> Diversification rate analyses</a><ul>
+<li class="chapter" data-level="10.1" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#before-you-start-8"><i class="fa fa-check"></i><b>10.1</b> Before you start</a></li>
+<li class="chapter" data-level="10.2" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#preparation-7"><i class="fa fa-check"></i><b>10.2</b> Preparation</a></li>
+<li class="chapter" data-level="10.3" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#lineage-through-time-plots-and-the-gamma-statistic"><i class="fa fa-check"></i><b>10.3</b> Lineage through time plots and the <span class="math inline">\(\gamma\)</span> statistic</a></li>
+<li class="chapter" data-level="10.4" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#bamm-bayesian-analysis-of-macroevolutionary-mixtures"><i class="fa fa-check"></i><b>10.4</b> BAMM: Bayesian Analysis of Macroevolutionary Mixtures</a></li>
+<li class="chapter" data-level="10.5" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#running-bamm"><i class="fa fa-check"></i><b>10.5</b> Running BAMM</a></li>
+<li class="chapter" data-level="10.6" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#looking-at-the-output-of-bamm-using-bammtools-in-r"><i class="fa fa-check"></i><b>10.6</b> Looking at the output of BAMM using BAMMtools in R</a><ul>
+<li class="chapter" data-level="10.6.1" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#assessing-mcmc-convergence"><i class="fa fa-check"></i><b>10.6.1</b> Assessing MCMC convergence</a></li>
+<li class="chapter" data-level="10.6.2" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#analysis-of-rate-shifts-in-the-dragonfly-phylogeny"><i class="fa fa-check"></i><b>10.6.2</b> Analysis of rate shifts in the dragonfly phylogeny</a></li>
+<li class="chapter" data-level="10.6.3" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#mean-phylorate-plot"><i class="fa fa-check"></i><b>10.6.3</b> Mean phylorate plot</a></li>
+<li class="chapter" data-level="10.6.4" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#best-single-distinct-shift-configuration"><i class="fa fa-check"></i><b>10.6.4</b> Best single distinct shift configuration</a></li>
+</ul></li>
+<li class="chapter" data-level="10.7" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#credible-sets-of-shifts"><i class="fa fa-check"></i><b>10.7</b> Credible sets of shifts</a></li>
+<li class="chapter" data-level="10.8" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#clade-specific-evolutionary-rates"><i class="fa fa-check"></i><b>10.8</b> Clade specific evolutionary rates</a></li>
+<li class="chapter" data-level="10.9" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#rate-through-time-analysis"><i class="fa fa-check"></i><b>10.9</b> Rate-through-time analysis</a></li>
+<li class="chapter" data-level="10.10" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#macroevolutionary-cohort-analysis"><i class="fa fa-check"></i><b>10.10</b> Macroevolutionary cohort analysis</a></li>
+<li class="chapter" data-level="10.11" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#assumptions-and-issues-with-bamm"><i class="fa fa-check"></i><b>10.11</b> Assumptions and issues with BAMM</a></li>
+<li class="chapter" data-level="10.12" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#summary-8"><i class="fa fa-check"></i><b>10.12</b> Summary</a></li>
+<li class="chapter" data-level="10.13" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#practical-exercises-5"><i class="fa fa-check"></i><b>10.13</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html"><i class="fa fa-check"></i><b>11</b> Critical thinking about methods and analyses</a><ul>
+<li class="chapter" data-level="11.1" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#how-to-critically-evaluate-a-paper-that-uses-phylogenetic-comparative-methods"><i class="fa fa-check"></i><b>11.1</b> How to critically evaluate a paper that uses phylogenetic comparative methods</a><ul>
+<li class="chapter" data-level="" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#logicinterpretation"><i class="fa fa-check"></i>Logic/interpretation</a></li>
+<li class="chapter" data-level="" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#data"><i class="fa fa-check"></i>Data</a></li>
+<li class="chapter" data-level="" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#methods"><i class="fa fa-check"></i>Methods</a></li>
+<li class="chapter" data-level="" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#moving-forwards"><i class="fa fa-check"></i>Moving forwards</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#further-reading"><i class="fa fa-check"></i><b>11.2</b> Further reading</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html"><i class="fa fa-check"></i><b>12</b> Answers to practical exercises</a><ul>
+<li class="chapter" data-level="12.1" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#diversity-indices"><i class="fa fa-check"></i><b>12.1</b> Diversity indices</a></li>
+<li class="chapter" data-level="12.2" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#phylogenies"><i class="fa fa-check"></i><b>12.2</b> Phylogenies</a></li>
+<li class="chapter" data-level="12.3" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#preparation-8"><i class="fa fa-check"></i><b>12.3</b> Preparation</a></li>
+<li class="chapter" data-level="12.4" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#phylogenetic-signal"><i class="fa fa-check"></i><b>12.4</b> Phylogenetic signal</a></li>
+<li class="chapter" data-level="12.5" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#pgls"><i class="fa fa-check"></i><b>12.5</b> PGLS</a></li>
+<li class="chapter" data-level="12.6" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#models-of-evolution-with-continuous-traits"><i class="fa fa-check"></i><b>12.6</b> Models of evolution with continuous traits</a></li>
+<li class="chapter" data-level="12.7" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#models-of-evolution-with-discrete-traits"><i class="fa fa-check"></i><b>12.7</b> Models of evolution with discrete traits</a></li>
+<li class="chapter" data-level="12.8" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#beyond-simple-macroevolutionary-models-of-trait-evolution-1"><i class="fa fa-check"></i><b>12.8</b> Beyond simple macroevolutionary models of trait evolution</a></li>
+<li class="chapter" data-level="12.9" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#diversification"><i class="fa fa-check"></i><b>12.9</b> Diversification</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Practical exercises for Methods in Macroecology and Macroevolution module</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="diversification-rate-analyses" class="section level1">
+<h1><span class="header-section-number">Chapter 10</span> Diversification rate analyses</h1>
+<p>The aims of this exercise are to learn how to use R to perform some simple diversification rate analyses, and to analyse the output from a BAMM analysis.</p>
+<p>We will be using the diversification rates of dragonflies (Anisoptera) as an example. The tree comes from <span class="citation">Letsch, Gottsberger, and Ware (<a href="#ref-letsch2016not" role="doc-biblioref">2016</a><a href="#ref-letsch2016not" role="doc-biblioref">b</a>)</span> and is available to download from <span class="citation">Letsch, Gottsberger, and Ware (<a href="#ref-letsch2016data" role="doc-biblioref">2016</a><a href="#ref-letsch2016data" role="doc-biblioref">a</a>)</span>. I’m only using one of their trees. If you want to see the full results check out <span class="citation">Letsch, Gottsberger, and Ware (<a href="#ref-letsch2016not" role="doc-biblioref">2016</a><a href="#ref-letsch2016not" role="doc-biblioref">b</a>)</span>!</p>
+<div id="before-you-start-8" class="section level2">
+<h2><span class="header-section-number">10.1</span> Before you start</h2>
+<ul>
+<li>Open the <code>10-Diversification.RProj</code> file in the <code>10-Diversification</code> folder to open your R Project for this exercise.</li>
+<li>Make yourself a new R script for your code.</li>
+</ul>
+<p>You will also need to install the following packages:</p>
+<ul>
+<li><code>ape</code></li>
+<li><code>BAMMtools</code></li>
+<li><code>coda</code></li>
+<li><code>phytools</code></li>
+<li><code>viridis</code></li>
+</ul>
+</div>
+<div id="preparation-7" class="section level2">
+<h2><span class="header-section-number">10.2</span> Preparation</h2>
+<p>To begin we need to load the packages for this practical.</p>
+<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="diversification-rate-analyses.html#cb411-1"></a><span class="co"># Load the packages</span></span>
+<span id="cb411-2"><a href="diversification-rate-analyses.html#cb411-2"></a><span class="kw">library</span>(ape)</span>
+<span id="cb411-3"><a href="diversification-rate-analyses.html#cb411-3"></a><span class="kw">library</span>(BAMMtools)</span>
+<span id="cb411-4"><a href="diversification-rate-analyses.html#cb411-4"></a><span class="kw">library</span>(coda)</span>
+<span id="cb411-5"><a href="diversification-rate-analyses.html#cb411-5"></a><span class="kw">library</span>(phytools)</span>
+<span id="cb411-6"><a href="diversification-rate-analyses.html#cb411-6"></a><span class="kw">library</span>(viridis)</span></code></pre></div>
+<p>To load the tree we will use <code>read.tree</code>.</p>
+<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="diversification-rate-analyses.html#cb412-1"></a><span class="co"># Read in the tree</span></span>
+<span id="cb412-2"><a href="diversification-rate-analyses.html#cb412-2"></a>dragonflytree &lt;-<span class="st"> </span><span class="kw">read.tree</span>(<span class="st">&quot;data/dragonflies-tree.tre&quot;</span>)</span>
+<span id="cb412-3"><a href="diversification-rate-analyses.html#cb412-3"></a><span class="co"># Check it loaded correctly</span></span>
+<span id="cb412-4"><a href="diversification-rate-analyses.html#cb412-4"></a><span class="kw">str</span>(dragonflytree)</span></code></pre></div>
+<pre><code>## List of 4
+##  $ edge       : int [1:1042, 1:2] 523 524 525 525 526 527 527 526 528 528 ...
+##  $ edge.length: num [1:1042] 53.62 128.32 54.18 5.07 17.93 ...
+##  $ Nnode      : int 521
+##  $ tip.label  : chr [1:522] &quot;Hypopetalia_pestilens&quot; &quot;Phyllopetalia_apicalis&quot; &quot;Ophiopetalia_diana&quot; &quot;Phyllopetalia_apollo&quot; ...
+##  - attr(*, &quot;class&quot;)= chr &quot;phylo&quot;
+##  - attr(*, &quot;order&quot;)= chr &quot;cladewise&quot;</code></pre>
+<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="diversification-rate-analyses.html#cb414-1"></a><span class="co"># Look at the tree</span></span>
+<span id="cb414-2"><a href="diversification-rate-analyses.html#cb414-2"></a><span class="kw">plot</span>(dragonflytree, <span class="dt">show.tip.label =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-281-1.png" width="672" /></p>
+<p>Remember to check the tree is dichotomous, i.e. has no polytomies, rooted, and ultrametric.</p>
+<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb415-1"><a href="diversification-rate-analyses.html#cb415-1"></a><span class="co"># Check whether the tree is binary</span></span>
+<span id="cb415-2"><a href="diversification-rate-analyses.html#cb415-2"></a><span class="co"># We want this to be TRUE</span></span>
+<span id="cb415-3"><a href="diversification-rate-analyses.html#cb415-3"></a><span class="kw">is.binary.tree</span>(dragonflytree)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb417-1"><a href="diversification-rate-analyses.html#cb417-1"></a><span class="co"># Check whether the tree is rooted </span></span>
+<span id="cb417-2"><a href="diversification-rate-analyses.html#cb417-2"></a><span class="co"># We want this to be TRUE </span></span>
+<span id="cb417-3"><a href="diversification-rate-analyses.html#cb417-3"></a><span class="kw">is.rooted</span>(dragonflytree)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="diversification-rate-analyses.html#cb419-1"></a><span class="co"># Check whether the tree is ultrametric</span></span>
+<span id="cb419-2"><a href="diversification-rate-analyses.html#cb419-2"></a><span class="co"># We want this to be TRUE </span></span>
+<span id="cb419-3"><a href="diversification-rate-analyses.html#cb419-3"></a><span class="kw">is.ultrametric</span>(dragonflytree)</span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<p>Oh dear, the tree is not ultrametric! But it looks ultrametric so we can fix this using the <code>phytools</code> function <code>force.ultrametric</code>. Note that this function is designed to deal with situations like this, but if your tree is genuinely non-ultrametric you should not use this function.</p>
+<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb421-1"><a href="diversification-rate-analyses.html#cb421-1"></a><span class="co"># Force the tree to be ultrametric</span></span>
+<span id="cb421-2"><a href="diversification-rate-analyses.html#cb421-2"></a>dragonflytree &lt;-<span class="st"> </span><span class="kw">force.ultrametric</span>(dragonflytree)</span></code></pre></div>
+<div class="detail">
+<p>
+<strong>Why does a tree that looks ultrametric appear to be non-ultrametric?</strong> Most of the methods we use expect trees to be ultrametric, i.e. that all the tips line up, generally at the present day (time 0). Here we plotted the tree and it looks ultrametric, but when we check using <code>is.ultrametric</code> the answer returned is <code>FALSE</code>. What is going on? The tree is actually ultrametric, and will run in most analyses with R treating it as an ultrametric tree. The reason <code>is.ultrametric</code> tells us it is not ultrametric is related to rounding errors. When you save a tree file, it will save the branch lengths to a certain level of accuracy, but not always the full level of accuracy if your branch lengths have lots and lots of decimal places. When you read these trees back into R, a teeny tiny bit of the accuracy is lost which sometimes means that when R adds up the root-to-tip distances for each tip, they aren’t all exactly the same length, so therefore technically the tree is not ultrametric. For most implementations this tiny difference is not a big deal. A quick fix to this problem is to use the function <code>force.ultrametric</code> which essentially fudges the numbers to force the tree to be ultrametric. <strong>If your tree is genuinely non-ultrametric you should not use this function</strong> as it can introduce negative branch lengths which will break most functions you might want to use in R.
+</p>
+</div>
+<p>Because these analyses only require a dated phylogeny and no additional data we do not need to do any extra data cleaning steps, unless you want to only look at a particular subset of the data.</p>
+</div>
+<div id="lineage-through-time-plots-and-the-gamma-statistic" class="section level2">
+<h2><span class="header-section-number">10.3</span> Lineage through time plots and the <span class="math inline">\(\gamma\)</span> statistic</h2>
+<p>Drawing lineage through time (LTT) plots is very easy in R using the <code>phytools</code> function <code>ltt</code>. This function will also calculate <span class="math inline">\(\gamma\)</span> statistic for you, but for this first example I have turned off that option using <code>gamma = FALSE</code>.</p>
+<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="diversification-rate-analyses.html#cb422-1"></a><span class="co"># Draw LTT plot</span></span>
+<span id="cb422-2"><a href="diversification-rate-analyses.html#cb422-2"></a><span class="kw">ltt</span>(dragonflytree, <span class="dt">gamma =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-285-1.png" width="672" /></p>
+<pre><code>## Object of class &quot;ltt&quot; containing:
+## 
+## (1) A phylogenetic tree with 522 tips and 521 internal
+##     nodes.
+## 
+## (2) Vectors containing the number of lineages (ltt) and
+##     branching times (times) on the tree.</code></pre>
+<p>This looks like diversification in dragonflies is fairly constant through most of the phylogeny, except early in the tree where there are some larger bursts of speciation. There may also be a bit of slowdown in the later stages of the phylogeny too.</p>
+<p>If we wanted to we can also plot the tree and the LTT on the same plot as follows:</p>
+<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="diversification-rate-analyses.html#cb424-1"></a><span class="co"># Plot LTT and tree</span></span>
+<span id="cb424-2"><a href="diversification-rate-analyses.html#cb424-2"></a><span class="kw">ltt</span>(dragonflytree, <span class="dt">gamma =</span> <span class="ot">FALSE</span>, <span class="dt">show.tree =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-286-1.png" width="672" /></p>
+<pre><code>## Object of class &quot;ltt&quot; containing:
+## 
+## (1) A phylogenetic tree with 522 tips and 521 internal
+##     nodes.
+## 
+## (2) Vectors containing the number of lineages (ltt) and
+##     branching times (times) on the tree.</code></pre>
+<p>We often also want to compare the observed LTT, to simulated LTTs assuming a pure-birth model. To do this we first need to simulate pure-birth trees that are the same age as our tree, and result in the same number of species. We can do this using the <code>phytools</code> function <code>pbtree</code>. This takes a few minutes to run… time for more cake/biscuits/tea/coffee/fresh air!</p>
+<div class="info">
+<p>
+I’m only using 10 simulations <code>nsim = 10</code> below to save some time. For your own analyses, <code>nsim = 100</code> (or higher) is likely to be give a better answer as it will explore more options.
+</p>
+</div>
+<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="diversification-rate-analyses.html#cb426-1"></a><span class="co"># Extract the number of species from the tree</span></span>
+<span id="cb426-2"><a href="diversification-rate-analyses.html#cb426-2"></a>n_dragonflies &lt;-<span class="st"> </span><span class="kw">Ntip</span>(dragonflytree)</span>
+<span id="cb426-3"><a href="diversification-rate-analyses.html#cb426-3"></a><span class="co"># Extract the total age of the tree</span></span>
+<span id="cb426-4"><a href="diversification-rate-analyses.html#cb426-4"></a>age_dragonflies &lt;-<span class="st"> </span><span class="kw">max</span>(<span class="kw">nodeHeights</span>(dragonflytree))</span>
+<span id="cb426-5"><a href="diversification-rate-analyses.html#cb426-5"></a><span class="co"># Extract the speciation rate (number of new tips per unit time), assuming it follows an exponential curve (as expected under pure-birth)</span></span>
+<span id="cb426-6"><a href="diversification-rate-analyses.html#cb426-6"></a>lambda_dragonflies &lt;-(<span class="kw">log</span>(n_dragonflies)<span class="op">-</span><span class="kw">log</span>(<span class="dv">2</span>))<span class="op">/</span>age_dragonflies</span>
+<span id="cb426-7"><a href="diversification-rate-analyses.html#cb426-7"></a></span>
+<span id="cb426-8"><a href="diversification-rate-analyses.html#cb426-8"></a><span class="co"># Simulate 10 pure-birth trees using the above parameters</span></span>
+<span id="cb426-9"><a href="diversification-rate-analyses.html#cb426-9"></a>sim_trees &lt;-<span class="st"> </span><span class="kw">pbtree</span>(<span class="dt">b =</span> lambda_dragonflies, </span>
+<span id="cb426-10"><a href="diversification-rate-analyses.html#cb426-10"></a>                    <span class="dt">n =</span> n_dragonflies, </span>
+<span id="cb426-11"><a href="diversification-rate-analyses.html#cb426-11"></a>                    <span class="dt">t =</span> age_dragonflies, <span class="dt">nsim =</span> <span class="dv">10</span>, <span class="dt">quiet =</span> <span class="ot">TRUE</span>, <span class="dt">method =</span> <span class="st">&quot;direct&quot;</span>)</span></code></pre></div>
+<p>We then use the <code>ltt95</code> function to plot the 95% confidence intervals for the LTT based on the simulated set of pure-birth trees. This shows how much our observed LTT differs from the pure-birth null model (see <em>Primer</em> for more details). Note that if working with Bayesian posterior distributions of trees you can also use <code>ltt95</code> to plot these.</p>
+<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb427-1"><a href="diversification-rate-analyses.html#cb427-1"></a><span class="co"># Extract LTT plots for all simulations and plot the 95% confidence intervals</span></span>
+<span id="cb427-2"><a href="diversification-rate-analyses.html#cb427-2"></a><span class="kw">ltt95</span>(sim_trees, <span class="dt">log =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb427-3"><a href="diversification-rate-analyses.html#cb427-3"></a><span class="co"># Add the original tree&#39;s LTT plot to the simulated data in red</span></span>
+<span id="cb427-4"><a href="diversification-rate-analyses.html#cb427-4"></a><span class="kw">ltt</span>(dragonflytree, <span class="dt">add =</span> <span class="ot">TRUE</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">gamma =</span> <span class="ot">FALSE</span>, <span class="dt">log =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-289-1.png" width="672" /></p>
+<pre><code>## Object of class &quot;ltt&quot; containing:
+## 
+## (1) A phylogenetic tree with 522 tips and 521 internal
+##     nodes.
+## 
+## (2) Vectors containing the number of lineages (ltt) and
+##     branching times (times) on the tree.</code></pre>
+<p>It’s clear from this plot that the diversification of dragonflies is pretty close to the expectation under a pure-birth model.</p>
+<div class="detail">
+<p>
+<strong>Fun with log transforms</strong>. The function <code>ltt95</code> plots log number of lineages on the y-axis, but shows the real numbers of lineages on the y axis tick labels and spreads them out, rather than the actual logged values. This is fine until we try to add our original LTT plot from <code>ltt</code> back onto the graph! If we do that with <code>log = TRUE</code> in the <code>ltt</code> function, the line plots in completely the wrong place! A counter-intuitive solution to this, as shown in the code above, is to use <code>log = FALSE</code> instead which gives the correct plot!
+</p>
+</div>
+<p>Finally, we can also use <code>ltt</code> to extract the value of the <span class="math inline">\(\gamma\)</span> statistic <span class="citation">(Pybus and Harvey <a href="#ref-pybus2000testing" role="doc-biblioref">2000</a>)</span>:</p>
+<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb429-1"><a href="diversification-rate-analyses.html#cb429-1"></a><span class="co"># Extract gamma</span></span>
+<span id="cb429-2"><a href="diversification-rate-analyses.html#cb429-2"></a><span class="kw">ltt</span>(dragonflytree, <span class="dt">gamma =</span> <span class="ot">TRUE</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<pre><code>## Object of class &quot;ltt&quot; containing:
+## 
+## (1) A phylogenetic tree with 522 tips and 521 internal
+##     nodes.
+## 
+## (2) Vectors containing the number of lineages (ltt) and
+##     branching times (times) on the tree.
+## 
+## (3) A value for Pybus &amp; Harvey&#39;s &quot;gamma&quot; statistic of
+##     gamma = -5.9763, p-value = 0.</code></pre>
+<p><span class="math inline">\(\gamma = -5.9763\)</span>, and is significantly different from a pure-birth model of constant speciation rates (<span class="math inline">\(p = 0\)</span>, i.e. <span class="math inline">\(p &lt; 0.001\)</span>). This confirms our suspicions from looking at the LTT plots above that dragonfly diversification rates have significantly decreased through time.</p>
+</div>
+<div id="bamm-bayesian-analysis-of-macroevolutionary-mixtures" class="section level2">
+<h2><span class="header-section-number">10.4</span> BAMM: Bayesian Analysis of Macroevolutionary Mixtures</h2>
+<div class="info">
+<p>
+The BAMM part of this practical is based on the Rabosky lab’s excellent resource for using BAMM found at <a href="http://bamm-project.org/index.html" class="uri">http://bamm-project.org/index.html</a>. I highly recommend reading it, especially if you want to use BAMM on your own data.
+</p>
+</div>
+<p>BAMM (Bayesian Analysis of Macroevolutionary Mixtures; <span class="citation">Rabosky (<a href="#ref-rabosky2014automatic" role="doc-biblioref">2014</a>)</span>, <span class="citation">Rabosky et al. (<a href="#ref-rabosky2014bamm" role="doc-biblioref">2014</a>)</span>) identifies discrete shifts in diversification rates at nodes of a tree (it can also investigate trait evolution but we will focus on diversification rates here), i.e places where diversification rates speed up or slow down. BAMM looks for rate shifts across the whole tree, so it can find one or more shifts. It does this using <em>reversible jump Markov Chain Monte (MCMC)</em> methods to automatically explore a vast universe of possible models (reversible jump MCMC is a special kind of MCMC algorithm; see <span class="citation">Rabosky (<a href="#ref-rabosky2014automatic" role="doc-biblioref">2014</a>)</span> for details). It is biased towards simpler models (a common tactic in most evolutionary models, e.g. parsimony) so rarely results in lots of rate shifts.</p>
+<p>For each MCMC run (generally over 1 million iterations are run in these analyses), BAMM simulates speciation and extinction along the tree, extracts the number of rate shifts, and then works out the probability of that particular combination of rate shifts occurring. The resulting BAMM outputs are a sample of all possible combinations of rates and rate shifts across all models, in <em>proportion to their posterior probability</em>. The posterior, or distribution of results, from BAMM will thus contain lots of different combinations of rates and rate shifts, but those that occur more often across all the models will appear more often than those that occur rarely.</p>
+<p>In the posterior, we call each of these possible combinations <strong>distinct shift configurations</strong>. These are the most probable configuration of shifts from <strong>one model</strong> from the posterior. For example, one shift configuration may be a speed up at node 34 and a slow down at node 22 on model 10000. Each model in the posterior might have a different distinct shift configuration, or they might all be very similar. It depends on the dataset.</p>
+<p>The number of possible distinct shift configurations is huge. Eventually, if you ran BAMM for for long enough you’d find a shift on every branch in the tree (because the branches can show shifts due to the effect of the prior alone).</p>
+<p>We know that all the distinct shift configurations are <em>possible</em> but they aren’t equally <em>probable</em>. As mentioned above some may be common, and others rare. We need some way of summarising thousands of models, and taking this into account. There are two main approaches (and I’ll show you how to extract both from your BAMM outputs below).</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Overall best shift configuration</strong>
+You can get this by looking at the maximum a posteriori (MAP) probability shift configuration, i.e. the one that appeared the most often in the posterior. This is a bit like using a consensus tree in phylogenetics. However, for most real datasets, the best rate shift configuration is merely one of a large number of possible rate shift configurations that have similar probabilities. So this method is not preferred (also if you’ve bothered to fit over 1 million models it seems pointless to just get one result!).</p></li>
+<li><p><strong>Credible shift sets</strong>
+An alternative way to present the results is to summarise all the distinct shift configurations. However, not all distinct shift configurations are going to be significant. Therefore, BAMM splits shifts into “important” ones that help explain the data (core shifts) and ones that are less important (or likely just due to priors) using <em>marginal odds ratios</em>. Specifically, BAMM computes the marginal odds ratio for each rate shift for every branch in the phylogeny. It then excludes all shifts that are unimportant using a pre-determined threshold value (usually 5). The remaining shifts are the credible shift set. These are usually reported in papers using BAMM.</p></li>
+</ol>
+<div class="warning">
+<p>
+BAMM is easy to run which makes it a slightly dangerous! It’s easy to run with no idea of what you are doing or why. If you want to use it on your own data you’ll need to do a lot of reading and thinking first. Below I present a very simplified version so you can get a taste of what it does.
+</p>
+</div>
+</div>
+<div id="running-bamm" class="section level2">
+<h2><span class="header-section-number">10.5</span> Running BAMM</h2>
+<p>BAMM is a command line program written in C++. Analysis and visualization of the results are performed using the R package <code>BAMMtools</code> <span class="citation">(Rabosky et al. <a href="#ref-rabosky2014bamm" role="doc-biblioref">2014</a>)</span>. <strong>We will not run BAMM itself in this practical, we will just use <code>BAMMtools</code> in R.</strong></p>
+<div class="detail">
+<p>
+<strong>Running BAMM using C++.</strong>
+</p>
+<p>
+BAMM is a command line program written in C++. To run BAMM, you need to <a href="http://bamm-project.org/download.html">download the program</a> first, then you run it via the command line (Terminal for Macs or something like cygwin in Windows).
+</p>
+<p>
+Your command line window will need to be opened from a folder containing the following files:
+</p>
+<ol style="list-style-type: decimal">
+<li>
+Your phylogeny
+</li>
+<li>
+A control file (there is an example with the datasets)
+</li>
+<li>
+Your data - if doing trait evolution analyses
+</li>
+</ol>
+<p>
+The control file specifies lots of information about how the BAMM model should be run, including MCMC settings (e.g. number of generations, number of chains, acceptance rates), the priors (including your expectation for the number of shifts, rates of speciation and extinction) and the initial values of the parameters. It is <strong>crucial</strong> that these settings are carefully thought through, and that multiple different combinations are tried to make sure models are converging etc. To get a sensible starting set of priors you can use the <code>BAMMtools</code> function <code>setBAMMpriors</code>.
+</p>
+<p>
+Running BAMM is then as simple as running this in the command line:
+</p>
+<p>
+<code>bamm -c control.txt</code>
+</p>
+<p>
+Assuming your control file is called <code>control.txt</code>, and your command line is running this in the folder containing the control file and your tree.
+</p>
+</div>
+</div>
+<div id="looking-at-the-output-of-bamm-using-bammtools-in-r" class="section level2">
+<h2><span class="header-section-number">10.6</span> Looking at the output of BAMM using BAMMtools in R</h2>
+<p>BAMM can take a long time to run for large datasets, and outputs several files with lots of different output. Rather than running BAMM here we are just going to investigate its outputs using the R package <code>BAMMtools</code>.</p>
+<p>I have created a control file for the dragonfly data (<code>dragonflies_control.txt</code>) and run this with BAMM. The output files we will use are:</p>
+<ul>
+<li>dragonflies_chain_swap.txt"<br />
+</li>
+<li>dragonflies_event_data.txt"<br />
+</li>
+<li>dragonflies_mcmc_out.txt"<br />
+</li>
+<li>dragonflies_run_info.txt"</li>
+</ul>
+<p>Remember that BAMM is a Bayesian method, so rather than giving the one most likely result (like we get in maximum likelihood analyses), BAMM outputs a distribution of results, often containing thousands of results, that we call the posterior distribution (or just the posterior).</p>
+<div id="assessing-mcmc-convergence" class="section level3">
+<h3><span class="header-section-number">10.6.1</span> Assessing MCMC convergence</h3>
+<p>Before we look at any of the exciting results, we need to check if our MCMC run actually converged. You should be familiar with this from building Bayesian phylogenies. Luckily BAMM is really helpful in what it outputs, so we can do this quite easily by looking at the <code>dragonflies_mcmc_out.txt</code> file.</p>
+<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="diversification-rate-analyses.html#cb431-1"></a><span class="co"># Read in the file</span></span>
+<span id="cb431-2"><a href="diversification-rate-analyses.html#cb431-2"></a>mcmc &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/dragonflies_mcmc_out.txt&quot;</span>)</span>
+<span id="cb431-3"><a href="diversification-rate-analyses.html#cb431-3"></a><span class="co"># Take a look at the plot</span></span>
+<span id="cb431-4"><a href="diversification-rate-analyses.html#cb431-4"></a><span class="kw">plot</span>(mcmc<span class="op">$</span>logLik <span class="op">~</span><span class="st"> </span>mcmc<span class="op">$</span>generation)</span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-295-1.png" width="672" />
+This gives us a vague idea of whether your run has converged. SPOILER alert, it has because I played around with the parameters in BAMM until it did, and used the same priors as <span class="citation">Letsch, Gottsberger, and Ware (<a href="#ref-letsch2016not" role="doc-biblioref">2016</a><a href="#ref-letsch2016not" role="doc-biblioref">b</a>)</span>.</p>
+<p>Again, as with Bayesian phylogenies, we next want to discard some runs as burnin. Let’s discard the first 10% of samples.</p>
+<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="diversification-rate-analyses.html#cb432-1"></a><span class="co"># What is 10% of rows?</span></span>
+<span id="cb432-2"><a href="diversification-rate-analyses.html#cb432-2"></a>burnstart &lt;-<span class="st"> </span><span class="kw">floor</span>(<span class="fl">0.1</span> <span class="op">*</span><span class="st"> </span><span class="kw">nrow</span>(mcmc))</span>
+<span id="cb432-3"><a href="diversification-rate-analyses.html#cb432-3"></a><span class="co"># Remove the first 10% from the runs </span></span>
+<span id="cb432-4"><a href="diversification-rate-analyses.html#cb432-4"></a>postburn &lt;-<span class="st"> </span>mcmc[burnstart<span class="op">:</span><span class="kw">nrow</span>(mcmc), ]</span></code></pre></div>
+<p>We can also use the <code>coda</code> library to check the effective sample sizes (ESS) of the log-likelihood and the number of shift events present in each sample.</p>
+<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb433-1"><a href="diversification-rate-analyses.html#cb433-1"></a><span class="co"># Extract ESS for the number of rate shifts parameter</span></span>
+<span id="cb433-2"><a href="diversification-rate-analyses.html#cb433-2"></a><span class="kw">effectiveSize</span>(postburn<span class="op">$</span>N_shifts)</span></code></pre></div>
+<pre><code>##     var1 
+## 273.7424</code></pre>
+<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="diversification-rate-analyses.html#cb435-1"></a><span class="co"># Extract ESS for the log likelihood</span></span>
+<span id="cb435-2"><a href="diversification-rate-analyses.html#cb435-2"></a><span class="kw">effectiveSize</span>(postburn<span class="op">$</span>logLik)</span></code></pre></div>
+<pre><code>##    var1 
+## 219.238</code></pre>
+<p>In general, we want these to be at least 200, and larger for small datasets. Note that these are standard procedures for any Bayesian analysis, not anything magical invented just for BAMM.</p>
+<p>OK great now we know that our analysis converged we can look at the cool stuff.</p>
+</div>
+<div id="analysis-of-rate-shifts-in-the-dragonfly-phylogeny" class="section level3">
+<h3><span class="header-section-number">10.6.2</span> Analysis of rate shifts in the dragonfly phylogeny</h3>
+<p>We first need to load our phylogeny and the output of BAMM called the event data file. This contains most of the outputs we’ve mentioned above, such as the branch-specific speciation rates, positions of rate shifts etc. Note that we again exclude the first 10% of samples as burn-in using <code>burnin = 0.1</code>.</p>
+<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb437-1"><a href="diversification-rate-analyses.html#cb437-1"></a><span class="co"># Read in the tree (if you haven&#39;t already)</span></span>
+<span id="cb437-2"><a href="diversification-rate-analyses.html#cb437-2"></a>tree &lt;-<span class="st"> </span><span class="kw">read.tree</span>(<span class="st">&quot;data/dragonflies-tree.tre&quot;</span>)</span>
+<span id="cb437-3"><a href="diversification-rate-analyses.html#cb437-3"></a></span>
+<span id="cb437-4"><a href="diversification-rate-analyses.html#cb437-4"></a><span class="co"># This step may take a couple of minutes with a big dataset.</span></span>
+<span id="cb437-5"><a href="diversification-rate-analyses.html#cb437-5"></a>edata &lt;-<span class="st"> </span><span class="kw">getEventData</span>(tree, <span class="dt">eventdata =</span> <span class="st">&quot;data/dragonflies_event_data.txt&quot;</span>,</span>
+<span id="cb437-6"><a href="diversification-rate-analyses.html#cb437-6"></a>                      <span class="dt">burnin =</span> <span class="fl">0.1</span>)</span></code></pre></div>
+<pre><code>## Reading event datafile:  data/dragonflies_event_data.txt 
+##      ...........
+## Read a total of 2501 samples from posterior
+## 
+## Discarded as burnin: GENERATIONS &lt;  2490000
+## Analyzing  2252  samples from posterior
+## 
+## Setting recursive sequence on tree...
+## 
+## Done with recursive sequence</code></pre>
+<p>The message this produces tells you how many samples were read and how many excluded as burnin.</p>
+<div id="how-many-rate-shifts" class="section level4">
+<h4><span class="header-section-number">10.6.2.1</span> How many rate shifts?</h4>
+<p>The first thing we might like to know is how many rate shifts occur in our tree? We can do this using our event data (<code>edata</code>) to look at the posterior probabilities of models sampled by BAMM.</p>
+<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb439-1"><a href="diversification-rate-analyses.html#cb439-1"></a><span class="co"># Look at the posterior for number of shifts</span></span>
+<span id="cb439-2"><a href="diversification-rate-analyses.html#cb439-2"></a><span class="kw">summary</span>(edata)</span></code></pre></div>
+<pre><code>## 
+## Analyzed 2252 posterior samples
+## Shift posterior distribution:
+## 
+##          1     0.0630
+##          2     0.2100
+##          3     0.2600
+##          4     0.2300
+##          5     0.1400
+##          6     0.0600
+##          7     0.0240
+##          8     0.0100
+##          9     0.0044
+##         10     0.0018
+## 
+## Compute credible set of shift configurations for more information:
+##  See ?credibleShiftSet and ?getBestShiftConfiguration</code></pre>
+<p>This should show the posterior probabilities of each number of rate shifts observed during simulation of the posterior. This doesn’t tell us <em>where</em> they occur on the tree, just how many there are, and what their probability was.</p>
+<p>Here it looks like 3 shifts occurred most often, but with a range in number of shifts from 0 to 10.</p>
+</div>
+</div>
+<div id="mean-phylorate-plot" class="section level3">
+<h3><span class="header-section-number">10.6.3</span> Mean phylorate plot</h3>
+<p>Next we might want to visualise these results on our tree. Mean phylorate plots are a way of visualizing the mean, model-averaged diversification rates along every branch of the tree. We can plot one using <code>plot.bammdata</code>.</p>
+<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb441-1"><a href="diversification-rate-analyses.html#cb441-1"></a><span class="co"># Plot mean phylorate plot with legend and slighting larger line width (lwd)</span></span>
+<span id="cb441-2"><a href="diversification-rate-analyses.html#cb441-2"></a><span class="kw">plot.bammdata</span>(edata, <span class="dt">legend =</span> <span class="ot">TRUE</span>, <span class="dt">lwd =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-301-1.png" width="672" /></p>
+<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb442-1"><a href="diversification-rate-analyses.html#cb442-1"></a><span class="co"># If you want to make a large PDF version</span></span>
+<span id="cb442-2"><a href="diversification-rate-analyses.html#cb442-2"></a><span class="co"># pdf(&quot;data/dragonfly-phylorate-plot.pdf&quot;, height = 50, width = 50)</span></span>
+<span id="cb442-3"><a href="diversification-rate-analyses.html#cb442-3"></a><span class="co"># plot.bammdata(edata, lwd = 2, legend = TRUE, cex = 0.5, labels = TRUE)</span></span>
+<span id="cb442-4"><a href="diversification-rate-analyses.html#cb442-4"></a><span class="co"># dev.off()</span></span></code></pre></div>
+<p>High rates are in red or yellow, and the low rates in blue. You can add the option <code>labels = TRUE</code> to get tip labels, but they’re really hard to read so you might need to look at a normal tree plot <code>plot(tree, cex = 0.5)</code> to see which species are involved here. I’ve provided a large PDF version of the tree in the folder where you can zoom in to see the details.</p>
+<p>In our dragonflies we see low rates (dark blues and blues) in most groups, but with higher rates near the base of the Libellulidae (the family that contains skimmers or perchers and their relatives, including my favourite the globe skimmer <em>Pantala flavescens</em>), and in one clade within the Libellulidae. It seems like there was a burst of diversification in the history of the clade, but rates have mostly slowed towards the present. See <span class="citation">Letsch, Gottsberger, and Ware (<a href="#ref-letsch2016not" role="doc-biblioref">2016</a><a href="#ref-letsch2016not" role="doc-biblioref">b</a>)</span> for a much more thorough interpretation of these results.</p>
+<div class="info">
+<p>
+<strong>Help I get errors and no plots!</strong> Sometimes when working with these <code>BAMMtools</code> plots I’ve been getting an error <code>Warning in gzfile(file, “wb”) : cannot open compressed file</code> followed by a lot more red text. This appears to be a memory issue, as it happens when I’m making my laptop do something complex. It might only be on Mac, and/or only in RMarkdown, but if it happens when you try to plot things just try again. That works for me!
+</p>
+</div>
+<p>We can also plot with slightly nicer colour-blind friendly colours from the package <code>viridis</code> (have a look at the options and choose your favourite).</p>
+<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb443-1"><a href="diversification-rate-analyses.html#cb443-1"></a><span class="co"># Plot mean phylorate plot with a different colour palette (pal) taken</span></span>
+<span id="cb443-2"><a href="diversification-rate-analyses.html#cb443-2"></a><span class="co"># from the viridis package</span></span>
+<span id="cb443-3"><a href="diversification-rate-analyses.html#cb443-3"></a><span class="kw">plot.bammdata</span>(edata, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">pal =</span> <span class="kw">plasma</span>(<span class="dv">4</span>))</span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-303-1.png" width="672" /></p>
+</div>
+<div id="best-single-distinct-shift-configuration" class="section level3">
+<h3><span class="header-section-number">10.6.4</span> Best single distinct shift configuration</h3>
+<p>To extract the overall best distinct shift configuration, we use the maximum <em>a posteriori</em> (MAP) probability shift configuration, i.e. the one that appeared the most often in the posterior, as follows.</p>
+<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb444-1"><a href="diversification-rate-analyses.html#cb444-1"></a><span class="co"># What is the single best rate shift configuration?</span></span>
+<span id="cb444-2"><a href="diversification-rate-analyses.html#cb444-2"></a>best &lt;-<span class="st"> </span><span class="kw">getBestShiftConfiguration</span>(edata, <span class="dt">expectedNumberOfShifts =</span> <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## Processing event data from data.frame
+## 
+## Discarded as burnin: GENERATIONS &lt;  0
+## Analyzing  1  samples from posterior
+## 
+## Setting recursive sequence on tree...
+## 
+## Done with recursive sequence</code></pre>
+<p>We can plot this as follows:</p>
+<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb446-1"><a href="diversification-rate-analyses.html#cb446-1"></a><span class="co"># Plot mean phylorate plot for single best rate shift configuration</span></span>
+<span id="cb446-2"><a href="diversification-rate-analyses.html#cb446-2"></a><span class="kw">plot.bammdata</span>(best, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">pal =</span> <span class="kw">plasma</span>(<span class="dv">4</span>))</span>
+<span id="cb446-3"><a href="diversification-rate-analyses.html#cb446-3"></a><span class="co"># Add the positions of the rate shifts</span></span>
+<span id="cb446-4"><a href="diversification-rate-analyses.html#cb446-4"></a><span class="kw">addBAMMshifts</span>(best, <span class="dt">cex =</span> <span class="fl">1.5</span>, <span class="dt">bg =</span> <span class="st">&quot;white&quot;</span>)</span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-305-1.png" width="672" /></p>
+<p>The best single distinct shift configuration consists of two shifts, one on the branch leading to the Libellulidae, and one leading to a small clade within Libellulidae.</p>
+</div>
+</div>
+<div id="credible-sets-of-shifts" class="section level2">
+<h2><span class="header-section-number">10.7</span> Credible sets of shifts</h2>
+<p>Using just one answer is not very desirable, so let’s look at the shifts from across the posterior. As described above, the number of possible distinct shift configurations is huge, but not all these shifts are going to be significant. BAMM computes the marginal odds ratio for each a rate shift for every branch in the phylogeny. It then excludes all shifts that are unimportant using a pre-determined threshold value (usually 5). The remaining shifts are the credible shift set.</p>
+<p>To extract the credible shift set for our data, we can use the <code>BAMMtools</code> function <code>credibleShiftSet</code>.</p>
+<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb447-1"><a href="diversification-rate-analyses.html#cb447-1"></a><span class="co"># Extract 95 % credible set of rate shift configurations</span></span>
+<span id="cb447-2"><a href="diversification-rate-analyses.html#cb447-2"></a>css &lt;-<span class="st"> </span><span class="kw">credibleShiftSet</span>(edata, <span class="dt">expectedNumberOfShifts =</span> <span class="dv">1</span>, </span>
+<span id="cb447-3"><a href="diversification-rate-analyses.html#cb447-3"></a>                        <span class="dt">threshold =</span> <span class="dv">5</span>, <span class="dt">set.limit =</span> <span class="fl">0.95</span>)</span>
+<span id="cb447-4"><a href="diversification-rate-analyses.html#cb447-4"></a><span class="co"># Look at the summary</span></span>
+<span id="cb447-5"><a href="diversification-rate-analyses.html#cb447-5"></a><span class="kw">summary</span>(css)</span></code></pre></div>
+<pre><code>## 
+##  95 % credible set of rate shift configurations sampled with BAMM
+## 
+## Distinct shift configurations in credible set:  516
+## 
+## Frequency of 9 shift configurations with highest posterior probability:
+## 
+## 
+##    rank     probability cumulative  Core_shifts
+##          1 0.06216696 0.06216696          2
+##          2 0.05772647 0.11989343          3
+##          3 0.05461812 0.17451155          1
+##          4 0.04440497 0.21891652          2
+##          5 0.03507993 0.25399645          3
+##          6 0.02841918 0.28241563          2
+##          7 0.02664298 0.30905861          3
+##          8 0.02486679 0.33392540          2
+##          9 0.02353464 0.35746004          3
+## 
+## ...omitted 507 additional distinct shift configurations
+## from the credible set. You can access the full set from your 
+## credibleshiftset object</code></pre>
+<p>Here we see that there are 516 distinct shift configurations in our posterior. This highlights why using BAMM is a good idea - we can incorporate the distribution of results rather than giving just one best answer.</p>
+<p>We also see the nine of these account that for most of the probability of the data. In this case it’s only ~36%. <code>BAMMtools</code> chooses the first nine because it’s a good number to plot. You can plot fewer, to get six plots for example, using <code>plot.credibleshiftset(css, plot.max = 6)</code>.</p>
+<p>We can generate phylorate plots for each of these shift configurations using <code>plot.credibleshiftset</code></p>
+<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb449-1"><a href="diversification-rate-analyses.html#cb449-1"></a><span class="co"># Plot top 9 from 95 % credible set of rate shift configurations</span></span>
+<span id="cb449-2"><a href="diversification-rate-analyses.html#cb449-2"></a><span class="kw">plot.credibleshiftset</span>(css)</span></code></pre></div>
+<pre><code>## Omitted 507 plots</code></pre>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-307-1.png" width="672" /></p>
+<p>The text above each phylorate plot gives the posterior probability of each shift configuration. Because many samples from the posterior can be assigned to each distinct shift configuration, the phylorate plots generated by <code>plot.credibleshiftset</code> are model-averaged mean rate parameters across all samples assignable to a given configuration. The shifts themselves are indicated with circles on branches, with the circle size being related to the probability of that particular shift.</p>
+<p>Note: this will set the plotting window to plot nine plots, so we need to take it back to the default of one plot using:</p>
+<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="diversification-rate-analyses.html#cb451-1"></a><span class="co"># Return plot window to one plot only</span></span>
+<span id="cb451-2"><a href="diversification-rate-analyses.html#cb451-2"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div>
+</div>
+<div id="clade-specific-evolutionary-rates" class="section level2">
+<h2><span class="header-section-number">10.8</span> Clade specific evolutionary rates</h2>
+<p>We might also be interested in seeing if particular clades have different rates of speciation or extinction. This can be done in <code>BAMMtools</code> using the function <code>getCladeRates</code>, which computes the average rate for the chosen clade.</p>
+<p>Here we might be interested in seeing how different the rates are in our fastest clade, the Libellulidae, compared to the rest of our species.</p>
+<p>First we can look at the average rate across the whole tree using <code>getCladeRates</code>.</p>
+<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb452-1"><a href="diversification-rate-analyses.html#cb452-1"></a><span class="co"># Extract speciation and extinction rates from the whole posterior</span></span>
+<span id="cb452-2"><a href="diversification-rate-analyses.html#cb452-2"></a>allrates &lt;-<span class="st"> </span><span class="kw">getCladeRates</span>(edata)</span></code></pre></div>
+<p><code>allrates</code> is a list with speciation and extinction rates, with the mean rate across all dragonflies for each sample in the posterior. We can extract the mean speciation rate for our tree and estimate the 90% highest posterior density (HPD) as follows.</p>
+<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb453-1"><a href="diversification-rate-analyses.html#cb453-1"></a><span class="co"># Calculate overall mean speciation rate</span></span>
+<span id="cb453-2"><a href="diversification-rate-analyses.html#cb453-2"></a><span class="kw">mean</span>(allrates<span class="op">$</span>lambda)</span></code></pre></div>
+<pre><code>## [1] 0.02012068</code></pre>
+<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb455-1"><a href="diversification-rate-analyses.html#cb455-1"></a><span class="co"># Calculate 90% highest posterior density for speciation rate</span></span>
+<span id="cb455-2"><a href="diversification-rate-analyses.html#cb455-2"></a><span class="kw">quantile</span>(allrates<span class="op">$</span>lambda, <span class="kw">c</span>(<span class="fl">0.05</span>, <span class="fl">0.95</span>))</span></code></pre></div>
+<pre><code>##         5%        95% 
+## 0.01792644 0.02336377</code></pre>
+<p>To get the rates for a specific clade, we just specify the node leading to that clade.</p>
+<p>In the our dragonfly example, node 771 is the node number of the Libellulidae clade (you can find identify node numbers using <code>plot.phylo</code> and <code>nodelabels</code> from the <code>ape</code> package). We can estimate the mean speciation rates for Libellulidae as follows:</p>
+<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb457-1"><a href="diversification-rate-analyses.html#cb457-1"></a><span class="co"># Extract speciation and extinction rates for Libellulidae</span></span>
+<span id="cb457-2"><a href="diversification-rate-analyses.html#cb457-2"></a>lib_rates &lt;-<span class="st"> </span><span class="kw">getCladeRates</span>(edata, <span class="dt">node =</span> <span class="dv">771</span>)</span>
+<span id="cb457-3"><a href="diversification-rate-analyses.html#cb457-3"></a><span class="co"># Calculate mean speciation rate for Libellulidae</span></span>
+<span id="cb457-4"><a href="diversification-rate-analyses.html#cb457-4"></a><span class="kw">mean</span>(lib_rates<span class="op">$</span>lambda)</span></code></pre></div>
+<pre><code>## [1] 0.02347474</code></pre>
+<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb459-1"><a href="diversification-rate-analyses.html#cb459-1"></a><span class="co"># Calculate 90% highest posterior density for speciation rate for Libellulidae</span></span>
+<span id="cb459-2"><a href="diversification-rate-analyses.html#cb459-2"></a><span class="kw">quantile</span>(lib_rates<span class="op">$</span>lambda, <span class="kw">c</span>(<span class="fl">0.05</span>, <span class="fl">0.95</span>))</span></code></pre></div>
+<pre><code>##         5%        95% 
+## 0.01988954 0.02952452</code></pre>
+<p>As expected this is slightly higher than for dragonflies as a whole. To get the rates for everything but Libellulidae, we do the same thing, but add the argument <code>nodetype = "exclude"</code>:</p>
+<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb461-1"><a href="diversification-rate-analyses.html#cb461-1"></a><span class="co"># Extract speciation and extinction rates for everything but Libellulidae</span></span>
+<span id="cb461-2"><a href="diversification-rate-analyses.html#cb461-2"></a>non_lib_rates &lt;-<span class="st"> </span><span class="kw">getCladeRates</span>(edata, <span class="dt">node =</span> <span class="dv">771</span>, <span class="dt">nodetype =</span> <span class="st">&quot;exclude&quot;</span>)</span>
+<span id="cb461-3"><a href="diversification-rate-analyses.html#cb461-3"></a><span class="co"># Calculate mean speciation rate for everything but Libellulidae</span></span>
+<span id="cb461-4"><a href="diversification-rate-analyses.html#cb461-4"></a><span class="kw">mean</span>(non_lib_rates<span class="op">$</span>lambda)</span></code></pre></div>
+<pre><code>## [1] 0.01724914</code></pre>
+<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb463-1"><a href="diversification-rate-analyses.html#cb463-1"></a><span class="co"># Calculate 90% highest posterior density for speciation rate for everything but Libellulidae</span></span>
+<span id="cb463-2"><a href="diversification-rate-analyses.html#cb463-2"></a><span class="kw">quantile</span>(non_lib_rates<span class="op">$</span>lambda, <span class="kw">c</span>(<span class="fl">0.05</span>, <span class="fl">0.95</span>))</span></code></pre></div>
+<pre><code>##         5%        95% 
+## 0.01497214 0.02008319</code></pre>
+<p>As expected this is slightly lower than for dragonflies as a whole, and quite a bit lower than for Libellulidae.</p>
+<p>Note that these are <strong>mean time-averaged clade-specific rates</strong>. If diversification rates have changed dramatically through the history of a particular clade, a single overall mean rate might not be particularly informative. This is likely true for Libellulidae which appears to have much higher rates at the base of the clade than towards the tips.</p>
+</div>
+<div id="rate-through-time-analysis" class="section level2">
+<h2><span class="header-section-number">10.9</span> Rate-through-time analysis</h2>
+<p>We may also want to visualise how rates of speciation change through time on our tree. We can do this by plotting a <strong>rate-through-time curve</strong> using the <code>plotRateThroughTime</code> function.</p>
+<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb465-1"><a href="diversification-rate-analyses.html#cb465-1"></a><span class="co"># Plot speciation rate through time</span></span>
+<span id="cb465-2"><a href="diversification-rate-analyses.html#cb465-2"></a><span class="co"># This may take a minute or so</span></span>
+<span id="cb465-3"><a href="diversification-rate-analyses.html#cb465-3"></a><span class="kw">plotRateThroughTime</span>(edata, <span class="dt">ratetype =</span> <span class="st">&quot;speciation&quot;</span>)</span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-314-1.png" width="672" /></p>
+<p>The red line is the average speciation rate, with density shading showing the confidence intervals. The hump in the centre of the plot likely represents the higher rates at the base of the Libellulidae</p>
+<p>You can also use <code>plotRateThroughTime</code> to plot speciation through time curves for just a portion of your phylogeny.</p>
+<p>Here we can compare the whole tree, just Libellulidae (node 771), and everything but the Libellulidae. Note that to make the comparison easier I’ve set the y-axis limits using <code>ylim</code> so they are the same in all the plots.</p>
+<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb466-1"><a href="diversification-rate-analyses.html#cb466-1"></a><span class="co"># Make the plotting window show two plots</span></span>
+<span id="cb466-2"><a href="diversification-rate-analyses.html#cb466-2"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
+<span id="cb466-3"><a href="diversification-rate-analyses.html#cb466-3"></a></span>
+<span id="cb466-4"><a href="diversification-rate-analyses.html#cb466-4"></a><span class="co"># This may take a minute or so</span></span>
+<span id="cb466-5"><a href="diversification-rate-analyses.html#cb466-5"></a><span class="co"># Plot speciation rate through time for all dragonflies</span></span>
+<span id="cb466-6"><a href="diversification-rate-analyses.html#cb466-6"></a><span class="kw">plotRateThroughTime</span>(edata, <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.2</span>))</span>
+<span id="cb466-7"><a href="diversification-rate-analyses.html#cb466-7"></a><span class="co"># Plot speciation rate through time for Libellulidae</span></span>
+<span id="cb466-8"><a href="diversification-rate-analyses.html#cb466-8"></a><span class="kw">plotRateThroughTime</span>(edata, <span class="dt">node =</span> <span class="dv">771</span>, <span class="dt">nodetype =</span> <span class="st">&quot;include&quot;</span>, <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.2</span>))</span>
+<span id="cb466-9"><a href="diversification-rate-analyses.html#cb466-9"></a><span class="co"># Plot speciation rate through time for everything but Libellulidae</span></span>
+<span id="cb466-10"><a href="diversification-rate-analyses.html#cb466-10"></a><span class="kw">plotRateThroughTime</span>(edata, <span class="dt">node =</span> <span class="dv">771</span>, <span class="dt">nodetype =</span> <span class="st">&quot;exclude&quot;</span>, <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.2</span>))</span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-315-1.png" width="672" /></p>
+<div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb467-1"><a href="diversification-rate-analyses.html#cb467-1"></a><span class="co"># Return the plotting window to one plot</span></span>
+<span id="cb467-2"><a href="diversification-rate-analyses.html#cb467-2"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div>
+<p>We can also use <code>plotRateThroughTime</code> to plot the extinction rate, using <code>ratetype = "extinction"</code> or net diversification rate using <code>ratetype = "netdiv"</code>.</p>
+<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb468-1"><a href="diversification-rate-analyses.html#cb468-1"></a><span class="co"># Plot net diversification rate through time</span></span>
+<span id="cb468-2"><a href="diversification-rate-analyses.html#cb468-2"></a><span class="co"># This may take a minute or so</span></span>
+<span id="cb468-3"><a href="diversification-rate-analyses.html#cb468-3"></a><span class="co"># I&#39;ve also changed the colours of the line and confidence intervals</span></span>
+<span id="cb468-4"><a href="diversification-rate-analyses.html#cb468-4"></a><span class="kw">plotRateThroughTime</span>(edata, <span class="dt">ratetype =</span> <span class="st">&quot;netdiv&quot;</span>, </span>
+<span id="cb468-5"><a href="diversification-rate-analyses.html#cb468-5"></a>                    <span class="dt">avgCol =</span> <span class="st">&quot;darkgreen&quot;</span>, <span class="dt">intervalCol =</span> <span class="st">&quot;palegreen&quot;</span>)</span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-316-1.png" width="672" /></p>
+</div>
+<div id="macroevolutionary-cohort-analysis" class="section level2">
+<h2><span class="header-section-number">10.10</span> Macroevolutionary cohort analysis</h2>
+<p>A final nice feature of <code>BAMMtools</code> that we’ll play with here (there are others too) is the ability to easily perform a macroevolutionary cohort analysis <span class="citation">(Rabosky et al. <a href="#ref-rabosky2014bamm" role="doc-biblioref">2014</a>)</span>. These are a good way of summarising which species/clades share correlated macroevolutionary dynamics i.e. similar rates of speciation etc. The basic idea is to visualize the pairwise probabilities that any two species share a common macroevolutionary rate regime.</p>
+<p>First we generate a cohort matrix, which contains the pairwise probabilities of shared macroevolutionary dynamics. We then pass this to the <code>cohorts</code> function, which generates the plot.</p>
+<div class="sourceCode" id="cb469"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb469-1"><a href="diversification-rate-analyses.html#cb469-1"></a>cmat &lt;-<span class="st"> </span><span class="kw">getCohortMatrix</span>(edata)</span>
+<span id="cb469-2"><a href="diversification-rate-analyses.html#cb469-2"></a><span class="kw">cohorts</span>(cmat, edata)</span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-317-1.png" width="672" /></p>
+<p>Each cell of the cohort matrix corresponds to a pair of tip taxa from the phylogeny.
+You read these plots by drawing an imaginary line between any two tips of the tree - the colour of the matrix at their intersection is the probability that those taxa share a common rate dynamic. Species pairs that share a common rate dynamic are red, whereas species with different macroevolutionary dynamics are blue.</p>
+<p>This shows that Libellulidae and the other dragonflies have completely different macroevolutionary dynamics. Within each of these groups there is some variation, with certain clades being more similar to one another than others. For example, the small clade within Libellulidae (at the top of the phylogeny plot) that has a very high rate of evolution, has very different macroevolutionary dynamics to the other members of the Libellulidae.</p>
+<p>Check out this example with whales (<a href="http://bamm-project.org/bammgraph.html#whales-cohort" class="uri">http://bamm-project.org/bammgraph.html#whales-cohort</a>) for an easier to interpret plot.</p>
+<p>And if you’re looking for a SciArt project, I always think these plots would make very lovely rugs with a slightly different colour scheme…</p>
+</div>
+<div id="assumptions-and-issues-with-bamm" class="section level2">
+<h2><span class="header-section-number">10.11</span> Assumptions and issues with BAMM</h2>
+<p>Like all methods, BAMM has a number of important assumptions and issues.</p>
+<p>Second, the prior for the number of expected shifts will have a large effect on how many shifts are detected, particularly for long branches as the probability of seeing a shift due to the prior alone increases with branch length. To solve this BAMM estimates marginal odds ratios, scaling each marginal shift probability by the prior and branch length.</p>
+<p>You can (and should) check for this problem using the code below.</p>
+<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb470-1"><a href="diversification-rate-analyses.html#cb470-1"></a><span class="co"># Plot the prior and the posterior</span></span>
+<span id="cb470-2"><a href="diversification-rate-analyses.html#cb470-2"></a><span class="kw">plotPrior</span>(mcmc, <span class="dt">expectedNumberOfShifts =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-318-1.png" width="672" /></p>
+<p>There is some overlap, but it’s clear that the prior is different to the posterior, so this issue is not affecting our analyses.</p>
+<div class="warning">
+<p>
+<strong>Predictions are better than post-hoc stories.</strong> BAMM is great, but it will often give answers you didn’t expect. It is not a good idea to just run a BAMM analysis and see what happens. Most phylogenies will contain some rate shifts, but if you don’t have hypotheses/predictions about what factors may influence diversification rates in your group then you’ll be stuck trying to invent reasons for these rate shifts after the fact. This is not a great way to do science, and can lead to some very odd conclusions if you’re just fishing around for ideas! Instead, thoroughly research your study group, think about why some species/groups/clades might diversify more rapidly than others, <em>then</em> run BAMM to see if your predictions are supported or not.
+</p>
+</div>
+<div class="warning">
+<p>
+<strong>Think about your sampling!</strong> Diversification rate analyses are powerful, exciting, and fairly easy to implement. As such they’re very tempting methods to use without really thinking carefully about the caveats, of which there are many! Incomplete sampling is a really big issue to consider. Sampling is generally incomplete and uneven; we never have every possible species in our phylogenies. If you only use living species, it is important to consider how extinct diversity may effect your conclusions. If you use living and fossil species you need to remember that for most groups the fossil record is patchy at best. If species are missing at random this is less of a problem, but if you’re missing a big chunk of diversity with a certain trait, or in a certain time period, your results may be meaningless at best, misleading at worst.
+</p>
+</div>
+</div>
+<div id="summary-8" class="section level2">
+<h2><span class="header-section-number">10.12</span> Summary</h2>
+<p>You should now know how to plot LTT plots, calculate the <span class="math inline">\(\gamma\)</span> statistic, and analyses the outputs of BAMM using <code>BAMMtools</code> in R.</p>
+</div>
+<div id="practical-exercises-5" class="section level2">
+<h2><span class="header-section-number">10.13</span> Practical exercises</h2>
+<p><code>BAMMtools</code> has a several inbuilt example datasets. For this practical exercise we will use the cetacean (<code>whales</code>; from <span class="citation">Steeman et al. (<a href="#ref-steeman2009radiation" role="doc-biblioref">2009</a>)</span>) and the ray-finned fishes (<code>fishes</code>; from <span class="citation">Rabosky et al. (<a href="#ref-rabosky2013rates" role="doc-biblioref">2013</a>)</span>) datasets.</p>
+<p>We load this data into R using:</p>
+<div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb471-1"><a href="diversification-rate-analyses.html#cb471-1"></a><span class="co"># Load data from BAMMtools</span></span>
+<span id="cb471-2"><a href="diversification-rate-analyses.html#cb471-2"></a><span class="kw">data</span>(whales) <span class="co"># this is the tree</span></span>
+<span id="cb471-3"><a href="diversification-rate-analyses.html#cb471-3"></a><span class="kw">data</span>(mcmc.whales)</span>
+<span id="cb471-4"><a href="diversification-rate-analyses.html#cb471-4"></a><span class="kw">data</span>(events.whales)</span>
+<span id="cb471-5"><a href="diversification-rate-analyses.html#cb471-5"></a><span class="co"># Add fishes data</span></span>
+<span id="cb471-6"><a href="diversification-rate-analyses.html#cb471-6"></a><span class="kw">data</span>(fishes) <span class="co"># this is the tree</span></span>
+<span id="cb471-7"><a href="diversification-rate-analyses.html#cb471-7"></a><span class="kw">data</span>(events.fishes)</span>
+<span id="cb471-8"><a href="diversification-rate-analyses.html#cb471-8"></a><span class="co">## There is no `mcmc.fishes` file</span></span></code></pre></div>
+<p>Then to use the whales data in analyses like our dragonfly example:</p>
+<div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb472-1"><a href="diversification-rate-analyses.html#cb472-1"></a>whales_tree &lt;-<span class="st"> </span>whales</span>
+<span id="cb472-2"><a href="diversification-rate-analyses.html#cb472-2"></a>whales_mcmc &lt;-<span class="st"> </span>mcmc.whales</span>
+<span id="cb472-3"><a href="diversification-rate-analyses.html#cb472-3"></a>whales_edata &lt;-<span class="st"> </span><span class="kw">getEventData</span>(whales, <span class="dt">eventdata =</span> events.whales, <span class="dt">burnin =</span> <span class="fl">0.1</span>)</span></code></pre></div>
+<pre><code>## Processing event data from data.frame
+## 
+## Discarded as burnin: GENERATIONS &lt;  995000
+## Analyzing  1801  samples from posterior
+## 
+## Setting recursive sequence on tree...
+## 
+## Done with recursive sequence</code></pre>
+<p>Other than this slight difference the rest of the code should work in exactly the same way.</p>
+<p>Load the whales and fishes trees and BAMM outputs data into R (<strong>there is no <code>mcmc.fishes</code> file</strong>). Then answer the following questions:</p>
+<ol style="list-style-type: decimal">
+<li>How can we tell that the BAMM model for <strong>whales</strong> has converged? What is the effective sample size for number of shifts?</li>
+<li>What is the most common number of rate shifts in the posterior for the <strong>whales</strong> data?</li>
+<li>Plot the 95% credible set of rate shift configurations for <strong>whales</strong>.</li>
+<li>Plot the mean phylorate plot for <strong>fishes</strong>.</li>
+<li>What are the mean speciation rate and the 90% posterior density for mean speciation rate in <strong>fishes</strong>?</li>
+</ol>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-letsch2016data">
+<p>Letsch, Harald, Brigitte Gottsberger, and Jessica L. Ware. 2016a. “Data from: Not Going with the Flow: A Comprehensive Time-Calibrated Phylogeny of Dragonflies (Anisoptera: Odonata: Insecta) Provides Evidence for the Role of Lentic Habitats on Diversification,” <em>Dryad, Dataset</em> https://doi.org/10.5061/dryad.f3d4f.</p>
+</div>
+<div id="ref-letsch2016not">
+<p>Letsch, Harald, Brigitte Gottsberger, and Jessica L. 2016b. “Not Going with the Flow: A Comprehensive Time-Calibrated Phylogeny of Dragonflies (Anisoptera: Odonata: Insecta) Provides Evidence for the Role of Lentic Habitats on Diversification.” <em>Molecular Ecology</em> 25 (6): 1340–53. <a href="https://doi.org/https://doi.org/10.1111/mec.13562">https://doi.org/https://doi.org/10.1111/mec.13562</a>.</p>
+</div>
+<div id="ref-pybus2000testing">
+<p>Pybus, Oliver G, and Paul H Harvey. 2000. “Testing Macro–Evolutionary Models Using Incomplete Molecular Phylogenies.” <em>Proceedings of the Royal Society of London. Series B: Biological Sciences</em> 267 (1459): 2267–72.</p>
+</div>
+<div id="ref-rabosky2014automatic">
+<p>Rabosky, Daniel L. 2014. “Automatic Detection of Key Innovations, Rate Shifts, and Diversity-Dependence on Phylogenetic Trees.” <em>PloS One</em> 9 (2): e89543.</p>
+</div>
+<div id="ref-rabosky2014bamm">
+<p>Rabosky, Daniel L, Michael Grundler, Carlos Anderson, Pascal Title, Jeff J Shi, Joseph W Brown, Huateng Huang, and Joanna G Larson. 2014. “BAMM Tools: An R Package for the Analysis of Evolutionary Dynamics on Phylogenetic Trees.” <em>Methods in Ecology and Evolution</em> 5 (7): 701–7.</p>
+</div>
+<div id="ref-rabosky2013rates">
+<p>Rabosky, Daniel L, Francesco Santini, Jonathan Eastman, Stephen A Smith, Brian Sidlauskas, Jonathan Chang, and Michael E Alfaro. 2013. “Rates of Speciation and Morphological Evolution Are Correlated Across the Largest Vertebrate Radiation.” <em>Nature Communications</em> 4 (1): 1–8.</p>
+</div>
+<div id="ref-steeman2009radiation">
+<p>Steeman, Mette E, Martin B Hebsgaard, R Ewan Fordyce, Simon YW Ho, Daniel L Rabosky, Rasmus Nielsen, Carsten Rahbek, Henrik Glenner, Martin V Sørensen, and Eske Willerslev. 2009. “Radiation of Extant Cetaceans Driven by Restructuring of the Oceans.” <em>Systematic Biology</em> 58 (6): 573–85.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="critical-thinking-about-methods-and-analyses.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/10-Diversification.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["pcm-primer.pdf", "pcm-primer.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Understanding, plotting and manipulating phylogenies in R | Practical exercises for Methods in Macroecology and Macroevolution module</title>
+  <meta name="description" content="Chapter 3 Understanding, plotting and manipulating phylogenies in R | Practical exercises for Methods in Macroecology and Macroevolution module" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Understanding, plotting and manipulating phylogenies in R | Practical exercises for Methods in Macroecology and Macroevolution module" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Understanding, plotting and manipulating phylogenies in R | Practical exercises for Methods in Macroecology and Macroevolution module" />
+  
+  
+  
+
+<meta name="author" content="Natalie Cooper" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="diversity-indices-in-r.html"/>
+<link rel="next" href="preparing-your-tree-and-data-for-pcms-in-r.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">PCM Primer</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#datasets-and-scripts"><i class="fa fa-check"></i>Datasets and scripts</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-to-use-these-materials"><i class="fa fa-check"></i>How to use these materials</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#boxes"><i class="fa fa-check"></i>Boxes</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#example-datasets"><i class="fa fa-check"></i>Example datasets</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#frog-eye-size-evolution"><i class="fa fa-check"></i>Frog eye size evolution</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#natricine-snake-head-shape-evolution"><i class="fa fa-check"></i>Natricine snake head shape evolution</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#diversification-in-dragonflies"><i class="fa fa-check"></i>Diversification in dragonflies</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#citing-r-and-r-packages"><i class="fa fa-check"></i>Citing R and R packages</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><i class="fa fa-check"></i><b>1</b> What you need to be able to do in R before you start</a><ul>
+<li class="chapter" data-level="1.1" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#installing-r-and-rstudio"><i class="fa fa-check"></i><b>1.1</b> Installing R (and RStudio)</a></li>
+<li class="chapter" data-level="1.2" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#downloading-the-data"><i class="fa fa-check"></i><b>1.2</b> Downloading the data</a></li>
+<li class="chapter" data-level="1.3" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#r-projects"><i class="fa fa-check"></i><b>1.3</b> R Projects</a></li>
+<li class="chapter" data-level="1.4" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#using-a-script"><i class="fa fa-check"></i><b>1.4</b> Using a script</a></li>
+<li class="chapter" data-level="1.5" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#installing-and-loading-extra-packages-in-r"><i class="fa fa-check"></i><b>1.5</b> Installing and loading extra packages in R</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#loading-packages-into-r"><i class="fa fa-check"></i><b>1.5.1</b> Loading packages into R</a></li>
+<li class="chapter" data-level="1.5.2" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#ggtree-a-special-case-for-package-installation"><i class="fa fa-check"></i><b>1.5.2</b> <code>ggtree</code>, a special case for package installation</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#loading-and-viewing-your-data-in-r"><i class="fa fa-check"></i><b>1.6</b> Loading and viewing your data in R</a></li>
+<li class="chapter" data-level="1.7" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#errors-and-warnings"><i class="fa fa-check"></i><b>1.7</b> Errors and warnings</a><ul>
+<li class="chapter" data-level="1.7.1" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#removing-the"><i class="fa fa-check"></i><b>1.7.1</b> Removing the <code>+</code></a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#summary"><i class="fa fa-check"></i><b>1.8</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html"><i class="fa fa-check"></i><b>2</b> Diversity Indices in R</a><ul>
+<li class="chapter" data-level="2.1" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#before-you-start"><i class="fa fa-check"></i><b>2.1</b> Before you start</a></li>
+<li class="chapter" data-level="2.2" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#preparation"><i class="fa fa-check"></i><b>2.2</b> Preparation</a></li>
+<li class="chapter" data-level="2.3" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#what-are-diversity-indices"><i class="fa fa-check"></i><b>2.3</b> What are diversity indices?</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#alpha-beta-and-gamma-diversity"><i class="fa fa-check"></i><b>2.3.1</b> <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\gamma\)</span> diversity</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#practical-example-using-pokemon"><i class="fa fa-check"></i><b>2.4</b> Practical example using Pokemon…</a></li>
+<li class="chapter" data-level="2.5" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#species-diversity-indices"><i class="fa fa-check"></i><b>2.5</b> Species diversity indices</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#alpha-diversity"><i class="fa fa-check"></i><b>2.5.1</b> <span class="math inline">\(\alpha\)</span> diversity</a></li>
+<li class="chapter" data-level="2.5.2" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#beta-diversity"><i class="fa fa-check"></i><b>2.5.2</b> <span class="math inline">\(\beta\)</span> diversity</a></li>
+<li class="chapter" data-level="2.5.3" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#gamma-diversity"><i class="fa fa-check"></i><b>2.5.3</b> <span class="math inline">\(\gamma\)</span> diversity</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#species-accumulation-curves-colwell-coddington-1994"><i class="fa fa-check"></i><b>2.6</b> Species accumulation curves (Colwell &amp; Coddington 1994)</a><ul>
+<li class="chapter" data-level="2.6.1" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#pokemon-species-accumulation-curves"><i class="fa fa-check"></i><b>2.6.1</b> Pokemon species accumulation curves</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#practical-exercise"><i class="fa fa-check"></i><b>2.7</b> Practical exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html"><i class="fa fa-check"></i><b>3</b> Understanding, plotting and manipulating phylogenies in R</a><ul>
+<li class="chapter" data-level="3.1" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#before-you-start-1"><i class="fa fa-check"></i><b>3.1</b> Before you start</a></li>
+<li class="chapter" data-level="3.2" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#what-do-phylogeny-files-look-like"><i class="fa fa-check"></i><b>3.2</b> What do phylogeny files look like?</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#newick-trees"><i class="fa fa-check"></i><b>3.2.1</b> Newick trees</a></li>
+<li class="chapter" data-level="3.2.2" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#nexus-trees"><i class="fa fa-check"></i><b>3.2.2</b> NEXUS trees</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#how-are-phylogenies-formatted-in-r"><i class="fa fa-check"></i><b>3.3</b> How are phylogenies formatted in R?</a></li>
+<li class="chapter" data-level="3.4" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#plotting-phylogenies"><i class="fa fa-check"></i><b>3.4</b> Plotting phylogenies</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#basic-phylogeny-plotting-with-ape"><i class="fa fa-check"></i><b>3.4.1</b> Basic phylogeny plotting with APE</a></li>
+<li class="chapter" data-level="3.4.2" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#basic-phylogeny-plotting-with-ggtree"><i class="fa fa-check"></i><b>3.4.2</b> Basic phylogeny plotting with <code>ggtree</code></a></li>
+<li class="chapter" data-level="3.4.3" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#back-to-ggtree"><i class="fa fa-check"></i><b>3.4.3</b> Back to <code>ggtree</code></a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#phylogeny-manipulation"><i class="fa fa-check"></i><b>3.5</b> Phylogeny manipulation</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#removing-polytomies"><i class="fa fa-check"></i><b>3.5.1</b> Removing polytomies</a></li>
+<li class="chapter" data-level="3.5.2" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#rooting-your-phylogeny"><i class="fa fa-check"></i><b>3.5.2</b> Rooting your phylogeny</a></li>
+<li class="chapter" data-level="3.5.3" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#manipulating-the-species-in-your-phlyogeny"><i class="fa fa-check"></i><b>3.5.3</b> Manipulating the species in your phlyogeny</a></li>
+<li class="chapter" data-level="3.5.4" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#writing-phylogenies-to-file"><i class="fa fa-check"></i><b>3.5.4</b> Writing phylogenies to file</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#summary-1"><i class="fa fa-check"></i><b>3.6</b> Summary</a></li>
+<li class="chapter" data-level="3.7" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#practical-exercise-1"><i class="fa fa-check"></i><b>3.7</b> Practical exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html"><i class="fa fa-check"></i><b>4</b> Preparing your tree and data for PCMs in R</a><ul>
+<li class="chapter" data-level="4.1" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#before-you-start-2"><i class="fa fa-check"></i><b>4.1</b> Before you start</a></li>
+<li class="chapter" data-level="4.2" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#preparation-1"><i class="fa fa-check"></i><b>4.2</b> Preparation</a></li>
+<li class="chapter" data-level="4.3" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#reading-and-checking-your-phylogeny-in-r"><i class="fa fa-check"></i><b>4.3</b> Reading and checking your phylogeny in R</a></li>
+<li class="chapter" data-level="4.4" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#reading-the-data-into-r"><i class="fa fa-check"></i><b>4.4</b> Reading the data into R</a></li>
+<li class="chapter" data-level="4.5" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#matching-your-data-to-your-phylogeny"><i class="fa fa-check"></i><b>4.5</b> Matching your data to your phylogeny</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#species-names-with-spaces"><i class="fa fa-check"></i><b>4.5.1</b> Species names with spaces</a></li>
+<li class="chapter" data-level="4.5.2" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#mismatches-between-species-in-your-data-and-phylogeny"><i class="fa fa-check"></i><b>4.5.2</b> Mismatches between species in your data and phylogeny</a></li>
+<li class="chapter" data-level="4.5.3" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#matching-the-tree-and-the-data"><i class="fa fa-check"></i><b>4.5.3</b> Matching the tree and the data</a></li>
+<li class="chapter" data-level="4.5.4" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#subsetting-your-tree-and-data"><i class="fa fa-check"></i><b>4.5.4</b> Subsetting your tree and data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#quick-template-code"><i class="fa fa-check"></i><b>4.6</b> Quick template code</a></li>
+<li class="chapter" data-level="4.7" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#summary-2"><i class="fa fa-check"></i><b>4.7</b> Summary</a></li>
+<li class="chapter" data-level="4.8" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#practical-exercise-2"><i class="fa fa-check"></i><b>4.8</b> Practical exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html"><i class="fa fa-check"></i><b>5</b> Phylogenetic Signal in R</a><ul>
+<li class="chapter" data-level="5.1" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#before-you-start-3"><i class="fa fa-check"></i><b>5.1</b> Before you start</a></li>
+<li class="chapter" data-level="5.2" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#preparation-2"><i class="fa fa-check"></i><b>5.2</b> Preparation</a></li>
+<li class="chapter" data-level="5.3" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#estimating-phylogenetic-signal-for-continuous-variables"><i class="fa fa-check"></i><b>5.3</b> Estimating phylogenetic signal for continuous variables</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#pagels-lambda"><i class="fa fa-check"></i><b>5.3.1</b> Pagel’s <span class="math inline">\(\lambda\)</span></a></li>
+<li class="chapter" data-level="5.3.2" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#blombergs-k-blomberg-et-al-2003"><i class="fa fa-check"></i><b>5.3.2</b> Blomberg’s <em>K</em> (Blomberg et al 2003)</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#estimating-phylogenetic-signal-for-non-continuous-variables"><i class="fa fa-check"></i><b>5.4</b> Estimating phylogenetic signal for non-continuous variables</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#d"><i class="fa fa-check"></i><b>5.4.1</b> <em>D</em></a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#summary-3"><i class="fa fa-check"></i><b>5.5</b> Summary</a></li>
+<li class="chapter" data-level="5.6" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#practical-exercises"><i class="fa fa-check"></i><b>5.6</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html"><i class="fa fa-check"></i><b>6</b> Phylogenetic Generalised Least Squares (PGLS) in R</a><ul>
+<li class="chapter" data-level="6.1" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#before-you-start-4"><i class="fa fa-check"></i><b>6.1</b> Before you start</a></li>
+<li class="chapter" data-level="6.2" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#preparation-3"><i class="fa fa-check"></i><b>6.2</b> Preparation</a></li>
+<li class="chapter" data-level="6.3" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#phylogenetic-generalized-least-squares-models-pgls"><i class="fa fa-check"></i><b>6.3</b> Phylogenetic generalized least squares models (PGLS)</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#fitting-pgls-models-in-r"><i class="fa fa-check"></i><b>6.3.1</b> Fitting PGLS models in R</a></li>
+<li class="chapter" data-level="6.3.2" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#model-diagnostics-for-pgls-models"><i class="fa fa-check"></i><b>6.3.2</b> Model diagnostics for PGLS models</a></li>
+<li class="chapter" data-level="6.3.3" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#likelihood-profiles-for-lambda-in-pgls-models"><i class="fa fa-check"></i><b>6.3.3</b> Likelihood profiles for <span class="math inline">\(\lambda\)</span> in PGLS models</a></li>
+<li class="chapter" data-level="6.3.4" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#a-pgls-example-with-more-than-one-predictor-variable"><i class="fa fa-check"></i><b>6.3.4</b> A PGLS example with more than one predictor variable</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#common-issues-when-running-pgls-models-in-r"><i class="fa fa-check"></i><b>6.4</b> Common issues when running PGLS models in R</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#optim-errors"><i class="fa fa-check"></i><b>6.4.1</b> Optim errors</a></li>
+<li class="chapter" data-level="6.4.2" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#big-problems-with-small-datasets"><i class="fa fa-check"></i><b>6.4.2</b> Big problems with small datasets</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#summary-4"><i class="fa fa-check"></i><b>6.5</b> Summary</a></li>
+<li class="chapter" data-level="6.6" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#practical-exercises-1"><i class="fa fa-check"></i><b>6.6</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html"><i class="fa fa-check"></i><b>7</b> Macroevolutionary models for continuous traits</a><ul>
+<li class="chapter" data-level="7.1" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#before-you-start-5"><i class="fa fa-check"></i><b>7.1</b> Before you start</a></li>
+<li class="chapter" data-level="7.2" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#preparation-4"><i class="fa fa-check"></i><b>7.2</b> Preparation</a></li>
+<li class="chapter" data-level="7.3" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#models-of-evolution-for-continuous-traits"><i class="fa fa-check"></i><b>7.3</b> Models of evolution for continuous traits</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#loook-at-the-data"><i class="fa fa-check"></i><b>7.3.1</b> loook at the data????</a></li>
+<li class="chapter" data-level="7.3.2" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#fitting-the-brownian-motion-and-ou-models-of-evolution-using-fitcontinuous"><i class="fa fa-check"></i><b>7.3.2</b> Fitting the Brownian motion and OU models of evolution using <code>fitContinuous</code></a></li>
+<li class="chapter" data-level="7.3.3" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#comparing-models-of-evolution-using-aic"><i class="fa fa-check"></i><b>7.3.3</b> Comparing models of evolution using AIC</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#summary-5"><i class="fa fa-check"></i><b>7.4</b> Summary</a></li>
+<li class="chapter" data-level="7.5" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#practical-exercises-2"><i class="fa fa-check"></i><b>7.5</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html"><i class="fa fa-check"></i><b>8</b> Macroevolutionary models for discrete traits</a><ul>
+<li class="chapter" data-level="8.1" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#before-you-start-6"><i class="fa fa-check"></i><b>8.1</b> Before you start</a></li>
+<li class="chapter" data-level="8.2" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#preparation-5"><i class="fa fa-check"></i><b>8.2</b> Preparation</a></li>
+<li class="chapter" data-level="8.3" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#models-of-evolution-for-discrete-traits"><i class="fa fa-check"></i><b>8.3</b> Models of evolution for discrete traits</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#fitting-the-er-sym-and-ard-models-of-evolution-using-fitdiscrete"><i class="fa fa-check"></i><b>8.3.1</b> Fitting the ER, SYM and ARD models of evolution using <code>fitDiscrete</code></a></li>
+<li class="chapter" data-level="8.3.2" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#comparing-models-of-evolution-using-aic-1"><i class="fa fa-check"></i><b>8.3.2</b> Comparing models of evolution using AIC</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#ancestral-state-estimations"><i class="fa fa-check"></i><b>8.4</b> Ancestral state estimations</a></li>
+<li class="chapter" data-level="8.5" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#summary-6"><i class="fa fa-check"></i><b>8.5</b> Summary</a></li>
+<li class="chapter" data-level="8.6" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#practical-exercises-3"><i class="fa fa-check"></i><b>8.6</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><i class="fa fa-check"></i><b>9</b> Beyond simple macroevolutionary models of trait evolution</a><ul>
+<li class="chapter" data-level="9.1" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#before-you-start-7"><i class="fa fa-check"></i><b>9.1</b> Before you start</a></li>
+<li class="chapter" data-level="9.2" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#preparation-6"><i class="fa fa-check"></i><b>9.2</b> Preparation</a></li>
+<li class="chapter" data-level="9.3" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#more-complex-models-of-trait-evolution"><i class="fa fa-check"></i><b>9.3</b> More complex models of trait evolution</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#preparing-the-tree-and-data-for-ouwie"><i class="fa fa-check"></i><b>9.3.1</b> Preparing the tree and data for OUwie</a></li>
+<li class="chapter" data-level="9.3.2" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#running-models-using-ouwie"><i class="fa fa-check"></i><b>9.3.2</b> Running models using OUwie</a></li>
+<li class="chapter" data-level="9.3.3" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#single-rate-bm-models"><i class="fa fa-check"></i><b>9.3.3</b> Single rate BM models</a></li>
+<li class="chapter" data-level="9.3.4" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#single-optimum-ou-models"><i class="fa fa-check"></i><b>9.3.4</b> Single optimum OU models</a></li>
+<li class="chapter" data-level="9.3.5" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#multi-rate-bm-bms-models"><i class="fa fa-check"></i><b>9.3.5</b> Multi-rate BM (BMS) models</a></li>
+<li class="chapter" data-level="9.3.6" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#multi-optima-ou-oum-models"><i class="fa fa-check"></i><b>9.3.6</b> Multi-optima OU (OUM) models</a></li>
+<li class="chapter" data-level="9.3.7" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#multi-rate-multi-optima-ou-motion-models-oumv"><i class="fa fa-check"></i><b>9.3.7</b> Multi-rate multi-optima OU motion models (OUMV)</a></li>
+<li class="chapter" data-level="9.3.8" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#multi-alpha-multi-optima-ou-motion-models-ouma"><i class="fa fa-check"></i><b>9.3.8</b> Multi-alpha multi-optima OU motion models (OUMA)</a></li>
+<li class="chapter" data-level="9.3.9" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#multi-rate-multi-optima-ou-motion-models-oumva"><i class="fa fa-check"></i><b>9.3.9</b> Multi-rate multi-optima OU motion models (OUMVA)</a></li>
+<li class="chapter" data-level="9.3.10" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#comparing-models-of-evolution-using-aic-2"><i class="fa fa-check"></i><b>9.3.10</b> Comparing models of evolution using AIC</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#summary-7"><i class="fa fa-check"></i><b>9.4</b> Summary</a></li>
+<li class="chapter" data-level="9.5" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#practical-exercises-4"><i class="fa fa-check"></i><b>9.5</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html"><i class="fa fa-check"></i><b>10</b> Diversification rate analyses</a><ul>
+<li class="chapter" data-level="10.1" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#before-you-start-8"><i class="fa fa-check"></i><b>10.1</b> Before you start</a></li>
+<li class="chapter" data-level="10.2" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#preparation-7"><i class="fa fa-check"></i><b>10.2</b> Preparation</a></li>
+<li class="chapter" data-level="10.3" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#lineage-through-time-plots-and-the-gamma-statistic"><i class="fa fa-check"></i><b>10.3</b> Lineage through time plots and the <span class="math inline">\(\gamma\)</span> statistic</a></li>
+<li class="chapter" data-level="10.4" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#bamm-bayesian-analysis-of-macroevolutionary-mixtures"><i class="fa fa-check"></i><b>10.4</b> BAMM: Bayesian Analysis of Macroevolutionary Mixtures</a></li>
+<li class="chapter" data-level="10.5" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#running-bamm"><i class="fa fa-check"></i><b>10.5</b> Running BAMM</a></li>
+<li class="chapter" data-level="10.6" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#looking-at-the-output-of-bamm-using-bammtools-in-r"><i class="fa fa-check"></i><b>10.6</b> Looking at the output of BAMM using BAMMtools in R</a><ul>
+<li class="chapter" data-level="10.6.1" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#assessing-mcmc-convergence"><i class="fa fa-check"></i><b>10.6.1</b> Assessing MCMC convergence</a></li>
+<li class="chapter" data-level="10.6.2" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#analysis-of-rate-shifts-in-the-dragonfly-phylogeny"><i class="fa fa-check"></i><b>10.6.2</b> Analysis of rate shifts in the dragonfly phylogeny</a></li>
+<li class="chapter" data-level="10.6.3" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#mean-phylorate-plot"><i class="fa fa-check"></i><b>10.6.3</b> Mean phylorate plot</a></li>
+<li class="chapter" data-level="10.6.4" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#best-single-distinct-shift-configuration"><i class="fa fa-check"></i><b>10.6.4</b> Best single distinct shift configuration</a></li>
+</ul></li>
+<li class="chapter" data-level="10.7" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#credible-sets-of-shifts"><i class="fa fa-check"></i><b>10.7</b> Credible sets of shifts</a></li>
+<li class="chapter" data-level="10.8" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#clade-specific-evolutionary-rates"><i class="fa fa-check"></i><b>10.8</b> Clade specific evolutionary rates</a></li>
+<li class="chapter" data-level="10.9" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#rate-through-time-analysis"><i class="fa fa-check"></i><b>10.9</b> Rate-through-time analysis</a></li>
+<li class="chapter" data-level="10.10" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#macroevolutionary-cohort-analysis"><i class="fa fa-check"></i><b>10.10</b> Macroevolutionary cohort analysis</a></li>
+<li class="chapter" data-level="10.11" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#assumptions-and-issues-with-bamm"><i class="fa fa-check"></i><b>10.11</b> Assumptions and issues with BAMM</a></li>
+<li class="chapter" data-level="10.12" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#summary-8"><i class="fa fa-check"></i><b>10.12</b> Summary</a></li>
+<li class="chapter" data-level="10.13" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#practical-exercises-5"><i class="fa fa-check"></i><b>10.13</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html"><i class="fa fa-check"></i><b>11</b> Critical thinking about methods and analyses</a><ul>
+<li class="chapter" data-level="11.1" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#how-to-critically-evaluate-a-paper-that-uses-phylogenetic-comparative-methods"><i class="fa fa-check"></i><b>11.1</b> How to critically evaluate a paper that uses phylogenetic comparative methods</a><ul>
+<li class="chapter" data-level="" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#logicinterpretation"><i class="fa fa-check"></i>Logic/interpretation</a></li>
+<li class="chapter" data-level="" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#data"><i class="fa fa-check"></i>Data</a></li>
+<li class="chapter" data-level="" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#methods"><i class="fa fa-check"></i>Methods</a></li>
+<li class="chapter" data-level="" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#moving-forwards"><i class="fa fa-check"></i>Moving forwards</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#further-reading"><i class="fa fa-check"></i><b>11.2</b> Further reading</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html"><i class="fa fa-check"></i><b>12</b> Answers to practical exercises</a><ul>
+<li class="chapter" data-level="12.1" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#diversity-indices"><i class="fa fa-check"></i><b>12.1</b> Diversity indices</a></li>
+<li class="chapter" data-level="12.2" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#phylogenies"><i class="fa fa-check"></i><b>12.2</b> Phylogenies</a></li>
+<li class="chapter" data-level="12.3" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#preparation-8"><i class="fa fa-check"></i><b>12.3</b> Preparation</a></li>
+<li class="chapter" data-level="12.4" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#phylogenetic-signal"><i class="fa fa-check"></i><b>12.4</b> Phylogenetic signal</a></li>
+<li class="chapter" data-level="12.5" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#pgls"><i class="fa fa-check"></i><b>12.5</b> PGLS</a></li>
+<li class="chapter" data-level="12.6" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#models-of-evolution-with-continuous-traits"><i class="fa fa-check"></i><b>12.6</b> Models of evolution with continuous traits</a></li>
+<li class="chapter" data-level="12.7" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#models-of-evolution-with-discrete-traits"><i class="fa fa-check"></i><b>12.7</b> Models of evolution with discrete traits</a></li>
+<li class="chapter" data-level="12.8" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#beyond-simple-macroevolutionary-models-of-trait-evolution-1"><i class="fa fa-check"></i><b>12.8</b> Beyond simple macroevolutionary models of trait evolution</a></li>
+<li class="chapter" data-level="12.9" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#diversification"><i class="fa fa-check"></i><b>12.9</b> Diversification</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Practical exercises for Methods in Macroecology and Macroevolution module</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="understanding-plotting-and-manipulating-phylogenies-in-r" class="section level1">
+<h1><span class="header-section-number">Chapter 3</span> Understanding, plotting and manipulating phylogenies in R</h1>
+<p>Using phylogenies in R can feel daunting at first, even if you’re already familiar with R. Luckily, lots of nice R packages exist to help us work with them, and fairly new packages like <code>ggtree</code> mean we can now make beautiful phylogeny plots without needing to resort to other software. In this chapter I’ll introduce you to how R stores phylogenies, and then show you how to plot them and manipulate them before using them in your PCMs. Most of the examples come from the <em>Primer</em>.</p>
+<div id="before-you-start-1" class="section level2">
+<h2><span class="header-section-number">3.1</span> Before you start</h2>
+<ul>
+<li>Open the <code>03-Phylogenies.RProj</code> file in the <code>03-Phylogenies</code> folder to open your R Project for this exercise.</li>
+<li>Make yourself a new R script for your code.</li>
+</ul>
+<p>You will also need to install the following packages:</p>
+<ul>
+<li><code>ape</code></li>
+<li><code>tidyverse</code></li>
+<li><code>ggtree</code></li>
+<li><code>patchwork</code></li>
+<li><code>ggimage</code></li>
+<li><code>phytools</code></li>
+</ul>
+</div>
+<div id="what-do-phylogeny-files-look-like" class="section level2">
+<h2><span class="header-section-number">3.2</span> What do phylogeny files look like?</h2>
+<p>There are many different formats that you might get a phylogeny in, but the most common formats of the tree files we read into R are Newick and NEXUS. Here we will just focus on these two. If you need to read in lots of different kinds of tree files check out the documentation for <a href="https://yulab-smu.github.io/treedata-book/chapter1.html">ggtree</a>.</p>
+<div id="newick-trees" class="section level3">
+<h3><span class="header-section-number">3.2.1</span> Newick trees</h3>
+<p>Newick (or New Hampshire) format uses brackets/parentheses to group taxa together with their closest relatives. Tips are represented by their names, and these names can include any characters <em>except</em> blanks, colons, semicolons, parentheses, and square brackets. Because blanks are not allowed, we use underscores to replace them, meaning that in many phylogenies the tip names are formatted as Genus_species.</p>
+<p>Our basic tree from the <em>Primer</em> is shown below.</p>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
+<p>The topology of this tree can be represented in Newick format as:</p>
+<p><code>(((robin,deer),spider),jellyfish);</code></p>
+<p>Note that Newick trees always end with a <em>semicolon</em>. Branch lengths can be added into a tree by adding a colon followed by the branch length after the node. This represents the length of the branch immediately following that node, so numbers after a tip label show how long the branches at the tips of the tree are, and others show how long the internal branches are.</p>
+<p>For our tree above this can be written as:</p>
+<p><code>(((robin:4.2,deer:4.2):3.1,spider:7.3):6.3,jellyfish:13.5);</code></p>
+<p>And that is basically all there is to Newick trees! In R these can be read in using <code>read.tree</code> from the APE package. They are usually stored in <code>.tre</code> or <code>.phy</code> files.</p>
+</div>
+<div id="nexus-trees" class="section level3">
+<h3><span class="header-section-number">3.2.2</span> NEXUS trees</h3>
+<p>NEXUS files are a little more complicated, but are also based on the Newick format. Many tree inference packages will output trees as NEXUS files, so they are very commonly used in R. You read them in using <code>read.nexus</code> from the APE package, and they are usually stored in <code>.nex</code> files.</p>
+<p>A NEXUS file for the tree above might look like the example below. First it uses the <code>#NEXUS</code> tag to tell the computer it is a NEXUS file, then the first block lists how many taxa there are (<code>NTAX</code>) and then what the names of the taxa are (<code>TAXLABELS</code>), i.e. the tip labels. Then the second block first gives each taxon a number, then the <code>TREE</code> block shows the tree in Newick format, exactly as we did above except using the numbers for the taxa rather than their names. The <code>UNTITLED = [&amp;R]</code> part just means we haven’t given the tree a name, and that the tree is <em>rooted</em>.</p>
+<pre><code>#NEXUS
+
+BEGIN TAXA;
+    DIMENSIONS NTAX = 4;
+    TAXLABELS
+    robin
+    deer
+    spider
+    jellyfish
+    ;
+END;
+BEGIN TREES;
+    TRANSLATE
+        1   robin,
+        2   deer,
+        3   spider,
+        4   jellyfish
+        ;
+    TREE * UNTITLED = [&amp;R] (((1:4.2,2:4.2):3.1,3:7.3):6.3,4:13.5);
+    END;</code></pre>
+<p>NEXUS files can be much more complex and include the data used to infer the tree too, but we don’t need this for comparative analyses so <code>read.nexus</code> will just ignore it.</p>
+<div class="info">
+<p>
+Sometimes someone will email you a <code>.tre</code> or <code>.nex</code> file, or you’ll download one from the internet, but when you use <code>read.tre</code> or <code>read.nexus</code> it just keeps giving you an error. Before panicking, check what you did after you downloaded the tree file. Did you open it to take a look? On some computers, doing this makes the computer freak out because it doesn’t know what to do with <code>.tre</code> or <code>.nex</code> files, so it converts them into something it does understand like <code>.txt</code> or <code>.docx</code>. This then alters the tree file to the point that R can no longer read it. To solve the problem, just download the file again but this time <em>don’t open it!</em>. Just save it and then read it into R. If you need to look at one of these files outside of R, try “Open with” and pick a text editor like Notepad or TextEdit. This shouldn’t alter the file.
+</p>
+</div>
+</div>
+</div>
+<div id="how-are-phylogenies-formatted-in-r" class="section level2">
+<h2><span class="header-section-number">3.3</span> How are phylogenies formatted in R?</h2>
+<p>You don’t need to know how phylogenies are represented in R to use them, but it helps to have a bit of an idea what is going on.</p>
+<p>To load a tree into R you need either the function <code>read.tree</code> or <code>read.nexus</code> from the package APE. <code>read.tree</code> can deal with a number of different types of data (including DNA) whereas <code>read.nexus</code> reads NEXUS files. Let’s practice with our basic tree from the <em>Primer</em>. We can read it in using <code>read.tree</code>. Remember to load the APE library first or this won’t work.</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb54-1"></a><span class="co"># Load ape</span></span>
+<span id="cb54-2"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb54-2"></a><span class="kw">library</span>(ape)</span>
+<span id="cb54-3"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb54-3"></a><span class="co"># Read in the tree</span></span>
+<span id="cb54-4"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb54-4"></a>tree &lt;-<span class="st"> </span><span class="kw">read.tree</span>(<span class="st">&quot;data/basic.tre&quot;</span>)</span></code></pre></div>
+<p>Note that whether we read the tree in using <code>read.tree</code> or <code>read.nexus</code> the resulting tree in R is the same.</p>
+<p>To understand what is going on we need a bit of computer programming jargon. Phylogenies are stored as objects of class <code>phylo</code>. What do I mean by this? Whenever we make a new “thing” in R and save it with a name we have created an <em>object</em>. So the code <code>tree &lt;- read.tree("data/basic.tre")</code> above makes a new object called <code>tree</code> which will have the phylogeny stored in it. Each object in R belongs to a <em>class</em>, which is a sort of blueprint for how the object should behave. For example, objects of <em>numeric</em> class will behave differently to objects of <em>character</em> class - we can’t multiply two characters (i.e. words) together but we can multiply two numbers. There are many classes in R and each have different rules. The <code>phylo</code> class is one of these that we use for phylogenies.</p>
+<p>Let’s examine the tree by typing:</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb55-1"></a><span class="co"># Look at the tree summary</span></span>
+<span id="cb55-2"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb55-2"></a>tree</span></code></pre></div>
+<pre><code>## 
+## Phylogenetic tree with 4 tips and 3 internal nodes.
+## 
+## Tip labels:
+##   robin, deer, spider, jellyfish
+## 
+## Rooted; includes branch lengths.</code></pre>
+<p>Notice that when we print out a <code>phylo</code> object like <code>tree</code>, it doesn’t just give us all of the information in the tree file. Instead it gives us a couple of bits of summary information. It tells us how many tips (4) and internal nodes (3) the tree has, then lists the tip labels. It also tells us the tree is rooted and contains branch lengths.</p>
+<p>If we want to look more closely at the components that make up a <code>phylo</code> object we need to look at the structure of <code>tree</code> using <code>str</code>.</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb57-1"></a><span class="co"># Look at the summary of tree components</span></span>
+<span id="cb57-2"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb57-2"></a><span class="kw">str</span>(tree)</span></code></pre></div>
+<pre><code>## List of 4
+##  $ edge       : int [1:6, 1:2] 5 6 7 7 6 5 6 7 1 2 ...
+##  $ edge.length: num [1:6] 6.3 3.1 4.2 4.2 7.3 13.5
+##  $ Nnode      : int 3
+##  $ tip.label  : chr [1:4] &quot;robin&quot; &quot;deer&quot; &quot;spider&quot; &quot;jellyfish&quot;
+##  - attr(*, &quot;class&quot;)= chr &quot;phylo&quot;
+##  - attr(*, &quot;order&quot;)= chr &quot;cladewise&quot;</code></pre>
+<p>This gives us a bit more information about what is going on. <code>tree</code> contains four variables:</p>
+<ol style="list-style-type: decimal">
+<li><strong>edge</strong> shows how the branches and tips are linked together (I’ll show you how this works below).</li>
+<li><strong>edge.length</strong> gives the branch lengths.</li>
+<li><strong>Nnode</strong> tells you how many internal nodes there are.</li>
+<li><strong>tip.label</strong> is a list of the taxon names.</li>
+</ol>
+<p>If we want to see the whole of the <code>phylo</code> object we have to use a little trick. Everything we do to <code>tree</code> at the moment will work based on <code>tree</code> being a <code>phylo</code> object. If we want to see the whole thing, we need to tell R to ignore that, and present it as is. To do this we can use <code>unclass</code> to remove the class rules.</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb59-1"></a><span class="co"># Look at the tree as is</span></span>
+<span id="cb59-2"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb59-2"></a><span class="kw">unclass</span>(tree)</span></code></pre></div>
+<pre><code>## $edge
+##      [,1] [,2]
+## [1,]    5    6
+## [2,]    6    7
+## [3,]    7    1
+## [4,]    7    2
+## [5,]    6    3
+## [6,]    5    4
+## 
+## $edge.length
+## [1]  6.3  3.1  4.2  4.2  7.3 13.5
+## 
+## $Nnode
+## [1] 3
+## 
+## $tip.label
+## [1] &quot;robin&quot;     &quot;deer&quot;      &quot;spider&quot;    &quot;jellyfish&quot;
+## 
+## attr(,&quot;order&quot;)
+## [1] &quot;cladewise&quot;</code></pre>
+<p>If we only wanted to see the full <code>edge</code> component we can use the <code>$</code> to extract just that variable from <code>tree</code>:</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb61-1"></a><span class="co"># Just look at the edge variable</span></span>
+<span id="cb61-2"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb61-2"></a>tree<span class="op">$</span>edge</span></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    5    6
+## [2,]    6    7
+## [3,]    7    1
+## [4,]    7    2
+## [5,]    6    3
+## [6,]    5    4</code></pre>
+<p>What is going on here? The easiest way to understand is to look at the <code>edge</code> matrix and the tree with node numbers added to it (see below). For all trees, 1 is the number of the first tip taxon at the base of the phylogeny, 2 is the number of the second taxon and so on until you have each taxon numbered. The numbers then refer to <em>nodes</em>, working through the tree from the root forwards.</p>
+<p>So in the <code>edge</code> matrix above, 1, 2, 3 and 4 are the tips. Node 7 leads to tips 1 and 2. Node 6 leads to node 7, and tip 3. Node 5 leads to node 6 and tip 4. Node 5 is the root node.</p>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-53-1.png" width="672" /></p>
+<p>Notice that the <code>edge.length</code> variable is in the same order as <code>edge</code>. So the first row of <code>edge</code> shows a branch joining node 5 to node 6, and this has a branch length of 6.3 (the first entry in <code>edge.length</code>). And so on…</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb63-1"></a>tree<span class="op">$</span>edge</span></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    5    6
+## [2,]    6    7
+## [3,]    7    1
+## [4,]    7    2
+## [5,]    6    3
+## [6,]    5    4</code></pre>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb65-1"></a>tree<span class="op">$</span>edge.length</span></code></pre></div>
+<pre><code>## [1]  6.3  3.1  4.2  4.2  7.3 13.5</code></pre>
+<p>As I said above, you don’t need to fully understand this, so don’t worry if this is confusing. But you will see at various points we do things like <code>tree$tip.label</code> to extract or change tip labels, and we might set branch lengths using <code>tree$edge.length</code> somewhere in our code. So now you understand where those bits of information come from.</p>
+</div>
+<div id="plotting-phylogenies" class="section level2">
+<h2><span class="header-section-number">3.4</span> Plotting phylogenies</h2>
+<p>Regardless of what you’re using a phylogeny for, you’re likely to want to plot it at some point. Even if you don’t need a plot straight away, I highly advise plotting your phylogeny before you do anything else. It’s good practice to look at whatever data you read into R to check it, and plotting helps you check it looks correct.</p>
+<p>Most phylogeny plotting in R uses the package <code>ape</code>. Recently, however, a new package called <code>ggtree</code> has been introduced that builds on the popular <code>ggplot2</code> method of plotting in R, and is much more flexible than <code>ape</code>. This leaves us in a bit of a quandary - which should you use? And which should I teach you?! I think there is a benefit in learning the basics of both approaches. In my own work, I use <code>ape</code> to plot trees I am working with to quickly check what is going on. I also use <code>ape</code> plotting indirectly in other packages like <code>phytools</code> - see later exercises. When I need to produce a pretty or complex tree I’ll often use <code>ggtree</code> instead. The exercises here will mirror this. The aim is not to give you a thorough introduction to all the things we can do with plotting phlyogenies in R, but more to give a taster of what is possible, and what we will need for the later exercises.</p>
+<div id="basic-phylogeny-plotting-with-ape" class="section level3">
+<h3><span class="header-section-number">3.4.1</span> Basic phylogeny plotting with APE</h3>
+<p>Our basic tree is a bit small, so let’s use some data that is built into R with a phlyogeny of bird orders.</p>
+<p>First load the data. This will read in a tree called <code>bird.orders</code>.</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb67-1"></a><span class="co"># Load the data from R</span></span>
+<span id="cb67-2"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb67-2"></a><span class="kw">data</span>(bird.orders)</span></code></pre></div>
+<p>Now plot the tree.</p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb68-1"></a><span class="co"># Plot the tree</span></span>
+<span id="cb68-2"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb68-2"></a><span class="kw">plot</span>(bird.orders)</span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-56-1.png" width="672" /></p>
+<p>Note that the function we use to plot phylogenies in <code>ape</code> is just called <code>plot</code>, but R knows to plot a phylogeny not anything else. How does this work? <code>plot</code> is one of a set of clever functions in R that uses an <em>ifelse</em> statement to decide what kind of plot it should do. When you ask R to <code>plot</code> something, it first determines what <em>class</em> of object it is. It then chooses the correct version of <code>plot</code> for that class. In this case the function it is actually using to plot the phylogeny is <code>plot.phylo</code>. This is important if you want to look at the help file for plotting phylogenies, because you need to use <code>?plot.phylo</code> <em>not</em> <code>?plot</code>.</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb69-1"></a><span class="co"># Access the help file for phylogeny plotting</span></span>
+<span id="cb69-2"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb69-2"></a><span class="co"># This should open a help file in another window of RStudio</span></span>
+<span id="cb69-3"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb69-3"></a>?plot.phylo</span></code></pre></div>
+<p>You should see from the help file that there are lots of options for plotting trees. For example if we want to use a fan-shaped tree, with smaller tip labels, and no white space round the edges to make the tree fill the plotting area, we can use:</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb70-1"></a><span class="co"># Plot the tree as a circular/fan phylogeny with small labels</span></span>
+<span id="cb70-2"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb70-2"></a><span class="kw">plot</span>(bird.orders, <span class="dt">cex =</span> <span class="fl">0.6</span>, <span class="dt">type =</span> <span class="st">&quot;fan&quot;</span>, <span class="dt">no.margin =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-58-1.png" width="672" /></p>
+<p>You can change the style of the tree (<code>type</code>), the color of the branches and tips (<code>edge.color</code>, <code>tip.color</code>), and the size of the tip labels (<code>cex</code>). Here’s an fun/hideous example!</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb71-1"></a><span class="kw">plot</span>(bird.orders, <span class="dt">edge.color =</span> <span class="st">&quot;deeppink&quot;</span>, <span class="dt">tip.color =</span> <span class="st">&quot;springgreen&quot;</span>, <span class="dt">no.margin =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-59-1.png" width="672" /></p>
+<p>We can also add information about the traits of species to trees. We will come back to this when we cover models of evolution, but as a quick demonstration, let’s imagine we want to display some data on our bird tree. For example, let’s code these bird orders based on how much I like them (this is clearly a total lie because I love them all equally, but for the sake of an example I’m willing to pretend!).</p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb72-1"></a><span class="co"># Make a factor which contains how much I like each order</span></span>
+<span id="cb72-2"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb72-2"></a>myfaves &lt;-<span class="st"> </span><span class="kw">factor</span>(<span class="kw">c</span>(<span class="st">&quot;awesome&quot;</span>, <span class="st">&quot;cool&quot;</span>, <span class="st">&quot;ok&quot;</span>, <span class="st">&quot;awesome&quot;</span>, <span class="st">&quot;ok&quot;</span>, </span>
+<span id="cb72-3"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb72-3"></a>                    <span class="st">&quot;ok&quot;</span>, <span class="st">&quot;ok&quot;</span>, <span class="st">&quot;awesome&quot;</span>, <span class="st">&quot;cool&quot;</span>, <span class="st">&quot;ok&quot;</span>, <span class="st">&quot;ok&quot;</span>, </span>
+<span id="cb72-4"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb72-4"></a>                    <span class="st">&quot;cool&quot;</span>, <span class="st">&quot;cool&quot;</span>, <span class="st">&quot;awesome&quot;</span>, <span class="st">&quot;ok&quot;</span>, <span class="st">&quot;ok&quot;</span>, </span>
+<span id="cb72-5"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb72-5"></a>                    <span class="st">&quot;cool&quot;</span>, <span class="st">&quot;ok&quot;</span>, <span class="st">&quot;ok&quot;</span>, <span class="st">&quot;ok&quot;</span>, <span class="st">&quot;ok&quot;</span>, <span class="st">&quot;cool&quot;</span>, <span class="st">&quot;ok&quot;</span>))</span></code></pre></div>
+<p>Now we can plot this on a phylogeny. First we decide which colours we’d like and make a list of these. To look at a list of inbuilt colours in R type in <code>colors()</code>. You can also use any hex colour coded as e.g. “#000000” instead of “white”. The first colour will be the first category alphabetically, the second will be the second category alphabetically, and so on.</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb73-1"></a>mycolours &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;gold&quot;</span>, <span class="st">&quot;cornflowerblue&quot;</span>, <span class="st">&quot;cyan4&quot;</span>)</span></code></pre></div>
+<p>Now plot the tree and add square labels to the tips showing the categories. We use <code>label.offset = 1</code> to move the labels to the right a bit so the squares will fit. I’ve also added a legend.</p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb74-1"></a><span class="co"># Plot the tree</span></span>
+<span id="cb74-2"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb74-2"></a><span class="kw">plot</span>(bird.orders, <span class="dt">label.offset =</span> <span class="dv">1</span>, <span class="dt">cex =</span> <span class="fl">0.9</span>, <span class="dt">no.margin =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb74-3"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb74-3"></a><span class="co"># Add the squares at the tip labels.</span></span>
+<span id="cb74-4"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb74-4"></a><span class="kw">tiplabels</span>(<span class="dt">pch =</span> <span class="dv">22</span>, <span class="dt">bg =</span> mycolours[<span class="kw">as.numeric</span>(myfaves)], <span class="dt">cex =</span> <span class="fl">1.2</span>, <span class="dt">adj =</span> <span class="dv">1</span>)</span>
+<span id="cb74-5"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb74-5"></a><span class="co"># Add a legend</span></span>
+<span id="cb74-6"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb74-6"></a><span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>, <span class="dt">fill =</span> mycolours, </span>
+<span id="cb74-7"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb74-7"></a>       <span class="dt">legend =</span> <span class="kw">c</span>(<span class="st">&quot;Awesome&quot;</span>, <span class="st">&quot;Cool&quot;</span>, <span class="st">&quot;OK&quot;</span>), </span>
+<span id="cb74-8"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb74-8"></a>       <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>)</span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-62-1.png" width="672" /></p>
+<p><code>pch = 22</code> sets the tip labels to be unfilled squares, <code>bg</code> (background) defines the colours of the squares using the list of colours we provided, and sorting them based on what the value for that order was for <code>myfaves</code>.
+<code>cex = 1.2</code> increases the point size, and <code>adj = 1</code> moves the tip labels sideways a bit so they don’t obscure the ends of the branches.</p>
+</div>
+<div id="basic-phylogeny-plotting-with-ggtree" class="section level3">
+<h3><span class="header-section-number">3.4.2</span> Basic phylogeny plotting with <code>ggtree</code></h3>
+<p>I won’t go into a huge amount of detail about <code>ggtree</code> because the <a href="https://yulab-smu.github.io/treedata-book/index.html">manual for <code>ggtree</code></a> is really comprehensive, and for the most part you won’t need to know how to do most of the things it can do. Instead I’ll give a basic introduction, and then show you how to make some of the plots used in chapter 2 of the <em>Primer</em>. I will also provide the code used to build figures in the <em>Primer</em> where appropriate in later exercises.</p>
+<div id="a-quick-intro-to-ggplot2" class="section level4">
+<h4><span class="header-section-number">3.4.2.1</span> A quick intro to <code>ggplot2</code></h4>
+<p><code>ggtree</code> extends the <code>ggplot2</code> package to work with phylogenies. What’s <code>ggplot2</code>? The <code>ggplot2</code> package was developed by Hadley Wickham to implement some of the ideas in a book called “The Grammar of Graphics” by Wilkinson (2005), hence the <em>gg</em> bit of the name. Many books and online tutorials cover <code>ggplot2</code> in detail, so here I’ll just cover the basics you need to understand how <code>ggtree</code> works. See <a href="https://ggplot2-book.org/" class="uri">https://ggplot2-book.org/</a> for details.</p>
+<p><code>ggplot2</code> works on the basis of <strong>layers</strong>. You start off with a line of code that uses the function <code>ggplot</code>, then at the end of the line you add a <code>+</code>. On the next line you add a <em>layer</em>. This layer might tell R what kind of plot to make, what the axes should be, how to draw the legend etc. You keep adding layers until you get the plot that you want.</p>
+<p>Each layer can have six components, but we’ll just focus on the main three:</p>
+<ol style="list-style-type: decimal">
+<li>The <strong>data</strong>. Every layer needs some data, in the form of a dataframe (or tibble). Each layer can be associated with a different dataset if appropriate.</li>
+</ol>
+<ul>
+<li><p>A <strong>geometric object</strong>, called a ‘geom’. geoms refer to the things we can see on a plot, such as points, lines or bars.</p></li>
+<li><p>A set of <strong>aesthetic mappings</strong>. These describe how variables in the data are associated with the aesthetic properties of the layer. This can include what to use as x and y axes, and the colour and size of the objects (e.g. points) on a plot. Each layer can be associated with its own unique aesthetic mappings. Aesthetic mappings are always defined inside the <code>aes</code> function. Different geoms will need different sets of aesthetic mappings, for example to draw a scatter plot you need to define the x and y axes, but for a histogram you only need the x axis.</p></li>
+</ul>
+<p>Each layer will also have layer specific parameters. These are the features of a layer, for example in <code>geom_point</code>, the geom that makes points on a graph, one layer specific parameter is <code>colour =</code> which defines the colour of the data points.</p>
+<p>Let’s quickly demonstrate this using some fake data - read in the code below to create a monster dataset.</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb75-1"></a><span class="co"># Make some fake data</span></span>
+<span id="cb75-2"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb75-2"></a>monsterdata &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">monster =</span> <span class="kw">c</span>(<span class="st">&quot;vampire&quot;</span>, <span class="st">&quot;golem&quot;</span>, </span>
+<span id="cb75-3"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb75-3"></a>                                      <span class="st">&quot;cookie-monster&quot;</span>, <span class="st">&quot;manticore&quot;</span>, <span class="st">&quot;wererat&quot;</span>),</span>
+<span id="cb75-4"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb75-4"></a>                          <span class="dt">type =</span> <span class="kw">c</span>(<span class="st">&quot;dead&quot;</span>, <span class="st">&quot;dead&quot;</span>, <span class="st">&quot;alive&quot;</span>, <span class="st">&quot;dead&quot;</span>, <span class="st">&quot;alive&quot;</span>),</span>
+<span id="cb75-5"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb75-5"></a>                          <span class="dt">scariness =</span> <span class="kw">c</span>(<span class="dv">65</span>, <span class="dv">50</span>, <span class="dv">10</span>, <span class="dv">75</span>, <span class="dv">95</span>))</span></code></pre></div>
+<p>To make a really basic plot…</p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb76-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> monsterdata, <span class="kw">aes</span>(<span class="dt">x =</span> monster, <span class="dt">y =</span> scariness)) <span class="op">+</span></span>
+<span id="cb76-2"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb76-2"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">colour =</span> <span class="st">&quot;deeppink&quot;</span>, <span class="dt">size =</span> <span class="dv">4</span>) <span class="op">+</span></span>
+<span id="cb76-3"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb76-3"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></span>
+<span id="cb76-4"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb76-4"></a><span class="st">  </span><span class="kw">ylim</span>(<span class="dv">0</span>, <span class="dv">100</span>)</span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-64-1.png" width="672" />
+A couple of points to note:</p>
+<p>In <code>ggplot2</code>, <em>theme</em> is used to define the overall look of the plot. We can use the <code>theme</code> function modify everything individually, but there are some built in themes that do lots of things at once. <code>theme_bw</code> is one of my favourites as it gets rid of the horrible grey background that is a <code>ggplot2</code> default, but keeps the nice background grid.</p>
+<p>I also used <code>ylim</code> to change the y axis limits to go from 0 to 100.</p>
+<p>Another thing I’m going to do below with <code>ggtree</code> is plot multiple plots on one plotting space. There are a couple of ways to do this, but the easiest is to use the package <code>patchwork</code>. First we need to assign our plots to an object using <code>&lt;-</code>. We do this as follows</p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb77-1"></a>myplot1 &lt;-<span class="st"> </span></span>
+<span id="cb77-2"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb77-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="dt">data =</span> monsterdata, <span class="kw">aes</span>(<span class="dt">x =</span> monster, <span class="dt">y =</span> scariness)) <span class="op">+</span></span>
+<span id="cb77-3"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb77-3"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">colour =</span> <span class="st">&quot;deeppink&quot;</span>, <span class="dt">size =</span> <span class="dv">4</span>) <span class="op">+</span></span>
+<span id="cb77-4"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb77-4"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></span>
+<span id="cb77-5"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb77-5"></a><span class="st">  </span><span class="kw">ylim</span>(<span class="dv">0</span>, <span class="dv">100</span>)</span>
+<span id="cb77-6"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb77-6"></a></span>
+<span id="cb77-7"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb77-7"></a>myplot2 &lt;-<span class="st"> </span></span>
+<span id="cb77-8"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb77-8"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="dt">data =</span> monsterdata, <span class="kw">aes</span>(<span class="dt">x =</span> monster, <span class="dt">y =</span> scariness)) <span class="op">+</span></span>
+<span id="cb77-9"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb77-9"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">colour =</span> <span class="st">&quot;gold1&quot;</span>, <span class="dt">size =</span> <span class="dv">4</span>, <span class="dt">shape =</span> <span class="st">&quot;triangle&quot;</span>) <span class="op">+</span></span>
+<span id="cb77-10"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb77-10"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></span>
+<span id="cb77-11"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb77-11"></a><span class="st">  </span><span class="kw">ylim</span>(<span class="dv">0</span>, <span class="dv">100</span>)</span></code></pre></div>
+<p>To look at the plots we would now have to type <code>myplot1</code> or <code>myplot2</code> into R, but I haven’t done this here because we already looked at the first plot above, and all I changed in the second plot was the colour and shape of the points.</p>
+<p>With <code>patchwork</code>, we can use <code>+</code> to plot things next to each other, or <code>/</code> to plot things on top of one another, and <code>()</code> to do more complex arrangements. See <a href="https://patchwork.data-imaginist.com/articles/patchwork.html" class="uri">https://patchwork.data-imaginist.com/articles/patchwork.html</a> for details. Here let’s just plot them next to each other…</p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb78-1"></a><span class="kw">library</span>(patchwork)</span>
+<span id="cb78-2"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb78-2"></a>myplot1 <span class="op">+</span><span class="st"> </span>myplot2</span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-66-1.png" width="672" /></p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb79-1"></a>myplot1 <span class="op">/</span><span class="st"> </span>(myplot1 <span class="op">+</span><span class="st"> </span>myplot2)</span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-67-1.png" width="672" /></p>
+<p>Below you’ll see I use the <code>ggplot2</code> layer <code>labs</code> to add labels (i.e. A, B, C) to plots in multi-panel figures. We can also angle the x axis labels so they fit, add trend lines etc. But I’ll let you find out how to do that for yourselves!</p>
+</div>
+</div>
+<div id="back-to-ggtree" class="section level3">
+<h3><span class="header-section-number">3.4.3</span> Back to <code>ggtree</code></h3>
+<p>OK that should give you the basics of what to expect from <code>ggplot2</code>. Now let’s use <code>ggtree</code>…</p>
+<p>To plot a phylogeny using <code>ggtree</code> we always start with the <code>ggtree</code> function (<em>not</em> <code>ggplot</code>). We then add layers using the <code>+</code> like in <code>ggplot2</code>. Some layers are the same (e.g. <code>xlim</code>, <code>ylim</code>), others are unique to <code>ggtree</code> (e.g. <code>geom_tiplab</code>). <code>ggtree</code> also has an inbuilt theme for trees called <code>theme_tree</code>.</p>
+<p>To plot the basic phylogeny we’ve been practising with we use:</p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb80-1"></a><span class="kw">library</span>(ggtree)</span>
+<span id="cb80-2"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb80-2"></a></span>
+<span id="cb80-3"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb80-3"></a><span class="kw">ggtree</span>(tree) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb80-4"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb80-4"></a><span class="st">  </span><span class="co"># Add theme for trees</span></span>
+<span id="cb80-5"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb80-5"></a><span class="st">  </span><span class="kw">theme_tree</span>() <span class="op">+</span></span>
+<span id="cb80-6"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb80-6"></a><span class="st">  </span><span class="co"># Change x and y limits so the tip labels fit</span></span>
+<span id="cb80-7"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb80-7"></a><span class="st">  </span><span class="kw">xlim</span>(<span class="dv">0</span>, <span class="dv">22</span>) <span class="op">+</span></span>
+<span id="cb80-8"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb80-8"></a><span class="st">  </span><span class="kw">ylim</span>(<span class="dv">0</span>, <span class="dv">5</span>) <span class="op">+</span></span>
+<span id="cb80-9"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb80-9"></a><span class="st">  </span><span class="co"># Add tip labels as text, slightly offset from the tips and aligned</span></span>
+<span id="cb80-10"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb80-10"></a><span class="st">  </span><span class="kw">geom_tiplab</span>(<span class="dt">geom =</span> <span class="st">&quot;text&quot;</span>, <span class="dt">align =</span> <span class="ot">TRUE</span>, <span class="dt">offset =</span> <span class="fl">0.5</span>, <span class="dt">linetype =</span> <span class="ot">NA</span>)</span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-68-1.png" width="672" /></p>
+<p>Note that you might need to fiddle around with the <code>xlim</code> and <code>ylim</code> a bit to make sure your phylogeny and the tip labels fit. If we don’t specify the limits, the tip labels often fall off the plotting window (see below), and the tree will push right up against the top and bottom of the page making it hard to add things like images to the tips.</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb81-1"></a><span class="co"># Demonstration of what happens if you don&#39;t define the x and y limits</span></span>
+<span id="cb81-2"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb81-2"></a><span class="kw">ggtree</span>(tree) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb81-3"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb81-3"></a><span class="st">  </span><span class="kw">theme_tree</span>() <span class="op">+</span></span>
+<span id="cb81-4"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb81-4"></a><span class="st">  </span><span class="kw">geom_tiplab</span>(<span class="dt">geom =</span> <span class="st">&quot;text&quot;</span>, <span class="dt">align =</span> <span class="ot">TRUE</span>, <span class="dt">offset =</span> <span class="fl">0.5</span>, <span class="dt">linetype =</span> <span class="ot">NA</span>)</span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-69-1.png" width="672" /></p>
+<p><code>ggtree</code> is clearly a bit more involved than just using <code>plot.phylo</code> with <code>ape</code>. If you’re happy with plotting in <code>ape</code> you don’t need to use <code>ggtree</code>. As I mentioned above, for day-to-day tree viewing and checking I just tend to use <code>ape</code>, so don’t worry if this is all incomprehensible.</p>
+<p>One thing, among many, that <code>ggtree</code> is great for is adding images to the tips rather than species names. To do this you need to collate the images you want to use first. You may want to draw your own, or I often download them from the excellent <a href="http://phylopic.org/">PhyloPic</a> website (these are free to use but don’t forget to record who made the image so you can credit them in your papers/talks). To keep my folder tidy I keep images in a separate subfolder called, predictably, <code>images</code>.</p>
+<p>You need the package <code>ggimage</code> installed for this to work, which for me took some time and also required that I install <code>ggplotify</code>, <code>magick</code>, and <code>gridGraphics</code>. If this is a struggle, then just skip this example.</p>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb82-1"></a><span class="co"># Plot with images at tips</span></span>
+<span id="cb82-2"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb82-2"></a><span class="kw">ggtree</span>(tree) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb82-3"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb82-3"></a><span class="st">  </span><span class="kw">theme_tree</span>() <span class="op">+</span></span>
+<span id="cb82-4"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb82-4"></a><span class="st">  </span><span class="co"># Change limits so labels fit</span></span>
+<span id="cb82-5"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb82-5"></a><span class="st">  </span><span class="kw">xlim</span>(<span class="dv">0</span>, <span class="dv">22</span>) <span class="op">+</span></span>
+<span id="cb82-6"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb82-6"></a><span class="st">  </span><span class="kw">ylim</span>(<span class="dv">0</span>, <span class="dv">5</span>) <span class="op">+</span></span>
+<span id="cb82-7"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb82-7"></a><span class="st">  </span><span class="co"># Add tip label pictures</span></span>
+<span id="cb82-8"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb82-8"></a><span class="st">  </span><span class="kw">geom_tiplab</span>(<span class="kw">aes</span>(<span class="dt">image =</span> <span class="kw">c</span>(<span class="st">&quot;images/deer.png&quot;</span>,</span>
+<span id="cb82-9"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb82-9"></a>                            <span class="st">&quot;images/robin.png&quot;</span>,</span>
+<span id="cb82-10"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb82-10"></a>                            <span class="st">&quot;images/spider.png&quot;</span>,</span>
+<span id="cb82-11"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb82-11"></a>                            <span class="st">&quot;images/jellyfish.png&quot;</span>,</span>
+<span id="cb82-12"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb82-12"></a>                            <span class="kw">rep</span>(<span class="ot">NA</span>, <span class="dv">3</span>))), </span>
+<span id="cb82-13"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb82-13"></a>              <span class="dt">geom =</span> <span class="st">&quot;image&quot;</span>, <span class="dt">align =</span> <span class="ot">TRUE</span>, <span class="dt">offset =</span> <span class="fl">0.5</span>, </span>
+<span id="cb82-14"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb82-14"></a>              <span class="dt">linetype =</span> <span class="ot">NA</span>, <span class="dt">size =</span> <span class="kw">c</span>(<span class="fl">0.12</span>, <span class="fl">0.15</span>, <span class="fl">0.09</span>, <span class="fl">0.15</span>))</span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-70-1.png" width="672" /></p>
+<p>Note that to add either text or images to the tips we use the same layer function, <code>geom_tiplab</code>. If doing this with your own data you’ll likely need to fiddle with the sizes of the images to get them looking right.</p>
+<p>Some of you may be wondering what the <code>rep(NA, 3)</code> bit of the code above does. When we try to add images to the tips, the function also tries to add images to the internal nodes. We don’t want these to have images so we just ask <code>ggtree</code> to use <code>NA</code>, i.e. don’t add an image. <code>rep(NA, 3)</code> means replicate <code>NA</code> three times (for the three internal nodes). Again you’ll probably need to modify this number when you do this for your own data.</p>
+<p>As with <code>plot.phylo</code> we can plot phylogenies in different ways, see code below. Fan trees are called circular trees. Note the different values for <code>offset</code> and <code>hjust</code> (horizontal justification) I’ve used here to make the labels fit. Again you will need to fiddle with these numbers to get this to work for your data.</p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb83-1"></a><span class="co"># Standard tree</span></span>
+<span id="cb83-2"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb83-2"></a>p1 &lt;-<span class="st"> </span></span>
+<span id="cb83-3"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb83-3"></a><span class="st">  </span><span class="kw">ggtree</span>(tree) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb83-4"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb83-4"></a><span class="st">  </span><span class="kw">theme_tree</span>() <span class="op">+</span></span>
+<span id="cb83-5"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb83-5"></a><span class="st">  </span><span class="co"># Change limits so labels fit</span></span>
+<span id="cb83-6"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb83-6"></a><span class="st">  </span><span class="kw">xlim</span>(<span class="dv">0</span>, <span class="dv">22</span>) <span class="op">+</span></span>
+<span id="cb83-7"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb83-7"></a><span class="st">  </span><span class="kw">ylim</span>(<span class="dv">0</span>, <span class="dv">5</span>) <span class="op">+</span></span>
+<span id="cb83-8"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb83-8"></a><span class="st">  </span><span class="co"># Add tip labels</span></span>
+<span id="cb83-9"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb83-9"></a><span class="st">  </span><span class="kw">geom_tiplab</span>(<span class="dt">geom =</span> <span class="st">&quot;text&quot;</span>, <span class="dt">align =</span> <span class="ot">TRUE</span>, <span class="dt">offset =</span> <span class="fl">0.5</span>, <span class="dt">linetype =</span> <span class="ot">NA</span>) <span class="op">+</span></span>
+<span id="cb83-10"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb83-10"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">tag =</span> <span class="st">&quot;A&quot;</span>, <span class="dt">size =</span> <span class="dv">2</span>)</span>
+<span id="cb83-11"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb83-11"></a></span>
+<span id="cb83-12"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb83-12"></a><span class="co"># Standard tree facing up</span></span>
+<span id="cb83-13"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb83-13"></a>p2 &lt;-</span>
+<span id="cb83-14"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb83-14"></a><span class="st">  </span><span class="kw">ggtree</span>(tree) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb83-15"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb83-15"></a><span class="st">  </span><span class="kw">theme_tree</span>() <span class="op">+</span></span>
+<span id="cb83-16"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb83-16"></a><span class="st">  </span><span class="kw">coord_flip</span>() <span class="op">+</span></span>
+<span id="cb83-17"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb83-17"></a><span class="st">  </span><span class="co"># Change limits so labels fit</span></span>
+<span id="cb83-18"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb83-18"></a><span class="st">  </span><span class="kw">xlim</span>(<span class="dv">0</span>, <span class="dv">22</span>) <span class="op">+</span></span>
+<span id="cb83-19"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb83-19"></a><span class="st">  </span><span class="kw">ylim</span>(<span class="dv">0</span>, <span class="dv">5</span>) <span class="op">+</span></span>
+<span id="cb83-20"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb83-20"></a><span class="st">  </span><span class="co"># Add tip labels</span></span>
+<span id="cb83-21"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb83-21"></a><span class="st">  </span><span class="kw">geom_tiplab</span>(<span class="dt">geom =</span> <span class="st">&quot;text&quot;</span>, <span class="dt">align =</span> <span class="ot">TRUE</span>, <span class="dt">offset =</span> <span class="dv">2</span>, <span class="dt">hjust =</span> <span class="fl">0.5</span>, <span class="dt">linetype =</span> <span class="ot">NA</span>) <span class="op">+</span></span>
+<span id="cb83-22"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb83-22"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">tag =</span> <span class="st">&quot;B&quot;</span>, <span class="dt">size =</span> <span class="dv">2</span>)</span>
+<span id="cb83-23"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb83-23"></a></span>
+<span id="cb83-24"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb83-24"></a><span class="co"># Slanted tree</span></span>
+<span id="cb83-25"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb83-25"></a>p3 &lt;-<span class="st"> </span></span>
+<span id="cb83-26"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb83-26"></a><span class="st">  </span><span class="kw">ggtree</span>(tree, <span class="dt">layout =</span> <span class="st">&quot;slanted&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb83-27"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb83-27"></a><span class="st">  </span><span class="kw">theme_tree</span>() <span class="op">+</span></span>
+<span id="cb83-28"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb83-28"></a><span class="st">  </span><span class="co"># Change limits so labels fit</span></span>
+<span id="cb83-29"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb83-29"></a><span class="st">  </span><span class="kw">xlim</span>(<span class="dv">0</span>, <span class="dv">22</span>) <span class="op">+</span></span>
+<span id="cb83-30"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb83-30"></a><span class="st">  </span><span class="kw">ylim</span>(<span class="dv">0</span>, <span class="dv">5</span>) <span class="op">+</span></span>
+<span id="cb83-31"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb83-31"></a><span class="st">  </span><span class="co"># Add tip labels</span></span>
+<span id="cb83-32"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb83-32"></a><span class="st">  </span><span class="kw">geom_tiplab</span>(<span class="dt">geom =</span> <span class="st">&quot;text&quot;</span>, <span class="dt">align =</span> <span class="ot">TRUE</span>, <span class="dt">offset =</span> <span class="fl">0.5</span>, <span class="dt">linetype =</span> <span class="ot">NA</span>) <span class="op">+</span></span>
+<span id="cb83-33"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb83-33"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">tag =</span> <span class="st">&quot;C&quot;</span>, <span class="dt">size =</span> <span class="dv">2</span>)</span>
+<span id="cb83-34"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb83-34"></a></span>
+<span id="cb83-35"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb83-35"></a></span>
+<span id="cb83-36"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb83-36"></a><span class="co"># Fan/circular tree</span></span>
+<span id="cb83-37"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb83-37"></a>p4 &lt;-</span>
+<span id="cb83-38"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb83-38"></a><span class="st">  </span><span class="kw">ggtree</span>(tree, <span class="dt">layout =</span> <span class="st">&quot;circular&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb83-39"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb83-39"></a><span class="st">  </span><span class="kw">theme_tree</span>() <span class="op">+</span></span>
+<span id="cb83-40"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb83-40"></a><span class="st">  </span><span class="co"># Add tip labels</span></span>
+<span id="cb83-41"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb83-41"></a><span class="st">  </span><span class="kw">geom_tiplab</span>(<span class="dt">geom =</span> <span class="st">&quot;text&quot;</span>, <span class="dt">align =</span> <span class="ot">TRUE</span>, <span class="dt">offset =</span> <span class="dv">5</span>, <span class="dt">hjust =</span> <span class="fl">0.5</span>,  <span class="dt">linetype =</span> <span class="ot">NA</span>, <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span></span>
+<span id="cb83-42"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb83-42"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">tag =</span> <span class="st">&quot;D&quot;</span>, <span class="dt">size =</span> <span class="dv">2</span>)</span>
+<span id="cb83-43"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb83-43"></a></span>
+<span id="cb83-44"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb83-44"></a><span class="co"># Plot</span></span>
+<span id="cb83-45"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb83-45"></a>(p1 <span class="op">+</span><span class="st"> </span>p2) <span class="op">/</span><span class="st"> </span>(p3 <span class="op">+</span><span class="st"> </span>p4)</span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-71-1.png" width="672" /></p>
+<p>What about highlighting clades? We can use <code>geom_hilight</code> to add coloured shading to all species from a defined node, and/or <code>geom_cladelabel</code> to label clades (A and B below) from a defined node. The offset in <code>geom_cladelabel</code> defines how far from the phylogeny tips the lines should be drawn. Again, you’ll need to play with this to get the best figure possible.</p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb84-1"></a><span class="co"># Plot with images at tips</span></span>
+<span id="cb84-2"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb84-2"></a><span class="kw">ggtree</span>(tree) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb84-3"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb84-3"></a><span class="st">  </span><span class="kw">theme_tree</span>() <span class="op">+</span></span>
+<span id="cb84-4"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb84-4"></a><span class="st">  </span><span class="co"># Change limits so labels fit</span></span>
+<span id="cb84-5"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb84-5"></a><span class="st">  </span><span class="kw">xlim</span>(<span class="dv">0</span>, <span class="dv">22</span>) <span class="op">+</span></span>
+<span id="cb84-6"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb84-6"></a><span class="st">  </span><span class="kw">ylim</span>(<span class="dv">0</span>, <span class="dv">5</span>) <span class="op">+</span></span>
+<span id="cb84-7"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb84-7"></a><span class="st">  </span><span class="co"># Add tip label pictures</span></span>
+<span id="cb84-8"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb84-8"></a><span class="st">  </span><span class="kw">geom_tiplab</span>(<span class="kw">aes</span>(<span class="dt">image =</span> <span class="kw">c</span>(<span class="st">&quot;images/deer.png&quot;</span>,</span>
+<span id="cb84-9"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb84-9"></a>                            <span class="st">&quot;images/robin.png&quot;</span>,</span>
+<span id="cb84-10"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb84-10"></a>                            <span class="st">&quot;images/spider.png&quot;</span>,</span>
+<span id="cb84-11"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb84-11"></a>                            <span class="st">&quot;images/jellyfish.png&quot;</span>,</span>
+<span id="cb84-12"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb84-12"></a>                            <span class="kw">rep</span>(<span class="ot">NA</span>, <span class="dv">3</span>))), </span>
+<span id="cb84-13"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb84-13"></a>              <span class="dt">geom =</span> <span class="st">&quot;image&quot;</span>, <span class="dt">align =</span> <span class="ot">TRUE</span>, <span class="dt">offset =</span> <span class="fl">0.5</span>, </span>
+<span id="cb84-14"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb84-14"></a>              <span class="dt">linetype =</span> <span class="ot">NA</span>, <span class="dt">size =</span> <span class="kw">c</span>(.<span class="dv">12</span>, <span class="fl">.15</span>, <span class="fl">.09</span>, <span class="fl">.15</span>)) <span class="op">+</span></span>
+<span id="cb84-15"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb84-15"></a><span class="st">  </span><span class="co"># Highlight clades</span></span>
+<span id="cb84-16"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb84-16"></a><span class="st">  </span><span class="kw">geom_hilight</span>(<span class="dt">node =</span> <span class="dv">6</span>, <span class="dt">fill =</span> <span class="st">&quot;cornflowerblue&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.4</span>) <span class="op">+</span></span>
+<span id="cb84-17"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb84-17"></a><span class="st">  </span><span class="kw">geom_hilight</span>(<span class="dt">node =</span> <span class="dv">7</span>, <span class="dt">fill =</span> <span class="st">&quot;springgreen&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.4</span>) <span class="op">+</span></span>
+<span id="cb84-18"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb84-18"></a><span class="st">  </span><span class="kw">geom_cladelabel</span>(<span class="dt">node =</span> <span class="dv">7</span> , <span class="dt">label =</span> <span class="st">&quot;A&quot;</span>, <span class="dt">offset =</span> <span class="dv">4</span>,</span>
+<span id="cb84-19"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb84-19"></a>                  <span class="dt">fontsize =</span> <span class="dv">5</span>) <span class="op">+</span></span>
+<span id="cb84-20"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb84-20"></a><span class="st">  </span><span class="kw">geom_cladelabel</span>(<span class="dt">node =</span> <span class="dv">6</span> , <span class="dt">label =</span> <span class="st">&quot;B&quot;</span>, <span class="dt">offset =</span> <span class="dv">6</span>,</span>
+<span id="cb84-21"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb84-21"></a>                  <span class="dt">fontsize =</span> <span class="dv">5</span>) </span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-72-1.png" width="672" /></p>
+<p>You can also highlight non-monophyletic groups using <code>groupOTU</code>. Here’s a quick and silly example…</p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb85-1"></a><span class="co"># Define group</span></span>
+<span id="cb85-2"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb85-2"></a>feathers &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">no   =</span> <span class="kw">c</span>(<span class="st">&quot;deer&quot;</span>,<span class="st">&quot;jellyfish&quot;</span>, <span class="st">&quot;spider&quot;</span>),</span>
+<span id="cb85-3"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb85-3"></a>                 <span class="dt">yes =</span> <span class="kw">c</span>(<span class="st">&quot;robin&quot;</span>))</span>
+<span id="cb85-4"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb85-4"></a></span>
+<span id="cb85-5"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb85-5"></a><span class="co"># Plot with images at tips</span></span>
+<span id="cb85-6"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb85-6"></a>p &lt;-<span class="st"> </span></span>
+<span id="cb85-7"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb85-7"></a><span class="st">  </span><span class="kw">ggtree</span>(tree) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb85-8"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb85-8"></a><span class="st">  </span><span class="kw">theme_tree</span>() <span class="op">+</span></span>
+<span id="cb85-9"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb85-9"></a><span class="st">  </span><span class="co"># Change limits so labels fit</span></span>
+<span id="cb85-10"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb85-10"></a><span class="st">  </span><span class="kw">xlim</span>(<span class="dv">0</span>, <span class="dv">25</span>) <span class="op">+</span></span>
+<span id="cb85-11"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb85-11"></a><span class="st">  </span><span class="kw">ylim</span>(<span class="dv">0</span>, <span class="dv">5</span>) <span class="op">+</span></span>
+<span id="cb85-12"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb85-12"></a><span class="st">  </span><span class="co"># Add tip labels</span></span>
+<span id="cb85-13"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb85-13"></a><span class="st">  </span><span class="kw">geom_tiplab</span>(<span class="dt">geom =</span> <span class="st">&quot;text&quot;</span>, <span class="dt">align =</span> <span class="ot">TRUE</span>, <span class="dt">offset =</span> <span class="fl">0.5</span>, <span class="dt">linetype =</span> <span class="ot">NA</span>)</span>
+<span id="cb85-14"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb85-14"></a></span>
+<span id="cb85-15"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb85-15"></a><span class="co"># Add colours to branches and labels</span></span>
+<span id="cb85-16"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb85-16"></a><span class="kw">groupOTU</span>(p, feathers, <span class="st">&#39;feathers&#39;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb85-17"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb85-17"></a><span class="st">  </span><span class="kw">aes</span>(<span class="dt">color =</span> feathers) <span class="op">+</span></span>
+<span id="cb85-18"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb85-18"></a><span class="st">  </span><span class="kw">scale_colour_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;orange1&quot;</span>,<span class="st">&quot;darkblue&quot;</span>)) <span class="op">+</span></span>
+<span id="cb85-19"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb85-19"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;top&quot;</span>)</span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-73-1.png" width="672" /></p>
+<p>Note the warning here that tells us not to use <code>filter_</code>. This is from the internal <code>ggtree</code> code and can be ignored for now. Either this will be updated in the future, or <code>ggtree</code> will change how this is done. So if this code breaks completely try the <code>ggtree</code> help files for a solution.</p>
+<div class="info">
+<p>
+There are many more things you can do with <code>ggtree</code>, all based on this idea of adding layers. See the manual for <code>ggtree</code> at <a href="http://yulab-smu.top/treedata-book/index.html" class="uri">http://yulab-smu.top/treedata-book/index.html</a> for more details.
+</p>
+</div>
+</div>
+</div>
+<div id="phylogeny-manipulation" class="section level2">
+<h2><span class="header-section-number">3.5</span> Phylogeny manipulation</h2>
+<p>To run analyses in R we often need to manipulate our phylogeny in some way so that the analyses can work. I’ll mention these requirements where needed, but here are some common things we might need to change. I’ll use the <code>bird.orders</code> phylogeny again as it’s a manageable size.</p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb86-1"></a><span class="co"># Load the tree</span></span>
+<span id="cb86-2"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb86-2"></a><span class="kw">data</span>(bird.orders)</span></code></pre></div>
+<div id="removing-polytomies" class="section level3">
+<h3><span class="header-section-number">3.5.1</span> Removing polytomies</h3>
+<p>Most R functions require your tree to be dichotomous, i.e. to have no polytomies. To check whether your tree is dichotomous use <code>is.binary.tree</code>.</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb87-1"></a><span class="co"># Check whether the tree is binary</span></span>
+<span id="cb87-2"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb87-2"></a><span class="co"># We want this to be TRUE</span></span>
+<span id="cb87-3"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb87-3"></a><span class="kw">is.binary.tree</span>(bird.orders) </span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>If this is FALSE, use <code>multi2di</code> to make the tree dichotomous. This function works by randomly resolving polytomies with zero-length branches. This doesn’t change the tree overall, it’s just a clever trick to get the functions to work.</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb89-1"></a><span class="co"># Make the tree into a binary tree</span></span>
+<span id="cb89-2"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb89-2"></a>bird.orders &lt;-<span class="st"> </span><span class="kw">multi2di</span>(bird.orders)</span></code></pre></div>
+</div>
+<div id="rooting-your-phylogeny" class="section level3">
+<h3><span class="header-section-number">3.5.2</span> Rooting your phylogeny</h3>
+<p>Most R functions also require the tree to be rooted, i.e., to have one (or more) taxon designated as the outgroup. We can check whether the tree is rooted as follows.</p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb90-1"></a><span class="co"># Check whether the tree is rooted</span></span>
+<span id="cb90-2"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb90-2"></a><span class="co"># We want this to be TRUE</span></span>
+<span id="cb90-3"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb90-3"></a><span class="kw">is.rooted</span>(bird.orders)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>Our tree is rooted but if you wanted to change the root, or root an unrooted tree use <code>root</code>. We can make a new tree and root it on something silly (e.g. Passeriformes) to demonstrate. Remember that your root should be the outgroup from the phylogenetic inference. Rooting a tree incorrectly can cause big issues with downstream analyses, so make sure you choose carefully.</p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb92-1"></a>new.tree &lt;-<span class="st"> </span><span class="kw">root</span>(bird.orders, <span class="dt">outgroup =</span> <span class="st">&quot;Passeriformes&quot;</span>)</span>
+<span id="cb92-2"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb92-2"></a><span class="kw">plot</span>(new.tree)</span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-79-1.png" width="672" /></p>
+</div>
+<div id="manipulating-the-species-in-your-phlyogeny" class="section level3">
+<h3><span class="header-section-number">3.5.3</span> Manipulating the species in your phlyogeny</h3>
+<p>When we do comparative analyses, we have data and a tree to deal with. It’s very common to have species in your data that are not in your tree and vice versa. In the next exercise I’m going to show you how to match up the species in your comparative data with the species in your phylogeny. But you may also want to make these changes for plotting purposes, so it is useful to know how to do them anyway.</p>
+<div id="renaming-species" class="section level4">
+<h4><span class="header-section-number">3.5.3.1</span> Renaming species</h4>
+<p>We can change the names of species using <code>gsub</code> which stands for generalised substitution. This can help with typos etc. or if you have minor taxonomic changes to make. Here, for fun let’s rename Passeriformes…</p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb93-1"></a>bird.orders<span class="op">$</span>tip.label &lt;-<span class="st"> </span><span class="kw">gsub</span>(<span class="st">&quot;Passeriformes&quot;</span>, <span class="st">&quot;birbs&quot;</span>, bird.orders<span class="op">$</span>tip.label)</span>
+<span id="cb93-2"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb93-2"></a><span class="kw">plot</span>(bird.orders)</span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-80-1.png" width="672" /></p>
+</div>
+<div id="removing-species" class="section level4">
+<h4><span class="header-section-number">3.5.3.2</span> Removing species</h4>
+<p>Removing species uses the function <code>drop.tip</code>. If we want to remove birbs from the tree above..</p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb94-1"></a>bird.orders &lt;-<span class="st"> </span><span class="kw">drop.tip</span>(bird.orders, <span class="dt">tip =</span> <span class="st">&quot;birbs&quot;</span>)</span>
+<span id="cb94-2"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb94-2"></a><span class="kw">plot</span>(bird.orders)</span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-81-1.png" width="672" /></p>
+<p>You can also remove multiple tips at once…</p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb95-1"></a>bird.orders &lt;-<span class="st"> </span><span class="kw">drop.tip</span>(bird.orders, <span class="dt">tip =</span> <span class="kw">c</span>(<span class="st">&quot;Struthioniformes&quot;</span>, <span class="st">&quot;Tinamiformes&quot;</span>))</span>
+<span id="cb95-2"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb95-2"></a><span class="kw">plot</span>(bird.orders)</span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-82-1.png" width="672" />
+However, if you’re looking to do something more complex like removing entire groups it’s probably easier to use the functions in the next exercise.</p>
+</div>
+<div id="adding-species" class="section level4">
+<h4><span class="header-section-number">3.5.3.3</span> Adding species</h4>
+<p>Sometimes you’ll find your phylogeny is missing some species that you have in your dataset. In general the easiest thing is just to omit those species from your analysis, but it may be that they’re data points you really want to keep. In which case you can add species to the tree.</p>
+<p>Before you can add the species you need to find out <em>where</em> in the tree the species belongs. This will require looking in the literature to find the closest relative of the species that already exists in the tree. You also need to know how long the branch should be that will attach the new species to the tree. In some cases this will also be possible to locate in the literature. In other cases, for example if you’re adding a species as a sister species to another species within its genus, you can just choose an arbitrary short branch length, e.g. 0.1 or 1. The exact value depends on the branch lengths in the tree. We can then use R to add the species to the tree.</p>
+<p>To add a species in R, we first select the node that we want to add the tip to. For example, if we want to add Big Bird to our <code>bird.orders</code> tree as a sister to the Galliformes, we can identify the node to add Big Bird to using:</p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb96-1"></a><span class="co"># Identify the node</span></span>
+<span id="cb96-2"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb96-2"></a>node &lt;-<span class="st"> </span><span class="kw">which</span>(bird.orders<span class="op">$</span>tip.label <span class="op">==</span><span class="st"> &quot;Galliformes&quot;</span>)</span>
+<span id="cb96-3"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb96-3"></a><span class="co"># Which node is it?</span></span>
+<span id="cb96-4"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb96-4"></a>node</span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<p>We then add the species to this node using the <code>bind.tip</code> function in <code>phytools</code>:</p>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb98-1"></a><span class="kw">library</span>(phytools)</span>
+<span id="cb98-2"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb98-2"></a>bird.orders_plusbigbird &lt;-<span class="st"> </span><span class="kw">bind.tip</span>(bird.orders, <span class="dt">tip.label =</span> <span class="st">&quot;Big_Bird&quot;</span>,</span>
+<span id="cb98-3"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb98-3"></a>                                    <span class="dt">where =</span> node, <span class="dt">position =</span> <span class="fl">4.5</span>)</span>
+<span id="cb98-4"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb98-4"></a></span>
+<span id="cb98-5"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb98-5"></a><span class="kw">plot</span>(bird.orders_plusbigbird)</span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-84-1.png" width="672" />
+You can see that Big Bird has been added to the Galliformes branch. In the <code>bind.tip</code> function, <code>position</code> is the length of the new branch. Here we used 4.5, but you could use other numbers if you needed the branch to be longer or shorter (i.e. if you knew the divergence between Galliformes and Big Bird was longer ago or more recent).</p>
+<div class="detail">
+<p>
+Note that the value of <code>position</code> is limited by the length of the branch you are adding the new species to. If you see the error below it means you’ve given <code>position</code> a value which is longer that the existing branch, and you’ll need to make it a bit smaller.
+</p>
+<blockquote>
+<p>
+<code>Error in bind.tree(tree, tip, where = where, position = pp) : ‘position’ is larger than the branch length</code>
+</p>
+</blockquote>
+</div>
+</div>
+</div>
+<div id="writing-phylogenies-to-file" class="section level3">
+<h3><span class="header-section-number">3.5.4</span> Writing phylogenies to file</h3>
+<p>After manipulating a phylogeny, if you want to save the new tree you can use <code>write.tree</code> or <code>write.nexus</code> as preferred. You can then use this modified tree for you analyses or plots, meaning that you don’t have to do all the manipulation again every time you want to use it.</p>
+<p>If we want to save the Big Bird tree we can use:</p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#cb99-1"></a><span class="kw">write.nexus</span>(bird.orders_plusbigbird, <span class="dt">file =</span> <span class="st">&quot;bigbirdtree.nex&quot;</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="summary-1" class="section level2">
+<h2><span class="header-section-number">3.6</span> Summary</h2>
+<p>This exercise should have given you the skills to understand, plot and manipulate phylogenies in R.</p>
+</div>
+<div id="practical-exercise-1" class="section level2">
+<h2><span class="header-section-number">3.7</span> Practical exercise</h2>
+<p>Read in the <code>frog-tree.nex</code> phylogeny from the folder. This comes from <span class="citation">Feng et al. (<a href="#ref-feng2017phylogenomics" role="doc-biblioref">2017</a>)</span>. Then do the following:</p>
+<ol style="list-style-type: decimal">
+<li>Use R functions to determine:
+<ol style="list-style-type: lower-alpha">
+<li>how many species are in the tree?</li>
+<li>is the tree fully resolved?</li>
+<li>is the tree rooted?</li>
+</ol></li>
+<li>Use <code>plot.phylo</code> to plot the tree.
+<ol style="list-style-type: lower-alpha">
+<li>Can you change the size of the tip labels?</li>
+<li>Can you make a fan-shaped plot?</li>
+<li>Can you change the colour of the tips and branches?</li>
+</ol></li>
+<li>Save the tree to file as “mysuperdoopertree.nex”</li>
+</ol>
+<p>EXTRA FUN. Use <code>ggtree</code> and the <code>ggtree</code> manual to produce a phylogeny plot of this tree that you could use in a publication OR have some fun and make the most garish looking tree you possibly can. Playing around with these packages is the best way to learn how to use them. If you make a particularly amazing or horrific tree, send a screenshot to me.</p>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-feng2017phylogenomics">
+<p>Feng, Yan-Jie, David C Blackburn, Dan Liang, David M Hillis, David B Wake, David C Cannatella, and Peng Zhang. 2017. “Phylogenomics Reveals Rapid, Simultaneous Diversification of Three Major Clades of Gondwanan Frogs at the Cretaceous–Paleogene Boundary.” <em>Proceedings of the National Academy of Sciences</em> 114 (29): E5864–E5870.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="diversity-indices-in-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="preparing-your-tree-and-data-for-pcms-in-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/03-Phylogenies.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["pcm-primer.pdf", "pcm-primer.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

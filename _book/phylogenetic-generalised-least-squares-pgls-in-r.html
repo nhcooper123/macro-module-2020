@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 6 Phylogenetic Generalised Least Squares (PGLS) in R | Practical exercises for Methods in Macroecology and Macroevolution module</title>
+  <meta name="description" content="Chapter 6 Phylogenetic Generalised Least Squares (PGLS) in R | Practical exercises for Methods in Macroecology and Macroevolution module" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 6 Phylogenetic Generalised Least Squares (PGLS) in R | Practical exercises for Methods in Macroecology and Macroevolution module" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 6 Phylogenetic Generalised Least Squares (PGLS) in R | Practical exercises for Methods in Macroecology and Macroevolution module" />
+  
+  
+  
+
+<meta name="author" content="Natalie Cooper" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="phylogenetic-signal-in-r.html"/>
+<link rel="next" href="macroevolutionary-models-for-continuous-traits.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">PCM Primer</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#datasets-and-scripts"><i class="fa fa-check"></i>Datasets and scripts</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-to-use-these-materials"><i class="fa fa-check"></i>How to use these materials</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#boxes"><i class="fa fa-check"></i>Boxes</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#example-datasets"><i class="fa fa-check"></i>Example datasets</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#frog-eye-size-evolution"><i class="fa fa-check"></i>Frog eye size evolution</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#natricine-snake-head-shape-evolution"><i class="fa fa-check"></i>Natricine snake head shape evolution</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#diversification-in-dragonflies"><i class="fa fa-check"></i>Diversification in dragonflies</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#citing-r-and-r-packages"><i class="fa fa-check"></i>Citing R and R packages</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><i class="fa fa-check"></i><b>1</b> What you need to be able to do in R before you start</a><ul>
+<li class="chapter" data-level="1.1" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#installing-r-and-rstudio"><i class="fa fa-check"></i><b>1.1</b> Installing R (and RStudio)</a></li>
+<li class="chapter" data-level="1.2" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#downloading-the-data"><i class="fa fa-check"></i><b>1.2</b> Downloading the data</a></li>
+<li class="chapter" data-level="1.3" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#r-projects"><i class="fa fa-check"></i><b>1.3</b> R Projects</a></li>
+<li class="chapter" data-level="1.4" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#using-a-script"><i class="fa fa-check"></i><b>1.4</b> Using a script</a></li>
+<li class="chapter" data-level="1.5" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#installing-and-loading-extra-packages-in-r"><i class="fa fa-check"></i><b>1.5</b> Installing and loading extra packages in R</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#loading-packages-into-r"><i class="fa fa-check"></i><b>1.5.1</b> Loading packages into R</a></li>
+<li class="chapter" data-level="1.5.2" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#ggtree-a-special-case-for-package-installation"><i class="fa fa-check"></i><b>1.5.2</b> <code>ggtree</code>, a special case for package installation</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#loading-and-viewing-your-data-in-r"><i class="fa fa-check"></i><b>1.6</b> Loading and viewing your data in R</a></li>
+<li class="chapter" data-level="1.7" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#errors-and-warnings"><i class="fa fa-check"></i><b>1.7</b> Errors and warnings</a><ul>
+<li class="chapter" data-level="1.7.1" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#removing-the"><i class="fa fa-check"></i><b>1.7.1</b> Removing the <code>+</code></a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#summary"><i class="fa fa-check"></i><b>1.8</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html"><i class="fa fa-check"></i><b>2</b> Diversity Indices in R</a><ul>
+<li class="chapter" data-level="2.1" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#before-you-start"><i class="fa fa-check"></i><b>2.1</b> Before you start</a></li>
+<li class="chapter" data-level="2.2" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#preparation"><i class="fa fa-check"></i><b>2.2</b> Preparation</a></li>
+<li class="chapter" data-level="2.3" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#what-are-diversity-indices"><i class="fa fa-check"></i><b>2.3</b> What are diversity indices?</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#alpha-beta-and-gamma-diversity"><i class="fa fa-check"></i><b>2.3.1</b> <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\gamma\)</span> diversity</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#practical-example-using-pokemon"><i class="fa fa-check"></i><b>2.4</b> Practical example using Pokemon…</a></li>
+<li class="chapter" data-level="2.5" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#species-diversity-indices"><i class="fa fa-check"></i><b>2.5</b> Species diversity indices</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#alpha-diversity"><i class="fa fa-check"></i><b>2.5.1</b> <span class="math inline">\(\alpha\)</span> diversity</a></li>
+<li class="chapter" data-level="2.5.2" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#beta-diversity"><i class="fa fa-check"></i><b>2.5.2</b> <span class="math inline">\(\beta\)</span> diversity</a></li>
+<li class="chapter" data-level="2.5.3" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#gamma-diversity"><i class="fa fa-check"></i><b>2.5.3</b> <span class="math inline">\(\gamma\)</span> diversity</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#species-accumulation-curves-colwell-coddington-1994"><i class="fa fa-check"></i><b>2.6</b> Species accumulation curves (Colwell &amp; Coddington 1994)</a><ul>
+<li class="chapter" data-level="2.6.1" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#pokemon-species-accumulation-curves"><i class="fa fa-check"></i><b>2.6.1</b> Pokemon species accumulation curves</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#practical-exercise"><i class="fa fa-check"></i><b>2.7</b> Practical exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html"><i class="fa fa-check"></i><b>3</b> Understanding, plotting and manipulating phylogenies in R</a><ul>
+<li class="chapter" data-level="3.1" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#before-you-start-1"><i class="fa fa-check"></i><b>3.1</b> Before you start</a></li>
+<li class="chapter" data-level="3.2" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#what-do-phylogeny-files-look-like"><i class="fa fa-check"></i><b>3.2</b> What do phylogeny files look like?</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#newick-trees"><i class="fa fa-check"></i><b>3.2.1</b> Newick trees</a></li>
+<li class="chapter" data-level="3.2.2" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#nexus-trees"><i class="fa fa-check"></i><b>3.2.2</b> NEXUS trees</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#how-are-phylogenies-formatted-in-r"><i class="fa fa-check"></i><b>3.3</b> How are phylogenies formatted in R?</a></li>
+<li class="chapter" data-level="3.4" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#plotting-phylogenies"><i class="fa fa-check"></i><b>3.4</b> Plotting phylogenies</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#basic-phylogeny-plotting-with-ape"><i class="fa fa-check"></i><b>3.4.1</b> Basic phylogeny plotting with APE</a></li>
+<li class="chapter" data-level="3.4.2" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#basic-phylogeny-plotting-with-ggtree"><i class="fa fa-check"></i><b>3.4.2</b> Basic phylogeny plotting with <code>ggtree</code></a></li>
+<li class="chapter" data-level="3.4.3" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#back-to-ggtree"><i class="fa fa-check"></i><b>3.4.3</b> Back to <code>ggtree</code></a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#phylogeny-manipulation"><i class="fa fa-check"></i><b>3.5</b> Phylogeny manipulation</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#removing-polytomies"><i class="fa fa-check"></i><b>3.5.1</b> Removing polytomies</a></li>
+<li class="chapter" data-level="3.5.2" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#rooting-your-phylogeny"><i class="fa fa-check"></i><b>3.5.2</b> Rooting your phylogeny</a></li>
+<li class="chapter" data-level="3.5.3" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#manipulating-the-species-in-your-phlyogeny"><i class="fa fa-check"></i><b>3.5.3</b> Manipulating the species in your phlyogeny</a></li>
+<li class="chapter" data-level="3.5.4" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#writing-phylogenies-to-file"><i class="fa fa-check"></i><b>3.5.4</b> Writing phylogenies to file</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#summary-1"><i class="fa fa-check"></i><b>3.6</b> Summary</a></li>
+<li class="chapter" data-level="3.7" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#practical-exercise-1"><i class="fa fa-check"></i><b>3.7</b> Practical exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html"><i class="fa fa-check"></i><b>4</b> Preparing your tree and data for PCMs in R</a><ul>
+<li class="chapter" data-level="4.1" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#before-you-start-2"><i class="fa fa-check"></i><b>4.1</b> Before you start</a></li>
+<li class="chapter" data-level="4.2" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#preparation-1"><i class="fa fa-check"></i><b>4.2</b> Preparation</a></li>
+<li class="chapter" data-level="4.3" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#reading-and-checking-your-phylogeny-in-r"><i class="fa fa-check"></i><b>4.3</b> Reading and checking your phylogeny in R</a></li>
+<li class="chapter" data-level="4.4" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#reading-the-data-into-r"><i class="fa fa-check"></i><b>4.4</b> Reading the data into R</a></li>
+<li class="chapter" data-level="4.5" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#matching-your-data-to-your-phylogeny"><i class="fa fa-check"></i><b>4.5</b> Matching your data to your phylogeny</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#species-names-with-spaces"><i class="fa fa-check"></i><b>4.5.1</b> Species names with spaces</a></li>
+<li class="chapter" data-level="4.5.2" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#mismatches-between-species-in-your-data-and-phylogeny"><i class="fa fa-check"></i><b>4.5.2</b> Mismatches between species in your data and phylogeny</a></li>
+<li class="chapter" data-level="4.5.3" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#matching-the-tree-and-the-data"><i class="fa fa-check"></i><b>4.5.3</b> Matching the tree and the data</a></li>
+<li class="chapter" data-level="4.5.4" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#subsetting-your-tree-and-data"><i class="fa fa-check"></i><b>4.5.4</b> Subsetting your tree and data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#quick-template-code"><i class="fa fa-check"></i><b>4.6</b> Quick template code</a></li>
+<li class="chapter" data-level="4.7" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#summary-2"><i class="fa fa-check"></i><b>4.7</b> Summary</a></li>
+<li class="chapter" data-level="4.8" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#practical-exercise-2"><i class="fa fa-check"></i><b>4.8</b> Practical exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html"><i class="fa fa-check"></i><b>5</b> Phylogenetic Signal in R</a><ul>
+<li class="chapter" data-level="5.1" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#before-you-start-3"><i class="fa fa-check"></i><b>5.1</b> Before you start</a></li>
+<li class="chapter" data-level="5.2" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#preparation-2"><i class="fa fa-check"></i><b>5.2</b> Preparation</a></li>
+<li class="chapter" data-level="5.3" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#estimating-phylogenetic-signal-for-continuous-variables"><i class="fa fa-check"></i><b>5.3</b> Estimating phylogenetic signal for continuous variables</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#pagels-lambda"><i class="fa fa-check"></i><b>5.3.1</b> Pagel’s <span class="math inline">\(\lambda\)</span></a></li>
+<li class="chapter" data-level="5.3.2" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#blombergs-k-blomberg-et-al-2003"><i class="fa fa-check"></i><b>5.3.2</b> Blomberg’s <em>K</em> (Blomberg et al 2003)</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#estimating-phylogenetic-signal-for-non-continuous-variables"><i class="fa fa-check"></i><b>5.4</b> Estimating phylogenetic signal for non-continuous variables</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#d"><i class="fa fa-check"></i><b>5.4.1</b> <em>D</em></a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#summary-3"><i class="fa fa-check"></i><b>5.5</b> Summary</a></li>
+<li class="chapter" data-level="5.6" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#practical-exercises"><i class="fa fa-check"></i><b>5.6</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html"><i class="fa fa-check"></i><b>6</b> Phylogenetic Generalised Least Squares (PGLS) in R</a><ul>
+<li class="chapter" data-level="6.1" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#before-you-start-4"><i class="fa fa-check"></i><b>6.1</b> Before you start</a></li>
+<li class="chapter" data-level="6.2" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#preparation-3"><i class="fa fa-check"></i><b>6.2</b> Preparation</a></li>
+<li class="chapter" data-level="6.3" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#phylogenetic-generalized-least-squares-models-pgls"><i class="fa fa-check"></i><b>6.3</b> Phylogenetic generalized least squares models (PGLS)</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#fitting-pgls-models-in-r"><i class="fa fa-check"></i><b>6.3.1</b> Fitting PGLS models in R</a></li>
+<li class="chapter" data-level="6.3.2" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#model-diagnostics-for-pgls-models"><i class="fa fa-check"></i><b>6.3.2</b> Model diagnostics for PGLS models</a></li>
+<li class="chapter" data-level="6.3.3" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#likelihood-profiles-for-lambda-in-pgls-models"><i class="fa fa-check"></i><b>6.3.3</b> Likelihood profiles for <span class="math inline">\(\lambda\)</span> in PGLS models</a></li>
+<li class="chapter" data-level="6.3.4" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#a-pgls-example-with-more-than-one-predictor-variable"><i class="fa fa-check"></i><b>6.3.4</b> A PGLS example with more than one predictor variable</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#common-issues-when-running-pgls-models-in-r"><i class="fa fa-check"></i><b>6.4</b> Common issues when running PGLS models in R</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#optim-errors"><i class="fa fa-check"></i><b>6.4.1</b> Optim errors</a></li>
+<li class="chapter" data-level="6.4.2" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#big-problems-with-small-datasets"><i class="fa fa-check"></i><b>6.4.2</b> Big problems with small datasets</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#summary-4"><i class="fa fa-check"></i><b>6.5</b> Summary</a></li>
+<li class="chapter" data-level="6.6" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#practical-exercises-1"><i class="fa fa-check"></i><b>6.6</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html"><i class="fa fa-check"></i><b>7</b> Macroevolutionary models for continuous traits</a><ul>
+<li class="chapter" data-level="7.1" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#before-you-start-5"><i class="fa fa-check"></i><b>7.1</b> Before you start</a></li>
+<li class="chapter" data-level="7.2" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#preparation-4"><i class="fa fa-check"></i><b>7.2</b> Preparation</a></li>
+<li class="chapter" data-level="7.3" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#models-of-evolution-for-continuous-traits"><i class="fa fa-check"></i><b>7.3</b> Models of evolution for continuous traits</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#loook-at-the-data"><i class="fa fa-check"></i><b>7.3.1</b> loook at the data????</a></li>
+<li class="chapter" data-level="7.3.2" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#fitting-the-brownian-motion-and-ou-models-of-evolution-using-fitcontinuous"><i class="fa fa-check"></i><b>7.3.2</b> Fitting the Brownian motion and OU models of evolution using <code>fitContinuous</code></a></li>
+<li class="chapter" data-level="7.3.3" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#comparing-models-of-evolution-using-aic"><i class="fa fa-check"></i><b>7.3.3</b> Comparing models of evolution using AIC</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#summary-5"><i class="fa fa-check"></i><b>7.4</b> Summary</a></li>
+<li class="chapter" data-level="7.5" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#practical-exercises-2"><i class="fa fa-check"></i><b>7.5</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html"><i class="fa fa-check"></i><b>8</b> Macroevolutionary models for discrete traits</a><ul>
+<li class="chapter" data-level="8.1" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#before-you-start-6"><i class="fa fa-check"></i><b>8.1</b> Before you start</a></li>
+<li class="chapter" data-level="8.2" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#preparation-5"><i class="fa fa-check"></i><b>8.2</b> Preparation</a></li>
+<li class="chapter" data-level="8.3" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#models-of-evolution-for-discrete-traits"><i class="fa fa-check"></i><b>8.3</b> Models of evolution for discrete traits</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#fitting-the-er-sym-and-ard-models-of-evolution-using-fitdiscrete"><i class="fa fa-check"></i><b>8.3.1</b> Fitting the ER, SYM and ARD models of evolution using <code>fitDiscrete</code></a></li>
+<li class="chapter" data-level="8.3.2" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#comparing-models-of-evolution-using-aic-1"><i class="fa fa-check"></i><b>8.3.2</b> Comparing models of evolution using AIC</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#ancestral-state-estimations"><i class="fa fa-check"></i><b>8.4</b> Ancestral state estimations</a></li>
+<li class="chapter" data-level="8.5" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#summary-6"><i class="fa fa-check"></i><b>8.5</b> Summary</a></li>
+<li class="chapter" data-level="8.6" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#practical-exercises-3"><i class="fa fa-check"></i><b>8.6</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><i class="fa fa-check"></i><b>9</b> Beyond simple macroevolutionary models of trait evolution</a><ul>
+<li class="chapter" data-level="9.1" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#before-you-start-7"><i class="fa fa-check"></i><b>9.1</b> Before you start</a></li>
+<li class="chapter" data-level="9.2" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#preparation-6"><i class="fa fa-check"></i><b>9.2</b> Preparation</a></li>
+<li class="chapter" data-level="9.3" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#more-complex-models-of-trait-evolution"><i class="fa fa-check"></i><b>9.3</b> More complex models of trait evolution</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#preparing-the-tree-and-data-for-ouwie"><i class="fa fa-check"></i><b>9.3.1</b> Preparing the tree and data for OUwie</a></li>
+<li class="chapter" data-level="9.3.2" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#running-models-using-ouwie"><i class="fa fa-check"></i><b>9.3.2</b> Running models using OUwie</a></li>
+<li class="chapter" data-level="9.3.3" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#single-rate-bm-models"><i class="fa fa-check"></i><b>9.3.3</b> Single rate BM models</a></li>
+<li class="chapter" data-level="9.3.4" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#single-optimum-ou-models"><i class="fa fa-check"></i><b>9.3.4</b> Single optimum OU models</a></li>
+<li class="chapter" data-level="9.3.5" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#multi-rate-bm-bms-models"><i class="fa fa-check"></i><b>9.3.5</b> Multi-rate BM (BMS) models</a></li>
+<li class="chapter" data-level="9.3.6" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#multi-optima-ou-oum-models"><i class="fa fa-check"></i><b>9.3.6</b> Multi-optima OU (OUM) models</a></li>
+<li class="chapter" data-level="9.3.7" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#multi-rate-multi-optima-ou-motion-models-oumv"><i class="fa fa-check"></i><b>9.3.7</b> Multi-rate multi-optima OU motion models (OUMV)</a></li>
+<li class="chapter" data-level="9.3.8" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#multi-alpha-multi-optima-ou-motion-models-ouma"><i class="fa fa-check"></i><b>9.3.8</b> Multi-alpha multi-optima OU motion models (OUMA)</a></li>
+<li class="chapter" data-level="9.3.9" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#multi-rate-multi-optima-ou-motion-models-oumva"><i class="fa fa-check"></i><b>9.3.9</b> Multi-rate multi-optima OU motion models (OUMVA)</a></li>
+<li class="chapter" data-level="9.3.10" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#comparing-models-of-evolution-using-aic-2"><i class="fa fa-check"></i><b>9.3.10</b> Comparing models of evolution using AIC</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#summary-7"><i class="fa fa-check"></i><b>9.4</b> Summary</a></li>
+<li class="chapter" data-level="9.5" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#practical-exercises-4"><i class="fa fa-check"></i><b>9.5</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html"><i class="fa fa-check"></i><b>10</b> Diversification rate analyses</a><ul>
+<li class="chapter" data-level="10.1" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#before-you-start-8"><i class="fa fa-check"></i><b>10.1</b> Before you start</a></li>
+<li class="chapter" data-level="10.2" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#preparation-7"><i class="fa fa-check"></i><b>10.2</b> Preparation</a></li>
+<li class="chapter" data-level="10.3" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#lineage-through-time-plots-and-the-gamma-statistic"><i class="fa fa-check"></i><b>10.3</b> Lineage through time plots and the <span class="math inline">\(\gamma\)</span> statistic</a></li>
+<li class="chapter" data-level="10.4" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#bamm-bayesian-analysis-of-macroevolutionary-mixtures"><i class="fa fa-check"></i><b>10.4</b> BAMM: Bayesian Analysis of Macroevolutionary Mixtures</a></li>
+<li class="chapter" data-level="10.5" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#running-bamm"><i class="fa fa-check"></i><b>10.5</b> Running BAMM</a></li>
+<li class="chapter" data-level="10.6" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#looking-at-the-output-of-bamm-using-bammtools-in-r"><i class="fa fa-check"></i><b>10.6</b> Looking at the output of BAMM using BAMMtools in R</a><ul>
+<li class="chapter" data-level="10.6.1" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#assessing-mcmc-convergence"><i class="fa fa-check"></i><b>10.6.1</b> Assessing MCMC convergence</a></li>
+<li class="chapter" data-level="10.6.2" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#analysis-of-rate-shifts-in-the-dragonfly-phylogeny"><i class="fa fa-check"></i><b>10.6.2</b> Analysis of rate shifts in the dragonfly phylogeny</a></li>
+<li class="chapter" data-level="10.6.3" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#mean-phylorate-plot"><i class="fa fa-check"></i><b>10.6.3</b> Mean phylorate plot</a></li>
+<li class="chapter" data-level="10.6.4" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#best-single-distinct-shift-configuration"><i class="fa fa-check"></i><b>10.6.4</b> Best single distinct shift configuration</a></li>
+</ul></li>
+<li class="chapter" data-level="10.7" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#credible-sets-of-shifts"><i class="fa fa-check"></i><b>10.7</b> Credible sets of shifts</a></li>
+<li class="chapter" data-level="10.8" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#clade-specific-evolutionary-rates"><i class="fa fa-check"></i><b>10.8</b> Clade specific evolutionary rates</a></li>
+<li class="chapter" data-level="10.9" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#rate-through-time-analysis"><i class="fa fa-check"></i><b>10.9</b> Rate-through-time analysis</a></li>
+<li class="chapter" data-level="10.10" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#macroevolutionary-cohort-analysis"><i class="fa fa-check"></i><b>10.10</b> Macroevolutionary cohort analysis</a></li>
+<li class="chapter" data-level="10.11" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#assumptions-and-issues-with-bamm"><i class="fa fa-check"></i><b>10.11</b> Assumptions and issues with BAMM</a></li>
+<li class="chapter" data-level="10.12" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#summary-8"><i class="fa fa-check"></i><b>10.12</b> Summary</a></li>
+<li class="chapter" data-level="10.13" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#practical-exercises-5"><i class="fa fa-check"></i><b>10.13</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html"><i class="fa fa-check"></i><b>11</b> Critical thinking about methods and analyses</a><ul>
+<li class="chapter" data-level="11.1" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#how-to-critically-evaluate-a-paper-that-uses-phylogenetic-comparative-methods"><i class="fa fa-check"></i><b>11.1</b> How to critically evaluate a paper that uses phylogenetic comparative methods</a><ul>
+<li class="chapter" data-level="" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#logicinterpretation"><i class="fa fa-check"></i>Logic/interpretation</a></li>
+<li class="chapter" data-level="" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#data"><i class="fa fa-check"></i>Data</a></li>
+<li class="chapter" data-level="" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#methods"><i class="fa fa-check"></i>Methods</a></li>
+<li class="chapter" data-level="" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#moving-forwards"><i class="fa fa-check"></i>Moving forwards</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#further-reading"><i class="fa fa-check"></i><b>11.2</b> Further reading</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html"><i class="fa fa-check"></i><b>12</b> Answers to practical exercises</a><ul>
+<li class="chapter" data-level="12.1" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#diversity-indices"><i class="fa fa-check"></i><b>12.1</b> Diversity indices</a></li>
+<li class="chapter" data-level="12.2" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#phylogenies"><i class="fa fa-check"></i><b>12.2</b> Phylogenies</a></li>
+<li class="chapter" data-level="12.3" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#preparation-8"><i class="fa fa-check"></i><b>12.3</b> Preparation</a></li>
+<li class="chapter" data-level="12.4" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#phylogenetic-signal"><i class="fa fa-check"></i><b>12.4</b> Phylogenetic signal</a></li>
+<li class="chapter" data-level="12.5" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#pgls"><i class="fa fa-check"></i><b>12.5</b> PGLS</a></li>
+<li class="chapter" data-level="12.6" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#models-of-evolution-with-continuous-traits"><i class="fa fa-check"></i><b>12.6</b> Models of evolution with continuous traits</a></li>
+<li class="chapter" data-level="12.7" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#models-of-evolution-with-discrete-traits"><i class="fa fa-check"></i><b>12.7</b> Models of evolution with discrete traits</a></li>
+<li class="chapter" data-level="12.8" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#beyond-simple-macroevolutionary-models-of-trait-evolution-1"><i class="fa fa-check"></i><b>12.8</b> Beyond simple macroevolutionary models of trait evolution</a></li>
+<li class="chapter" data-level="12.9" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#diversification"><i class="fa fa-check"></i><b>12.9</b> Diversification</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Practical exercises for Methods in Macroecology and Macroevolution module</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="phylogenetic-generalised-least-squares-pgls-in-r" class="section level1">
+<h1><span class="header-section-number">Chapter 6</span> Phylogenetic Generalised Least Squares (PGLS) in R</h1>
+<p>The aims of this exercise are to learn how to use R to perform Phylogenetic Generalised Least Squares (PGLS) analyses.</p>
+<div class="info">
+<p>
+We will be using the evolution of eye size in frogs as an example. The data and modified tree come from <span class="citation"><span class="citation">Thomas et al. (<a href="#ref-thomas2020eye" role="doc-biblioref">2020</a>)</span></span>, and the original tree comes from <span class="citation"><span class="citation">Feng et al. (<a href="#ref-feng2017phylogenomics" role="doc-biblioref">2017</a>)</span></span>. I’ve removed a few species and a few variables to make things a bit more straightforward. If you want to see the full results check out <span class="citation"><span class="citation">Thomas et al. (<a href="#ref-thomas2020eye" role="doc-biblioref">2020</a>)</span></span>!
+</p>
+</div>
+<div id="before-you-start-4" class="section level2">
+<h2><span class="header-section-number">6.1</span> Before you start</h2>
+<ul>
+<li>Open the <code>06-PGLS.RProj</code> file in the <code>06-PGLS</code> folder to open your R Project for this exercise.</li>
+<li>Make yourself a new R script for your code.</li>
+</ul>
+<p>You will also need to install the following packages:</p>
+<ul>
+<li><code>ape</code></li>
+<li><code>geiger</code></li>
+<li><code>treeplyr</code></li>
+<li><code>caper</code></li>
+<li><code>tidyverse</code></li>
+</ul>
+</div>
+<div id="preparation-3" class="section level2">
+<h2><span class="header-section-number">6.2</span> Preparation</h2>
+<p>To begin we need to load the packages for this practical.</p>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb189-1"></a><span class="co"># Load the packages</span></span>
+<span id="cb189-2"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb189-2"></a><span class="kw">library</span>(ape)</span>
+<span id="cb189-3"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb189-3"></a><span class="kw">library</span>(geiger)</span>
+<span id="cb189-4"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb189-4"></a><span class="kw">library</span>(treeplyr)</span>
+<span id="cb189-5"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb189-5"></a><span class="kw">library</span>(caper)</span>
+<span id="cb189-6"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb189-6"></a><span class="kw">library</span>(tidyverse)</span></code></pre></div>
+<p>Next we need to prepare the tree and data for the analyses. In the <code>04-Preparation</code> exercise we read in our tree and data, checked them, and matched them so only species in both were retained. Please refer to that exercise for more details on how and why we do these things, or run through it now if you haven’t previously.</p>
+<p>It is important to do these things before beginning a phylogenetic comparative analysis, so let’s run through that code again here.</p>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb190-1"></a><span class="co"># Read in the data</span></span>
+<span id="cb190-2"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb190-2"></a>frogdata &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/frog-eyes.csv&quot;</span>)</span>
+<span id="cb190-3"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb190-3"></a><span class="co"># Check everything loaded corrected</span></span>
+<span id="cb190-4"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb190-4"></a><span class="kw">glimpse</span>(frogdata)</span></code></pre></div>
+<pre><code>## Rows: 215
+## Columns: 11
+## $ Binomial         &lt;chr&gt; &quot;Allophryne_ruthveni&quot;, &quot;Eupsophus_roseus&quot;, &quot;Aly…
+## $ Family           &lt;chr&gt; &quot;Allophrynidae&quot;, &quot;Alsodidae&quot;, &quot;Alytidae&quot;, &quot;Alyt…
+## $ Genus            &lt;chr&gt; &quot;Allophryne&quot;, &quot;Eupsophus&quot;, &quot;Alytes&quot;, &quot;Discoglos…
+## $ tiplabel         &lt;chr&gt; &quot;Allophryne_ruthveni_Allophrynidae&quot;, &quot;Eupsophus…
+## $ Adult_habitat    &lt;chr&gt; &quot;Scansorial&quot;, &quot;Ground-dwelling&quot;, &quot;Ground-dwelli…
+## $ Life_history     &lt;chr&gt; &quot;Free-living larvae&quot;, &quot;Free-living larvae&quot;, &quot;Fr…
+## $ Sex_dichromatism &lt;chr&gt; &quot;Absent&quot;, &quot;Absent&quot;, &quot;Absent&quot;, &quot;Absent&quot;, &quot;Absent…
+## $ SVL              &lt;dbl&gt; 23.76667, 38.37500, 37.46667, 62.64000, 25.6000…
+## $ mass             &lt;dbl&gt; 1.0000000, 7.5000000, 6.6666667, 24.4000000, 2.…
+## $ rootmass         &lt;dbl&gt; 0.9917748, 1.9273451, 1.8690601, 2.8885465, 1.2…
+## $ eyesize          &lt;dbl&gt; 3.200000, 5.362500, 6.366667, 7.550000, 4.11666…</code></pre>
+<p>To load the tree we will use <code>read.nexus</code>.</p>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb192-1"></a><span class="co"># Read in the tree</span></span>
+<span id="cb192-2"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb192-2"></a>frogtree &lt;-<span class="st"> </span><span class="kw">read.nexus</span>(<span class="st">&quot;data/frog-tree.nex&quot;</span>)</span>
+<span id="cb192-3"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb192-3"></a><span class="co"># Check it loaded correctly</span></span>
+<span id="cb192-4"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb192-4"></a><span class="kw">str</span>(frogtree)</span></code></pre></div>
+<pre><code>## List of 4
+##  $ edge       : int [1:426, 1:2] 215 216 217 218 219 220 221 222 223 224 ...
+##  $ edge.length: num [1:426] 0.166 0.114 0.102 0.4 0.133 ...
+##  $ Nnode      : int 213
+##  $ tip.label  : chr [1:214] &quot;Ascaphus_truei_Ascaphidae&quot; &quot;Leiopelma_hochstetteri_Leiopelmatidae&quot; &quot;Alytes_obstetricans_Alytidae&quot; &quot;Discoglossus_pictus_Alytidae&quot; ...
+##  - attr(*, &quot;class&quot;)= chr &quot;phylo&quot;
+##  - attr(*, &quot;order&quot;)= chr &quot;cladewise&quot;</code></pre>
+<p>Remember to check the tree is dichotomous, i.e. has no polytomies, rooted, and ultrametric.</p>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb194-1"></a><span class="co"># Check whether the tree is binary</span></span>
+<span id="cb194-2"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb194-2"></a><span class="co"># We want this to be TRUE</span></span>
+<span id="cb194-3"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb194-3"></a><span class="kw">is.binary.tree</span>(frogtree)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb196-1"></a><span class="co"># Check whether the tree is rooted </span></span>
+<span id="cb196-2"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb196-2"></a><span class="co"># We want this to be TRUE </span></span>
+<span id="cb196-3"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb196-3"></a><span class="kw">is.rooted</span>(frogtree)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb198-1"></a><span class="co"># Check whether the tree is ultrametric</span></span>
+<span id="cb198-2"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb198-2"></a><span class="co"># We want this to be TRUE </span></span>
+<span id="cb198-3"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb198-3"></a><span class="kw">is.ultrametric</span>(frogtree)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>Next check that the species names match up in the tree and the data. This should reveal any typos and/or taxonomic differences that need to be fixed before going any further.</p>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb200-1"></a><span class="co"># Check whether the names match in the data and the tree</span></span>
+<span id="cb200-2"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb200-2"></a>check &lt;-<span class="st"> </span><span class="kw">name.check</span>(<span class="dt">phy =</span> frogtree, <span class="dt">data =</span> frogdata, </span>
+<span id="cb200-3"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb200-3"></a>                    <span class="dt">data.names =</span> frogdata<span class="op">$</span>tiplabel)</span>
+<span id="cb200-4"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb200-4"></a><span class="co"># Look at check</span></span>
+<span id="cb200-5"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb200-5"></a>check</span></code></pre></div>
+<pre><code>## $tree_not_data
+## [1] &quot;Incilius_nebulifer_Bufonidae&quot;           
+## [2] &quot;Leptobrachella_bidoupensis_Megophryidae&quot;
+## [3] &quot;Microhyla_fissipes_Microhylidae&quot;        
+## [4] &quot;Microhyla_marmorata_Microhylidae&quot;       
+## 
+## $data_not_tree
+## [1] &quot;Gastrophryne_carolinensis_Microhylidae&quot;
+## [2] &quot;Leptobrachella_dringi_Megophryidae&quot;    
+## [3] &quot;Megophrys_gerti_Megophryidae&quot;          
+## [4] &quot;Microhyla_pulverata_Microhylidae&quot;      
+## [5] &quot;Oreobates_quixensis_Strabomantidae&quot;</code></pre>
+<p>Here all the excluded species are excluded because they are genuinely missing, not because of any typos, so we can move on.</p>
+<p>Next we combine the tree and data to exclude species that are not in both, using the <code>treeplyr</code> function <code>make.treedata</code>.</p>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb202-1"></a><span class="co"># Combine and match the tree and data</span></span>
+<span id="cb202-2"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb202-2"></a>frogstuff &lt;-<span class="st"> </span><span class="kw">make.treedata</span>(<span class="dt">tree =</span> frogtree,  <span class="dt">data =</span> frogdata, </span>
+<span id="cb202-3"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb202-3"></a>                              <span class="dt">name_column =</span> <span class="st">&quot;tiplabel&quot;</span>)</span>
+<span id="cb202-4"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb202-4"></a></span>
+<span id="cb202-5"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb202-5"></a><span class="co"># Look at the tree</span></span>
+<span id="cb202-6"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb202-6"></a>frogstuff<span class="op">$</span>phy</span></code></pre></div>
+<pre><code>## 
+## Phylogenetic tree with 210 tips and 209 internal nodes.
+## 
+## Tip labels:
+##   Ascaphus_truei_Ascaphidae, Leiopelma_hochstetteri_Leiopelmatidae, Alytes_obstetricans_Alytidae, Discoglossus_pictus_Alytidae, Barbourula_busuangensis_Bombinatoridae, Bombina_orientalis_Bombinatoridae, ...
+## 
+## Rooted; includes branch lengths.</code></pre>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb204-1"></a><span class="co"># Look at the data</span></span>
+<span id="cb204-2"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb204-2"></a><span class="kw">glimpse</span>(frogstuff<span class="op">$</span>dat)</span></code></pre></div>
+<pre><code>## Rows: 210
+## Columns: 10
+## $ Binomial         &lt;fct&gt; Ascaphus_truei, Leiopelma_hochstetteri, Alytes_…
+## $ Family           &lt;fct&gt; Ascaphidae, Leiopelmatidae, Alytidae, Alytidae,…
+## $ Genus            &lt;fct&gt; Ascaphus, Leiopelma, Alytes, Discoglossus, Barb…
+## $ Adult_habitat    &lt;fct&gt; Semiaquatic, Semiaquatic, Ground-dwelling, Grou…
+## $ Life_history     &lt;fct&gt; Free-living larvae, Free-living larvae, Free-li…
+## $ Sex_dichromatism &lt;fct&gt; Absent, Absent, Absent, Absent, Absent, Absent,…
+## $ SVL              &lt;dbl&gt; 38.95000, 38.96667, 37.46667, 62.64000, 59.4750…
+## $ mass             &lt;dbl&gt; 6.000000, 5.333333, 6.666667, 24.400000, 24.250…
+## $ rootmass         &lt;dbl&gt; 1.809268, 1.740547, 1.869060, 2.888547, 2.73310…
+## $ eyesize          &lt;dbl&gt; 5.587500, 6.283333, 6.366667, 7.550000, 8.23750…</code></pre>
+<p>Then we replace the removed species names column, and save the data as a data frame for later analyses.</p>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb206-1"></a><span class="co"># Make a new column called tiplabel with the tip labels in it</span></span>
+<span id="cb206-2"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb206-2"></a>frogstuff<span class="op">$</span>dat<span class="op">$</span>tiplabel &lt;-<span class="st"> </span>frogstuff<span class="op">$</span>phy<span class="op">$</span>tip.label</span>
+<span id="cb206-3"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb206-3"></a><span class="co"># Force mydata to be a data frame</span></span>
+<span id="cb206-4"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb206-4"></a>mydata &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(frogstuff<span class="op">$</span>dat)</span></code></pre></div>
+<p>Finally we save the tree:</p>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb207-1"></a><span class="co"># Save tree as mytree</span></span>
+<span id="cb207-2"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb207-2"></a>mytree &lt;-<span class="st"> </span>frogstuff<span class="op">$</span>phy</span></code></pre></div>
+<div class="info">
+<p>
+Note that is is possible to use the <code>make.treedata</code> object directly to run some analyses, but we have saved these separately here as many PCMs cannot work with this.
+</p>
+</div>
+<p>Now we’re ready to run our analyses!</p>
+</div>
+<div id="phylogenetic-generalized-least-squares-models-pgls" class="section level2">
+<h2><span class="header-section-number">6.3</span> Phylogenetic generalized least squares models (PGLS)</h2>
+<div class="info">
+<p>
+Much of the information below assumes that you are familiar with fitting and interpreting <em>linear models</em> (regressions, ANOVA, ANCOVA) in R using the function <code>lm</code>. If you aren’t I recommend taking a quick break to refamiliarise yourself with these models. It will make things much clearer. Even if you have never done these in R before, you should at least be familiar with the models, their assumptions and the kinds of results you might expect.
+</p>
+</div>
+<p>Let’s investigate the relationship between eye size in frogs and their body size. Theory leads us to believe that bigger animals will have bigger eyes, but is this true in frogs?</p>
+<p>We can first quickly look at the phylogenetic non-independence/pseudoreplication on the graph by colouring the points by family.</p>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb208-1"></a><span class="co"># Plot eyesize against body mass, coloured by family</span></span>
+<span id="cb208-2"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb208-2"></a><span class="kw">ggplot</span>(mydata, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">log</span>(mass), </span>
+<span id="cb208-3"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb208-3"></a>                        <span class="dt">y =</span> <span class="kw">log</span>(eyesize), </span>
+<span id="cb208-4"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb208-4"></a>                        <span class="dt">colour =</span> Family)) <span class="op">+</span></span>
+<span id="cb208-5"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb208-5"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb208-6"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb208-6"></a><span class="st">  </span><span class="kw">theme_bw</span>()</span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-159-1.png" width="672" /></p>
+<p>This is a bit messy because there are a lot of families, but note how certain families are clustered on the graph. It’s clear that close relatives are more similar than distant relatives. So we need to account for phylogenetic non-independence, both because of the statistical issues caused by this <em>and</em> because it’s a better way to model the biological reality of our question. We know frog species evolve from other frog species, and that close relatives will therefore be similar, so we should add this into our models.</p>
+<p>There are several ways of accounting for phylogenetic non-independence in your analyses. Here we will use phylogenetic generalized least squares (PGLS). Another popular earlier method is independent contrasts (PIC). This method is really similar to PGLS, in fact it is just a special kind of PGLS where <span class="math inline">\(\lambda\)</span> is equal to 1.</p>
+<p>PGLS offers some important advantages over independent contrasts. The model of trait evolution can be more flexible i.e., it can depart from a strict Brownian motion process (<span class="math inline">\(\lambda\)</span> or <em>K</em> = 1). Different scaling parameters (<span class="math inline">\(\lambda\)</span>, <span class="math inline">\(\kappa\)</span>, and <span class="math inline">\(\delta\)</span>) can be incorporated in the analysis, which can significantly improve the fit of the data to the model and thus also improve the estimation of the trait correlation. Another advantage of PGLS is that the intercept of the regression is not forced to be zero. See the <em>Primer</em> for more details on the theory underlying PICs and PGLS.</p>
+<div id="fitting-pgls-models-in-r" class="section level3">
+<h3><span class="header-section-number">6.3.1</span> Fitting PGLS models in R</h3>
+<p>To perform PGLS models in R, <code>caper</code> requires you to first combine the phylogeny and data into one object using the function <code>comparative.data</code>. This is similar to what we did with <code>make.treedata</code>, but it does some stuff that is particular to how <code>caper</code> works so we still need to do this here.</p>
+<p>Note that <code>vcv = TRUE</code> stores a variance covariance matrix of your tree (you will need this for the <code>pgls</code> function). <code>na.omit = FALSE</code> stops the function from removing species without data for all variables. <code>warn.dropped = TRUE</code> will tell you if any species are not in both the tree and the data and are therefore dropped from the comparative data object. Here we won’t drop any species because we already did this using <code>make.treedata</code>.</p>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb209-1"></a>frog &lt;-<span class="st"> </span><span class="kw">comparative.data</span>(<span class="dt">phy =</span> mytree, <span class="dt">data =</span> mydata, </span>
+<span id="cb209-2"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb209-2"></a>                            <span class="dt">names.col =</span> tiplabel, <span class="dt">vcv =</span> <span class="ot">TRUE</span>, </span>
+<span id="cb209-3"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb209-3"></a>                            <span class="dt">na.omit =</span> <span class="ot">FALSE</span>, <span class="dt">warn.dropped =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<p>If you do need to drop species, this function will give a warning telling you that some species have been dropped. You can view the dropped species using:</p>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb210-1"></a>frog<span class="op">$</span>dropped<span class="op">$</span>tips</span></code></pre></div>
+<pre><code>## character(0)</code></pre>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb212-1"></a>frog<span class="op">$</span>dropped<span class="op">$</span>unmatched.rows</span></code></pre></div>
+<pre><code>## character(0)</code></pre>
+<div class="warning">
+<p>
+<strong>Always</strong> make sure you check the list of dropped species is what you expected, it often reveals typos in your species names, or mismatches in taxonomies used etc. Here we already fixed this problem, so nothing is listed. See the <code>04-Preparation</code> chapter for more details.
+</p>
+</div>
+<p>The function for PGLS analyses in <code>caper</code> is <code>pgls</code>. To fit a model which uses the Maximum Likelihood (ML) estimate of <span class="math inline">\(\lambda\)</span> we use the following code:</p>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb214-1"></a><span class="co"># Fit a PGLS model</span></span>
+<span id="cb214-2"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb214-2"></a>model.pgls &lt;-<span class="st"> </span><span class="kw">pgls</span>(<span class="kw">log</span>(eyesize) <span class="op">~</span><span class="st"> </span><span class="kw">log</span>(mass), </span>
+<span id="cb214-3"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb214-3"></a>                   <span class="dt">data =</span> frog, <span class="dt">lambda =</span> <span class="st">&quot;ML&quot;</span>)</span></code></pre></div>
+<p>To look at the output we use <code>anova</code> (in the same way as we would when fitting a model using <code>lm</code>):</p>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb215-1"></a><span class="co"># Look at the model outputs</span></span>
+<span id="cb215-2"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb215-2"></a><span class="kw">anova</span>(model.pgls)</span></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## Sequential SS for pgls: lambda = 0.98, delta = 1.00, kappa = 1.00
+## 
+## Response: log(eyesize)
+##            Df Sum Sq Mean Sq F value    Pr(&gt;F)    
+## log(mass)   1 58.595  58.595  906.82 &lt; 2.2e-16 ***
+## Residuals 208 13.440   0.065                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>It’s always good to look at the output using <code>anova</code> first. This uses sequential sum of squares to tell you whether a model including your predictor variable(s) is a better fit than a model without your predictor variable(s). For a complex model with lots of predictors this is the easiest way to find out the answer to the question you were asking (this will become more obvious in the next example using two predictor variables).</p>
+<p>Here we asked “is there a significant effect of log(mass) on log(eyesize)?”. The answer is YES, there is a significant effect of log(mass) on log(eyesize). If we were reporting this result in a report/thesis/paper we would do it as follows:</p>
+<blockquote>
+<p>There was a significant effect of mass on eyesize (PGLS: F = 906.82, df = 1,208, p &lt; 0.001, <span class="math inline">\(\lambda\)</span> = 0.98).</p>
+</blockquote>
+<p>This is exactly how you would report the output of any non-phylogenetic linear model, except we also include the <span class="math inline">\(\lambda\)</span> value when reporting the PGLS results.</p>
+<p>We might also be interested in the model coefficients, i.e. the intercept and slope. To do this, just like we do for <code>lm</code>, we use <code>summary</code>:</p>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb217-1"></a><span class="co"># Look at the model coefficients</span></span>
+<span id="cb217-2"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb217-2"></a><span class="kw">summary</span>(model.pgls)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## pgls(formula = log(eyesize) ~ log(mass), data = frog, lambda = &quot;ML&quot;)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.01708 -0.15412  0.00854  0.17623  0.82580 
+## 
+## Branch length transformations:
+## 
+## kappa  [Fix]  : 1.000
+## lambda [ ML]  : 0.976
+##    lower bound : 0.000, p = &lt; 2.22e-16
+##    upper bound : 1.000, p = 0.092889
+##    95.0% CI   : (0.924, NA)
+## delta  [Fix]  : 1.000
+## 
+## Coefficients:
+##              Estimate Std. Error t value  Pr(&gt;|t|)    
+## (Intercept) 1.0327690  0.1472023   7.016 3.157e-11 ***
+## log(mass)   0.2774303  0.0092128  30.113 &lt; 2.2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.2542 on 208 degrees of freedom
+## Multiple R-squared: 0.8134,  Adjusted R-squared: 0.8125 
+## F-statistic: 906.8 on 1 and 208 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>We’d report this in a paper/report/thesis as:</p>
+<blockquote>
+<p>There was a significant positive relationship between mass and eyesize (PGLS: slope <span class="math inline">\(\pm\)</span> SE = 0.277 <span class="math inline">\(\pm\)</span> 0.009, t = 30.113, df = 208, p &lt; 0.001, <span class="math inline">\(\lambda\)</span> = 0.976).</p>
+</blockquote>
+<p>Again this is exactly the same as we would do for <code>lm</code> without the phylogenetic component, except we also include the <span class="math inline">\(\lambda\)</span> value when reporting the PGLS results.</p>
+<p>Note that as well as the standard regression outputs, the summary output includes the estimated ML value of <span class="math inline">\(\lambda\)</span> (0.976) and p values from likelihood ratio tests showing whether the ML <span class="math inline">\(\lambda\)</span> is significantly different from 0 or 1.</p>
+<div class="detail">
+<p>
+You may have also noticed <span class="math inline"><span class="math inline">\(\kappa\)</span></span> and <span class="math inline"><span class="math inline">\(\delta\)</span></span> in the PGLS output. <span class="math inline"><span class="math inline">\(\kappa\)</span></span> and <span class="math inline"><span class="math inline">\(\delta\)</span></span> are also tree transformations which can improve the fit of the data to the tree. It is possible to use <code>pgls</code> to optimise <span class="math inline"><span class="math inline">\(\kappa\)</span></span> or <span class="math inline"><span class="math inline">\(\delta\)</span></span> (using kappa = “ML” or delta = “ML” instead of lambda = “ML” in the code above). We will not cover this here. Optimizing more than one of these parameters at the same time is not advisable because it would be impossible to interpret the results!
+</p>
+</div>
+<p>We can also plot the results as follows:</p>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb219-1"></a><span class="kw">ggplot</span>(mydata, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">log</span>(mass), </span>
+<span id="cb219-2"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb219-2"></a>                        <span class="dt">y =</span> <span class="kw">log</span>(eyesize))) <span class="op">+</span></span>
+<span id="cb219-3"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb219-3"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb219-4"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb219-4"></a><span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">slope =</span> <span class="kw">coefficients</span>(model.pgls)[<span class="dv">2</span>], </span>
+<span id="cb219-5"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb219-5"></a>              <span class="dt">intercept =</span> <span class="kw">coefficients</span>(model.pgls)[<span class="dv">1</span>]) <span class="op">+</span></span>
+<span id="cb219-6"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb219-6"></a><span class="st">  </span><span class="kw">theme_bw</span>()</span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-167-1.png" width="672" /></p>
+<p>Note that <code>coefficients(model.pgls)</code> gives us the intercept <code>coefficients(model.pgls)[2]</code>, and slope <code>coefficients(model.pgls)[2]</code> of the line, allowing us to use <code>geom_abline</code> to fit the line.</p>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb220-1"></a><span class="co"># Check out the model coefficients (intercept and slope)</span></span>
+<span id="cb220-2"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb220-2"></a><span class="kw">coefficients</span>(model.pgls)</span></code></pre></div>
+<pre><code>## (Intercept)   log(mass) 
+##   1.0327690   0.2774303</code></pre>
+</div>
+<div id="model-diagnostics-for-pgls-models" class="section level3">
+<h3><span class="header-section-number">6.3.2</span> Model diagnostics for PGLS models</h3>
+<p>You must <strong>always check model diagnostic plots</strong> whenever you fit a model in R to check that your data meet the assumptions of the model. Ideally you should do this BEFORE looking at <code>anova</code> or <code>summary</code> as if your assumptions are not met, then the model is useless and needs to be modified before you can use it to extract p values etc.</p>
+<p>The method for getting model diagnostics for PGLS is the same for linear models, independent contrasts and PGLS models (though the graphs are slightly different) - we just use the function <code>plot</code>.</p>
+<div class="detail">
+<p>
+You might recall we also use <code>plot</code> to plot phylogenies and other things. <code>plot</code> is one of a set of clever functions in R that uses an <em>ifelse</em> statement to decide what kind of plot it should do. When you ask R to <code>plot</code> something, it first determines what <em>class</em> of object it is. It then chooses the correct version of <code>plot</code> for that class. In this case the function it is actually using to plot the model diagnostics for PGLS is <code>plot.pgls</code>. You might also have spotted that <code>anova</code> and <code>summary</code> work in the same way…
+</p>
+</div>
+<p>To get model diagnostic plots for PGLS:</p>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb222-1"></a><span class="co"># First make a plotting window with four panes as there are four plots</span></span>
+<span id="cb222-2"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb222-2"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb222-3"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb222-3"></a><span class="co"># Now plot the model diagnostics</span></span>
+<span id="cb222-4"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb222-4"></a><span class="kw">plot</span>(model.pgls)</span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-170-1.png" width="672" /></p>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb223-1"></a><span class="co"># Return the plot window to one pane for later plotting</span></span>
+<span id="cb223-2"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb223-2"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
+<p>If you’ve no idea what these diagnostic plots are for I suggest reading up on this. <a href="http://www.r4all.org/">Getting Started With R</a> is a good place to start, but plots 2 and 3 at least should have been covered in whatever standard statistics course you’ve taken previously. In brief:</p>
+<ol style="list-style-type: decimal">
+<li><p>In plot 1 (upper left-hand plot) you should not see any data with a studentized residual &gt; <span class="math inline">\(\pm\)</span> 3. Any species with such large residuals may overly influence the results of the regression. Often these are the result of measurement error associated with species pairs joined by very short branches. You should report results with and without these outliers included, to see how much of an impact they have on your results.</p></li>
+<li><p>In plot 2 (upper right-hand plot), the Normal Q-Q plot, the points should approximately fall on the line. This tests for normality of residuals, one of the assumptions of linear models. Note that Q-Q plots often look a bit messy, but unless you plan to use your PGLS model to predict values for your response variable <em>outside of the range of the predictors used in your model</em> (i.e. if you fitted a model of mass vs eyesize with mass ranging from 1g to 100g and then you wanted to use the model to predict eyesize when mass was 1000g) it isn’t too much of a problem. The other diagnostic plots are much more important.</p></li>
+<li><p>In plot 3 (lower left-hand plot), the Fitted versus Residuals plot, we hope to see a fairly random scattering of points, often referred to as a sky at night distribution. This diagnostic plot is related to the systematic component of the model - any pattern here (e.g. strong positive or negative slopes, or humped or U-shaped patterns) suggests that the model has not been correctly specified. This might reflect a missing variable or interaction term, or that you need to transform your variables. Or that you need a different kind of model entirely.</p></li>
+<li><p>In plot 4 (lower right-hand plot), the Fitted versus Observed plot, we should see a correlation among the observed values and fitted values in the model. This will vary depending on how good the model fit is.</p></li>
+</ol>
+<p>It takes practice to know what is “good”, “bad” and “acceptable” with these plots. Here I would say the plots above are fine.</p>
+</div>
+<div id="likelihood-profiles-for-lambda-in-pgls-models" class="section level3">
+<h3><span class="header-section-number">6.3.3</span> Likelihood profiles for <span class="math inline">\(\lambda\)</span> in PGLS models</h3>
+<p>You should also look at the <strong>likelihood profiles</strong> for branch length transformations in PGLS models using <code>pgls.profile</code>:</p>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb224-1"></a><span class="co"># Create a likelihood profile of the lambda estimate</span></span>
+<span id="cb224-2"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb224-2"></a>lambda.profile &lt;-<span class="st"> </span><span class="kw">pgls.profile</span>(model.pgls, <span class="st">&quot;lambda&quot;</span>)</span>
+<span id="cb224-3"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb224-3"></a><span class="co"># Plot the likelihood profile</span></span>
+<span id="cb224-4"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb224-4"></a><span class="kw">plot</span>(lambda.profile)</span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-171-1.png" width="672" /></p>
+<p>This graph shows the likelihood profile of <span class="math inline">\(\lambda\)</span> in our model. Ideally you want a line with an obvious peak/optimum, rather than a flat line which would suggest <span class="math inline">\(\lambda\)</span> could be anything. You can see that the optimum (the peak of the curve) is at 0.976 as estimated in our PGLS model. The dotted red lines are the 95% confidence intervals on <span class="math inline">\(\lambda\)</span> for our model. <code>pgls.confint</code> prints out these numbers in <code>$ci.val</code> if you want to know the exact numbers.</p>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb225-1"></a><span class="co"># Extract the confidence intervals on lambda</span></span>
+<span id="cb225-2"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb225-2"></a><span class="kw">pgls.confint</span>(model.pgls, <span class="st">&quot;lambda&quot;</span>)<span class="op">$</span>ci.val</span></code></pre></div>
+<pre><code>## [1] 0.9237133        NA</code></pre>
+<p>Note that because our <span class="math inline">\(\lambda\)</span> value is so close to 1, and this is the upper bound for <span class="math inline">\(\lambda\)</span> in a PGLS model, the upper confidence interval is NA. If you needed to report the upper and lower confidence intervals (and this is good practice if they cover a large range of numbers), you could report the upper confidence interval here as 1. If the opposite situation occurred for a <span class="math inline">\(\lambda\)</span> close to 0, you would use the lower confidence interval of 0.</p>
+</div>
+<div id="a-pgls-example-with-more-than-one-predictor-variable" class="section level3">
+<h3><span class="header-section-number">6.3.4</span> A PGLS example with more than one predictor variable</h3>
+<p>In reality we are often interested in fitting models with more than one predictor variable. In the case of our frog eye size example, we’ve shown that smaller frogs have smaller eyes than larger frogs, but we imagine that the habitat the frogs live in might also influence eye size. For example, frogs living underground might have smaller eyes for their body size compared to frogs living in trees because they don’t use their eyes as much (see <span class="citation">(<span class="citeproc-not-found" data-reference-id="thomas2020eyes"><strong>???</strong></span>)</span> to see whether this is indeed the case!).</p>
+<p>We can fit a more complex model to test whether eye size is correlated with both mass and adult habitat as follows:</p>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb227-1"></a><span class="co"># Fit a PGLS model</span></span>
+<span id="cb227-2"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb227-2"></a>model.pgls2 &lt;-<span class="st"> </span><span class="kw">pgls</span>(<span class="kw">log</span>(eyesize) <span class="op">~</span><span class="st"> </span><span class="kw">log</span>(mass) <span class="op">*</span><span class="st"> </span><span class="kw">as.factor</span>(Adult_habitat), </span>
+<span id="cb227-3"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb227-3"></a>                   <span class="dt">data =</span> frog, <span class="dt">lambda =</span> <span class="st">&quot;ML&quot;</span>)</span></code></pre></div>
+<div class="info">
+<p>
+It may help some of you if I tell you this is a phylogenetic version of an ANCOVA (analysis of covariance), whereas our first example was a regression. Both are linear models.
+</p>
+</div>
+<p>Two things to note.</p>
+<p>First, as with <code>lm</code> in R, <code>*</code> means fit each predictor as a main effect AND include the interaction between them too. <code>log(mass) * as.factor(Adult_habitat)</code> is actually shorthand for typing <code>log(mass) + as.factor(Adult_habitat) + log(mass):as.factor(Adult_habitat)</code>. <code>log(mass):as.factor(Adult_habitat)</code> is the interaction between mass and habitat, shown with the <code>:</code>.</p>
+<p>Second, I’ve added <code>as.factor</code> in front of Adult_habitat. This is to get R to treat this variable as a factor with levels, rather than as either a numeric variable, or as character data. Here it is not strictly needed as R already thinks Adult_habitat is a factor, but it’s a good idea to make sure.</p>
+<p>Now we’ve fitted the model, we need to check the model diagnostic plots. If these are unsuitable then we need to rethink how we fit the model.</p>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb228-1"></a><span class="co"># First make a plotting window with four panes as there are four plots</span></span>
+<span id="cb228-2"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb228-2"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb228-3"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb228-3"></a><span class="co"># Now plot the model diagnostics</span></span>
+<span id="cb228-4"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb228-4"></a><span class="kw">plot</span>(model.pgls2)</span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-175-1.png" width="672" /></p>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb229-1"></a><span class="co"># Return the plot window to one pane for later plotting</span></span>
+<span id="cb229-2"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb229-2"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div>
+<p>And let’s check out the lambda profile too.</p>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb230-1"></a><span class="co"># Create a likelihood profile of the lambda estimate</span></span>
+<span id="cb230-2"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb230-2"></a>lambda.profile &lt;-<span class="st"> </span><span class="kw">pgls.profile</span>(model.pgls2, <span class="st">&quot;lambda&quot;</span>)</span>
+<span id="cb230-3"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb230-3"></a><span class="co"># Plot the likelihood profile</span></span>
+<span id="cb230-4"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb230-4"></a><span class="kw">plot</span>(lambda.profile)</span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-176-1.png" width="672" /></p>
+<p>These all look fine so we can move on…</p>
+<p>Let’s look at the <code>anova</code> outputs.</p>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb231-1"></a><span class="kw">anova</span>(model.pgls2)</span></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## Sequential SS for pgls: lambda = 0.93, delta = 1.00, kappa = 1.00
+## 
+## Response: log(eyesize)
+##                                     Df Sum Sq Mean Sq   F value    Pr(&gt;F)
+## log(mass)                            1 44.771  44.771 1084.2494 &lt; 2.2e-16
+## as.factor(Adult_habitat)             5  2.436   0.487   11.8005 5.335e-10
+## log(mass):as.factor(Adult_habitat)   5  0.604   0.121    2.9275   0.01422
+## Residuals                          198  8.176   0.041                    
+##                                       
+## log(mass)                          ***
+## as.factor(Adult_habitat)           ***
+## log(mass):as.factor(Adult_habitat) *  
+## Residuals                             
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>OK great, this output is fairly easy to read (compared to the <code>summary</code> which we will look at in a bit!). The first row, labelled <code>log(mass)</code> tells us that the main effect of log(mass) is significant (p &lt; 0.001), i.e. log(mass) is significantly correlated with log(eyesize). It doesn’t tell us anything about direction (positive or negative) of the correlation, but we can do a quick plot to work this out:</p>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb233-1"></a><span class="kw">ggplot</span>(mydata, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">log</span>(mass), <span class="dt">y =</span> <span class="kw">log</span>(eyesize))) <span class="op">+</span></span>
+<span id="cb233-2"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb233-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb233-3"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb233-3"></a><span class="st">  </span><span class="kw">theme_bw</span>()</span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-178-1.png" width="672" /></p>
+<p>The plot clearly shows that as body size increases so does eye size (we already knew this from our first model above).</p>
+<p>The second row, labelled <code>as.factor(Adult_habitat)</code> tells us that the main effect of Adult habitat is also significant (p &lt; 0.001), i.e. Adult_habitat is significantly correlated with log(eyesize). Again we can do a quick plot to work to see which habitats are different…</p>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb234-1"></a><span class="kw">ggplot</span>(mydata, <span class="kw">aes</span>(<span class="dt">x =</span> Adult_habitat, <span class="dt">y =</span> <span class="kw">log</span>(eyesize))) <span class="op">+</span></span>
+<span id="cb234-2"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb234-2"></a><span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span></span>
+<span id="cb234-3"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb234-3"></a><span class="st">  </span><span class="kw">theme_bw</span>()</span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-179-1.png" width="672" /></p>
+<p>Eye size is smallest, on average, in fossorial (burrowing) frogs. That fits with what we know about burrowing animals - they tend to have reduced eyes (think of moles!).</p>
+<p>Finally the last row labelled <code>log(mass):as.factor(Adult_habitat)</code> tells us that the interaction between mass and habitat is significant (p = 0.014). This means that the <em>relationship</em> (i.e. the slope in a plot) between log(mass) and log(eyesize) varies in relation to Adult_habitat. We can look at this with another quick plot.</p>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb235-1"></a><span class="kw">ggplot</span>(mydata, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">log</span>(mass), <span class="dt">y =</span> <span class="kw">log</span>(eyesize), <span class="dt">colour =</span> Adult_habitat)) <span class="op">+</span></span>
+<span id="cb235-2"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb235-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb235-3"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb235-3"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&#39;lm&#39;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>, <span class="dt">formula =</span> <span class="st">&#39;y ~ x&#39;</span>) <span class="op">+</span></span>
+<span id="cb235-4"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb235-4"></a><span class="st">  </span><span class="kw">theme_bw</span>()</span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-180-1.png" width="672" />
+We can see that the slope for fossorial (burrowing) species is shallower than for other species, suggesting that eye size increases more slowly with increasing mass in that group.</p>
+<div class="warning">
+<p>
+I used <code>geom_smooth(method = ‘lm’, se = FALSE)</code> in the code above to get a quick idea of what the slopes look like using an <code>lm</code>. These slopes won’t be exactly the same in the PGLS model, but it gives us an idea of what is going on. <strong>Do not use</strong> <code>geom_smooth</code> to draw regression lines in your reports/papers/thesis. The function is for data exploration only and does not give the correct slope/confidence interval unless your models is very simple. We can get the correct intercepts and slopes for each of these lines using the <code>summary</code> function and our PGLS model, see below.
+</p>
+</div>
+<p>I showed you the plots and <code>anova</code> output first because, as you’ll see below, <code>summary</code> outputs get complicated fast!</p>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb236-1"></a><span class="kw">summary</span>(model.pgls2)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## pgls(formula = log(eyesize) ~ log(mass) * as.factor(Adult_habitat), 
+##     data = frog, lambda = &quot;ML&quot;)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.70184 -0.11053  0.01051  0.13012  0.68947 
+## 
+## Branch length transformations:
+## 
+## kappa  [Fix]  : 1.000
+## lambda [ ML]  : 0.931
+##    lower bound : 0.000, p = &lt; 2.22e-16
+##    upper bound : 1.000, p = 0.0027911
+##    95.0% CI   : (0.827, 0.985)
+## delta  [Fix]  : 1.000
+## 
+## Coefficients:
+##                                                    Estimate Std. Error
+## (Intercept)                                        1.063339   0.168677
+## log(mass)                                          0.237742   0.037012
+## as.factor(Adult_habitat)Fossorial                  0.108237   0.245771
+## as.factor(Adult_habitat)Ground-dwelling           -0.018248   0.136761
+## as.factor(Adult_habitat)Scansorial                 0.081581   0.139220
+## as.factor(Adult_habitat)Semiaquatic                0.123482   0.147832
+## as.factor(Adult_habitat)Subfossorial              -0.150782   0.139996
+## log(mass):as.factor(Adult_habitat)Fossorial       -0.114428   0.073321
+## log(mass):as.factor(Adult_habitat)Ground-dwelling  0.056417   0.039114
+## log(mass):as.factor(Adult_habitat)Scansorial       0.047165   0.042531
+## log(mass):as.factor(Adult_habitat)Semiaquatic      0.018215   0.042324
+## log(mass):as.factor(Adult_habitat)Subfossorial     0.087142   0.042066
+##                                                   t value  Pr(&gt;|t|)    
+## (Intercept)                                        6.3040 1.849e-09 ***
+## log(mass)                                          6.4234 9.696e-10 ***
+## as.factor(Adult_habitat)Fossorial                  0.4404    0.6601    
+## as.factor(Adult_habitat)Ground-dwelling           -0.1334    0.8940    
+## as.factor(Adult_habitat)Scansorial                 0.5860    0.5586    
+## as.factor(Adult_habitat)Semiaquatic                0.8353    0.4046    
+## as.factor(Adult_habitat)Subfossorial              -1.0770    0.2828    
+## log(mass):as.factor(Adult_habitat)Fossorial       -1.5606    0.1202    
+## log(mass):as.factor(Adult_habitat)Ground-dwelling  1.4424    0.1508    
+## log(mass):as.factor(Adult_habitat)Scansorial       1.1090    0.2688    
+## log(mass):as.factor(Adult_habitat)Semiaquatic      0.4304    0.6674    
+## log(mass):as.factor(Adult_habitat)Subfossorial     2.0715    0.0396 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.2032 on 198 degrees of freedom
+## Multiple R-squared: 0.854,   Adjusted R-squared: 0.8459 
+## F-statistic: 105.3 on 11 and 198 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>If you’re unfamiliar with these kinds of outputs it’s worth taking this slowly. Note that this is exactly the same as interpreting the output of a non-phylogenetic ANCOVA fitted using <code>lm</code>.</p>
+<p>The first row, labelled <code>(Intercept)</code>, gives the intercept for the Adult_habitat that is first <em>alphabetically</em>. The row labelled <code>log(mass)</code> is the <strong>slope</strong> for the Adult_habitat that is first <em>alphabetically</em>. In this case that’s the Aquatic habitat (if you scroll back up to the figure with the different slopes you’ll see that it’s the first alphabetically, and also because of this it’s the only one not labelled in the output above).</p>
+<p>All of the other intercepts and slopes are <em>treatment contrasts</em>. Rather than the intercepts and slopes themselves, R reports the <strong>difference</strong> between the Adult_habitat in question and the Aquatic habitat (the first <em>alphabetically</em>).</p>
+<p>So the intercept for the fossorial frogs (<code>as.factor(Adult_habitat)Fossorial</code>) is…</p>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb238-1"></a><span class="fl">1.063339</span> <span class="op">+</span><span class="st"> </span><span class="fl">0.108237</span></span></code></pre></div>
+<pre><code>## [1] 1.171576</code></pre>
+<p>And the slope for the fossorial frogs (<code>log(mass):as.factor(Adult_habitat)Fossorial</code>) is…</p>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb240-1"></a><span class="fl">0.237742</span> <span class="op">+</span><span class="st"> </span><span class="fl">-0.114428</span></span></code></pre></div>
+<pre><code>## [1] 0.123314</code></pre>
+<p>In some cases the exact numbers in the summary table will be important, but in most cases I’d report the results from a model like this using just the <code>anova</code> output, plus a nice figure that shows the information in the summary output much more clearly than copying out all these numbers. I might report these results like this (or if I had lots of models I would put the figures into a table).</p>
+<blockquote>
+<p>Mass, adult habitat and the interaction between them, were all significantly correlated with eye size (PGLS: <span class="math inline">\(\lambda\)</span> = 0.976; mass: F = 1084, df = 1, 198, p &lt; 0.001; habitat: F = 11.80, df = 5,198, p &lt; 0.001; interaction: F = 2.938, df = 5,198, p = 0.014; Figure 3).</p>
+</blockquote>
+</div>
+</div>
+<div id="common-issues-when-running-pgls-models-in-r" class="section level2">
+<h2><span class="header-section-number">6.4</span> Common issues when running PGLS models in R</h2>
+<p>My example data are designed to work easily, but when you use your own data you may come across a couple of common errors. I therefore list these below.</p>
+<div id="optim-errors" class="section level3">
+<h3><span class="header-section-number">6.4.1</span> Optim errors</h3>
+<p>Sometimes you will find that <code>pgls</code> will not work and you get an <code>optim error</code>. This generally happens when the lambda profile is really flat, and the model is getting stuck near one of the bounds.</p>
+<p>To fix this error you need to <em>change the bounds</em> (i.e. upper and lower values) on the parameter being optimized, in this case <span class="math inline">\(\lambda\)</span>. It usually seems to be the lower bound which is the issue. Just change the lower bound of <span class="math inline">\(\lambda\)</span> to something a little bigger than 1e-6 (the default lower bound) until it works. For example:</p>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb242-1"></a><span class="co"># Fit PGLS model with a higher lower bound on lambda</span></span>
+<span id="cb242-2"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb242-2"></a>model.pgls2 &lt;-<span class="st"> </span><span class="kw">pgls</span>(<span class="kw">log</span>(eyesize) <span class="op">~</span><span class="st"> </span><span class="kw">log</span>(mass), </span>
+<span id="cb242-3"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb242-3"></a>                    <span class="dt">data =</span> frog, <span class="dt">lambda =</span> <span class="st">&quot;ML&quot;</span>, </span>
+<span id="cb242-4"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb242-4"></a>                    <span class="dt">bounds =</span> <span class="kw">list</span>(<span class="dt">lambda =</span> <span class="kw">c</span>(<span class="fl">1e-05</span>, <span class="dv">1</span>)))</span></code></pre></div>
+</div>
+<div id="big-problems-with-small-datasets" class="section level3">
+<h3><span class="header-section-number">6.4.2</span> Big problems with small datasets</h3>
+<p>You will often find strange <span class="math inline">\(\lambda\)</span> profiles when you don’t have a lot of species in your data, because <span class="math inline">\(\lambda\)</span> has very low power to detect phylogenetic signal for less than 20-30 data points <span class="citation">(Freckleton, Harvey, and Pagel <a href="#ref-freckleton2002phylogenetic" role="doc-biblioref">2002</a>)</span>. This means that using PGLS on small datasets is tricky - you almost always get ML <span class="math inline">\(\lambda\)</span> of zero but the <span class="math inline">\(\lambda\)</span> profile will show a pretty flat likelihood surface. Unfortunately people often forget to look at the <span class="math inline">\(\lambda\)</span> profile so erroneously conclude that there is no phylogenetic autocorrelation in their data.</p>
+<p>Generally I’d say don’t use small datasets, however, this seems unavoidable in some fields. Therefore my advice is to (only in this situation!) ignore one of Rob Freckleton’s deadly sins <span class="citation">(Freckleton <a href="#ref-freckleton2009seven" role="doc-biblioref">2009</a>)</span> and report the results from a non-phylogenetic <code>lm</code> model (equivalent of PGLS with <span class="math inline">\(\lambda\)</span> = 0) and <em>also</em> report the results from a PGLS model with <span class="math inline">\(\lambda\)</span> set to 1 (equivalent to independent contrasts). This is not ideal but it’s the best solution at present if collecting more data is not an option.</p>
+<p>To set <span class="math inline">\(\lambda\)</span> to 1 you just replace “ML” with 1:</p>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb243-1"></a><span class="co"># Fit PGLS model with lambda set to 1</span></span>
+<span id="cb243-2"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb243-2"></a>model.pgls3 &lt;-<span class="st"> </span><span class="kw">pgls</span>(<span class="kw">log</span>(eyesize) <span class="op">~</span><span class="st"> </span><span class="kw">log</span>(mass),</span>
+<span id="cb243-3"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#cb243-3"></a>                    <span class="dt">data =</span> frog, <span class="dt">lambda =</span> <span class="dv">1</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="summary-4" class="section level2">
+<h2><span class="header-section-number">6.5</span> Summary</h2>
+<p>You should now know how to perform a PGLS analysis in R using the package <code>caper</code>.</p>
+</div>
+<div id="practical-exercises-1" class="section level2">
+<h2><span class="header-section-number">6.6</span> Practical exercises</h2>
+<p>In the data folder there is another tree (<code>primate-tree.nex</code>) and dataset (<code>primate-data.csv</code>) for investigating the evolution of primate life-history variables. These data come from the PanTHERIA database <span class="citation">(Jones et al. <a href="#ref-jones2009pantheria" role="doc-biblioref">2009</a>)</span> and 10kTrees <span class="citation">(Arnold, Matthews, and Nunn <a href="#ref-arnold201010ktrees" role="doc-biblioref">2010</a>)</span>.</p>
+<p>Let’s investigate the relationship between gestation length in Primates and their body size. Theory leads us to believe that bigger mammals have longer gestation lengths (compare mice to elephants), but is this true in Primates?</p>
+<p>Read in the tree and data, then prepare them for a PCM analysis (you may have already done this in a previous exercise which should save you some time). Fit a PGLS model to investigate the relationship between log gestation length (<code>y = log(GestationLen_d)</code>) and log body size (<code>x = log(AdultBodyMass_g)</code>) in Primates (HINT: You may find this gives you an OPTIM error, see above. You can solve it using <code>bounds = list(lambda = c(0.01, 1))</code> as shown in the section on optim errors above). Don’t forget to look at the model diagnostics! Then answer the following questions.</p>
+<ol style="list-style-type: decimal">
+<li>What is the maximum likelihood estimate of <span class="math inline">\(\lambda\)</span> in the model?</li>
+<li>What are the confidence intervals on the maximum likelihood estimate of <span class="math inline">\(\lambda\)</span>. How would you interpret these?</li>
+<li>Plot the <span class="math inline">\(\lambda\)</span> profile for the the maximum likelihood estimate of <span class="math inline">\(\lambda\)</span>. What does it look like?</li>
+<li>Is there a significant relationship between log gestation length and log body size? What is the slope of this relationship?</li>
+</ol>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-arnold201010ktrees">
+<p>Arnold, Christian, Luke J Matthews, and Charles L Nunn. 2010. “The 10kTrees Website: A New Online Resource for Primate Phylogeny.” <em>Evolutionary Anthropology: Issues, News, and Reviews</em> 19 (3): 114–18.</p>
+</div>
+<div id="ref-feng2017phylogenomics">
+<p>Feng, Yan-Jie, David C Blackburn, Dan Liang, David M Hillis, David B Wake, David C Cannatella, and Peng Zhang. 2017. “Phylogenomics Reveals Rapid, Simultaneous Diversification of Three Major Clades of Gondwanan Frogs at the Cretaceous–Paleogene Boundary.” <em>Proceedings of the National Academy of Sciences</em> 114 (29): E5864–E5870.</p>
+</div>
+<div id="ref-freckleton2009seven">
+<p>Freckleton, R P. 2009. “The Seven Deadly Sins of Comparative Analysis.” <em>Journal of Evolutionary Biology</em> 22 (7): 1367–75.</p>
+</div>
+<div id="ref-freckleton2002phylogenetic">
+<p>Freckleton, R P, P H Harvey, and M Pagel. 2002. “Phylogenetic Analysis and Comparative Data: A Test and Review of Evidence.” <em>The American Naturalist</em> 160 (6): 712–26.</p>
+</div>
+<div id="ref-jones2009pantheria">
+<p>Jones, Kate E, Jon Bielby, Marcel Cardillo, Susanne A Fritz, Justin O’Dell, C David L Orme, Kamran Safi, et al. 2009. “PanTHERIA: A Species-Level Database of Life History, Ecology, and Geography of Extant and Recently Extinct Mammals: Ecological Archives E090-184.” <em>Ecology</em> 90 (9): 2648–8.</p>
+</div>
+<div id="ref-thomas2020eye">
+<p>Thomas, Kate N, David J Gower, Rayna C Bell, Matthew K Fujita, Ryan K Schott, and Jeffrey W Streicher. 2020. “Eye Size and Investment in Frogs and Toads Correlate with Adult Habitat, Activity Pattern and Breeding Ecology.” <em>Proceedings of the Royal Society B</em> 287 (1935): 20201393.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="phylogenetic-signal-in-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="macroevolutionary-models-for-continuous-traits.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/06-PGLS.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["pcm-primer.pdf", "pcm-primer.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

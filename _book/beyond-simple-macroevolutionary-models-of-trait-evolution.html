@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 9 Beyond simple macroevolutionary models of trait evolution | Practical exercises for Methods in Macroecology and Macroevolution module</title>
+  <meta name="description" content="Chapter 9 Beyond simple macroevolutionary models of trait evolution | Practical exercises for Methods in Macroecology and Macroevolution module" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 9 Beyond simple macroevolutionary models of trait evolution | Practical exercises for Methods in Macroecology and Macroevolution module" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 9 Beyond simple macroevolutionary models of trait evolution | Practical exercises for Methods in Macroecology and Macroevolution module" />
+  
+  
+  
+
+<meta name="author" content="Natalie Cooper" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="macroevolutionary-models-for-discrete-traits.html"/>
+<link rel="next" href="diversification-rate-analyses.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">PCM Primer</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#datasets-and-scripts"><i class="fa fa-check"></i>Datasets and scripts</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-to-use-these-materials"><i class="fa fa-check"></i>How to use these materials</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#boxes"><i class="fa fa-check"></i>Boxes</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#example-datasets"><i class="fa fa-check"></i>Example datasets</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#frog-eye-size-evolution"><i class="fa fa-check"></i>Frog eye size evolution</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#natricine-snake-head-shape-evolution"><i class="fa fa-check"></i>Natricine snake head shape evolution</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#diversification-in-dragonflies"><i class="fa fa-check"></i>Diversification in dragonflies</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#citing-r-and-r-packages"><i class="fa fa-check"></i>Citing R and R packages</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><i class="fa fa-check"></i><b>1</b> What you need to be able to do in R before you start</a><ul>
+<li class="chapter" data-level="1.1" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#installing-r-and-rstudio"><i class="fa fa-check"></i><b>1.1</b> Installing R (and RStudio)</a></li>
+<li class="chapter" data-level="1.2" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#downloading-the-data"><i class="fa fa-check"></i><b>1.2</b> Downloading the data</a></li>
+<li class="chapter" data-level="1.3" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#r-projects"><i class="fa fa-check"></i><b>1.3</b> R Projects</a></li>
+<li class="chapter" data-level="1.4" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#using-a-script"><i class="fa fa-check"></i><b>1.4</b> Using a script</a></li>
+<li class="chapter" data-level="1.5" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#installing-and-loading-extra-packages-in-r"><i class="fa fa-check"></i><b>1.5</b> Installing and loading extra packages in R</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#loading-packages-into-r"><i class="fa fa-check"></i><b>1.5.1</b> Loading packages into R</a></li>
+<li class="chapter" data-level="1.5.2" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#ggtree-a-special-case-for-package-installation"><i class="fa fa-check"></i><b>1.5.2</b> <code>ggtree</code>, a special case for package installation</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#loading-and-viewing-your-data-in-r"><i class="fa fa-check"></i><b>1.6</b> Loading and viewing your data in R</a></li>
+<li class="chapter" data-level="1.7" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#errors-and-warnings"><i class="fa fa-check"></i><b>1.7</b> Errors and warnings</a><ul>
+<li class="chapter" data-level="1.7.1" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#removing-the"><i class="fa fa-check"></i><b>1.7.1</b> Removing the <code>+</code></a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#summary"><i class="fa fa-check"></i><b>1.8</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html"><i class="fa fa-check"></i><b>2</b> Diversity Indices in R</a><ul>
+<li class="chapter" data-level="2.1" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#before-you-start"><i class="fa fa-check"></i><b>2.1</b> Before you start</a></li>
+<li class="chapter" data-level="2.2" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#preparation"><i class="fa fa-check"></i><b>2.2</b> Preparation</a></li>
+<li class="chapter" data-level="2.3" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#what-are-diversity-indices"><i class="fa fa-check"></i><b>2.3</b> What are diversity indices?</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#alpha-beta-and-gamma-diversity"><i class="fa fa-check"></i><b>2.3.1</b> <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\gamma\)</span> diversity</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#practical-example-using-pokemon"><i class="fa fa-check"></i><b>2.4</b> Practical example using Pokemon…</a></li>
+<li class="chapter" data-level="2.5" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#species-diversity-indices"><i class="fa fa-check"></i><b>2.5</b> Species diversity indices</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#alpha-diversity"><i class="fa fa-check"></i><b>2.5.1</b> <span class="math inline">\(\alpha\)</span> diversity</a></li>
+<li class="chapter" data-level="2.5.2" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#beta-diversity"><i class="fa fa-check"></i><b>2.5.2</b> <span class="math inline">\(\beta\)</span> diversity</a></li>
+<li class="chapter" data-level="2.5.3" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#gamma-diversity"><i class="fa fa-check"></i><b>2.5.3</b> <span class="math inline">\(\gamma\)</span> diversity</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#species-accumulation-curves-colwell-coddington-1994"><i class="fa fa-check"></i><b>2.6</b> Species accumulation curves (Colwell &amp; Coddington 1994)</a><ul>
+<li class="chapter" data-level="2.6.1" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#pokemon-species-accumulation-curves"><i class="fa fa-check"></i><b>2.6.1</b> Pokemon species accumulation curves</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#practical-exercise"><i class="fa fa-check"></i><b>2.7</b> Practical exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html"><i class="fa fa-check"></i><b>3</b> Understanding, plotting and manipulating phylogenies in R</a><ul>
+<li class="chapter" data-level="3.1" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#before-you-start-1"><i class="fa fa-check"></i><b>3.1</b> Before you start</a></li>
+<li class="chapter" data-level="3.2" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#what-do-phylogeny-files-look-like"><i class="fa fa-check"></i><b>3.2</b> What do phylogeny files look like?</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#newick-trees"><i class="fa fa-check"></i><b>3.2.1</b> Newick trees</a></li>
+<li class="chapter" data-level="3.2.2" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#nexus-trees"><i class="fa fa-check"></i><b>3.2.2</b> NEXUS trees</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#how-are-phylogenies-formatted-in-r"><i class="fa fa-check"></i><b>3.3</b> How are phylogenies formatted in R?</a></li>
+<li class="chapter" data-level="3.4" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#plotting-phylogenies"><i class="fa fa-check"></i><b>3.4</b> Plotting phylogenies</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#basic-phylogeny-plotting-with-ape"><i class="fa fa-check"></i><b>3.4.1</b> Basic phylogeny plotting with APE</a></li>
+<li class="chapter" data-level="3.4.2" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#basic-phylogeny-plotting-with-ggtree"><i class="fa fa-check"></i><b>3.4.2</b> Basic phylogeny plotting with <code>ggtree</code></a></li>
+<li class="chapter" data-level="3.4.3" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#back-to-ggtree"><i class="fa fa-check"></i><b>3.4.3</b> Back to <code>ggtree</code></a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#phylogeny-manipulation"><i class="fa fa-check"></i><b>3.5</b> Phylogeny manipulation</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#removing-polytomies"><i class="fa fa-check"></i><b>3.5.1</b> Removing polytomies</a></li>
+<li class="chapter" data-level="3.5.2" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#rooting-your-phylogeny"><i class="fa fa-check"></i><b>3.5.2</b> Rooting your phylogeny</a></li>
+<li class="chapter" data-level="3.5.3" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#manipulating-the-species-in-your-phlyogeny"><i class="fa fa-check"></i><b>3.5.3</b> Manipulating the species in your phlyogeny</a></li>
+<li class="chapter" data-level="3.5.4" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#writing-phylogenies-to-file"><i class="fa fa-check"></i><b>3.5.4</b> Writing phylogenies to file</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#summary-1"><i class="fa fa-check"></i><b>3.6</b> Summary</a></li>
+<li class="chapter" data-level="3.7" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#practical-exercise-1"><i class="fa fa-check"></i><b>3.7</b> Practical exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html"><i class="fa fa-check"></i><b>4</b> Preparing your tree and data for PCMs in R</a><ul>
+<li class="chapter" data-level="4.1" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#before-you-start-2"><i class="fa fa-check"></i><b>4.1</b> Before you start</a></li>
+<li class="chapter" data-level="4.2" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#preparation-1"><i class="fa fa-check"></i><b>4.2</b> Preparation</a></li>
+<li class="chapter" data-level="4.3" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#reading-and-checking-your-phylogeny-in-r"><i class="fa fa-check"></i><b>4.3</b> Reading and checking your phylogeny in R</a></li>
+<li class="chapter" data-level="4.4" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#reading-the-data-into-r"><i class="fa fa-check"></i><b>4.4</b> Reading the data into R</a></li>
+<li class="chapter" data-level="4.5" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#matching-your-data-to-your-phylogeny"><i class="fa fa-check"></i><b>4.5</b> Matching your data to your phylogeny</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#species-names-with-spaces"><i class="fa fa-check"></i><b>4.5.1</b> Species names with spaces</a></li>
+<li class="chapter" data-level="4.5.2" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#mismatches-between-species-in-your-data-and-phylogeny"><i class="fa fa-check"></i><b>4.5.2</b> Mismatches between species in your data and phylogeny</a></li>
+<li class="chapter" data-level="4.5.3" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#matching-the-tree-and-the-data"><i class="fa fa-check"></i><b>4.5.3</b> Matching the tree and the data</a></li>
+<li class="chapter" data-level="4.5.4" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#subsetting-your-tree-and-data"><i class="fa fa-check"></i><b>4.5.4</b> Subsetting your tree and data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#quick-template-code"><i class="fa fa-check"></i><b>4.6</b> Quick template code</a></li>
+<li class="chapter" data-level="4.7" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#summary-2"><i class="fa fa-check"></i><b>4.7</b> Summary</a></li>
+<li class="chapter" data-level="4.8" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#practical-exercise-2"><i class="fa fa-check"></i><b>4.8</b> Practical exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html"><i class="fa fa-check"></i><b>5</b> Phylogenetic Signal in R</a><ul>
+<li class="chapter" data-level="5.1" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#before-you-start-3"><i class="fa fa-check"></i><b>5.1</b> Before you start</a></li>
+<li class="chapter" data-level="5.2" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#preparation-2"><i class="fa fa-check"></i><b>5.2</b> Preparation</a></li>
+<li class="chapter" data-level="5.3" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#estimating-phylogenetic-signal-for-continuous-variables"><i class="fa fa-check"></i><b>5.3</b> Estimating phylogenetic signal for continuous variables</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#pagels-lambda"><i class="fa fa-check"></i><b>5.3.1</b> Pagel’s <span class="math inline">\(\lambda\)</span></a></li>
+<li class="chapter" data-level="5.3.2" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#blombergs-k-blomberg-et-al-2003"><i class="fa fa-check"></i><b>5.3.2</b> Blomberg’s <em>K</em> (Blomberg et al 2003)</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#estimating-phylogenetic-signal-for-non-continuous-variables"><i class="fa fa-check"></i><b>5.4</b> Estimating phylogenetic signal for non-continuous variables</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#d"><i class="fa fa-check"></i><b>5.4.1</b> <em>D</em></a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#summary-3"><i class="fa fa-check"></i><b>5.5</b> Summary</a></li>
+<li class="chapter" data-level="5.6" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#practical-exercises"><i class="fa fa-check"></i><b>5.6</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html"><i class="fa fa-check"></i><b>6</b> Phylogenetic Generalised Least Squares (PGLS) in R</a><ul>
+<li class="chapter" data-level="6.1" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#before-you-start-4"><i class="fa fa-check"></i><b>6.1</b> Before you start</a></li>
+<li class="chapter" data-level="6.2" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#preparation-3"><i class="fa fa-check"></i><b>6.2</b> Preparation</a></li>
+<li class="chapter" data-level="6.3" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#phylogenetic-generalized-least-squares-models-pgls"><i class="fa fa-check"></i><b>6.3</b> Phylogenetic generalized least squares models (PGLS)</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#fitting-pgls-models-in-r"><i class="fa fa-check"></i><b>6.3.1</b> Fitting PGLS models in R</a></li>
+<li class="chapter" data-level="6.3.2" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#model-diagnostics-for-pgls-models"><i class="fa fa-check"></i><b>6.3.2</b> Model diagnostics for PGLS models</a></li>
+<li class="chapter" data-level="6.3.3" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#likelihood-profiles-for-lambda-in-pgls-models"><i class="fa fa-check"></i><b>6.3.3</b> Likelihood profiles for <span class="math inline">\(\lambda\)</span> in PGLS models</a></li>
+<li class="chapter" data-level="6.3.4" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#a-pgls-example-with-more-than-one-predictor-variable"><i class="fa fa-check"></i><b>6.3.4</b> A PGLS example with more than one predictor variable</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#common-issues-when-running-pgls-models-in-r"><i class="fa fa-check"></i><b>6.4</b> Common issues when running PGLS models in R</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#optim-errors"><i class="fa fa-check"></i><b>6.4.1</b> Optim errors</a></li>
+<li class="chapter" data-level="6.4.2" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#big-problems-with-small-datasets"><i class="fa fa-check"></i><b>6.4.2</b> Big problems with small datasets</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#summary-4"><i class="fa fa-check"></i><b>6.5</b> Summary</a></li>
+<li class="chapter" data-level="6.6" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#practical-exercises-1"><i class="fa fa-check"></i><b>6.6</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html"><i class="fa fa-check"></i><b>7</b> Macroevolutionary models for continuous traits</a><ul>
+<li class="chapter" data-level="7.1" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#before-you-start-5"><i class="fa fa-check"></i><b>7.1</b> Before you start</a></li>
+<li class="chapter" data-level="7.2" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#preparation-4"><i class="fa fa-check"></i><b>7.2</b> Preparation</a></li>
+<li class="chapter" data-level="7.3" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#models-of-evolution-for-continuous-traits"><i class="fa fa-check"></i><b>7.3</b> Models of evolution for continuous traits</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#loook-at-the-data"><i class="fa fa-check"></i><b>7.3.1</b> loook at the data????</a></li>
+<li class="chapter" data-level="7.3.2" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#fitting-the-brownian-motion-and-ou-models-of-evolution-using-fitcontinuous"><i class="fa fa-check"></i><b>7.3.2</b> Fitting the Brownian motion and OU models of evolution using <code>fitContinuous</code></a></li>
+<li class="chapter" data-level="7.3.3" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#comparing-models-of-evolution-using-aic"><i class="fa fa-check"></i><b>7.3.3</b> Comparing models of evolution using AIC</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#summary-5"><i class="fa fa-check"></i><b>7.4</b> Summary</a></li>
+<li class="chapter" data-level="7.5" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#practical-exercises-2"><i class="fa fa-check"></i><b>7.5</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html"><i class="fa fa-check"></i><b>8</b> Macroevolutionary models for discrete traits</a><ul>
+<li class="chapter" data-level="8.1" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#before-you-start-6"><i class="fa fa-check"></i><b>8.1</b> Before you start</a></li>
+<li class="chapter" data-level="8.2" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#preparation-5"><i class="fa fa-check"></i><b>8.2</b> Preparation</a></li>
+<li class="chapter" data-level="8.3" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#models-of-evolution-for-discrete-traits"><i class="fa fa-check"></i><b>8.3</b> Models of evolution for discrete traits</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#fitting-the-er-sym-and-ard-models-of-evolution-using-fitdiscrete"><i class="fa fa-check"></i><b>8.3.1</b> Fitting the ER, SYM and ARD models of evolution using <code>fitDiscrete</code></a></li>
+<li class="chapter" data-level="8.3.2" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#comparing-models-of-evolution-using-aic-1"><i class="fa fa-check"></i><b>8.3.2</b> Comparing models of evolution using AIC</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#ancestral-state-estimations"><i class="fa fa-check"></i><b>8.4</b> Ancestral state estimations</a></li>
+<li class="chapter" data-level="8.5" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#summary-6"><i class="fa fa-check"></i><b>8.5</b> Summary</a></li>
+<li class="chapter" data-level="8.6" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#practical-exercises-3"><i class="fa fa-check"></i><b>8.6</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><i class="fa fa-check"></i><b>9</b> Beyond simple macroevolutionary models of trait evolution</a><ul>
+<li class="chapter" data-level="9.1" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#before-you-start-7"><i class="fa fa-check"></i><b>9.1</b> Before you start</a></li>
+<li class="chapter" data-level="9.2" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#preparation-6"><i class="fa fa-check"></i><b>9.2</b> Preparation</a></li>
+<li class="chapter" data-level="9.3" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#more-complex-models-of-trait-evolution"><i class="fa fa-check"></i><b>9.3</b> More complex models of trait evolution</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#preparing-the-tree-and-data-for-ouwie"><i class="fa fa-check"></i><b>9.3.1</b> Preparing the tree and data for OUwie</a></li>
+<li class="chapter" data-level="9.3.2" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#running-models-using-ouwie"><i class="fa fa-check"></i><b>9.3.2</b> Running models using OUwie</a></li>
+<li class="chapter" data-level="9.3.3" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#single-rate-bm-models"><i class="fa fa-check"></i><b>9.3.3</b> Single rate BM models</a></li>
+<li class="chapter" data-level="9.3.4" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#single-optimum-ou-models"><i class="fa fa-check"></i><b>9.3.4</b> Single optimum OU models</a></li>
+<li class="chapter" data-level="9.3.5" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#multi-rate-bm-bms-models"><i class="fa fa-check"></i><b>9.3.5</b> Multi-rate BM (BMS) models</a></li>
+<li class="chapter" data-level="9.3.6" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#multi-optima-ou-oum-models"><i class="fa fa-check"></i><b>9.3.6</b> Multi-optima OU (OUM) models</a></li>
+<li class="chapter" data-level="9.3.7" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#multi-rate-multi-optima-ou-motion-models-oumv"><i class="fa fa-check"></i><b>9.3.7</b> Multi-rate multi-optima OU motion models (OUMV)</a></li>
+<li class="chapter" data-level="9.3.8" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#multi-alpha-multi-optima-ou-motion-models-ouma"><i class="fa fa-check"></i><b>9.3.8</b> Multi-alpha multi-optima OU motion models (OUMA)</a></li>
+<li class="chapter" data-level="9.3.9" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#multi-rate-multi-optima-ou-motion-models-oumva"><i class="fa fa-check"></i><b>9.3.9</b> Multi-rate multi-optima OU motion models (OUMVA)</a></li>
+<li class="chapter" data-level="9.3.10" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#comparing-models-of-evolution-using-aic-2"><i class="fa fa-check"></i><b>9.3.10</b> Comparing models of evolution using AIC</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#summary-7"><i class="fa fa-check"></i><b>9.4</b> Summary</a></li>
+<li class="chapter" data-level="9.5" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#practical-exercises-4"><i class="fa fa-check"></i><b>9.5</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html"><i class="fa fa-check"></i><b>10</b> Diversification rate analyses</a><ul>
+<li class="chapter" data-level="10.1" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#before-you-start-8"><i class="fa fa-check"></i><b>10.1</b> Before you start</a></li>
+<li class="chapter" data-level="10.2" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#preparation-7"><i class="fa fa-check"></i><b>10.2</b> Preparation</a></li>
+<li class="chapter" data-level="10.3" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#lineage-through-time-plots-and-the-gamma-statistic"><i class="fa fa-check"></i><b>10.3</b> Lineage through time plots and the <span class="math inline">\(\gamma\)</span> statistic</a></li>
+<li class="chapter" data-level="10.4" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#bamm-bayesian-analysis-of-macroevolutionary-mixtures"><i class="fa fa-check"></i><b>10.4</b> BAMM: Bayesian Analysis of Macroevolutionary Mixtures</a></li>
+<li class="chapter" data-level="10.5" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#running-bamm"><i class="fa fa-check"></i><b>10.5</b> Running BAMM</a></li>
+<li class="chapter" data-level="10.6" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#looking-at-the-output-of-bamm-using-bammtools-in-r"><i class="fa fa-check"></i><b>10.6</b> Looking at the output of BAMM using BAMMtools in R</a><ul>
+<li class="chapter" data-level="10.6.1" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#assessing-mcmc-convergence"><i class="fa fa-check"></i><b>10.6.1</b> Assessing MCMC convergence</a></li>
+<li class="chapter" data-level="10.6.2" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#analysis-of-rate-shifts-in-the-dragonfly-phylogeny"><i class="fa fa-check"></i><b>10.6.2</b> Analysis of rate shifts in the dragonfly phylogeny</a></li>
+<li class="chapter" data-level="10.6.3" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#mean-phylorate-plot"><i class="fa fa-check"></i><b>10.6.3</b> Mean phylorate plot</a></li>
+<li class="chapter" data-level="10.6.4" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#best-single-distinct-shift-configuration"><i class="fa fa-check"></i><b>10.6.4</b> Best single distinct shift configuration</a></li>
+</ul></li>
+<li class="chapter" data-level="10.7" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#credible-sets-of-shifts"><i class="fa fa-check"></i><b>10.7</b> Credible sets of shifts</a></li>
+<li class="chapter" data-level="10.8" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#clade-specific-evolutionary-rates"><i class="fa fa-check"></i><b>10.8</b> Clade specific evolutionary rates</a></li>
+<li class="chapter" data-level="10.9" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#rate-through-time-analysis"><i class="fa fa-check"></i><b>10.9</b> Rate-through-time analysis</a></li>
+<li class="chapter" data-level="10.10" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#macroevolutionary-cohort-analysis"><i class="fa fa-check"></i><b>10.10</b> Macroevolutionary cohort analysis</a></li>
+<li class="chapter" data-level="10.11" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#assumptions-and-issues-with-bamm"><i class="fa fa-check"></i><b>10.11</b> Assumptions and issues with BAMM</a></li>
+<li class="chapter" data-level="10.12" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#summary-8"><i class="fa fa-check"></i><b>10.12</b> Summary</a></li>
+<li class="chapter" data-level="10.13" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#practical-exercises-5"><i class="fa fa-check"></i><b>10.13</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html"><i class="fa fa-check"></i><b>11</b> Critical thinking about methods and analyses</a><ul>
+<li class="chapter" data-level="11.1" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#how-to-critically-evaluate-a-paper-that-uses-phylogenetic-comparative-methods"><i class="fa fa-check"></i><b>11.1</b> How to critically evaluate a paper that uses phylogenetic comparative methods</a><ul>
+<li class="chapter" data-level="" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#logicinterpretation"><i class="fa fa-check"></i>Logic/interpretation</a></li>
+<li class="chapter" data-level="" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#data"><i class="fa fa-check"></i>Data</a></li>
+<li class="chapter" data-level="" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#methods"><i class="fa fa-check"></i>Methods</a></li>
+<li class="chapter" data-level="" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#moving-forwards"><i class="fa fa-check"></i>Moving forwards</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#further-reading"><i class="fa fa-check"></i><b>11.2</b> Further reading</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html"><i class="fa fa-check"></i><b>12</b> Answers to practical exercises</a><ul>
+<li class="chapter" data-level="12.1" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#diversity-indices"><i class="fa fa-check"></i><b>12.1</b> Diversity indices</a></li>
+<li class="chapter" data-level="12.2" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#phylogenies"><i class="fa fa-check"></i><b>12.2</b> Phylogenies</a></li>
+<li class="chapter" data-level="12.3" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#preparation-8"><i class="fa fa-check"></i><b>12.3</b> Preparation</a></li>
+<li class="chapter" data-level="12.4" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#phylogenetic-signal"><i class="fa fa-check"></i><b>12.4</b> Phylogenetic signal</a></li>
+<li class="chapter" data-level="12.5" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#pgls"><i class="fa fa-check"></i><b>12.5</b> PGLS</a></li>
+<li class="chapter" data-level="12.6" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#models-of-evolution-with-continuous-traits"><i class="fa fa-check"></i><b>12.6</b> Models of evolution with continuous traits</a></li>
+<li class="chapter" data-level="12.7" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#models-of-evolution-with-discrete-traits"><i class="fa fa-check"></i><b>12.7</b> Models of evolution with discrete traits</a></li>
+<li class="chapter" data-level="12.8" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#beyond-simple-macroevolutionary-models-of-trait-evolution-1"><i class="fa fa-check"></i><b>12.8</b> Beyond simple macroevolutionary models of trait evolution</a></li>
+<li class="chapter" data-level="12.9" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#diversification"><i class="fa fa-check"></i><b>12.9</b> Diversification</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Practical exercises for Methods in Macroecology and Macroevolution module</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="beyond-simple-macroevolutionary-models-of-trait-evolution" class="section level1">
+<h1><span class="header-section-number">Chapter 9</span> Beyond simple macroevolutionary models of trait evolution</h1>
+<p>The aims of this exercise are to learn how to use R to fit slightly more complex macroevolutionary models.</p>
+<p>Our question here still revolves around the snake head shape data. In <code>08-ModelsContinuous</code> we fitted simple Brownian Motion (BM) and Ornstein-Uhlenbeck (OU) models to the head length data. We found that the OU model was a better fit, but we didn’t account for any of the limitations of the BM or OU models (see <em>Primer</em>). In the both models we only allowed head length to have one rate of evolution across the tree, and in the OU model we only fit a single optimum. We can extend these models by relaxing these assumptions.</p>
+<p>In <code>09-ModelsDiscrete</code> we fitted three simple models of evolution to discrete data to see how ecomorph changed across the tree. We found the best fitting model was the symmetric (SYM) model, where rates of transition between ecomorphs were the same in both directions, but were different for the different pairs of ecomorphs. A more interesting question is how do these different ecomorphs relate to the head shape data? Do aquatic species have wider heads than terrestrial species? Are burrowers evolving their head shape more quickly than semi-aquatic species? We can use more complex evolutionary models to approach these questions.</p>
+<div class="info">
+<p>
+We will be using the evolution of head shape in natricine snakes as an example. The data and modified tree come from DEEPAK [CITE PAPER], and the tree comes from DEEPAK [CITE PAPER]. I’ve removed a few species and a few variables to make things a bit more straightforward. If you want to see the full results check out DEEPAK [CITE PAPER]!
+</p>
+</div>
+<div id="before-you-start-7" class="section level2">
+<h2><span class="header-section-number">9.1</span> Before you start</h2>
+<ul>
+<li>Open the <code>09-ModelsBeyond.RProj</code> file in the <code>09-ModelsBeyond</code> folder to open your R Project for this exercise.</li>
+<li>Make yourself a new R script for your code.</li>
+</ul>
+<p>You will also need to install the following packages:</p>
+<ul>
+<li><code>ape</code></li>
+<li><code>geiger</code></li>
+<li><code>treeplyr</code></li>
+<li><code>OUwie</code></li>
+<li><code>phytools</code></li>
+</ul>
+</div>
+<div id="preparation-6" class="section level2">
+<h2><span class="header-section-number">9.2</span> Preparation</h2>
+<p>To begin we need to load the packages for this practical.</p>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb334-1"></a><span class="co"># Load the packages</span></span>
+<span id="cb334-2"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb334-2"></a><span class="kw">library</span>(ape)</span>
+<span id="cb334-3"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb334-3"></a><span class="kw">library</span>(geiger)</span>
+<span id="cb334-4"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb334-4"></a><span class="kw">library</span>(treeplyr)</span>
+<span id="cb334-5"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb334-5"></a><span class="kw">library</span>(phytools)</span>
+<span id="cb334-6"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb334-6"></a><span class="kw">library</span>(OUwie)</span></code></pre></div>
+<p>Next we need to prepare the tree and data for the analyses. In the <code>04-Preparation</code> exercise we read in our tree and data, checked them, and matched them so only species in both were retained. Please refer to that exercise for more details on how and why we do these things, or run through it now if you haven’t previously.</p>
+<p>It is important to do these things before beginning a phylogenetic comparative analysis, so let’s run through that code again here.</p>
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb335-1"></a><span class="co"># Read in the data</span></span>
+<span id="cb335-2"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb335-2"></a>snakedata &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/snake-heads.csv&quot;</span>)</span>
+<span id="cb335-3"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb335-3"></a><span class="co"># Check everything loaded corrected</span></span>
+<span id="cb335-4"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb335-4"></a><span class="kw">glimpse</span>(snakedata)</span></code></pre></div>
+<pre><code>## Rows: 206
+## Columns: 9
+## $ Species          &lt;chr&gt; &quot;Adelophis_foxi&quot;, &quot;Afronatrix_anoscopus_2&quot;, &quot;Am…
+## $ Ecomorph         &lt;chr&gt; &quot;Burrowing&quot;, &quot;Aquatic&quot;, &quot;Terrestrial&quot;, &quot;Terrest…
+## $ Diet             &lt;chr&gt; &quot;annelids&quot;, &quot;aquatic generalist&quot;, &quot;anurans&quot;, &quot;a…
+## $ ReproductiveMode &lt;chr&gt; &quot;Viviparous&quot;, &quot;Oviparous&quot;, &quot;Oviparous&quot;, &quot;Ovipar…
+## $ HeadLength       &lt;dbl&gt; 12.560, 25.100, 15.060, 20.105, 19.950, 18.810,…
+## $ HeadWidth        &lt;dbl&gt; 6.60, 15.80, 7.82, 9.13, 10.32, 9.82, 8.39, 11.…
+## $ HeadHeight       &lt;dbl&gt; 5.43, 10.30, 5.40, 6.61, 7.56, 5.80, 6.40, 8.70…
+## $ EyeDistance      &lt;dbl&gt; 4.01, 7.40, 4.85, 5.85, 5.84, 5.42, 6.00, 6.05,…
+## $ TotalLength      &lt;dbl&gt; 105, 194, 106, 185, 165, 155, NA, 163, 130, 309…</code></pre>
+<p>To load the tree we will use <code>read.nexus</code>.</p>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb337-1"></a><span class="co"># Read in the tree</span></span>
+<span id="cb337-2"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb337-2"></a>snaketree &lt;-<span class="st"> </span><span class="kw">read.nexus</span>(<span class="st">&quot;data/snake-tree.nex&quot;</span>)</span>
+<span id="cb337-3"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb337-3"></a><span class="co"># Check it loaded correctly</span></span>
+<span id="cb337-4"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb337-4"></a><span class="kw">str</span>(snaketree)</span></code></pre></div>
+<pre><code>## List of 4
+##  $ edge       : int [1:496, 1:2] 250 251 252 253 254 255 256 257 258 259 ...
+##  $ edge.length: num [1:496] 4.695 2.225 0.587 0.307 0.832 ...
+##  $ Nnode      : int 248
+##  $ tip.label  : chr [1:249] &quot;Rhabdophis_leonardi&quot; &quot;Rhabdophis_nuchalis_1&quot; &quot;Rhabdophis_nuchalis_2&quot; &quot;Rhabdophis_adleri_1&quot; ...
+##  - attr(*, &quot;class&quot;)= chr &quot;phylo&quot;
+##  - attr(*, &quot;order&quot;)= chr &quot;cladewise&quot;</code></pre>
+<p>Remember to check the tree is dichotomous, i.e. has no polytomies, rooted, and ultrametric.</p>
+<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb339-1"></a><span class="co"># Check whether the tree is binary</span></span>
+<span id="cb339-2"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb339-2"></a><span class="co"># We want this to be TRUE</span></span>
+<span id="cb339-3"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb339-3"></a><span class="kw">is.binary.tree</span>(snaketree)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb341-1"></a><span class="co"># Check whether the tree is rooted </span></span>
+<span id="cb341-2"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb341-2"></a><span class="co"># We want this to be TRUE </span></span>
+<span id="cb341-3"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb341-3"></a><span class="kw">is.rooted</span>(snaketree)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb343-1"></a><span class="co"># Check whether the tree is ultrametric</span></span>
+<span id="cb343-2"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb343-2"></a><span class="co"># We want this to be TRUE </span></span>
+<span id="cb343-3"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb343-3"></a><span class="kw">is.ultrametric</span>(snaketree)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>Next check that the species names match up in the tree and the data. This should reveal any typos and/or taxonomic differences that need to be fixed before going any further.I haven’t printed <code>check</code> here as we already did this in <code>08-ModelsContinuous</code> and it’s a long list but we have already checked these in advance. Do not skip this step for your own analyses!</p>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb345-1"></a><span class="co"># Check whether the names match in the data and the tree</span></span>
+<span id="cb345-2"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb345-2"></a>check &lt;-<span class="st"> </span><span class="kw">name.check</span>(<span class="dt">phy =</span> snaketree, <span class="dt">data =</span> snakedata, </span>
+<span id="cb345-3"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb345-3"></a>                    <span class="dt">data.names =</span> snakedata<span class="op">$</span>Species)</span>
+<span id="cb345-4"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb345-4"></a><span class="co"># Look at check</span></span>
+<span id="cb345-5"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb345-5"></a><span class="co"># check</span></span></code></pre></div>
+<p>Next we combine the tree and data to exclude species that are not in both, using the <code>treeplyr</code> function <code>make.treedata</code>.</p>
+<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb346-1"></a><span class="co"># Combine and match the tree and data</span></span>
+<span id="cb346-2"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb346-2"></a>snakestuff &lt;-<span class="st"> </span><span class="kw">make.treedata</span>(<span class="dt">tree =</span> snaketree,  <span class="dt">data =</span> snakedata, </span>
+<span id="cb346-3"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb346-3"></a>                              <span class="dt">name_column =</span> <span class="st">&quot;Species&quot;</span>)</span>
+<span id="cb346-4"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb346-4"></a></span>
+<span id="cb346-5"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb346-5"></a><span class="co"># Look at the tree</span></span>
+<span id="cb346-6"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb346-6"></a>snakestuff<span class="op">$</span>phy</span></code></pre></div>
+<pre><code>## 
+## Phylogenetic tree with 162 tips and 161 internal nodes.
+## 
+## Tip labels:
+##   Rhabdophis_leonardi, Rhabdophis_nuchalis_3, Rhabdophis_swinhonis_1, Rhabdophis_nigrocinctus, Rhabdophis_tigrinus, Rhabdophis_tigrinus_lateralis, ...
+## 
+## Rooted; includes branch lengths.</code></pre>
+<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb348-1"></a><span class="co"># Look at the data</span></span>
+<span id="cb348-2"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb348-2"></a><span class="kw">glimpse</span>(snakestuff<span class="op">$</span>dat)</span></code></pre></div>
+<pre><code>## Rows: 162
+## Columns: 8
+## $ Ecomorph         &lt;fct&gt; Semiaquatic, Terrestrial, Semiaquatic, Terrestr…
+## $ Diet             &lt;fct&gt; unknown, generalist, anurans, generalist, gener…
+## $ ReproductiveMode &lt;fct&gt; Oviparous, Oviparous, Oviparous, Oviparous, Ovi…
+## $ HeadLength       &lt;dbl&gt; 25.640, 14.590, 18.030, 26.685, 23.760, 34.135,…
+## $ HeadWidth        &lt;dbl&gt; 13.72, 7.42, 8.58, 14.62, 13.94, 19.33, 11.79, …
+## $ HeadHeight       &lt;dbl&gt; 10.81, 5.79, 6.68, 9.83, 8.88, 12.90, 8.46, 8.6…
+## $ EyeDistance      &lt;dbl&gt; 8.16, 5.17, 5.74, 9.50, 7.89, 10.39, 8.27, 8.43…
+## $ TotalLength      &lt;int&gt; 120, 79, 123, 262, 132, 199, 226, 224, NA, NA, …</code></pre>
+<p>Overall we have 162 species in the data and the tree.</p>
+<p>Then we replace the removed species names column, and save the data as a data frame for later analyses.</p>
+<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb350-1"></a><span class="co"># Make a new column called tiplabel with the tip labels in it</span></span>
+<span id="cb350-2"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb350-2"></a>snakestuff<span class="op">$</span>dat<span class="op">$</span>tiplabel &lt;-<span class="st"> </span>snakestuff<span class="op">$</span>phy<span class="op">$</span>tip.label</span>
+<span id="cb350-3"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb350-3"></a><span class="co"># Force mydata to be a data frame</span></span>
+<span id="cb350-4"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb350-4"></a>mydata &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(snakestuff<span class="op">$</span>dat)</span></code></pre></div>
+<p>Finally we save the tree:</p>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb351-1"></a><span class="co"># Save tree as mytree</span></span>
+<span id="cb351-2"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb351-2"></a>mytree &lt;-<span class="st"> </span>snakestuff<span class="op">$</span>phy</span></code></pre></div>
+<p>Now we’re ready to run our analyses!</p>
+</div>
+<div id="more-complex-models-of-trait-evolution" class="section level2">
+<h2><span class="header-section-number">9.3</span> More complex models of trait evolution</h2>
+<p>We are now going to fit some of the slightly more complicated models of trait evolution that we discussed in the <em>Primer</em>. We will fit these using the package <code>OUwie</code>. There’s a little bit of extra preparation required to fit these models which we will do first.</p>
+<div id="preparing-the-tree-and-data-for-ouwie" class="section level3">
+<h3><span class="header-section-number">9.3.1</span> Preparing the tree and data for OUwie</h3>
+<p>To use OUwie we need to do a couple of things. We need to estimate the node values for each evolutionary regime in the analysis (see below), and we have to set up a dataframe in a particular way. Let’s sort out our node values first.</p>
+<div id="estimating-node-values-for-the-tree" class="section level4">
+<h4><span class="header-section-number">9.3.1.1</span> Estimating node values for the tree</h4>
+<p>In <code>09-ModelsDiscrete</code> we fitted three simple models of evolution to discrete data to see how ecomorph changed across the tree. We found the best fitting model was the symmetric (SYM) model, where rates of transition between ecomorphs were the same in both directions, but were different for the different pairs of ecomorphs. To extend this we can test whether head shape evolution varies among snakes with different ecomorphs. We refer to the different ecomorphs as representing different <strong>evolutionary regimes</strong>.</p>
+<p>To fit these more complex models using <code>OUwie</code> we need to assign each node in the tree to one of the ecomorph categories. This is of course a massive assumption, but we need it to determine which branches should belong to which evolutionary regimes.</p>
+<p>First we need to determine which model of evolution best fits the ecomorph data. We can do this using <code>fitDiscrete</code> in <code>geiger</code>. In fact this is exactly what we did in <code>09-ModelsDiscrete</code>, so I’ll just quickly recap this here:</p>
+<p>To get the data into the correct format, we use the function <code>pull</code> to extract just the ecomorph values. We then name these values with the species names from <code>mydata</code> using the function <code>names</code>. Note that this requires the trait data is in the <em>same order</em> as the tree tip labels, but luckily <code>make.treedata</code> does this automatically.</p>
+<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb352-1"></a><span class="co"># Create ecomorph containing just ecomorph values</span></span>
+<span id="cb352-2"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb352-2"></a>ecomorph &lt;-<span class="st"> </span><span class="kw">pull</span>(mydata, Ecomorph)</span>
+<span id="cb352-3"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb352-3"></a><span class="co"># Make sure ecomorph is a character, not a factor</span></span>
+<span id="cb352-4"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb352-4"></a>ecomorph &lt;-<span class="st"> </span><span class="kw">as.character</span>(ecomorph)</span>
+<span id="cb352-5"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb352-5"></a><span class="co"># Look at the first few rows</span></span>
+<span id="cb352-6"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb352-6"></a><span class="kw">head</span>(ecomorph)</span></code></pre></div>
+<pre><code>## [1] &quot;Semiaquatic&quot; &quot;Terrestrial&quot; &quot;Semiaquatic&quot; &quot;Terrestrial&quot; &quot;Terrestrial&quot;
+## [6] &quot;Terrestrial&quot;</code></pre>
+<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb354-1"></a><span class="co"># Give log head length names = species names at the tips of the phylogeny</span></span>
+<span id="cb354-2"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb354-2"></a><span class="kw">names</span>(ecomorph) &lt;-<span class="st"> </span>mydata<span class="op">$</span>tiplabel</span>
+<span id="cb354-3"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb354-3"></a><span class="co"># Look at the first few rows</span></span>
+<span id="cb354-4"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb354-4"></a><span class="kw">head</span>(ecomorph)</span></code></pre></div>
+<pre><code>##           Rhabdophis_leonardi         Rhabdophis_nuchalis_3 
+##                 &quot;Semiaquatic&quot;                 &quot;Terrestrial&quot; 
+##        Rhabdophis_swinhonis_1       Rhabdophis_nigrocinctus 
+##                 &quot;Semiaquatic&quot;                 &quot;Terrestrial&quot; 
+##           Rhabdophis_tigrinus Rhabdophis_tigrinus_lateralis 
+##                 &quot;Terrestrial&quot;                 &quot;Terrestrial&quot;</code></pre>
+<p>To fit the ER, SYM and ARD models we can then use the code below. I’ve commented these out here on the assumption that you’ve already run this in <code>09-ModelsDiscrete</code>. The SYM and ARD models take a while to run so don’t rerun thee unless you need to!</p>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb356-1"></a><span class="co"># Fit the models</span></span>
+<span id="cb356-2"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb356-2"></a><span class="co"># equal &lt;- fitDiscrete(mytree, ecomorph, model = &quot;ER&quot;)</span></span>
+<span id="cb356-3"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb356-3"></a><span class="co"># sym &lt;- fitDiscrete(mytree, ecomorph, model = &quot;SYM&quot;)</span></span>
+<span id="cb356-4"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb356-4"></a><span class="co"># ard &lt;- fitDiscrete(mytree, ecomorph, model = &quot;ARD&quot;)</span></span></code></pre></div>
+<p>We can then use AIC to determine the “best model” from these three:</p>
+<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb357-1"></a><span class="co"># Extract AICc values for each model and give them names</span></span>
+<span id="cb357-2"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb357-2"></a>aic.discrete &lt;-<span class="st"> </span><span class="kw">setNames</span>(<span class="kw">c</span>(equal<span class="op">$</span>opt<span class="op">$</span>aic, sym<span class="op">$</span>opt<span class="op">$</span>aic, ard<span class="op">$</span>opt<span class="op">$</span>aic), </span>
+<span id="cb357-3"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb357-3"></a>                       <span class="kw">c</span>(<span class="st">&quot;equal&quot;</span>, <span class="st">&quot;symmetric&quot;</span>, <span class="st">&quot;different&quot;</span>))</span>
+<span id="cb357-4"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb357-4"></a><span class="co"># Compare AICw values</span></span>
+<span id="cb357-5"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb357-5"></a><span class="kw">aicw</span>(aic.discrete)</span></code></pre></div>
+<pre><code>##                fit    delta            w
+## equal     355.6782 39.11423 3.207273e-09
+## symmetric 316.5639  0.00000 9.992717e-01
+## different 331.0120 14.44809 7.283178e-04</code></pre>
+<p>The best model of evolution is the symmetric model, the same as we found in <code>09-ModelsDiscrete</code>. Phew!</p>
+<p>Next we use this model to determine what the best fit state value is for each node. Let’s remind ourselves of the ancestral state estimates we got for ecomorphs in <code>09-ModelsDiscrete</code>…</p>
+<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb359-1"></a><span class="co"># Ancestral state estimation of ecomorph under the SYM model</span></span>
+<span id="cb359-2"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb359-2"></a>ancestral_ecomorphs &lt;-<span class="st"> </span><span class="kw">ace</span>(ecomorph, mytree, <span class="dt">type =</span> <span class="st">&quot;discrete&quot;</span>, <span class="dt">model =</span> <span class="st">&quot;SYM&quot;</span>)</span></code></pre></div>
+<pre><code>## Warning in log(comp[-TIPS]): NaNs produced</code></pre>
+<pre><code>## Warning in sqrt(diag(solve(h))): NaNs produced</code></pre>
+<p>You should notice a series of warning messages appear that say <code>NaNs produced</code> and <code>NA/Inf replaced by maximum positive value</code>. These can be ignored (see <code>09-ModelsDiscrete</code>).</p>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb362-1"></a><span class="co"># Plot the tree with colours at the tips and nodes to represent ecomorph</span></span>
+<span id="cb362-2"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb362-2"></a><span class="kw">plot</span>(mytree, <span class="dt">cex =</span> <span class="fl">0.5</span>, <span class="dt">adj =</span> <span class="kw">c</span>(<span class="fl">0.2</span>), <span class="dt">type =</span> <span class="st">&quot;fan&quot;</span>, </span>
+<span id="cb362-3"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb362-3"></a>     <span class="dt">no.margin =</span> <span class="ot">TRUE</span>, <span class="dt">show.tip.label =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb362-4"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb362-4"></a><span class="kw">tiplabels</span>(<span class="dt">pch =</span> <span class="dv">16</span>, <span class="dt">col =</span> ecomorph.colors[mydata<span class="op">$</span>Ecomorph])</span>
+<span id="cb362-5"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb362-5"></a><span class="kw">nodelabels</span>(<span class="dt">pie =</span> ancestral_ecomorphs<span class="op">$</span>lik.anc, <span class="dt">piecol =</span> ecomorph.colors, <span class="dt">cex =</span> <span class="fl">0.5</span>)</span>
+<span id="cb362-6"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb362-6"></a><span class="kw">legend</span>(<span class="st">&quot;bottomleft&quot;</span>, <span class="dt">pch =</span> <span class="dv">15</span>, <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>,</span>
+<span id="cb362-7"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb362-7"></a>       <span class="dt">legend =</span> <span class="kw">c</span>(<span class="st">&quot;Aquatic&quot;</span>, <span class="st">&quot;Semi-aquatic&quot;</span>, <span class="st">&quot;Aquatic burrower&quot;</span>, </span>
+<span id="cb362-8"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb362-8"></a>                  <span class="st">&quot;Burrower&quot;</span>, <span class="st">&quot;Terrestrial&quot;</span>), </span>
+<span id="cb362-9"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb362-9"></a>       <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;darkblue&quot;</span>, <span class="st">&quot;lightblue&quot;</span>, <span class="st">&quot;plum&quot;</span>, </span>
+<span id="cb362-10"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb362-10"></a>               <span class="st">&quot;chocolate&quot;</span>, <span class="st">&quot;lightgreen&quot;</span>))</span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-256-1.png" width="672" />
+Each pie shows the scaled likelihoods of the node being within each of the five ecomorphs. Many of these are ambiguous, so how do we pick the “best” state? To solve this problem we use simulations. We use the transition or <span class="math inline">\(Q\)</span> matrix from the SYM model and use it to simulate tip values and node values of ecomorph category for the tree. We repeat this a number of times - below I use 500 simulations but if the states are fairly simply distributed across the tree you could use fewer. This takes a bit of time to run…</p>
+<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb363-1"></a><span class="co"># Simulate node and tip values for 500 trees using the SYM model</span></span>
+<span id="cb363-2"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb363-2"></a>trees.SYM &lt;-<span class="st"> </span><span class="kw">make.simmap</span>(mytree, ecomorph, <span class="dt">model =</span> <span class="st">&quot;SYM&quot;</span>, <span class="dt">nsim =</span> <span class="dv">500</span>)</span></code></pre></div>
+<pre><code>## make.simmap is sampling character histories conditioned on
+## the transition matrix
+## 
+## Q =
+##                        Aquatic Aquatic Burrowing    Burrowing  Semiaquatic
+## Aquatic           -0.033980020       0.006989515  0.008443046  0.018547459
+## Aquatic Burrowing  0.006989515      -0.006989515  0.000000000  0.000000000
+## Burrowing          0.008443046       0.000000000 -0.011914946  0.003471901
+## Semiaquatic        0.018547459       0.000000000  0.003471901 -0.065115565
+## Terrestrial        0.000000000       0.000000000  0.000000000  0.043096205
+##                   Terrestrial
+## Aquatic             0.0000000
+## Aquatic Burrowing   0.0000000
+## Burrowing           0.0000000
+## Semiaquatic         0.0430962
+## Terrestrial        -0.0430962
+## (estimated using likelihood);
+## and (mean) root node prior probabilities
+## pi =
+##           Aquatic Aquatic Burrowing         Burrowing       Semiaquatic 
+##               0.2               0.2               0.2               0.2 
+##       Terrestrial 
+##               0.2</code></pre>
+<pre><code>## Done.</code></pre>
+<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb366-1"></a><span class="co"># Store the results of the summary of the 500 trees</span></span>
+<span id="cb366-2"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb366-2"></a>summary.SYM &lt;-<span class="st"> </span><span class="kw">summary</span>(trees.SYM)</span></code></pre></div>
+<p>Now we can use a simple trick to extract the most likely states. We use <code>apply</code> to extract the maximum value for each node from the <code>summary.SYM</code>.</p>
+<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb367-1"></a><span class="co"># Get the max likelihood state at each node</span></span>
+<span id="cb367-2"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb367-2"></a>best &lt;-<span class="st"> </span><span class="kw">apply</span>(summary.SYM<span class="op">$</span>ace, <span class="dv">1</span>, which.max)</span>
+<span id="cb367-3"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb367-3"></a><span class="co"># Look at first few rows of the output</span></span>
+<span id="cb367-4"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb367-4"></a><span class="kw">head</span>(best)</span></code></pre></div>
+<pre><code>## 163 164 165 166 167 168 
+##   1   1   4   4   4   4</code></pre>
+<p>Finally we assign these “best” node states to the tree node labels. Note that <code>best</code> only contains the numerical versions of the ecomorphs, i.e. 1, 2, 3 etc. rather than the ecomorph names, so we need to use <code>levels(mydata$Ecomorph)[best]</code> to select the names that go with the numbers.</p>
+<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb369-1"></a><span class="co"># Assign to the tree node labels</span></span>
+<span id="cb369-2"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb369-2"></a>mytree<span class="op">$</span>node.label &lt;-<span class="st"> </span><span class="kw">levels</span>(<span class="kw">as.factor</span>(mydata<span class="op">$</span>Ecomorph))[best]</span></code></pre></div>
+</div>
+<div id="preparing-the-data" class="section level4">
+<h4><span class="header-section-number">9.3.1.2</span> Preparing the data</h4>
+<p>Finally for <code>OUwie</code> to work we need to set up a dataset with <em>three columns</em>: the species names first, then the evolutionary regime which in this case is the ecomorphs, and then the continuous variable we think might be evolving differently in response to different regimes. Here we are going to look at head width, as we predict that burrowing snakes and aquatic snakes may have narrower heads than terrestrial species. Note that I have also log transformed head width.</p>
+<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb370-1"></a><span class="co"># Make new dataset with just three columns for OUwie</span></span>
+<span id="cb370-2"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb370-2"></a>headw &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">species =</span> mydata<span class="op">$</span>tiplabel, </span>
+<span id="cb370-3"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb370-3"></a>                    <span class="dt">regime =</span> mydata<span class="op">$</span>Ecomorph, </span>
+<span id="cb370-4"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb370-4"></a>                    <span class="dt">trait =</span> <span class="kw">log</span>(mydata<span class="op">$</span>HeadWidth))</span>
+<span id="cb370-5"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb370-5"></a><span class="co"># look at the first few rows</span></span>
+<span id="cb370-6"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb370-6"></a><span class="kw">head</span>(headw)</span></code></pre></div>
+<pre><code>##                         species      regime    trait
+## 1           Rhabdophis_leonardi Semiaquatic 2.618855
+## 2         Rhabdophis_nuchalis_3 Terrestrial 2.004179
+## 3        Rhabdophis_swinhonis_1 Semiaquatic 2.149434
+## 4       Rhabdophis_nigrocinctus Terrestrial 2.682390
+## 5           Rhabdophis_tigrinus Terrestrial 2.634762
+## 6 Rhabdophis_tigrinus_lateralis Terrestrial 2.961658</code></pre>
+<p>We are now ready to run some more complex models with <code>OUwie</code>!</p>
+<p>This is a key point to remember the “Jurassic Park caveat”; just because we <em>can</em> fit all of these models to our data doesn’t mean that we <em>should</em>. Before applying any of the models below, think very carefully. What questions are you trying to answer? What would a result one way or the other tell you about evolution in your study group? It is often tempting to just fit all of these models, then tell a “just so” story about why one model fits best. But without a clear question and a prediction about what you might find, at best the results might not tell you anything interesting about evolution in your group, and at worst the results may be nonsensical. This is especially true when sample sizes are low, and/or we expect there is error in our data or our phylogeny. Pay close attention to the caveats discussed below. Especially for the complex models near the end of the exercise.</p>
+</div>
+</div>
+<div id="running-models-using-ouwie" class="section level3">
+<h3><span class="header-section-number">9.3.2</span> Running models using OUwie</h3>
+<p>Before we dive into the exciting new models, it’s worth using <code>OUwie</code> to fit the simple BM and OU models we already learned how to fit in <code>08-ModelsContinuous</code> first. Why? Well, it’s always a good idea to compare complex models to simpler models to see if adding complexity is worthwhile. Sometimes a BM model fits just as well as these more complex ones. We’ll fit the simple models and the more complex ones so we can compare them all using AIC at the end of the exercise.</p>
+</div>
+<div id="single-rate-bm-models" class="section level3">
+<h3><span class="header-section-number">9.3.3</span> Single rate BM models</h3>
+<p>As a quick reminder, the BM model is a so called “random walk” model where traits change gradually through time. The model has two parameters, the Brownian rate parameter, <span class="math inline">\(\sigma^2\)</span> and the state of the root at time zero, <span class="math inline">\(z(0)\)</span>.</p>
+<p>To fit a BM model in <code>OUwie</code> we use the following code. The model name here is <code>BM1</code> to indicate this is a simple BM model with only one rate of evolution.</p>
+<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb372-1"></a>BM &lt;-<span class="st"> </span><span class="kw">OUwie</span>(mytree, headw, <span class="dt">model =</span> <span class="st">&quot;BM1&quot;</span>)</span></code></pre></div>
+<pre><code>## Warning: An algorithm was not specified. Defaulting to computing the
+## determinant and inversion of the vcv.</code></pre>
+<pre><code>## Initializing... 
+## Finished. Begin thorough search... 
+## Finished. Summarizing results.</code></pre>
+<p>You should see some messages here. <code>An algorithm was not specified. Defaulting to computing the determinant and inversion of the vcv.</code> just tells you that the model will use the older (slower) method to fit the likelihood, rather than the faster three-point algorithm. The other messages just tell you the code is working, and when it is finished. This is for people running complex analyses that take some time, just so they know the code is running!</p>
+<p>Let’s look at the results.</p>
+<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb375-1"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb375-1"></a>BM</span></code></pre></div>
+<pre><code>## 
+## Fit
+##        lnL      AIC    AICc      BIC model ntax
+##  -221.3888 446.7775 446.853 452.9527   BM1  162
+## 
+## Rates
+##                   1
+## alpha            NA
+## sigma.sq 0.08590249
+## 
+## Optima
+##                  1
+## estimate 2.1862946
+## se       0.7488931
+## 
+## Arrived at a reliable solution</code></pre>
+<p>The <code>Rates</code> section shows us what the parameter estimates are for <span class="math inline">\(\sigma^2\)</span> and <span class="math inline">\(\alpha\)</span>. We don’t fit <span class="math inline">\(\alpha\)</span> in a BM model so it’s NA in this output. The <code>Optima</code> section tells us what the trait “optima” are for each regime. In a BM model we don’t have any different regimes so this is just estimated value of log head width at the root, <span class="math inline">\(z(0)\)</span>. <code>Arrived at a reliable solution</code> tells us that the model converged on a reliable set of parameter estimates. The rest of the output includes log likelihood and AIC of the model etc.</p>
+</div>
+<div id="single-optimum-ou-models" class="section level3">
+<h3><span class="header-section-number">9.3.4</span> Single optimum OU models</h3>
+<p>Again as a reminder, the OU model is a random walk where trait values are pulled back towards some “optimal” value with an attraction strength proportional to the “rubber-band” parameter <span class="math inline">\(\alpha\)</span>. The OU model has four parameters the Brownian rate parameter, <span class="math inline">\(\sigma^2\)</span>, the state of the root at time zero, <span class="math inline">\(z(0)\)</span>, the long-term mean, <span class="math inline">\(\mu\)</span>, and the strength of evolutionary force that returns traits back towards the long-term mean if they evolve away from it, <span class="math inline">\(\alpha\)</span>. If <span class="math inline">\(\alpha\)</span> is close to zero then evolution is approximately Brownian.</p>
+<p>To fit a single peak OU model in <code>OUwie</code> we use the following code. The model name here is <code>OU1</code> to indicate this is a simple OU model with only one rate of evolution and one peak.</p>
+<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb377-1"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb377-1"></a>OU &lt;-<span class="st"> </span><span class="kw">OUwie</span>(mytree, headw, <span class="dt">model =</span> <span class="st">&quot;OU1&quot;</span>)</span></code></pre></div>
+<pre><code>## Warning: An algorithm was not specified. Defaulting to computing the
+## determinant and inversion of the vcv.</code></pre>
+<pre><code>## Initializing... 
+## Finished. Begin thorough search... 
+## Finished. Summarizing results.</code></pre>
+<p>Let’s look at the results.</p>
+<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb380-1"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb380-1"></a>OU</span></code></pre></div>
+<pre><code>## 
+## Fit
+##        lnL      AIC     AICc      BIC model ntax
+##  -80.87437 167.7487 167.9006 177.0115   OU1  162
+## 
+## 
+## Rates
+##    alpha sigma.sq 
+## 9.094923 2.927039 
+## 
+## Optima
+##                   1
+## estimate 2.30982153
+## se       0.03169213
+## 
+## 
+## Half life (another way of reporting alpha)
+##      alpha 
+## 0.07621254 
+## 
+## Arrived at a reliable solution</code></pre>
+<p>The <code>Rates</code> section shows us what the parameter estimates are for <span class="math inline">\(\sigma^2\)</span> and <span class="math inline">\(\alpha\)</span>. The <code>Optima</code> section tells us what the trait “optima” are for each regime. In a one peak OU model we only have one optimum, so here there is only one estimate for the overall long-term mean for log head width. Finally, the OU model output also reports the <code>Half life</code> of <span class="math inline">\(\alpha\)</span>. This is how long it takes for the trait to get half way to its long-term mean. Here the half life is 0.07621254, i.e. it takes 0.07621254 units of branch length for log head width to get half way to the optima of head width. That’s pretty fast!</p>
+</div>
+<div id="multi-rate-bm-bms-models" class="section level3">
+<h3><span class="header-section-number">9.3.5</span> Multi-rate BM (BMS) models</h3>
+<p>Now we’ve fitted the simple models, let’s make things more complex and, hopefully, more realistic. The first model we will fit is a BM model where different rates of evolution are allowed for each evolutionary regime. Here the evolutionary regimes are the ecomorphs.</p>
+<p>BMS models allow different <span class="math inline">\(\sigma^2\)</span> values for different regimes. We can use the code below to fit them.</p>
+<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb382-1"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb382-1"></a><span class="co"># Fit BMS model</span></span>
+<span id="cb382-2"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb382-2"></a>BMS &lt;-<span class="st"> </span><span class="kw">OUwie</span>(mytree, headw, <span class="dt">model =</span> <span class="st">&quot;BMS&quot;</span>, <span class="dt">root.station =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<pre><code>## Warning: An algorithm was not specified. Defaulting to computing the
+## determinant and inversion of the vcv.</code></pre>
+<pre><code>## Initializing... 
+## Finished. Begin thorough search... 
+## Finished. Summarizing results.</code></pre>
+<div class="detail">
+<p>
+Note that we set the root to invoke the non-censored model of <span class="citation"><span class="citation">O’Meara et al. (<a href="#ref-o2006testing" role="doc-biblioref">2006</a>)</span></span>, by using <code>root.station = FALSE</code>. This means a single regime at the root is estimated. If we instead want to use the censored model of <span class="citation"><span class="citation">O’Meara et al. (<a href="#ref-o2006testing" role="doc-biblioref">2006</a>)</span></span> or the group means model of <span class="citation"><span class="citation">Thomas, Freckleton, and Székely (<a href="#ref-thomas2006comparative" role="doc-biblioref">2006</a>)</span></span>, where the number of means equals the number of regimes, we use <code>root.station == TRUE</code>. However, the beaviour of these latter two models appears to approximate OUMV (see below) and is not fully understood, so the authors of <code>OUwie</code> recommend using <code>root.station = FALSE</code> whenever you fit a BMS model.
+</p>
+</div>
+<p>Let’s look at the results.</p>
+<div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb385-1"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb385-1"></a>BMS</span></code></pre></div>
+<pre><code>## 
+## Fit
+##        lnL      AIC     AICc      BIC model ntax
+##  -157.5303 327.0606 327.6025 345.5862   BMS  162
+## 
+## Rates
+##             Aquatic Aquatic Burrowing  Burrowing Semiaquatic Terrestrial
+## alpha            NA                NA         NA          NA          NA
+## sigma.sq 0.02204637       0.003111568 0.01164359   0.1598795 0.004688046
+## 
+## Optima
+##            Aquatic Aquatic Burrowing Burrowing Semiaquatic Terrestrial
+## estimate 1.9969746         1.9969746 1.9969746   1.9969746   1.9969746
+## se       0.4476263         0.4476263 0.4476263   0.4476263   0.4476263
+## 
+## Arrived at a reliable solution</code></pre>
+<p>The <code>Rates</code> section shows us what the parameter estimates are for <span class="math inline">\(\sigma^2\)</span> for each of the ecomorphs or evolutionary regimes. The semi-aquatic ecomorphs have a much higher rate of evolution than the others. Again as this is a BM model it does not have <span class="math inline">\(\alpha\)</span> estimates. The <code>Optima</code> section tells us what root state <span class="math inline">\(z0\)</span> is for each ecomorph. In the BMS model this is the same for each evolutionary regime.</p>
+</div>
+<div id="multi-optima-ou-oum-models" class="section level3">
+<h3><span class="header-section-number">9.3.6</span> Multi-optima OU (OUM) models</h3>
+<p>Next let’s fit an OUM model. These models allow different trait optima or long-term mean values for different evolutionary regimes but the same <span class="math inline">\(\sigma^2\)</span> and <span class="math inline">\(\alpha\)</span>. Here the evolutionary regimes are the ecomorphs.</p>
+<p>We fit the model as follows:</p>
+<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb387-1"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb387-1"></a><span class="co"># Fit OUM model</span></span>
+<span id="cb387-2"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb387-2"></a>OUM &lt;-<span class="st"> </span><span class="kw">OUwie</span>(mytree, headw, <span class="dt">model =</span> <span class="st">&quot;OUM&quot;</span>)</span></code></pre></div>
+<pre><code>## Warning: An algorithm was not specified. Defaulting to computing the
+## determinant and inversion of the vcv.</code></pre>
+<pre><code>## Initializing... 
+## Finished. Begin thorough search... 
+## Finished. Summarizing results.</code></pre>
+<p>Let’s look at the results.</p>
+<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb390-1"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb390-1"></a>OUM</span></code></pre></div>
+<pre><code>## 
+## Fit
+##        lnL      AIC     AICc      BIC model ntax
+##  -35.86695 85.73389 86.46117 107.3471   OUM  162
+## 
+## 
+## Rates
+##           Aquatic Aquatic Burrowing Burrowing Semiaquatic Terrestrial
+## alpha    9.094924          9.094924  9.094924    9.094924    9.094924
+## sigma.sq 1.679142          1.679142  1.679142    1.679142    1.679142
+## 
+## Optima
+##             Aquatic Aquatic Burrowing  Burrowing Semiaquatic Terrestrial
+## estimate 2.55900183        2.07636983 1.63753812  2.36487673  2.32107617
+## se       0.04635845        0.09160788 0.07368935  0.04202907  0.04994948
+## 
+## 
+## Half life (another way of reporting alpha)
+##           Aquatic Aquatic Burrowing         Burrowing       Semiaquatic 
+##        0.07621253        0.07621253        0.07621253        0.07621253 
+##       Terrestrial 
+##        0.07621253 
+## 
+## Arrived at a reliable solution</code></pre>
+<p>The <code>Rates</code> section shows us what the parameter estimates are for <span class="math inline">\(\sigma^2\)</span> and <span class="math inline">\(\alpha\)</span>. In an OUM model these are the same for each regime/ecomorph, so the <code>Half life</code> of <span class="math inline">\(\alpha\)</span> is also the same for each regime. The key part in this output is the <code>Optima</code> section as the OUM model fits a trait “optimum” or long-term mean for each regime. So here we have an estimate for the long-term mean for log head width for each ecomorph. Note that the value for Burrowing species is quite a lot lower than for the other ecomorphs, perhaps reflecting evolution towards narrower heads in that ecomorph?</p>
+<div class="warning">
+<p>
+It’s important to stop and think carefully before interpreting these “optima” or long-term means. Do they make sense in terms of what we know about head shape in these snake ecomorphs? I think it looks pretty sensible given where they plot (see DEEPAK) but it’s always good to check there’s nothing weird going on.
+</p>
+</div>
+</div>
+<div id="multi-rate-multi-optima-ou-motion-models-oumv" class="section level3">
+<h3><span class="header-section-number">9.3.7</span> Multi-rate multi-optima OU motion models (OUMV)</h3>
+<p>Next let’s fit an OUMV model. These models allow different <span class="math inline">\(\sigma^2\)</span> values and different trait optima or long-term mean values for different evolutionary regimes but the same <span class="math inline">\(\alpha\)</span>. Here the evolutionary regimes are the ecomorphs.</p>
+<p>We fit the model as follows:</p>
+<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb392-1"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb392-1"></a><span class="co"># Fit OUMV model</span></span>
+<span id="cb392-2"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb392-2"></a>OUMV &lt;-<span class="st"> </span><span class="kw">OUwie</span>(mytree, headw, <span class="dt">model =</span> <span class="st">&quot;OUMV&quot;</span>)</span></code></pre></div>
+<pre><code>## Warning: An algorithm was not specified. Defaulting to computing the
+## determinant and inversion of the vcv.</code></pre>
+<pre><code>## Initializing... 
+## Finished. Begin thorough search... 
+## Finished. Summarizing results.</code></pre>
+<p>Let’s look at the results.</p>
+<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb395-1"></a>OUMV</span></code></pre></div>
+<pre><code>## 
+## Fit
+##        lnL      AIC     AICc      BIC model ntax
+##  -44.76218 111.5244 113.2844 145.4879  OUMV  162
+## 
+## 
+## Rates
+##            Aquatic Aquatic Burrowing Burrowing Semiaquatic Terrestrial
+## alpha    1.2723092         1.2723092 1.2723092   1.2723092   1.2723092
+## sigma.sq 0.3145519         0.1694205 0.0846562   0.4264903   0.2239952
+## 
+## Optima
+##             Aquatic Aquatic Burrowing  Burrowing Semiaquatic Terrestrial
+## estimate 2.56411043        2.07487154 1.63299692   2.3576922  2.32882686
+## se       0.05469608        0.07789733 0.04483435   0.0571418  0.05008628
+## 
+## 
+## Half life (another way of reporting alpha)
+##           Aquatic Aquatic Burrowing         Burrowing       Semiaquatic 
+##         0.5447946         0.5447946         0.5447946         0.5447946 
+##       Terrestrial 
+##         0.5447946 
+## 
+## Arrived at a reliable solution</code></pre>
+<p>The <code>Rates</code> section shows us what the parameter estimates are for <span class="math inline">\(\sigma^2\)</span> and <span class="math inline">\(\alpha\)</span>. <span class="math inline">\(\alpha\)</span> (and the <code>Half life</code> of <span class="math inline">\(\alpha\)</span>) are the same across the whole tree in OUMV, but <span class="math inline">\(\sigma^2\)</span> varies for each ecomorph, with highest rates of log head width evolution in the semi-aquatic and aquatic species. In the <code>Optima</code> section we have an estimate for the long-term mean for log head width for each ecomorph. As for the OUM model, the value for Burrowing species is quite a lot lower than for the other ecomorphs, perhaps reflecting evolution towards narrower heads in that ecomorph?</p>
+</div>
+<div id="multi-alpha-multi-optima-ou-motion-models-ouma" class="section level3">
+<h3><span class="header-section-number">9.3.8</span> Multi-alpha multi-optima OU motion models (OUMA)</h3>
+<p>The OUMA models allow different <span class="math inline">\(\alpha\)</span> values and different trait optima or long-term mean values for different evolutionary regimes but the same <span class="math inline">\(\sigma^2\)</span> across the whole tree.</p>
+<p>To fit the model:</p>
+<div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb397-1"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb397-1"></a>OUMA &lt;-<span class="st"> </span><span class="kw">OUwie</span>(mytree, headw, <span class="dt">model =</span> <span class="st">&quot;OUMA&quot;</span>)</span></code></pre></div>
+<pre><code>## Warning: An algorithm was not specified. Defaulting to computing the
+## determinant and inversion of the vcv.</code></pre>
+<pre><code>## Initializing... 
+## Finished. Begin thorough search... 
+## Finished. Summarizing results.</code></pre>
+<p>Let’s look at the results.</p>
+<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb400-1"></a>OUMA</span></code></pre></div>
+<pre><code>## 
+## Fit
+##        lnL      AIC     AICc      BIC model ntax
+##  -94.03345 210.0669 211.8269 244.0305  OUMA  162
+## 
+## 
+## Rates
+##             Aquatic Aquatic Burrowing  Burrowing Semiaquatic Terrestrial
+## alpha    0.04231866        0.02561920 0.05001181  0.07805285  0.03983739
+## sigma.sq 0.02650006        0.02650006 0.02650006  0.02650006  0.02650006
+## 
+## Optima
+##            Aquatic Aquatic Burrowing Burrowing Semiaquatic Terrestrial
+## estimate 2.6039134         1.0229185  1.062951   2.2806802   2.4086081
+## se       0.2073386         0.8027084  0.293388   0.1309269   0.3975973
+## 
+## 
+## Half life (another way of reporting alpha)
+##           Aquatic Aquatic Burrowing         Burrowing       Semiaquatic 
+##         16.379234         27.055769         13.859671          8.880485 
+##       Terrestrial 
+##         17.399412 
+## 
+## Arrived at a reliable solution</code></pre>
+<p>The <code>Rates</code> section shows us what the parameter estimates are for <span class="math inline">\(\sigma^2\)</span> and <span class="math inline">\(\alpha\)</span>. <span class="math inline">\(\sigma^2\)</span> is the same across the whole tree in OUMA, but <span class="math inline">\(\alpha\)</span> (and the <code>Half life</code> of <span class="math inline">\(\alpha\)</span>) varies for each ecomorph, with highest pull back to the long-term mean of log head width evolution in the aquatic burrowing species. In the <code>Optima</code> section we have an estimate for the long-term mean for log head width for each ecomorph. The value for Burrowing and Aquatic burrowing species is lower than for the other ecomorphs, perhaps reflecting evolution towards narrower heads in these ecomorphs?</p>
+</div>
+<div id="multi-rate-multi-optima-ou-motion-models-oumva" class="section level3">
+<h3><span class="header-section-number">9.3.9</span> Multi-rate multi-optima OU motion models (OUMVA)</h3>
+<p>Finally, OUMVA models allow us to vary everything! We fit different <span class="math inline">\(\sigma^2\)</span> and <span class="math inline">\(\alpha\)</span> values and different trait optima or long-term mean values for different evolutionary regimes. We don’t have enough data to fit this model but I’ve included it for completeness. It takes a while to run…</p>
+<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb402-1"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb402-1"></a>OUMVA &lt;-<span class="st"> </span><span class="kw">OUwie</span>(mytree, headw, <span class="dt">model =</span> <span class="st">&quot;OUMVA&quot;</span>)</span></code></pre></div>
+<pre><code>## Warning: An algorithm was not specified. Defaulting to computing the
+## determinant and inversion of the vcv.</code></pre>
+<pre><code>## Initializing... 
+## Finished. Begin thorough search... 
+## Finished. Summarizing results.</code></pre>
+<p>Let’s look at the results.</p>
+<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb405-1"></a>OUMVA</span></code></pre></div>
+<pre><code>## 
+## Fit
+##        lnL      AIC     AICc      BIC model ntax
+##  -88.49131 206.9826 210.2703 253.2966 OUMVA  162
+## 
+## 
+## Rates
+##             Aquatic Aquatic Burrowing   Burrowing Semiaquatic Terrestrial
+## alpha    0.01204103      0.0807844561 0.055242542   0.0609966 0.059248568
+## sigma.sq 0.03939928      0.0007726168 0.003255536   0.0142240 0.004025552
+## 
+## Optima
+##            Aquatic Aquatic Burrowing Burrowing Semiaquatic Terrestrial
+## estimate 2.5805087         1.9761178 1.3837697   2.2449803    2.360143
+## se       0.4046245         0.1039313 0.1606891   0.1499996    0.135139
+## 
+## 
+## Half life (another way of reporting alpha)
+##           Aquatic Aquatic Burrowing         Burrowing       Semiaquatic 
+##         57.565458          8.580205         12.547344         11.363702 
+##       Terrestrial 
+##         11.698969 
+## 
+## Arrived at a reliable solution</code></pre>
+<p>The <code>Rates</code> section shows how <span class="math inline">\(\sigma^2\)</span> and <span class="math inline">\(\alpha\)</span> vary for each ecomorph, and in the <code>Optima</code> section we have an estimate for the long-term mean for log head width for each ecomorph. It would not be sensible to over-interpret these results given the complexity of the model and the relative paucity (n = 162) of the data.</p>
+<div class="warning">
+<p>
+Above I included code for all of the complex models discussed in the <em>Primer</em>. However, it is likely that the complexity of some of these models is greater than the information contained within the data. As a result one or more parameters may be poorly estimated. <strong>Always check parameter estimates</strong> from your models to ensure that they make biological sense. If you don’t check, you might unknowingly pick a poor model with incorrect biological interpretations. The more complex your models the more likely this is. Beware!
+</p>
+</div>
+</div>
+<div id="comparing-models-of-evolution-using-aic-2" class="section level3">
+<h3><span class="header-section-number">9.3.10</span> Comparing models of evolution using AIC</h3>
+<p>As we have done in the last few exercises, we’re going to compare models using AIC, <span class="math inline">\(\Delta\)</span>AIC and AIC weights (AICw). The “best” model is the one with the smallest AIC, with <span class="math inline">\(\Delta\)</span>AIC = 0 or with AICw closest to 1.</p>
+<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb407-1"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb407-1"></a><span class="co"># Extract AICc scores from the models</span></span>
+<span id="cb407-2"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb407-2"></a>aic.scores &lt;-<span class="st"> </span><span class="kw">setNames</span>(<span class="kw">c</span>(BM<span class="op">$</span>AICc, OU<span class="op">$</span>AICc, BMS<span class="op">$</span>AICc,</span>
+<span id="cb407-3"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb407-3"></a>                             OUM<span class="op">$</span>AICc, OUMV<span class="op">$</span>AICc, OUMA<span class="op">$</span>AICc, OUMVA<span class="op">$</span>AICc), </span>
+<span id="cb407-4"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb407-4"></a>                           <span class="kw">c</span>(<span class="st">&quot;BM&quot;</span>, <span class="st">&quot;OU&quot;</span>, <span class="st">&quot;BMS&quot;</span>, <span class="st">&quot;OUM&quot;</span>, </span>
+<span id="cb407-5"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb407-5"></a>                             <span class="st">&quot;OUMV&quot;</span>, <span class="st">&quot;OUMA&quot;</span>, <span class="st">&quot;OUMVA&quot;</span>))</span>
+<span id="cb407-6"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb407-6"></a><span class="co"># Get aic weights</span></span>
+<span id="cb407-7"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb407-7"></a><span class="kw">aicw</span>(aic.scores)</span></code></pre></div>
+<pre><code>##             fit     delta            w
+## BM    446.85300 360.39183 5.519598e-79
+## OU    167.90063  81.43947 2.068444e-18
+## BMS   327.60252 241.14136 4.333301e-53
+## OUM    86.46117   0.00000 9.999985e-01
+## OUMV  113.28436  26.82319 1.497674e-06
+## OUMA  211.82690 125.36574 5.986532e-28
+## OUMVA 210.27030 123.80913 1.303729e-27</code></pre>
+<p>The best fitting model for the data is the OUM model, i.e. where there are different trait optima or long-term mean values for different ecomorphs but the same <span class="math inline">\(\sigma^2\)</span> and <span class="math inline">\(\alpha\)</span>. A second look at the output for this model suggests that there is a rather strong pull towards the ecomorph optima for log head width, and that burrowing species have the narrowest heads.</p>
+<p>Does this make sense biologically?</p>
+<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb409-1"></a><span class="co"># Look at the output</span></span>
+<span id="cb409-2"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#cb409-2"></a>OUM</span></code></pre></div>
+<pre><code>## 
+## Fit
+##        lnL      AIC     AICc      BIC model ntax
+##  -35.86695 85.73389 86.46117 107.3471   OUM  162
+## 
+## 
+## Rates
+##           Aquatic Aquatic Burrowing Burrowing Semiaquatic Terrestrial
+## alpha    9.094924          9.094924  9.094924    9.094924    9.094924
+## sigma.sq 1.679142          1.679142  1.679142    1.679142    1.679142
+## 
+## Optima
+##             Aquatic Aquatic Burrowing  Burrowing Semiaquatic Terrestrial
+## estimate 2.55900183        2.07636983 1.63753812  2.36487673  2.32107617
+## se       0.04635845        0.09160788 0.07368935  0.04202907  0.04994948
+## 
+## 
+## Half life (another way of reporting alpha)
+##           Aquatic Aquatic Burrowing         Burrowing       Semiaquatic 
+##        0.07621253        0.07621253        0.07621253        0.07621253 
+##       Terrestrial 
+##        0.07621253 
+## 
+## Arrived at a reliable solution</code></pre>
+</div>
+</div>
+<div id="summary-7" class="section level2">
+<h2><span class="header-section-number">9.4</span> Summary</h2>
+<p>You should now know how to fit some of the more complex models of evolution in R.</p>
+</div>
+<div id="practical-exercises-4" class="section level2">
+<h2><span class="header-section-number">9.5</span> Practical exercises</h2>
+<p>In the data folder there is another tree (<code>primate-tree.nex</code>) and dataset (<code>primate-data.csv</code>) for investigating the evolution of primate life-history variables. These data come from the PanTHERIA database <span class="citation">(Jones et al. <a href="#ref-jones2009pantheria" role="doc-biblioref">2009</a>)</span> and 10kTrees <span class="citation">(Arnold, Matthews, and Nunn <a href="#ref-arnold201010ktrees" role="doc-biblioref">2010</a>)</span>.</p>
+<p>Read in the tree and data, then prepare them for a PCM analysis (you may have already done this in a previous exercise which should save you some time).</p>
+<p>Using log body size (<code>AdultBodyMass_g</code>) as your continuous trait, and social status (<code>SocialStatus</code>) to define the selective regimes, fit (A) a multi-rate Brownian motion model and (B) an OU model with different long-term mean values for different evolutionary regimes but the same <span class="math inline">\(\sigma^2\)</span> and <span class="math inline">\(\alpha\)</span>. Note that social status has two states: non-social (1) or social (2). Assume it is evolving according to an all rates different model. Then answer the following questions:</p>
+<ol style="list-style-type: decimal">
+<li>Which is the best fitting model?</li>
+<li>If you were running these analyses for a publication, what additional models would you compare these models to?</li>
+<li>In the multi rate Brownian model, which social status state has the higher rate of log body mass evolution?</li>
+<li>Look at the parameter estimates of the multi peak OU model. Do you see anything worrying there? It might help to look at a histogram showing the body sizes of species in the non-social and the social categories.</li>
+</ol>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-arnold201010ktrees">
+<p>Arnold, Christian, Luke J Matthews, and Charles L Nunn. 2010. “The 10kTrees Website: A New Online Resource for Primate Phylogeny.” <em>Evolutionary Anthropology: Issues, News, and Reviews</em> 19 (3): 114–18.</p>
+</div>
+<div id="ref-jones2009pantheria">
+<p>Jones, Kate E, Jon Bielby, Marcel Cardillo, Susanne A Fritz, Justin O’Dell, C David L Orme, Kamran Safi, et al. 2009. “PanTHERIA: A Species-Level Database of Life History, Ecology, and Geography of Extant and Recently Extinct Mammals: Ecological Archives E090-184.” <em>Ecology</em> 90 (9): 2648–8.</p>
+</div>
+<div id="ref-o2006testing">
+<p>O’Meara, Brian C, Cécile Ané, Michael J Sanderson, and Peter C Wainwright. 2006. “Testing for Different Rates of Continuous Trait Evolution Using Likelihood.” <em>Evolution</em> 60 (5): 922–33.</p>
+</div>
+<div id="ref-thomas2006comparative">
+<p>Thomas, Gavin H, Robert P Freckleton, and Tamas Székely. 2006. “Comparative Analyses of the Influence of Developmental Mode on Phenotypic Diversification Rates in Shorebirds.” <em>Proceedings of the Royal Society B: Biological Sciences</em> 273 (1594): 1619–24.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="macroevolutionary-models-for-discrete-traits.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="diversification-rate-analyses.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/09-ModelsBeyond.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["pcm-primer.pdf", "pcm-primer.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

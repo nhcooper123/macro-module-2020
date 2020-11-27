@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Diversity Indices in R | Practical exercises for Methods in Macroecology and Macroevolution module</title>
+  <meta name="description" content="Chapter 2 Diversity Indices in R | Practical exercises for Methods in Macroecology and Macroevolution module" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Diversity Indices in R | Practical exercises for Methods in Macroecology and Macroevolution module" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Diversity Indices in R | Practical exercises for Methods in Macroecology and Macroevolution module" />
+  
+  
+  
+
+<meta name="author" content="Natalie Cooper" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="what-you-need-to-be-able-to-do-in-r-before-you-start.html"/>
+<link rel="next" href="understanding-plotting-and-manipulating-phylogenies-in-r.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">PCM Primer</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#datasets-and-scripts"><i class="fa fa-check"></i>Datasets and scripts</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-to-use-these-materials"><i class="fa fa-check"></i>How to use these materials</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#boxes"><i class="fa fa-check"></i>Boxes</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#example-datasets"><i class="fa fa-check"></i>Example datasets</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#frog-eye-size-evolution"><i class="fa fa-check"></i>Frog eye size evolution</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#natricine-snake-head-shape-evolution"><i class="fa fa-check"></i>Natricine snake head shape evolution</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#diversification-in-dragonflies"><i class="fa fa-check"></i>Diversification in dragonflies</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#citing-r-and-r-packages"><i class="fa fa-check"></i>Citing R and R packages</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><i class="fa fa-check"></i><b>1</b> What you need to be able to do in R before you start</a><ul>
+<li class="chapter" data-level="1.1" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#installing-r-and-rstudio"><i class="fa fa-check"></i><b>1.1</b> Installing R (and RStudio)</a></li>
+<li class="chapter" data-level="1.2" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#downloading-the-data"><i class="fa fa-check"></i><b>1.2</b> Downloading the data</a></li>
+<li class="chapter" data-level="1.3" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#r-projects"><i class="fa fa-check"></i><b>1.3</b> R Projects</a></li>
+<li class="chapter" data-level="1.4" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#using-a-script"><i class="fa fa-check"></i><b>1.4</b> Using a script</a></li>
+<li class="chapter" data-level="1.5" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#installing-and-loading-extra-packages-in-r"><i class="fa fa-check"></i><b>1.5</b> Installing and loading extra packages in R</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#loading-packages-into-r"><i class="fa fa-check"></i><b>1.5.1</b> Loading packages into R</a></li>
+<li class="chapter" data-level="1.5.2" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#ggtree-a-special-case-for-package-installation"><i class="fa fa-check"></i><b>1.5.2</b> <code>ggtree</code>, a special case for package installation</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#loading-and-viewing-your-data-in-r"><i class="fa fa-check"></i><b>1.6</b> Loading and viewing your data in R</a></li>
+<li class="chapter" data-level="1.7" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#errors-and-warnings"><i class="fa fa-check"></i><b>1.7</b> Errors and warnings</a><ul>
+<li class="chapter" data-level="1.7.1" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#removing-the"><i class="fa fa-check"></i><b>1.7.1</b> Removing the <code>+</code></a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#summary"><i class="fa fa-check"></i><b>1.8</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html"><i class="fa fa-check"></i><b>2</b> Diversity Indices in R</a><ul>
+<li class="chapter" data-level="2.1" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#before-you-start"><i class="fa fa-check"></i><b>2.1</b> Before you start</a></li>
+<li class="chapter" data-level="2.2" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#preparation"><i class="fa fa-check"></i><b>2.2</b> Preparation</a></li>
+<li class="chapter" data-level="2.3" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#what-are-diversity-indices"><i class="fa fa-check"></i><b>2.3</b> What are diversity indices?</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#alpha-beta-and-gamma-diversity"><i class="fa fa-check"></i><b>2.3.1</b> <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\gamma\)</span> diversity</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#practical-example-using-pokemon"><i class="fa fa-check"></i><b>2.4</b> Practical example using Pokemon…</a></li>
+<li class="chapter" data-level="2.5" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#species-diversity-indices"><i class="fa fa-check"></i><b>2.5</b> Species diversity indices</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#alpha-diversity"><i class="fa fa-check"></i><b>2.5.1</b> <span class="math inline">\(\alpha\)</span> diversity</a></li>
+<li class="chapter" data-level="2.5.2" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#beta-diversity"><i class="fa fa-check"></i><b>2.5.2</b> <span class="math inline">\(\beta\)</span> diversity</a></li>
+<li class="chapter" data-level="2.5.3" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#gamma-diversity"><i class="fa fa-check"></i><b>2.5.3</b> <span class="math inline">\(\gamma\)</span> diversity</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#species-accumulation-curves-colwell-coddington-1994"><i class="fa fa-check"></i><b>2.6</b> Species accumulation curves (Colwell &amp; Coddington 1994)</a><ul>
+<li class="chapter" data-level="2.6.1" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#pokemon-species-accumulation-curves"><i class="fa fa-check"></i><b>2.6.1</b> Pokemon species accumulation curves</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#practical-exercise"><i class="fa fa-check"></i><b>2.7</b> Practical exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html"><i class="fa fa-check"></i><b>3</b> Understanding, plotting and manipulating phylogenies in R</a><ul>
+<li class="chapter" data-level="3.1" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#before-you-start-1"><i class="fa fa-check"></i><b>3.1</b> Before you start</a></li>
+<li class="chapter" data-level="3.2" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#what-do-phylogeny-files-look-like"><i class="fa fa-check"></i><b>3.2</b> What do phylogeny files look like?</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#newick-trees"><i class="fa fa-check"></i><b>3.2.1</b> Newick trees</a></li>
+<li class="chapter" data-level="3.2.2" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#nexus-trees"><i class="fa fa-check"></i><b>3.2.2</b> NEXUS trees</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#how-are-phylogenies-formatted-in-r"><i class="fa fa-check"></i><b>3.3</b> How are phylogenies formatted in R?</a></li>
+<li class="chapter" data-level="3.4" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#plotting-phylogenies"><i class="fa fa-check"></i><b>3.4</b> Plotting phylogenies</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#basic-phylogeny-plotting-with-ape"><i class="fa fa-check"></i><b>3.4.1</b> Basic phylogeny plotting with APE</a></li>
+<li class="chapter" data-level="3.4.2" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#basic-phylogeny-plotting-with-ggtree"><i class="fa fa-check"></i><b>3.4.2</b> Basic phylogeny plotting with <code>ggtree</code></a></li>
+<li class="chapter" data-level="3.4.3" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#back-to-ggtree"><i class="fa fa-check"></i><b>3.4.3</b> Back to <code>ggtree</code></a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#phylogeny-manipulation"><i class="fa fa-check"></i><b>3.5</b> Phylogeny manipulation</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#removing-polytomies"><i class="fa fa-check"></i><b>3.5.1</b> Removing polytomies</a></li>
+<li class="chapter" data-level="3.5.2" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#rooting-your-phylogeny"><i class="fa fa-check"></i><b>3.5.2</b> Rooting your phylogeny</a></li>
+<li class="chapter" data-level="3.5.3" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#manipulating-the-species-in-your-phlyogeny"><i class="fa fa-check"></i><b>3.5.3</b> Manipulating the species in your phlyogeny</a></li>
+<li class="chapter" data-level="3.5.4" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#writing-phylogenies-to-file"><i class="fa fa-check"></i><b>3.5.4</b> Writing phylogenies to file</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#summary-1"><i class="fa fa-check"></i><b>3.6</b> Summary</a></li>
+<li class="chapter" data-level="3.7" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#practical-exercise-1"><i class="fa fa-check"></i><b>3.7</b> Practical exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html"><i class="fa fa-check"></i><b>4</b> Preparing your tree and data for PCMs in R</a><ul>
+<li class="chapter" data-level="4.1" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#before-you-start-2"><i class="fa fa-check"></i><b>4.1</b> Before you start</a></li>
+<li class="chapter" data-level="4.2" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#preparation-1"><i class="fa fa-check"></i><b>4.2</b> Preparation</a></li>
+<li class="chapter" data-level="4.3" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#reading-and-checking-your-phylogeny-in-r"><i class="fa fa-check"></i><b>4.3</b> Reading and checking your phylogeny in R</a></li>
+<li class="chapter" data-level="4.4" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#reading-the-data-into-r"><i class="fa fa-check"></i><b>4.4</b> Reading the data into R</a></li>
+<li class="chapter" data-level="4.5" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#matching-your-data-to-your-phylogeny"><i class="fa fa-check"></i><b>4.5</b> Matching your data to your phylogeny</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#species-names-with-spaces"><i class="fa fa-check"></i><b>4.5.1</b> Species names with spaces</a></li>
+<li class="chapter" data-level="4.5.2" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#mismatches-between-species-in-your-data-and-phylogeny"><i class="fa fa-check"></i><b>4.5.2</b> Mismatches between species in your data and phylogeny</a></li>
+<li class="chapter" data-level="4.5.3" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#matching-the-tree-and-the-data"><i class="fa fa-check"></i><b>4.5.3</b> Matching the tree and the data</a></li>
+<li class="chapter" data-level="4.5.4" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#subsetting-your-tree-and-data"><i class="fa fa-check"></i><b>4.5.4</b> Subsetting your tree and data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#quick-template-code"><i class="fa fa-check"></i><b>4.6</b> Quick template code</a></li>
+<li class="chapter" data-level="4.7" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#summary-2"><i class="fa fa-check"></i><b>4.7</b> Summary</a></li>
+<li class="chapter" data-level="4.8" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#practical-exercise-2"><i class="fa fa-check"></i><b>4.8</b> Practical exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html"><i class="fa fa-check"></i><b>5</b> Phylogenetic Signal in R</a><ul>
+<li class="chapter" data-level="5.1" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#before-you-start-3"><i class="fa fa-check"></i><b>5.1</b> Before you start</a></li>
+<li class="chapter" data-level="5.2" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#preparation-2"><i class="fa fa-check"></i><b>5.2</b> Preparation</a></li>
+<li class="chapter" data-level="5.3" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#estimating-phylogenetic-signal-for-continuous-variables"><i class="fa fa-check"></i><b>5.3</b> Estimating phylogenetic signal for continuous variables</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#pagels-lambda"><i class="fa fa-check"></i><b>5.3.1</b> Pagel’s <span class="math inline">\(\lambda\)</span></a></li>
+<li class="chapter" data-level="5.3.2" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#blombergs-k-blomberg-et-al-2003"><i class="fa fa-check"></i><b>5.3.2</b> Blomberg’s <em>K</em> (Blomberg et al 2003)</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#estimating-phylogenetic-signal-for-non-continuous-variables"><i class="fa fa-check"></i><b>5.4</b> Estimating phylogenetic signal for non-continuous variables</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#d"><i class="fa fa-check"></i><b>5.4.1</b> <em>D</em></a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#summary-3"><i class="fa fa-check"></i><b>5.5</b> Summary</a></li>
+<li class="chapter" data-level="5.6" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#practical-exercises"><i class="fa fa-check"></i><b>5.6</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html"><i class="fa fa-check"></i><b>6</b> Phylogenetic Generalised Least Squares (PGLS) in R</a><ul>
+<li class="chapter" data-level="6.1" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#before-you-start-4"><i class="fa fa-check"></i><b>6.1</b> Before you start</a></li>
+<li class="chapter" data-level="6.2" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#preparation-3"><i class="fa fa-check"></i><b>6.2</b> Preparation</a></li>
+<li class="chapter" data-level="6.3" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#phylogenetic-generalized-least-squares-models-pgls"><i class="fa fa-check"></i><b>6.3</b> Phylogenetic generalized least squares models (PGLS)</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#fitting-pgls-models-in-r"><i class="fa fa-check"></i><b>6.3.1</b> Fitting PGLS models in R</a></li>
+<li class="chapter" data-level="6.3.2" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#model-diagnostics-for-pgls-models"><i class="fa fa-check"></i><b>6.3.2</b> Model diagnostics for PGLS models</a></li>
+<li class="chapter" data-level="6.3.3" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#likelihood-profiles-for-lambda-in-pgls-models"><i class="fa fa-check"></i><b>6.3.3</b> Likelihood profiles for <span class="math inline">\(\lambda\)</span> in PGLS models</a></li>
+<li class="chapter" data-level="6.3.4" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#a-pgls-example-with-more-than-one-predictor-variable"><i class="fa fa-check"></i><b>6.3.4</b> A PGLS example with more than one predictor variable</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#common-issues-when-running-pgls-models-in-r"><i class="fa fa-check"></i><b>6.4</b> Common issues when running PGLS models in R</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#optim-errors"><i class="fa fa-check"></i><b>6.4.1</b> Optim errors</a></li>
+<li class="chapter" data-level="6.4.2" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#big-problems-with-small-datasets"><i class="fa fa-check"></i><b>6.4.2</b> Big problems with small datasets</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#summary-4"><i class="fa fa-check"></i><b>6.5</b> Summary</a></li>
+<li class="chapter" data-level="6.6" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#practical-exercises-1"><i class="fa fa-check"></i><b>6.6</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html"><i class="fa fa-check"></i><b>7</b> Macroevolutionary models for continuous traits</a><ul>
+<li class="chapter" data-level="7.1" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#before-you-start-5"><i class="fa fa-check"></i><b>7.1</b> Before you start</a></li>
+<li class="chapter" data-level="7.2" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#preparation-4"><i class="fa fa-check"></i><b>7.2</b> Preparation</a></li>
+<li class="chapter" data-level="7.3" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#models-of-evolution-for-continuous-traits"><i class="fa fa-check"></i><b>7.3</b> Models of evolution for continuous traits</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#loook-at-the-data"><i class="fa fa-check"></i><b>7.3.1</b> loook at the data????</a></li>
+<li class="chapter" data-level="7.3.2" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#fitting-the-brownian-motion-and-ou-models-of-evolution-using-fitcontinuous"><i class="fa fa-check"></i><b>7.3.2</b> Fitting the Brownian motion and OU models of evolution using <code>fitContinuous</code></a></li>
+<li class="chapter" data-level="7.3.3" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#comparing-models-of-evolution-using-aic"><i class="fa fa-check"></i><b>7.3.3</b> Comparing models of evolution using AIC</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#summary-5"><i class="fa fa-check"></i><b>7.4</b> Summary</a></li>
+<li class="chapter" data-level="7.5" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#practical-exercises-2"><i class="fa fa-check"></i><b>7.5</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html"><i class="fa fa-check"></i><b>8</b> Macroevolutionary models for discrete traits</a><ul>
+<li class="chapter" data-level="8.1" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#before-you-start-6"><i class="fa fa-check"></i><b>8.1</b> Before you start</a></li>
+<li class="chapter" data-level="8.2" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#preparation-5"><i class="fa fa-check"></i><b>8.2</b> Preparation</a></li>
+<li class="chapter" data-level="8.3" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#models-of-evolution-for-discrete-traits"><i class="fa fa-check"></i><b>8.3</b> Models of evolution for discrete traits</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#fitting-the-er-sym-and-ard-models-of-evolution-using-fitdiscrete"><i class="fa fa-check"></i><b>8.3.1</b> Fitting the ER, SYM and ARD models of evolution using <code>fitDiscrete</code></a></li>
+<li class="chapter" data-level="8.3.2" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#comparing-models-of-evolution-using-aic-1"><i class="fa fa-check"></i><b>8.3.2</b> Comparing models of evolution using AIC</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#ancestral-state-estimations"><i class="fa fa-check"></i><b>8.4</b> Ancestral state estimations</a></li>
+<li class="chapter" data-level="8.5" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#summary-6"><i class="fa fa-check"></i><b>8.5</b> Summary</a></li>
+<li class="chapter" data-level="8.6" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#practical-exercises-3"><i class="fa fa-check"></i><b>8.6</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><i class="fa fa-check"></i><b>9</b> Beyond simple macroevolutionary models of trait evolution</a><ul>
+<li class="chapter" data-level="9.1" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#before-you-start-7"><i class="fa fa-check"></i><b>9.1</b> Before you start</a></li>
+<li class="chapter" data-level="9.2" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#preparation-6"><i class="fa fa-check"></i><b>9.2</b> Preparation</a></li>
+<li class="chapter" data-level="9.3" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#more-complex-models-of-trait-evolution"><i class="fa fa-check"></i><b>9.3</b> More complex models of trait evolution</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#preparing-the-tree-and-data-for-ouwie"><i class="fa fa-check"></i><b>9.3.1</b> Preparing the tree and data for OUwie</a></li>
+<li class="chapter" data-level="9.3.2" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#running-models-using-ouwie"><i class="fa fa-check"></i><b>9.3.2</b> Running models using OUwie</a></li>
+<li class="chapter" data-level="9.3.3" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#single-rate-bm-models"><i class="fa fa-check"></i><b>9.3.3</b> Single rate BM models</a></li>
+<li class="chapter" data-level="9.3.4" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#single-optimum-ou-models"><i class="fa fa-check"></i><b>9.3.4</b> Single optimum OU models</a></li>
+<li class="chapter" data-level="9.3.5" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#multi-rate-bm-bms-models"><i class="fa fa-check"></i><b>9.3.5</b> Multi-rate BM (BMS) models</a></li>
+<li class="chapter" data-level="9.3.6" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#multi-optima-ou-oum-models"><i class="fa fa-check"></i><b>9.3.6</b> Multi-optima OU (OUM) models</a></li>
+<li class="chapter" data-level="9.3.7" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#multi-rate-multi-optima-ou-motion-models-oumv"><i class="fa fa-check"></i><b>9.3.7</b> Multi-rate multi-optima OU motion models (OUMV)</a></li>
+<li class="chapter" data-level="9.3.8" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#multi-alpha-multi-optima-ou-motion-models-ouma"><i class="fa fa-check"></i><b>9.3.8</b> Multi-alpha multi-optima OU motion models (OUMA)</a></li>
+<li class="chapter" data-level="9.3.9" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#multi-rate-multi-optima-ou-motion-models-oumva"><i class="fa fa-check"></i><b>9.3.9</b> Multi-rate multi-optima OU motion models (OUMVA)</a></li>
+<li class="chapter" data-level="9.3.10" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#comparing-models-of-evolution-using-aic-2"><i class="fa fa-check"></i><b>9.3.10</b> Comparing models of evolution using AIC</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#summary-7"><i class="fa fa-check"></i><b>9.4</b> Summary</a></li>
+<li class="chapter" data-level="9.5" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#practical-exercises-4"><i class="fa fa-check"></i><b>9.5</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html"><i class="fa fa-check"></i><b>10</b> Diversification rate analyses</a><ul>
+<li class="chapter" data-level="10.1" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#before-you-start-8"><i class="fa fa-check"></i><b>10.1</b> Before you start</a></li>
+<li class="chapter" data-level="10.2" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#preparation-7"><i class="fa fa-check"></i><b>10.2</b> Preparation</a></li>
+<li class="chapter" data-level="10.3" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#lineage-through-time-plots-and-the-gamma-statistic"><i class="fa fa-check"></i><b>10.3</b> Lineage through time plots and the <span class="math inline">\(\gamma\)</span> statistic</a></li>
+<li class="chapter" data-level="10.4" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#bamm-bayesian-analysis-of-macroevolutionary-mixtures"><i class="fa fa-check"></i><b>10.4</b> BAMM: Bayesian Analysis of Macroevolutionary Mixtures</a></li>
+<li class="chapter" data-level="10.5" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#running-bamm"><i class="fa fa-check"></i><b>10.5</b> Running BAMM</a></li>
+<li class="chapter" data-level="10.6" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#looking-at-the-output-of-bamm-using-bammtools-in-r"><i class="fa fa-check"></i><b>10.6</b> Looking at the output of BAMM using BAMMtools in R</a><ul>
+<li class="chapter" data-level="10.6.1" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#assessing-mcmc-convergence"><i class="fa fa-check"></i><b>10.6.1</b> Assessing MCMC convergence</a></li>
+<li class="chapter" data-level="10.6.2" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#analysis-of-rate-shifts-in-the-dragonfly-phylogeny"><i class="fa fa-check"></i><b>10.6.2</b> Analysis of rate shifts in the dragonfly phylogeny</a></li>
+<li class="chapter" data-level="10.6.3" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#mean-phylorate-plot"><i class="fa fa-check"></i><b>10.6.3</b> Mean phylorate plot</a></li>
+<li class="chapter" data-level="10.6.4" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#best-single-distinct-shift-configuration"><i class="fa fa-check"></i><b>10.6.4</b> Best single distinct shift configuration</a></li>
+</ul></li>
+<li class="chapter" data-level="10.7" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#credible-sets-of-shifts"><i class="fa fa-check"></i><b>10.7</b> Credible sets of shifts</a></li>
+<li class="chapter" data-level="10.8" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#clade-specific-evolutionary-rates"><i class="fa fa-check"></i><b>10.8</b> Clade specific evolutionary rates</a></li>
+<li class="chapter" data-level="10.9" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#rate-through-time-analysis"><i class="fa fa-check"></i><b>10.9</b> Rate-through-time analysis</a></li>
+<li class="chapter" data-level="10.10" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#macroevolutionary-cohort-analysis"><i class="fa fa-check"></i><b>10.10</b> Macroevolutionary cohort analysis</a></li>
+<li class="chapter" data-level="10.11" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#assumptions-and-issues-with-bamm"><i class="fa fa-check"></i><b>10.11</b> Assumptions and issues with BAMM</a></li>
+<li class="chapter" data-level="10.12" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#summary-8"><i class="fa fa-check"></i><b>10.12</b> Summary</a></li>
+<li class="chapter" data-level="10.13" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#practical-exercises-5"><i class="fa fa-check"></i><b>10.13</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html"><i class="fa fa-check"></i><b>11</b> Critical thinking about methods and analyses</a><ul>
+<li class="chapter" data-level="11.1" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#how-to-critically-evaluate-a-paper-that-uses-phylogenetic-comparative-methods"><i class="fa fa-check"></i><b>11.1</b> How to critically evaluate a paper that uses phylogenetic comparative methods</a><ul>
+<li class="chapter" data-level="" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#logicinterpretation"><i class="fa fa-check"></i>Logic/interpretation</a></li>
+<li class="chapter" data-level="" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#data"><i class="fa fa-check"></i>Data</a></li>
+<li class="chapter" data-level="" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#methods"><i class="fa fa-check"></i>Methods</a></li>
+<li class="chapter" data-level="" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#moving-forwards"><i class="fa fa-check"></i>Moving forwards</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#further-reading"><i class="fa fa-check"></i><b>11.2</b> Further reading</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html"><i class="fa fa-check"></i><b>12</b> Answers to practical exercises</a><ul>
+<li class="chapter" data-level="12.1" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#diversity-indices"><i class="fa fa-check"></i><b>12.1</b> Diversity indices</a></li>
+<li class="chapter" data-level="12.2" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#phylogenies"><i class="fa fa-check"></i><b>12.2</b> Phylogenies</a></li>
+<li class="chapter" data-level="12.3" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#preparation-8"><i class="fa fa-check"></i><b>12.3</b> Preparation</a></li>
+<li class="chapter" data-level="12.4" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#phylogenetic-signal"><i class="fa fa-check"></i><b>12.4</b> Phylogenetic signal</a></li>
+<li class="chapter" data-level="12.5" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#pgls"><i class="fa fa-check"></i><b>12.5</b> PGLS</a></li>
+<li class="chapter" data-level="12.6" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#models-of-evolution-with-continuous-traits"><i class="fa fa-check"></i><b>12.6</b> Models of evolution with continuous traits</a></li>
+<li class="chapter" data-level="12.7" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#models-of-evolution-with-discrete-traits"><i class="fa fa-check"></i><b>12.7</b> Models of evolution with discrete traits</a></li>
+<li class="chapter" data-level="12.8" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#beyond-simple-macroevolutionary-models-of-trait-evolution-1"><i class="fa fa-check"></i><b>12.8</b> Beyond simple macroevolutionary models of trait evolution</a></li>
+<li class="chapter" data-level="12.9" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#diversification"><i class="fa fa-check"></i><b>12.9</b> Diversification</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Practical exercises for Methods in Macroecology and Macroevolution module</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="diversity-indices-in-r" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> Diversity Indices in R</h1>
+<p>The aims of this exercise are to learn how to use R to estimate diversity indices and species accumulation curves. You will need some of these functions to complete your paleoecology assessment. We will be using some made up data about Pokemon sightings within the Museum.</p>
+<div id="before-you-start" class="section level2">
+<h2><span class="header-section-number">2.1</span> Before you start</h2>
+<ul>
+<li>Open the <code>02-DiversityIndices.RProj</code> file in the <code>02-DiversityIndices</code> folder to open your R Project for this exercise.</li>
+<li>Make yourself a new R script for your code.</li>
+</ul>
+<p>You will also need to install the following packages:</p>
+<ul>
+<li><code>vegan</code></li>
+<li><code>picante</code></li>
+<li><code>knitr</code></li>
+</ul>
+</div>
+<div id="preparation" class="section level2">
+<h2><span class="header-section-number">2.2</span> Preparation</h2>
+<p>To begin we need to load the packages for this practical.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="diversity-indices-in-r.html#cb23-1"></a><span class="co"># Load the packages</span></span>
+<span id="cb23-2"><a href="diversity-indices-in-r.html#cb23-2"></a><span class="kw">library</span>(vegan)</span>
+<span id="cb23-3"><a href="diversity-indices-in-r.html#cb23-3"></a><span class="kw">library</span>(picante)</span>
+<span id="cb23-4"><a href="diversity-indices-in-r.html#cb23-4"></a><span class="kw">library</span>(knitr)</span></code></pre></div>
+</div>
+<div id="what-are-diversity-indices" class="section level2">
+<h2><span class="header-section-number">2.3</span> What are diversity indices?</h2>
+<p>A diversity index is a measure of the “diversity” of an area. <em>Diversity</em> could be measured in terms of the numbers of species (or higher taxonomic groupings like genera, families, phyla), or other metrics such as number of haplotypes if you’re interested in genetic diversity, or number of functional groups for studies of functional diversity.</p>
+<p>Many diversity indices also account for how evenly spread these different types are.
+For example, they identify whether there are there five species with 10 individuals of each (even), or five species with one species with 96 individuals and four species with one individual each (uneven). These differences in evenness may be as important for ecosystem function as the number of species.</p>
+<p>There are about a million different diversity indices (OK this is a slight exaggeration but there are a lot, check out the <a href="https://cran.r-project.org/web/packages/vegan/vegan.pdf">vegan package</a> vignette and search for “diversity”), and different people prefer different measures for different questions. Amusingly the <code>vegan</code> help file for the function <code>diversify</code> states <em>“these indices are all very closely related <span class="citation">Hill (<a href="#ref-hill1973diversity" role="doc-biblioref">1973</a>)</span>, and there is no reason to despise one more than others (but if you are a graduate student, don’t drag me in, but obey your Professor’s orders)”</em>.</p>
+<div id="alpha-beta-and-gamma-diversity" class="section level3">
+<h3><span class="header-section-number">2.3.1</span> <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\gamma\)</span> diversity</h3>
+<p>These concepts were originally proposed by <span class="citation">Whittaker (<a href="#ref-whittaker1960vegetation" role="doc-biblioref">1960</a>)</span> and expanded in <span class="citation">Whittaker (<a href="#ref-whittaker1972evolution" role="doc-biblioref">1972</a>)</span>.</p>
+<ul>
+<li><span class="math inline">\(\alpha\)</span> (alpha) diversity is the mean species diversity in sites or habitats at a local scale.</li>
+<li><span class="math inline">\(\beta\)</span> (beta) diversity is turnover in <span class="math inline">\(\alpha\)</span> diversity among different sites.</li>
+<li><span class="math inline">\(\gamma\)</span> (gamma) diversity is diversity at the landscape level.</li>
+</ul>
+<p>For example, if we count the species in Hyde Park and Green Park, we’d have a measure of <span class="math inline">\(\alpha\)</span> diversity for each. <span class="math inline">\(\beta\)</span> diversity would measure the difference between species found in Hyde Park and those found in Green Park. <span class="math inline">\(\gamma\)</span> diversity would be all the species found across London. <span class="math inline">\(\beta\)</span> diversity is the hardest to measure, and there are far more metrics for measuring this than any others.</p>
+</div>
+</div>
+<div id="practical-example-using-pokemon" class="section level2">
+<h2><span class="header-section-number">2.4</span> Practical example using Pokemon…</h2>
+<p>We’re going to play around with some invented data on sampling sites within the Museum and the Pokemon we’ve managed to find there (don’t complain about my unlikely Pokemon combinations, they’re just made up data with Pokemon names rather than A, B, C etc!).</p>
+<div class="figure">
+<img src="images/pokemon.png" alt="" />
+<p class="caption">Who doesn’t love a practical handout being interrupted by an enormous Pikachu?</p>
+</div>
+<p>First read in the data and take a look at it.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="diversity-indices-in-r.html#cb24-1"></a><span class="co"># Read in the dataset</span></span>
+<span id="cb24-2"><a href="diversity-indices-in-r.html#cb24-2"></a>pokemon &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/pokemon-communities.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="diversity-indices-in-r.html#cb25-1"></a><span class="co"># Look at the data</span></span>
+<span id="cb25-2"><a href="diversity-indices-in-r.html#cb25-2"></a><span class="co"># I used kable from the knitr package so it makes a nice neat table</span></span>
+<span id="cb25-3"><a href="diversity-indices-in-r.html#cb25-3"></a><span class="kw">kable</span>(pokemon)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Site</th>
+<th align="right">Abundance</th>
+<th align="left">Species</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">site01</td>
+<td align="right">5</td>
+<td align="left">Bulbasaur</td>
+</tr>
+<tr class="even">
+<td align="left">site01</td>
+<td align="right">3</td>
+<td align="left">Charmander</td>
+</tr>
+<tr class="odd">
+<td align="left">site02</td>
+<td align="right">6</td>
+<td align="left">Pidgey</td>
+</tr>
+<tr class="even">
+<td align="left">site02</td>
+<td align="right">6</td>
+<td align="left">Rattata</td>
+</tr>
+<tr class="odd">
+<td align="left">site02</td>
+<td align="right">1</td>
+<td align="left">Spearow</td>
+</tr>
+<tr class="even">
+<td align="left">site03</td>
+<td align="right">1</td>
+<td align="left">Bulbasaur</td>
+</tr>
+<tr class="odd">
+<td align="left">site03</td>
+<td align="right">1</td>
+<td align="left">Charmander</td>
+</tr>
+<tr class="even">
+<td align="left">site03</td>
+<td align="right">1</td>
+<td align="left">Pidgey</td>
+</tr>
+<tr class="odd">
+<td align="left">site03</td>
+<td align="right">10</td>
+<td align="left">Rattata</td>
+</tr>
+<tr class="even">
+<td align="left">site03</td>
+<td align="right">1</td>
+<td align="left">Spearow</td>
+</tr>
+<tr class="odd">
+<td align="left">site03</td>
+<td align="right">1</td>
+<td align="left">Pikachu</td>
+</tr>
+<tr class="even">
+<td align="left">site04</td>
+<td align="right">1</td>
+<td align="left">Pikachu</td>
+</tr>
+<tr class="odd">
+<td align="left">site04</td>
+<td align="right">2</td>
+<td align="left">Charmander</td>
+</tr>
+<tr class="even">
+<td align="left">site05</td>
+<td align="right">3</td>
+<td align="left">Squirtle</td>
+</tr>
+<tr class="odd">
+<td align="left">site05</td>
+<td align="right">2</td>
+<td align="left">Caterpie</td>
+</tr>
+<tr class="even">
+<td align="left">site05</td>
+<td align="right">4</td>
+<td align="left">Pidgey</td>
+</tr>
+<tr class="odd">
+<td align="left">site05</td>
+<td align="right">3</td>
+<td align="left">Rattata</td>
+</tr>
+<tr class="even">
+<td align="left">site06</td>
+<td align="right">1</td>
+<td align="left">Psyduck</td>
+</tr>
+<tr class="odd">
+<td align="left">site07</td>
+<td align="right">3</td>
+<td align="left">Bulbasaur</td>
+</tr>
+<tr class="even">
+<td align="left">site07</td>
+<td align="right">3</td>
+<td align="left">Charmander</td>
+</tr>
+<tr class="odd">
+<td align="left">site07</td>
+<td align="right">3</td>
+<td align="left">Squirtle</td>
+</tr>
+<tr class="even">
+<td align="left">site07</td>
+<td align="right">3</td>
+<td align="left">Caterpie</td>
+</tr>
+<tr class="odd">
+<td align="left">site07</td>
+<td align="right">3</td>
+<td align="left">Pidgey</td>
+</tr>
+<tr class="even">
+<td align="left">site07</td>
+<td align="right">3</td>
+<td align="left">Rattata</td>
+</tr>
+<tr class="odd">
+<td align="left">site07</td>
+<td align="right">3</td>
+<td align="left">Spearow</td>
+</tr>
+<tr class="even">
+<td align="left">site08</td>
+<td align="right">5</td>
+<td align="left">Bulbasaur</td>
+</tr>
+<tr class="odd">
+<td align="left">site08</td>
+<td align="right">5</td>
+<td align="left">Caterpie</td>
+</tr>
+<tr class="even">
+<td align="left">site09</td>
+<td align="right">10</td>
+<td align="left">Squirtle</td>
+</tr>
+<tr class="odd">
+<td align="left">site10</td>
+<td align="right">3</td>
+<td align="left">Pidgey</td>
+</tr>
+<tr class="even">
+<td align="left">site10</td>
+<td align="right">6</td>
+<td align="left">Charmander</td>
+</tr>
+<tr class="odd">
+<td align="left">site10</td>
+<td align="right">2</td>
+<td align="left">Zubat</td>
+</tr>
+</tbody>
+</table>
+<p>For the <code>vegan</code> functions to work you need a matrix where the columns are the species names, the rows are the communities, and the contents of the matrix are the numbers of each species found at each site (or presence absence data as 0s and 1s). We can use the <code>sample2matrix</code> function in <code>picante</code> to do this easily.</p>
+<p>Note that this only works if your first variable is the name of the site, your second is abundance and your third is the names of the species present.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="diversity-indices-in-r.html#cb26-1"></a><span class="co"># Create a matrix we can use with vegan</span></span>
+<span id="cb26-2"><a href="diversity-indices-in-r.html#cb26-2"></a>pokemon.matrix &lt;-<span class="st"> </span><span class="kw">sample2matrix</span>(pokemon)</span>
+<span id="cb26-3"><a href="diversity-indices-in-r.html#cb26-3"></a></span>
+<span id="cb26-4"><a href="diversity-indices-in-r.html#cb26-4"></a><span class="co"># Look at the matrix</span></span>
+<span id="cb26-5"><a href="diversity-indices-in-r.html#cb26-5"></a><span class="kw">kable</span>(pokemon.matrix)</span></code></pre></div>
+<table>
+<colgroup>
+<col width="7%" />
+<col width="10%" />
+<col width="9%" />
+<col width="12%" />
+<col width="7%" />
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+<col width="9%" />
+<col width="6%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Bulbasaur</th>
+<th align="right">Caterpie</th>
+<th align="right">Charmander</th>
+<th align="right">Pidgey</th>
+<th align="right">Pikachu</th>
+<th align="right">Psyduck</th>
+<th align="right">Rattata</th>
+<th align="right">Spearow</th>
+<th align="right">Squirtle</th>
+<th align="right">Zubat</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">site01</td>
+<td align="right">5</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">site02</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">site03</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">10</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">site04</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">site05</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">site06</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">site07</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">site08</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">site09</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">10</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">site10</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">6</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">2</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="species-diversity-indices" class="section level2">
+<h2><span class="header-section-number">2.5</span> Species diversity indices</h2>
+<div id="alpha-diversity" class="section level3">
+<h3><span class="header-section-number">2.5.1</span> <span class="math inline">\(\alpha\)</span> diversity</h3>
+<p>The simplest measure of <span class="math inline">\(\alpha\)</span> diversity is just the number of species in each site.
+You can easily extract this as follows.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="diversity-indices-in-r.html#cb27-1"></a><span class="kw">specnumber</span>(pokemon.matrix)</span></code></pre></div>
+<pre><code>## site01 site02 site03 site04 site05 site06 site07 site08 site09 site10 
+##      2      3      6      2      4      1      7      2      1      3</code></pre>
+<p>Simpson’s and Shannon’s diversity indices can be estimated using the function <code>diversity</code>.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="diversity-indices-in-r.html#cb29-1"></a><span class="co"># Simpson&#39;s index</span></span>
+<span id="cb29-2"><a href="diversity-indices-in-r.html#cb29-2"></a><span class="kw">diversity</span>(pokemon.matrix, <span class="dt">index =</span> <span class="st">&quot;simpson&quot;</span>)</span></code></pre></div>
+<pre><code>##    site01    site02    site03    site04    site05    site06    site07 
+## 0.4687500 0.5680473 0.5333333 0.4444444 0.7361111 0.0000000 0.8571429 
+##    site08    site09    site10 
+## 0.5000000 0.0000000 0.5950413</code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="diversity-indices-in-r.html#cb31-1"></a><span class="co"># Shannon&#39;s index</span></span>
+<span id="cb31-2"><a href="diversity-indices-in-r.html#cb31-2"></a><span class="kw">diversity</span>(pokemon.matrix, <span class="dt">index =</span> <span class="st">&quot;shannon&quot;</span>)</span></code></pre></div>
+<pre><code>##    site01    site02    site03    site04    site05    site06    site07 
+## 0.6615632 0.9110175 1.1729935 0.6365142 1.3579779 0.0000000 1.9459101 
+##    site08    site09    site10 
+## 0.6931472 0.0000000 0.9949236</code></pre>
+</div>
+<div id="beta-diversity" class="section level3">
+<h3><span class="header-section-number">2.5.2</span> <span class="math inline">\(\beta\)</span> diversity</h3>
+<p>The function <code>betadiver</code> allows you to estimate all the <span class="math inline">\(\beta\)</span> diversity indices mentioned in <span class="citation">Koleff, Gaston, and Lennon (<a href="#ref-koleff2003measuring" role="doc-biblioref">2003</a>)</span>. For help on which indices are included type:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="diversity-indices-in-r.html#cb33-1"></a><span class="kw">betadiver</span>(<span class="dt">help=</span><span class="ot">TRUE</span>)</span></code></pre></div>
+<pre><code>## 1 &quot;w&quot; = (b+c)/(2*a+b+c)
+## 2 &quot;-1&quot; = (b+c)/(2*a+b+c)
+## 3 &quot;c&quot; = (b+c)/2
+## 4 &quot;wb&quot; = b+c
+## 5 &quot;r&quot; = 2*b*c/((a+b+c)^2-2*b*c)
+## 6 &quot;I&quot; = log(2*a+b+c) - 2*a*log(2)/(2*a+b+c) - ((a+b)*log(a+b) +
+## (a+c)*log(a+c)) / (2*a+b+c)
+## 7 &quot;e&quot; = exp(log(2*a+b+c) - 2*a*log(2)/(2*a+b+c) - ((a+b)*log(a+b)
+## + (a+c)*log(a+c)) / (2*a+b+c))-1
+## 8 &quot;t&quot; = (b+c)/(2*a+b+c)
+## 9 &quot;me&quot; = (b+c)/(2*a+b+c)
+## 10 &quot;j&quot; = a/(a+b+c)
+## 11 &quot;sor&quot; = 2*a/(2*a+b+c)
+## 12 &quot;m&quot; = (2*a+b+c)*(b+c)/(a+b+c)
+## 13 &quot;-2&quot; = pmin(b,c)/(pmax(b,c)+a)
+## 14 &quot;co&quot; = (a*c+a*b+2*b*c)/(2*(a+b)*(a+c))
+## 15 &quot;cc&quot; = (b+c)/(a+b+c)
+## 16 &quot;g&quot; = (b+c)/(a+b+c)
+## 17 &quot;-3&quot; = pmin(b,c)/(a+b+c)
+## 18 &quot;l&quot; = (b+c)/2
+## 19 &quot;19&quot; = 2*(b*c+1)/(a+b+c)/(a+b+c-1)
+## 20 &quot;hk&quot; = (b+c)/(2*a+b+c)
+## 21 &quot;rlb&quot; = a/(a+c)
+## 22 &quot;sim&quot; = pmin(b,c)/(pmin(b,c)+a)
+## 23 &quot;gl&quot; = 2*abs(b-c)/(2*a+b+c)
+## 24 &quot;z&quot; = (log(2)-log(2*a+b+c)+log(a+b+c))/log(2)</code></pre>
+<p>Note that some of these are similarity indices, and some are dissimilarity indices.
+See <span class="citation">Koleff, Gaston, and Lennon (<a href="#ref-koleff2003measuring" role="doc-biblioref">2003</a>)</span> for more details. Two commonly used similarity indices are Jaccard’s index and Sorenson’s index which can be estimated as follows (note that completely different communities get a score of 0):</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="diversity-indices-in-r.html#cb35-1"></a><span class="co"># Jaccard&#39;s index</span></span>
+<span id="cb35-2"><a href="diversity-indices-in-r.html#cb35-2"></a><span class="kw">betadiver</span>(pokemon.matrix, <span class="dt">method =</span> <span class="st">&quot;j&quot;</span>)</span></code></pre></div>
+<pre><code>##           site01    site02    site03    site04    site05    site06
+## site02 0.0000000                                                  
+## site03 0.3333333 0.5000000                                        
+## site04 0.3333333 0.0000000 0.3333333                              
+## site05 0.0000000 0.4000000 0.2500000 0.0000000                    
+## site06 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000          
+## site07 0.2857143 0.4285714 0.6250000 0.1250000 0.5714286 0.0000000
+## site08 0.3333333 0.0000000 0.1428571 0.0000000 0.2000000 0.0000000
+## site09 0.0000000 0.0000000 0.0000000 0.0000000 0.2500000 0.0000000
+## site10 0.2500000 0.2000000 0.2857143 0.2500000 0.1666667 0.0000000
+##           site07    site08    site09
+## site02                              
+## site03                              
+## site04                              
+## site05                              
+## site06                              
+## site07                              
+## site08 0.2857143                    
+## site09 0.1428571 0.0000000          
+## site10 0.2500000 0.0000000 0.0000000</code></pre>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="diversity-indices-in-r.html#cb37-1"></a><span class="co"># Shannon&#39;s index</span></span>
+<span id="cb37-2"><a href="diversity-indices-in-r.html#cb37-2"></a><span class="kw">betadiver</span>(pokemon.matrix, <span class="dt">method =</span> <span class="st">&quot;sor&quot;</span>)</span></code></pre></div>
+<pre><code>##           site01    site02    site03    site04    site05    site06
+## site02 0.0000000                                                  
+## site03 0.5000000 0.6666667                                        
+## site04 0.5000000 0.0000000 0.5000000                              
+## site05 0.0000000 0.5714286 0.4000000 0.0000000                    
+## site06 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000          
+## site07 0.4444444 0.6000000 0.7692308 0.2222222 0.7272727 0.0000000
+## site08 0.5000000 0.0000000 0.2500000 0.0000000 0.3333333 0.0000000
+## site09 0.0000000 0.0000000 0.0000000 0.0000000 0.4000000 0.0000000
+## site10 0.4000000 0.3333333 0.4444444 0.4000000 0.2857143 0.0000000
+##           site07    site08    site09
+## site02                              
+## site03                              
+## site04                              
+## site05                              
+## site06                              
+## site07                              
+## site08 0.4444444                    
+## site09 0.2500000 0.0000000          
+## site10 0.4000000 0.0000000 0.0000000</code></pre>
+<p>Note that the outputs here are pairwise matrices, as these indices measure the similarity among each pair of sites. You can estimate Whittaker’s original version using <code>method = "w"</code> (this is a dissimilarity method so completely different communities get a score of 1).</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="diversity-indices-in-r.html#cb39-1"></a><span class="co"># Whittaker&#39;s betadiversity index</span></span>
+<span id="cb39-2"><a href="diversity-indices-in-r.html#cb39-2"></a><span class="kw">betadiver</span>(pokemon.matrix, <span class="dt">method =</span> <span class="st">&quot;w&quot;</span>)</span></code></pre></div>
+<pre><code>##           site01    site02    site03    site04    site05    site06
+## site02 1.0000000                                                  
+## site03 0.5000000 0.3333333                                        
+## site04 0.5000000 1.0000000 0.5000000                              
+## site05 1.0000000 0.4285714 0.6000000 1.0000000                    
+## site06 1.0000000 1.0000000 1.0000000 1.0000000 1.0000000          
+## site07 0.5555556 0.4000000 0.2307692 0.7777778 0.2727273 1.0000000
+## site08 0.5000000 1.0000000 0.7500000 1.0000000 0.6666667 1.0000000
+## site09 1.0000000 1.0000000 1.0000000 1.0000000 0.6000000 1.0000000
+## site10 0.6000000 0.6666667 0.5555556 0.6000000 0.7142857 1.0000000
+##           site07    site08    site09
+## site02                              
+## site03                              
+## site04                              
+## site05                              
+## site06                              
+## site07                              
+## site08 0.5555556                    
+## site09 0.7500000 1.0000000          
+## site10 0.6000000 1.0000000 1.0000000</code></pre>
+</div>
+<div id="gamma-diversity" class="section level3">
+<h3><span class="header-section-number">2.5.3</span> <span class="math inline">\(\gamma\)</span> diversity</h3>
+<p>In this example, <span class="math inline">\(\gamma\)</span> diversity is the total number of species found across all sites. We can very simply calculate this in R using the following code:</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="diversity-indices-in-r.html#cb41-1"></a><span class="co"># How many unique species are there?</span></span>
+<span id="cb41-2"><a href="diversity-indices-in-r.html#cb41-2"></a><span class="kw">length</span>(<span class="kw">unique</span>(pokemon<span class="op">$</span>Species[pokemon<span class="op">$</span>Abundance <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>]))</span></code></pre></div>
+<pre><code>## [1] 10</code></pre>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="diversity-indices-in-r.html#cb43-1"></a><span class="co"># To view unique species</span></span>
+<span id="cb43-2"><a href="diversity-indices-in-r.html#cb43-2"></a><span class="kw">unique</span>(pokemon<span class="op">$</span>Species)</span></code></pre></div>
+<pre><code>##  [1] &quot;Bulbasaur&quot;  &quot;Charmander&quot; &quot;Pidgey&quot;     &quot;Rattata&quot;    &quot;Spearow&quot;   
+##  [6] &quot;Pikachu&quot;    &quot;Squirtle&quot;   &quot;Caterpie&quot;   &quot;Psyduck&quot;    &quot;Zubat&quot;</code></pre>
+<p>Note that the <code>[pokemon$Abundance &gt; 0]</code> bit of the code ensures we don’t count species where we have them in the species list, but their abundance at all sites is zero.</p>
+</div>
+</div>
+<div id="species-accumulation-curves-colwell-coddington-1994" class="section level2">
+<h2><span class="header-section-number">2.6</span> Species accumulation curves (Colwell &amp; Coddington 1994)</h2>
+<p>Often when we talk about species diversity we’re interested in the total diversity of an area or a site. For example, if we want to conserve a patch of woodland, we might need to know how many species in total live there. Sounds easy enough right?
+Just go out and sample the heck out of that woodland…</p>
+<p>The problem of course is that sampling is time consuming and expensive, and in conservation we don’t have much time or money. In addition, completely sampling all species in an area is difficult, especially for small, rare, shy species. Instead we often estimate species richness by various means. Species accumulation curves are one way to do this.</p>
+<p>Species accumulation curves are graphs showing the <strong>cumulative number of species</strong> recorded in an area or site as a function of the <strong>cumulative sampling effort</strong> taken to search for them. Sampling effort can be number of quadrats, number of hours of sampling etc. for <span class="math inline">\(\alpha\)</span> diversity, or number of sites if trying to get an estimate of <span class="math inline">\(\gamma\)</span> diversity.</p>
+<p>The idea is that as you sample more, you should get closer to discovering all the species in the area. The first few samples you take will probably have lots of species you haven’t recorded yet, but this rate of discovery should slow down. Eventually you hope that you’ll stop finding any new species to record so the curve will asymptote, but in reality sampling is rarely that thorough. Luckily we can use species accumulation curves to estimate where the curve would asymptote if we kept on sampling.</p>
+<div id="pokemon-species-accumulation-curves" class="section level3">
+<h3><span class="header-section-number">2.6.1</span> Pokemon species accumulation curves</h3>
+<p>Let’s try this for our Pokemon, how many species might be hiding in the Museum if we sampled thoroughly?</p>
+<p>We can use the <code>pokemon.matrix</code> we’ve already created and estimate the accumulation curve using the <code>vegan</code> function <code>specaccum</code>. There are lots of methods for estimating these curves but we will use <code>method = "random"</code>. This works as follows.</p>
+<p>It randomly selects a site and calculates the initial richness, then randomly selects a second site and calculates the cumulative richness (i.e. the second site plus the first site), and repeats this until all the sites have been used. It then repeats this process 1000 times. You can change the number of times it does this using <code>permutations</code> but 1000 is about right - too few and the curves are not smooth, too many and it takes ages. The function outputs the mean cumulative richness and standard deviations for across all 1000 permutations. We do this because our curve will look different depending on which site we start with, and so will give a different total richness estimate. Randomising the order helps us get a better estimate of the total richness, and the standard error on that estimate.</p>
+<p>To do this for our Pokemon:</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="diversity-indices-in-r.html#cb45-1"></a><span class="co"># Fit species accumulation curve</span></span>
+<span id="cb45-2"><a href="diversity-indices-in-r.html#cb45-2"></a>pokemon.curve &lt;-<span class="st"> </span><span class="kw">specaccum</span>(pokemon.matrix, <span class="dt">method =</span> <span class="st">&quot;random&quot;</span>, <span class="dt">permutations =</span> <span class="dv">1000</span>)</span>
+<span id="cb45-3"><a href="diversity-indices-in-r.html#cb45-3"></a></span>
+<span id="cb45-4"><a href="diversity-indices-in-r.html#cb45-4"></a><span class="co"># Look at the results</span></span>
+<span id="cb45-5"><a href="diversity-indices-in-r.html#cb45-5"></a>pokemon.curve</span></code></pre></div>
+<pre><code>## Species Accumulation Curve
+## Accumulation method: random, with 1000 permutations
+## Call: specaccum(comm = pokemon.matrix, method = &quot;random&quot;, permutations = 1000) 
+## 
+##                                                                        
+## Sites    1.000000 2.000000 3.000000 4.000000 5.000000 6.000000 7.000000
+## Richness 3.016000 5.155000 6.654000 7.707000 8.422000 8.927000 9.288000
+## sd       1.866341 1.696424 1.302298 0.920869 0.743282 0.685668 0.627255
+##                              
+## Sites    8.000000 9.000000 10
+## Richness 9.563000 9.785000 10
+## sd       0.531332 0.411028  0</code></pre>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="diversity-indices-in-r.html#cb47-1"></a><span class="co"># Plot the curve</span></span>
+<span id="cb47-2"><a href="diversity-indices-in-r.html#cb47-2"></a><span class="kw">plot</span>(pokemon.curve, <span class="dt">ci.type =</span> <span class="st">&quot;poly&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">ci.col =</span> <span class="st">&quot;lightblue&quot;</span>, </span>
+<span id="cb47-3"><a href="diversity-indices-in-r.html#cb47-3"></a>     <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">ci.lty =</span> <span class="dv">0</span>, <span class="dt">xlab =</span> <span class="st">&quot;number of sites&quot;</span>, </span>
+<span id="cb47-4"><a href="diversity-indices-in-r.html#cb47-4"></a>     <span class="dt">ylab =</span> <span class="st">&quot;cumulative number of Pokemon species&quot;</span>)</span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
+<p><code>"ci.type = "poly"</code> tells R that you want a shaded area showing the confidence intervals from your randomisations. You can play around with the colours etc. if you want to.</p>
+<p>For those of you who prefer to use ggplot, we can plot these curves as follows. Note that because ggplot works with dataframes we first need to create a dataframe from the <code>pokemon.curve</code> object. Also we use standard deviation * 1.96 to get the confidence intervals.</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="diversity-indices-in-r.html#cb48-1"></a><span class="co"># Load ggplot</span></span>
+<span id="cb48-2"><a href="diversity-indices-in-r.html#cb48-2"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb48-3"><a href="diversity-indices-in-r.html#cb48-3"></a><span class="co"># Make a new dataframe</span></span>
+<span id="cb48-4"><a href="diversity-indices-in-r.html#cb48-4"></a>pokemon.curve.df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">sites =</span> pokemon.curve<span class="op">$</span>sites,</span>
+<span id="cb48-5"><a href="diversity-indices-in-r.html#cb48-5"></a>                               <span class="dt">richness =</span> pokemon.curve<span class="op">$</span>richness,</span>
+<span id="cb48-6"><a href="diversity-indices-in-r.html#cb48-6"></a>                               <span class="dt">sd =</span> pokemon.curve<span class="op">$</span>sd)</span>
+<span id="cb48-7"><a href="diversity-indices-in-r.html#cb48-7"></a></span>
+<span id="cb48-8"><a href="diversity-indices-in-r.html#cb48-8"></a><span class="co"># Plot</span></span>
+<span id="cb48-9"><a href="diversity-indices-in-r.html#cb48-9"></a><span class="kw">ggplot</span>(pokemon.curve.df, <span class="kw">aes</span>(<span class="dt">x =</span> sites, <span class="dt">y =</span> richness)) <span class="op">+</span></span>
+<span id="cb48-10"><a href="diversity-indices-in-r.html#cb48-10"></a><span class="st">  </span><span class="co"># Add line</span></span>
+<span id="cb48-11"><a href="diversity-indices-in-r.html#cb48-11"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
+<span id="cb48-12"><a href="diversity-indices-in-r.html#cb48-12"></a><span class="st">  </span><span class="co"># Add confidence intervals</span></span>
+<span id="cb48-13"><a href="diversity-indices-in-r.html#cb48-13"></a><span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> richness <span class="op">-</span><span class="st"> </span><span class="fl">1.96</span><span class="op">*</span>sd, <span class="dt">ymax =</span> richness <span class="op">+</span><span class="st"> </span><span class="fl">1.96</span><span class="op">*</span>sd), </span>
+<span id="cb48-14"><a href="diversity-indices-in-r.html#cb48-14"></a>              <span class="dt">alpha =</span> <span class="fl">0.5</span>, <span class="dt">colour =</span> <span class="st">&quot;grey&quot;</span>) <span class="op">+</span></span>
+<span id="cb48-15"><a href="diversity-indices-in-r.html#cb48-15"></a><span class="st">  </span><span class="co"># Remove grey background</span></span>
+<span id="cb48-16"><a href="diversity-indices-in-r.html#cb48-16"></a><span class="st">  </span><span class="kw">theme_bw</span>(<span class="dt">base_size =</span> <span class="dv">14</span>)</span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
+<p>To demonstrate why we need the randomisations, look at two curves for just one permutation each.</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="diversity-indices-in-r.html#cb49-1"></a><span class="co"># Fit one curve with just one permutation</span></span>
+<span id="cb49-2"><a href="diversity-indices-in-r.html#cb49-2"></a>pokemon.curve1 &lt;-<span class="st"> </span><span class="kw">specaccum</span>(pokemon.matrix, <span class="dt">method =</span> <span class="st">&quot;random&quot;</span>, <span class="dt">permutations =</span> <span class="dv">1</span>)</span>
+<span id="cb49-3"><a href="diversity-indices-in-r.html#cb49-3"></a><span class="co"># Fit another curve with just one permutation</span></span>
+<span id="cb49-4"><a href="diversity-indices-in-r.html#cb49-4"></a>pokemon.curve2 &lt;-<span class="st"> </span><span class="kw">specaccum</span>(pokemon.matrix, <span class="dt">method =</span> <span class="st">&quot;random&quot;</span>, <span class="dt">permutations =</span> <span class="dv">1</span>)</span>
+<span id="cb49-5"><a href="diversity-indices-in-r.html#cb49-5"></a></span>
+<span id="cb49-6"><a href="diversity-indices-in-r.html#cb49-6"></a><span class="co"># Set the plotting window so we can plot two plots</span></span>
+<span id="cb49-7"><a href="diversity-indices-in-r.html#cb49-7"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb49-8"><a href="diversity-indices-in-r.html#cb49-8"></a></span>
+<span id="cb49-9"><a href="diversity-indices-in-r.html#cb49-9"></a><span class="co"># Plot the first curve</span></span>
+<span id="cb49-10"><a href="diversity-indices-in-r.html#cb49-10"></a><span class="kw">plot</span>(pokemon.curve1,  </span>
+<span id="cb49-11"><a href="diversity-indices-in-r.html#cb49-11"></a>    <span class="dt">xlab =</span> <span class="st">&quot;number of sites&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;cumulative number of Pokemon species&quot;</span>)</span>
+<span id="cb49-12"><a href="diversity-indices-in-r.html#cb49-12"></a></span>
+<span id="cb49-13"><a href="diversity-indices-in-r.html#cb49-13"></a><span class="co"># Plot the second curve</span></span>
+<span id="cb49-14"><a href="diversity-indices-in-r.html#cb49-14"></a><span class="kw">plot</span>(pokemon.curve2, </span>
+<span id="cb49-15"><a href="diversity-indices-in-r.html#cb49-15"></a>    <span class="dt">xlab =</span> <span class="st">&quot;number of sites&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;cumulative number of Pokemon species&quot;</span>)</span></code></pre></div>
+<p><img src="pcm-primer_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="diversity-indices-in-r.html#cb50-1"></a><span class="co"># Reset the plotting window so we see just one plot again</span></span>
+<span id="cb50-2"><a href="diversity-indices-in-r.html#cb50-2"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div>
+<p>Finally to estimate total species richness across all sites we can (again) use many different metrics. Some common ones include Chao 2 <span class="citation">(Chao <a href="#ref-chao1987estimating" role="doc-biblioref">1987</a>)</span>, Jackknife and Bootstrapping approaches and these are easy to estimate using the <code>vegan</code> function <code>specpool</code>.</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="diversity-indices-in-r.html#cb51-1"></a><span class="co"># Estimate diversity</span></span>
+<span id="cb51-2"><a href="diversity-indices-in-r.html#cb51-2"></a><span class="kw">specpool</span>(pokemon.matrix)</span></code></pre></div>
+<pre><code>##     Species chao  chao.se jack1 jack1.se    jack2     boot   boot.se  n
+## All      10 11.8 3.394113  11.8 1.272792 12.68889 10.90352 0.7502033 10</code></pre>
+<p>Estimates range from 10.9 <span class="math inline">\(\pm\)</span> 0.75 (boot) to 11.8 <span class="math inline">\(\pm\)</span> 3.39 (chao). So we can be fairly confident there are between 10 and 15 (<span class="math inline">\(11.8 + 3.39 = 15.19\)</span>) Pokemon in the Museum.</p>
+</div>
+</div>
+<div id="practical-exercise" class="section level2">
+<h2><span class="header-section-number">2.7</span> Practical exercise</h2>
+<p>In the data folder there is another (invented) dataset using British bats called <code>bat-communities.csv</code>. Read in the data, manipulate it as required by <code>vegan</code>, then answer the following questions.</p>
+<ol style="list-style-type: decimal">
+<li><p>Which site has the fewest species?</p></li>
+<li><p>How many different species are there in total?</p></li>
+<li><p>What is Simpson’s diversity index for Site J?</p></li>
+<li><p>Draw a species accumulation curve for the bats and estimate the total number of species. If you round up numbers with decimal places, what is the maximum number of species estimated by any metric?</p></li>
+</ol>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-chao1987estimating">
+<p>Chao, Anne. 1987. “Estimating the Population Size for Capture-Recapture Data with Unequal Catchability.” <em>Biometrics</em>, 783–91.</p>
+</div>
+<div id="ref-hill1973diversity">
+<p>Hill, Mark O. 1973. “Diversity and Evenness: A Unifying Notation and Its Consequences.” <em>Ecology</em> 54 (2): 427–32.</p>
+</div>
+<div id="ref-koleff2003measuring">
+<p>Koleff, Patricia, Kevin J Gaston, and Jack J Lennon. 2003. “Measuring Beta Diversity for Presence–Absence Data.” <em>Journal of Animal Ecology</em> 72 (3): 367–82.</p>
+</div>
+<div id="ref-whittaker1972evolution">
+<p>Whittaker, Robert H. 1972. “Evolution and Measurement of Species Diversity.” <em>Taxon</em> 21 (2-3): 213–51.</p>
+</div>
+<div id="ref-whittaker1960vegetation">
+<p>Whittaker, Robert Harding. 1960. “Vegetation of the Siskiyou Mountains, Oregon and California.” <em>Ecological Monographs</em> 30 (3): 279–338.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="understanding-plotting-and-manipulating-phylogenies-in-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/02-DiversityIndices.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["pcm-primer.pdf", "pcm-primer.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

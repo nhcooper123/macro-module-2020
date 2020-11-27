@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 7 Macroevolutionary models for continuous traits | Practical exercises for Methods in Macroecology and Macroevolution module</title>
+  <meta name="description" content="Chapter 7 Macroevolutionary models for continuous traits | Practical exercises for Methods in Macroecology and Macroevolution module" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 7 Macroevolutionary models for continuous traits | Practical exercises for Methods in Macroecology and Macroevolution module" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 7 Macroevolutionary models for continuous traits | Practical exercises for Methods in Macroecology and Macroevolution module" />
+  
+  
+  
+
+<meta name="author" content="Natalie Cooper" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="phylogenetic-generalised-least-squares-pgls-in-r.html"/>
+<link rel="next" href="macroevolutionary-models-for-discrete-traits.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">PCM Primer</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#datasets-and-scripts"><i class="fa fa-check"></i>Datasets and scripts</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#how-to-use-these-materials"><i class="fa fa-check"></i>How to use these materials</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#boxes"><i class="fa fa-check"></i>Boxes</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#example-datasets"><i class="fa fa-check"></i>Example datasets</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#frog-eye-size-evolution"><i class="fa fa-check"></i>Frog eye size evolution</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#natricine-snake-head-shape-evolution"><i class="fa fa-check"></i>Natricine snake head shape evolution</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#diversification-in-dragonflies"><i class="fa fa-check"></i>Diversification in dragonflies</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#citing-r-and-r-packages"><i class="fa fa-check"></i>Citing R and R packages</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgements"><i class="fa fa-check"></i>Acknowledgements</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><i class="fa fa-check"></i><b>1</b> What you need to be able to do in R before you start</a><ul>
+<li class="chapter" data-level="1.1" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#installing-r-and-rstudio"><i class="fa fa-check"></i><b>1.1</b> Installing R (and RStudio)</a></li>
+<li class="chapter" data-level="1.2" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#downloading-the-data"><i class="fa fa-check"></i><b>1.2</b> Downloading the data</a></li>
+<li class="chapter" data-level="1.3" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#r-projects"><i class="fa fa-check"></i><b>1.3</b> R Projects</a></li>
+<li class="chapter" data-level="1.4" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#using-a-script"><i class="fa fa-check"></i><b>1.4</b> Using a script</a></li>
+<li class="chapter" data-level="1.5" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#installing-and-loading-extra-packages-in-r"><i class="fa fa-check"></i><b>1.5</b> Installing and loading extra packages in R</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#loading-packages-into-r"><i class="fa fa-check"></i><b>1.5.1</b> Loading packages into R</a></li>
+<li class="chapter" data-level="1.5.2" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#ggtree-a-special-case-for-package-installation"><i class="fa fa-check"></i><b>1.5.2</b> <code>ggtree</code>, a special case for package installation</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#loading-and-viewing-your-data-in-r"><i class="fa fa-check"></i><b>1.6</b> Loading and viewing your data in R</a></li>
+<li class="chapter" data-level="1.7" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#errors-and-warnings"><i class="fa fa-check"></i><b>1.7</b> Errors and warnings</a><ul>
+<li class="chapter" data-level="1.7.1" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#removing-the"><i class="fa fa-check"></i><b>1.7.1</b> Removing the <code>+</code></a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="what-you-need-to-be-able-to-do-in-r-before-you-start.html"><a href="what-you-need-to-be-able-to-do-in-r-before-you-start.html#summary"><i class="fa fa-check"></i><b>1.8</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html"><i class="fa fa-check"></i><b>2</b> Diversity Indices in R</a><ul>
+<li class="chapter" data-level="2.1" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#before-you-start"><i class="fa fa-check"></i><b>2.1</b> Before you start</a></li>
+<li class="chapter" data-level="2.2" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#preparation"><i class="fa fa-check"></i><b>2.2</b> Preparation</a></li>
+<li class="chapter" data-level="2.3" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#what-are-diversity-indices"><i class="fa fa-check"></i><b>2.3</b> What are diversity indices?</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#alpha-beta-and-gamma-diversity"><i class="fa fa-check"></i><b>2.3.1</b> <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\gamma\)</span> diversity</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#practical-example-using-pokemon"><i class="fa fa-check"></i><b>2.4</b> Practical example using Pokemon…</a></li>
+<li class="chapter" data-level="2.5" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#species-diversity-indices"><i class="fa fa-check"></i><b>2.5</b> Species diversity indices</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#alpha-diversity"><i class="fa fa-check"></i><b>2.5.1</b> <span class="math inline">\(\alpha\)</span> diversity</a></li>
+<li class="chapter" data-level="2.5.2" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#beta-diversity"><i class="fa fa-check"></i><b>2.5.2</b> <span class="math inline">\(\beta\)</span> diversity</a></li>
+<li class="chapter" data-level="2.5.3" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#gamma-diversity"><i class="fa fa-check"></i><b>2.5.3</b> <span class="math inline">\(\gamma\)</span> diversity</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#species-accumulation-curves-colwell-coddington-1994"><i class="fa fa-check"></i><b>2.6</b> Species accumulation curves (Colwell &amp; Coddington 1994)</a><ul>
+<li class="chapter" data-level="2.6.1" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#pokemon-species-accumulation-curves"><i class="fa fa-check"></i><b>2.6.1</b> Pokemon species accumulation curves</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="diversity-indices-in-r.html"><a href="diversity-indices-in-r.html#practical-exercise"><i class="fa fa-check"></i><b>2.7</b> Practical exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html"><i class="fa fa-check"></i><b>3</b> Understanding, plotting and manipulating phylogenies in R</a><ul>
+<li class="chapter" data-level="3.1" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#before-you-start-1"><i class="fa fa-check"></i><b>3.1</b> Before you start</a></li>
+<li class="chapter" data-level="3.2" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#what-do-phylogeny-files-look-like"><i class="fa fa-check"></i><b>3.2</b> What do phylogeny files look like?</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#newick-trees"><i class="fa fa-check"></i><b>3.2.1</b> Newick trees</a></li>
+<li class="chapter" data-level="3.2.2" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#nexus-trees"><i class="fa fa-check"></i><b>3.2.2</b> NEXUS trees</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#how-are-phylogenies-formatted-in-r"><i class="fa fa-check"></i><b>3.3</b> How are phylogenies formatted in R?</a></li>
+<li class="chapter" data-level="3.4" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#plotting-phylogenies"><i class="fa fa-check"></i><b>3.4</b> Plotting phylogenies</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#basic-phylogeny-plotting-with-ape"><i class="fa fa-check"></i><b>3.4.1</b> Basic phylogeny plotting with APE</a></li>
+<li class="chapter" data-level="3.4.2" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#basic-phylogeny-plotting-with-ggtree"><i class="fa fa-check"></i><b>3.4.2</b> Basic phylogeny plotting with <code>ggtree</code></a></li>
+<li class="chapter" data-level="3.4.3" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#back-to-ggtree"><i class="fa fa-check"></i><b>3.4.3</b> Back to <code>ggtree</code></a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#phylogeny-manipulation"><i class="fa fa-check"></i><b>3.5</b> Phylogeny manipulation</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#removing-polytomies"><i class="fa fa-check"></i><b>3.5.1</b> Removing polytomies</a></li>
+<li class="chapter" data-level="3.5.2" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#rooting-your-phylogeny"><i class="fa fa-check"></i><b>3.5.2</b> Rooting your phylogeny</a></li>
+<li class="chapter" data-level="3.5.3" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#manipulating-the-species-in-your-phlyogeny"><i class="fa fa-check"></i><b>3.5.3</b> Manipulating the species in your phlyogeny</a></li>
+<li class="chapter" data-level="3.5.4" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#writing-phylogenies-to-file"><i class="fa fa-check"></i><b>3.5.4</b> Writing phylogenies to file</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#summary-1"><i class="fa fa-check"></i><b>3.6</b> Summary</a></li>
+<li class="chapter" data-level="3.7" data-path="understanding-plotting-and-manipulating-phylogenies-in-r.html"><a href="understanding-plotting-and-manipulating-phylogenies-in-r.html#practical-exercise-1"><i class="fa fa-check"></i><b>3.7</b> Practical exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html"><i class="fa fa-check"></i><b>4</b> Preparing your tree and data for PCMs in R</a><ul>
+<li class="chapter" data-level="4.1" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#before-you-start-2"><i class="fa fa-check"></i><b>4.1</b> Before you start</a></li>
+<li class="chapter" data-level="4.2" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#preparation-1"><i class="fa fa-check"></i><b>4.2</b> Preparation</a></li>
+<li class="chapter" data-level="4.3" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#reading-and-checking-your-phylogeny-in-r"><i class="fa fa-check"></i><b>4.3</b> Reading and checking your phylogeny in R</a></li>
+<li class="chapter" data-level="4.4" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#reading-the-data-into-r"><i class="fa fa-check"></i><b>4.4</b> Reading the data into R</a></li>
+<li class="chapter" data-level="4.5" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#matching-your-data-to-your-phylogeny"><i class="fa fa-check"></i><b>4.5</b> Matching your data to your phylogeny</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#species-names-with-spaces"><i class="fa fa-check"></i><b>4.5.1</b> Species names with spaces</a></li>
+<li class="chapter" data-level="4.5.2" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#mismatches-between-species-in-your-data-and-phylogeny"><i class="fa fa-check"></i><b>4.5.2</b> Mismatches between species in your data and phylogeny</a></li>
+<li class="chapter" data-level="4.5.3" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#matching-the-tree-and-the-data"><i class="fa fa-check"></i><b>4.5.3</b> Matching the tree and the data</a></li>
+<li class="chapter" data-level="4.5.4" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#subsetting-your-tree-and-data"><i class="fa fa-check"></i><b>4.5.4</b> Subsetting your tree and data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#quick-template-code"><i class="fa fa-check"></i><b>4.6</b> Quick template code</a></li>
+<li class="chapter" data-level="4.7" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#summary-2"><i class="fa fa-check"></i><b>4.7</b> Summary</a></li>
+<li class="chapter" data-level="4.8" data-path="preparing-your-tree-and-data-for-pcms-in-r.html"><a href="preparing-your-tree-and-data-for-pcms-in-r.html#practical-exercise-2"><i class="fa fa-check"></i><b>4.8</b> Practical exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html"><i class="fa fa-check"></i><b>5</b> Phylogenetic Signal in R</a><ul>
+<li class="chapter" data-level="5.1" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#before-you-start-3"><i class="fa fa-check"></i><b>5.1</b> Before you start</a></li>
+<li class="chapter" data-level="5.2" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#preparation-2"><i class="fa fa-check"></i><b>5.2</b> Preparation</a></li>
+<li class="chapter" data-level="5.3" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#estimating-phylogenetic-signal-for-continuous-variables"><i class="fa fa-check"></i><b>5.3</b> Estimating phylogenetic signal for continuous variables</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#pagels-lambda"><i class="fa fa-check"></i><b>5.3.1</b> Pagel’s <span class="math inline">\(\lambda\)</span></a></li>
+<li class="chapter" data-level="5.3.2" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#blombergs-k-blomberg-et-al-2003"><i class="fa fa-check"></i><b>5.3.2</b> Blomberg’s <em>K</em> (Blomberg et al 2003)</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#estimating-phylogenetic-signal-for-non-continuous-variables"><i class="fa fa-check"></i><b>5.4</b> Estimating phylogenetic signal for non-continuous variables</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#d"><i class="fa fa-check"></i><b>5.4.1</b> <em>D</em></a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#summary-3"><i class="fa fa-check"></i><b>5.5</b> Summary</a></li>
+<li class="chapter" data-level="5.6" data-path="phylogenetic-signal-in-r.html"><a href="phylogenetic-signal-in-r.html#practical-exercises"><i class="fa fa-check"></i><b>5.6</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html"><i class="fa fa-check"></i><b>6</b> Phylogenetic Generalised Least Squares (PGLS) in R</a><ul>
+<li class="chapter" data-level="6.1" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#before-you-start-4"><i class="fa fa-check"></i><b>6.1</b> Before you start</a></li>
+<li class="chapter" data-level="6.2" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#preparation-3"><i class="fa fa-check"></i><b>6.2</b> Preparation</a></li>
+<li class="chapter" data-level="6.3" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#phylogenetic-generalized-least-squares-models-pgls"><i class="fa fa-check"></i><b>6.3</b> Phylogenetic generalized least squares models (PGLS)</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#fitting-pgls-models-in-r"><i class="fa fa-check"></i><b>6.3.1</b> Fitting PGLS models in R</a></li>
+<li class="chapter" data-level="6.3.2" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#model-diagnostics-for-pgls-models"><i class="fa fa-check"></i><b>6.3.2</b> Model diagnostics for PGLS models</a></li>
+<li class="chapter" data-level="6.3.3" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#likelihood-profiles-for-lambda-in-pgls-models"><i class="fa fa-check"></i><b>6.3.3</b> Likelihood profiles for <span class="math inline">\(\lambda\)</span> in PGLS models</a></li>
+<li class="chapter" data-level="6.3.4" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#a-pgls-example-with-more-than-one-predictor-variable"><i class="fa fa-check"></i><b>6.3.4</b> A PGLS example with more than one predictor variable</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#common-issues-when-running-pgls-models-in-r"><i class="fa fa-check"></i><b>6.4</b> Common issues when running PGLS models in R</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#optim-errors"><i class="fa fa-check"></i><b>6.4.1</b> Optim errors</a></li>
+<li class="chapter" data-level="6.4.2" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#big-problems-with-small-datasets"><i class="fa fa-check"></i><b>6.4.2</b> Big problems with small datasets</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#summary-4"><i class="fa fa-check"></i><b>6.5</b> Summary</a></li>
+<li class="chapter" data-level="6.6" data-path="phylogenetic-generalised-least-squares-pgls-in-r.html"><a href="phylogenetic-generalised-least-squares-pgls-in-r.html#practical-exercises-1"><i class="fa fa-check"></i><b>6.6</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html"><i class="fa fa-check"></i><b>7</b> Macroevolutionary models for continuous traits</a><ul>
+<li class="chapter" data-level="7.1" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#before-you-start-5"><i class="fa fa-check"></i><b>7.1</b> Before you start</a></li>
+<li class="chapter" data-level="7.2" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#preparation-4"><i class="fa fa-check"></i><b>7.2</b> Preparation</a></li>
+<li class="chapter" data-level="7.3" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#models-of-evolution-for-continuous-traits"><i class="fa fa-check"></i><b>7.3</b> Models of evolution for continuous traits</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#loook-at-the-data"><i class="fa fa-check"></i><b>7.3.1</b> loook at the data????</a></li>
+<li class="chapter" data-level="7.3.2" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#fitting-the-brownian-motion-and-ou-models-of-evolution-using-fitcontinuous"><i class="fa fa-check"></i><b>7.3.2</b> Fitting the Brownian motion and OU models of evolution using <code>fitContinuous</code></a></li>
+<li class="chapter" data-level="7.3.3" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#comparing-models-of-evolution-using-aic"><i class="fa fa-check"></i><b>7.3.3</b> Comparing models of evolution using AIC</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#summary-5"><i class="fa fa-check"></i><b>7.4</b> Summary</a></li>
+<li class="chapter" data-level="7.5" data-path="macroevolutionary-models-for-continuous-traits.html"><a href="macroevolutionary-models-for-continuous-traits.html#practical-exercises-2"><i class="fa fa-check"></i><b>7.5</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html"><i class="fa fa-check"></i><b>8</b> Macroevolutionary models for discrete traits</a><ul>
+<li class="chapter" data-level="8.1" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#before-you-start-6"><i class="fa fa-check"></i><b>8.1</b> Before you start</a></li>
+<li class="chapter" data-level="8.2" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#preparation-5"><i class="fa fa-check"></i><b>8.2</b> Preparation</a></li>
+<li class="chapter" data-level="8.3" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#models-of-evolution-for-discrete-traits"><i class="fa fa-check"></i><b>8.3</b> Models of evolution for discrete traits</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#fitting-the-er-sym-and-ard-models-of-evolution-using-fitdiscrete"><i class="fa fa-check"></i><b>8.3.1</b> Fitting the ER, SYM and ARD models of evolution using <code>fitDiscrete</code></a></li>
+<li class="chapter" data-level="8.3.2" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#comparing-models-of-evolution-using-aic-1"><i class="fa fa-check"></i><b>8.3.2</b> Comparing models of evolution using AIC</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#ancestral-state-estimations"><i class="fa fa-check"></i><b>8.4</b> Ancestral state estimations</a></li>
+<li class="chapter" data-level="8.5" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#summary-6"><i class="fa fa-check"></i><b>8.5</b> Summary</a></li>
+<li class="chapter" data-level="8.6" data-path="macroevolutionary-models-for-discrete-traits.html"><a href="macroevolutionary-models-for-discrete-traits.html#practical-exercises-3"><i class="fa fa-check"></i><b>8.6</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><i class="fa fa-check"></i><b>9</b> Beyond simple macroevolutionary models of trait evolution</a><ul>
+<li class="chapter" data-level="9.1" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#before-you-start-7"><i class="fa fa-check"></i><b>9.1</b> Before you start</a></li>
+<li class="chapter" data-level="9.2" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#preparation-6"><i class="fa fa-check"></i><b>9.2</b> Preparation</a></li>
+<li class="chapter" data-level="9.3" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#more-complex-models-of-trait-evolution"><i class="fa fa-check"></i><b>9.3</b> More complex models of trait evolution</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#preparing-the-tree-and-data-for-ouwie"><i class="fa fa-check"></i><b>9.3.1</b> Preparing the tree and data for OUwie</a></li>
+<li class="chapter" data-level="9.3.2" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#running-models-using-ouwie"><i class="fa fa-check"></i><b>9.3.2</b> Running models using OUwie</a></li>
+<li class="chapter" data-level="9.3.3" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#single-rate-bm-models"><i class="fa fa-check"></i><b>9.3.3</b> Single rate BM models</a></li>
+<li class="chapter" data-level="9.3.4" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#single-optimum-ou-models"><i class="fa fa-check"></i><b>9.3.4</b> Single optimum OU models</a></li>
+<li class="chapter" data-level="9.3.5" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#multi-rate-bm-bms-models"><i class="fa fa-check"></i><b>9.3.5</b> Multi-rate BM (BMS) models</a></li>
+<li class="chapter" data-level="9.3.6" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#multi-optima-ou-oum-models"><i class="fa fa-check"></i><b>9.3.6</b> Multi-optima OU (OUM) models</a></li>
+<li class="chapter" data-level="9.3.7" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#multi-rate-multi-optima-ou-motion-models-oumv"><i class="fa fa-check"></i><b>9.3.7</b> Multi-rate multi-optima OU motion models (OUMV)</a></li>
+<li class="chapter" data-level="9.3.8" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#multi-alpha-multi-optima-ou-motion-models-ouma"><i class="fa fa-check"></i><b>9.3.8</b> Multi-alpha multi-optima OU motion models (OUMA)</a></li>
+<li class="chapter" data-level="9.3.9" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#multi-rate-multi-optima-ou-motion-models-oumva"><i class="fa fa-check"></i><b>9.3.9</b> Multi-rate multi-optima OU motion models (OUMVA)</a></li>
+<li class="chapter" data-level="9.3.10" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#comparing-models-of-evolution-using-aic-2"><i class="fa fa-check"></i><b>9.3.10</b> Comparing models of evolution using AIC</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#summary-7"><i class="fa fa-check"></i><b>9.4</b> Summary</a></li>
+<li class="chapter" data-level="9.5" data-path="beyond-simple-macroevolutionary-models-of-trait-evolution.html"><a href="beyond-simple-macroevolutionary-models-of-trait-evolution.html#practical-exercises-4"><i class="fa fa-check"></i><b>9.5</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html"><i class="fa fa-check"></i><b>10</b> Diversification rate analyses</a><ul>
+<li class="chapter" data-level="10.1" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#before-you-start-8"><i class="fa fa-check"></i><b>10.1</b> Before you start</a></li>
+<li class="chapter" data-level="10.2" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#preparation-7"><i class="fa fa-check"></i><b>10.2</b> Preparation</a></li>
+<li class="chapter" data-level="10.3" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#lineage-through-time-plots-and-the-gamma-statistic"><i class="fa fa-check"></i><b>10.3</b> Lineage through time plots and the <span class="math inline">\(\gamma\)</span> statistic</a></li>
+<li class="chapter" data-level="10.4" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#bamm-bayesian-analysis-of-macroevolutionary-mixtures"><i class="fa fa-check"></i><b>10.4</b> BAMM: Bayesian Analysis of Macroevolutionary Mixtures</a></li>
+<li class="chapter" data-level="10.5" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#running-bamm"><i class="fa fa-check"></i><b>10.5</b> Running BAMM</a></li>
+<li class="chapter" data-level="10.6" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#looking-at-the-output-of-bamm-using-bammtools-in-r"><i class="fa fa-check"></i><b>10.6</b> Looking at the output of BAMM using BAMMtools in R</a><ul>
+<li class="chapter" data-level="10.6.1" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#assessing-mcmc-convergence"><i class="fa fa-check"></i><b>10.6.1</b> Assessing MCMC convergence</a></li>
+<li class="chapter" data-level="10.6.2" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#analysis-of-rate-shifts-in-the-dragonfly-phylogeny"><i class="fa fa-check"></i><b>10.6.2</b> Analysis of rate shifts in the dragonfly phylogeny</a></li>
+<li class="chapter" data-level="10.6.3" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#mean-phylorate-plot"><i class="fa fa-check"></i><b>10.6.3</b> Mean phylorate plot</a></li>
+<li class="chapter" data-level="10.6.4" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#best-single-distinct-shift-configuration"><i class="fa fa-check"></i><b>10.6.4</b> Best single distinct shift configuration</a></li>
+</ul></li>
+<li class="chapter" data-level="10.7" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#credible-sets-of-shifts"><i class="fa fa-check"></i><b>10.7</b> Credible sets of shifts</a></li>
+<li class="chapter" data-level="10.8" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#clade-specific-evolutionary-rates"><i class="fa fa-check"></i><b>10.8</b> Clade specific evolutionary rates</a></li>
+<li class="chapter" data-level="10.9" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#rate-through-time-analysis"><i class="fa fa-check"></i><b>10.9</b> Rate-through-time analysis</a></li>
+<li class="chapter" data-level="10.10" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#macroevolutionary-cohort-analysis"><i class="fa fa-check"></i><b>10.10</b> Macroevolutionary cohort analysis</a></li>
+<li class="chapter" data-level="10.11" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#assumptions-and-issues-with-bamm"><i class="fa fa-check"></i><b>10.11</b> Assumptions and issues with BAMM</a></li>
+<li class="chapter" data-level="10.12" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#summary-8"><i class="fa fa-check"></i><b>10.12</b> Summary</a></li>
+<li class="chapter" data-level="10.13" data-path="diversification-rate-analyses.html"><a href="diversification-rate-analyses.html#practical-exercises-5"><i class="fa fa-check"></i><b>10.13</b> Practical exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html"><i class="fa fa-check"></i><b>11</b> Critical thinking about methods and analyses</a><ul>
+<li class="chapter" data-level="11.1" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#how-to-critically-evaluate-a-paper-that-uses-phylogenetic-comparative-methods"><i class="fa fa-check"></i><b>11.1</b> How to critically evaluate a paper that uses phylogenetic comparative methods</a><ul>
+<li class="chapter" data-level="" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#logicinterpretation"><i class="fa fa-check"></i>Logic/interpretation</a></li>
+<li class="chapter" data-level="" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#data"><i class="fa fa-check"></i>Data</a></li>
+<li class="chapter" data-level="" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#methods"><i class="fa fa-check"></i>Methods</a></li>
+<li class="chapter" data-level="" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#moving-forwards"><i class="fa fa-check"></i>Moving forwards</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="critical-thinking-about-methods-and-analyses.html"><a href="critical-thinking-about-methods-and-analyses.html#further-reading"><i class="fa fa-check"></i><b>11.2</b> Further reading</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html"><i class="fa fa-check"></i><b>12</b> Answers to practical exercises</a><ul>
+<li class="chapter" data-level="12.1" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#diversity-indices"><i class="fa fa-check"></i><b>12.1</b> Diversity indices</a></li>
+<li class="chapter" data-level="12.2" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#phylogenies"><i class="fa fa-check"></i><b>12.2</b> Phylogenies</a></li>
+<li class="chapter" data-level="12.3" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#preparation-8"><i class="fa fa-check"></i><b>12.3</b> Preparation</a></li>
+<li class="chapter" data-level="12.4" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#phylogenetic-signal"><i class="fa fa-check"></i><b>12.4</b> Phylogenetic signal</a></li>
+<li class="chapter" data-level="12.5" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#pgls"><i class="fa fa-check"></i><b>12.5</b> PGLS</a></li>
+<li class="chapter" data-level="12.6" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#models-of-evolution-with-continuous-traits"><i class="fa fa-check"></i><b>12.6</b> Models of evolution with continuous traits</a></li>
+<li class="chapter" data-level="12.7" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#models-of-evolution-with-discrete-traits"><i class="fa fa-check"></i><b>12.7</b> Models of evolution with discrete traits</a></li>
+<li class="chapter" data-level="12.8" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#beyond-simple-macroevolutionary-models-of-trait-evolution-1"><i class="fa fa-check"></i><b>12.8</b> Beyond simple macroevolutionary models of trait evolution</a></li>
+<li class="chapter" data-level="12.9" data-path="answers-to-practical-exercises.html"><a href="answers-to-practical-exercises.html#diversification"><i class="fa fa-check"></i><b>12.9</b> Diversification</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Practical exercises for Methods in Macroecology and Macroevolution module</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="macroevolutionary-models-for-continuous-traits" class="section level1">
+<h1><span class="header-section-number">Chapter 7</span> Macroevolutionary models for continuous traits</h1>
+<p>The aims of this exercise are to learn how to use R to fit macroevolutionary models in R to continuous traits.</p>
+<div class="info">
+<p>
+We will be using the evolution of head shape in natricine snakes as an example. The data and modified tree come from DEEPAK [CITE PAPER], and the tree comes from DEEPAK [CITE PAPER]. I’ve removed a few species and a few variables to make things a bit more straightforward. If you want to see the full results check out DEEPAK [CITE PAPER]!
+</p>
+</div>
+<div id="before-you-start-5" class="section level2">
+<h2><span class="header-section-number">7.1</span> Before you start</h2>
+<ul>
+<li>Open the <code>07-ModelsContinuous.RProj</code> file in the <code>07-ModelsContinuous</code> folder to open your R Project for this exercise.</li>
+<li>Make yourself a new R script for your code.</li>
+</ul>
+<p>You will also need to install the following packages:</p>
+<ul>
+<li><code>ape</code></li>
+<li><code>geiger</code></li>
+<li><code>treeplyr</code></li>
+</ul>
+</div>
+<div id="preparation-4" class="section level2">
+<h2><span class="header-section-number">7.2</span> Preparation</h2>
+<p>To begin we need to load the packages for this practical.</p>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="macroevolutionary-models-for-continuous-traits.html#cb244-1"></a><span class="co"># Load the packages</span></span>
+<span id="cb244-2"><a href="macroevolutionary-models-for-continuous-traits.html#cb244-2"></a><span class="kw">library</span>(ape)</span>
+<span id="cb244-3"><a href="macroevolutionary-models-for-continuous-traits.html#cb244-3"></a><span class="kw">library</span>(geiger)</span>
+<span id="cb244-4"><a href="macroevolutionary-models-for-continuous-traits.html#cb244-4"></a><span class="kw">library</span>(treeplyr)</span></code></pre></div>
+<p>Next we need to prepare the tree and data for the analyses. In the <code>04-Preparation</code> exercise we read in our tree and data, checked them, and matched them so only species in both were retained. Please refer to that exercise for more details on how and why we do these things, or run through it now if you haven’t previously.</p>
+<p>It is important to do these things before beginning a phylogenetic comparative analysis, so let’s run through that code again here.</p>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="macroevolutionary-models-for-continuous-traits.html#cb245-1"></a><span class="co"># Read in the data</span></span>
+<span id="cb245-2"><a href="macroevolutionary-models-for-continuous-traits.html#cb245-2"></a>snakedata &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/snake-heads.csv&quot;</span>)</span>
+<span id="cb245-3"><a href="macroevolutionary-models-for-continuous-traits.html#cb245-3"></a><span class="co"># Check everything loaded corrected</span></span>
+<span id="cb245-4"><a href="macroevolutionary-models-for-continuous-traits.html#cb245-4"></a><span class="kw">glimpse</span>(snakedata)</span></code></pre></div>
+<pre><code>## Rows: 206
+## Columns: 9
+## $ Species          &lt;chr&gt; &quot;Adelophis_foxi&quot;, &quot;Afronatrix_anoscopus_2&quot;, &quot;Am…
+## $ Ecomorph         &lt;chr&gt; &quot;Burrowing&quot;, &quot;Aquatic&quot;, &quot;Terrestrial&quot;, &quot;Terrest…
+## $ Diet             &lt;chr&gt; &quot;annelids&quot;, &quot;aquatic generalist&quot;, &quot;anurans&quot;, &quot;a…
+## $ ReproductiveMode &lt;chr&gt; &quot;Viviparous&quot;, &quot;Oviparous&quot;, &quot;Oviparous&quot;, &quot;Ovipar…
+## $ HeadLength       &lt;dbl&gt; 12.560, 25.100, 15.060, 20.105, 19.950, 18.810,…
+## $ HeadWidth        &lt;dbl&gt; 6.60, 15.80, 7.82, 9.13, 10.32, 9.82, 8.39, 11.…
+## $ HeadHeight       &lt;dbl&gt; 5.43, 10.30, 5.40, 6.61, 7.56, 5.80, 6.40, 8.70…
+## $ EyeDistance      &lt;dbl&gt; 4.01, 7.40, 4.85, 5.85, 5.84, 5.42, 6.00, 6.05,…
+## $ TotalLength      &lt;dbl&gt; 105, 194, 106, 185, 165, 155, NA, 163, 130, 309…</code></pre>
+<p>To load the tree we will use <code>read.nexus</code>.</p>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="macroevolutionary-models-for-continuous-traits.html#cb247-1"></a><span class="co"># Read in the tree</span></span>
+<span id="cb247-2"><a href="macroevolutionary-models-for-continuous-traits.html#cb247-2"></a>snaketree &lt;-<span class="st"> </span><span class="kw">read.nexus</span>(<span class="st">&quot;data/snake-tree.nex&quot;</span>)</span>
+<span id="cb247-3"><a href="macroevolutionary-models-for-continuous-traits.html#cb247-3"></a><span class="co"># Check it loaded correctly</span></span>
+<span id="cb247-4"><a href="macroevolutionary-models-for-continuous-traits.html#cb247-4"></a><span class="kw">str</span>(snaketree)</span></code></pre></div>
+<pre><code>## List of 4
+##  $ edge       : int [1:496, 1:2] 250 251 252 253 254 255 256 257 258 259 ...
+##  $ edge.length: num [1:496] 4.695 2.225 0.587 0.307 0.832 ...
+##  $ Nnode      : int 248
+##  $ tip.label  : chr [1:249] &quot;Rhabdophis_leonardi&quot; &quot;Rhabdophis_nuchalis_1&quot; &quot;Rhabdophis_nuchalis_2&quot; &quot;Rhabdophis_adleri_1&quot; ...
+##  - attr(*, &quot;class&quot;)= chr &quot;phylo&quot;
+##  - attr(*, &quot;order&quot;)= chr &quot;cladewise&quot;</code></pre>
+<p>Remember to check the tree is dichotomous, i.e. has no polytomies, rooted, and ultrametric.</p>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="macroevolutionary-models-for-continuous-traits.html#cb249-1"></a><span class="co"># Check whether the tree is binary</span></span>
+<span id="cb249-2"><a href="macroevolutionary-models-for-continuous-traits.html#cb249-2"></a><span class="co"># We want this to be TRUE</span></span>
+<span id="cb249-3"><a href="macroevolutionary-models-for-continuous-traits.html#cb249-3"></a><span class="kw">is.binary.tree</span>(snaketree)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="macroevolutionary-models-for-continuous-traits.html#cb251-1"></a><span class="co"># Check whether the tree is rooted </span></span>
+<span id="cb251-2"><a href="macroevolutionary-models-for-continuous-traits.html#cb251-2"></a><span class="co"># We want this to be TRUE </span></span>
+<span id="cb251-3"><a href="macroevolutionary-models-for-continuous-traits.html#cb251-3"></a><span class="kw">is.rooted</span>(snaketree)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="macroevolutionary-models-for-continuous-traits.html#cb253-1"></a><span class="co"># Check whether the tree is ultrametric</span></span>
+<span id="cb253-2"><a href="macroevolutionary-models-for-continuous-traits.html#cb253-2"></a><span class="co"># We want this to be TRUE </span></span>
+<span id="cb253-3"><a href="macroevolutionary-models-for-continuous-traits.html#cb253-3"></a><span class="kw">is.ultrametric</span>(snaketree)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>Next check that the species names match up in the tree and the data. This should reveal any typos and/or taxonomic differences that need to be fixed before going any further. Note that in this dataset the species names are in the column <code>Species</code>.</p>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="macroevolutionary-models-for-continuous-traits.html#cb255-1"></a><span class="co"># Check whether the names match in the data and the tree</span></span>
+<span id="cb255-2"><a href="macroevolutionary-models-for-continuous-traits.html#cb255-2"></a>check &lt;-<span class="st"> </span><span class="kw">name.check</span>(<span class="dt">phy =</span> snaketree, <span class="dt">data =</span> snakedata, </span>
+<span id="cb255-3"><a href="macroevolutionary-models-for-continuous-traits.html#cb255-3"></a>                    <span class="dt">data.names =</span> snakedata<span class="op">$</span>Species)</span>
+<span id="cb255-4"><a href="macroevolutionary-models-for-continuous-traits.html#cb255-4"></a><span class="co"># Look at check</span></span>
+<span id="cb255-5"><a href="macroevolutionary-models-for-continuous-traits.html#cb255-5"></a>check</span></code></pre></div>
+<pre><code>## $tree_not_data
+##  [1] &quot;Afronatrix_anoscopus_1&quot;                
+##  [2] &quot;Afronatrix_anoscopus_3&quot;                
+##  [3] &quot;Aspidura_ravani&quot;                       
+##  [4] &quot;Atretium_schistosum_1&quot;                 
+##  [5] &quot;Blythia_hmuifang&quot;                      
+##  [6] &quot;Fowlea_piscator_1&quot;                     
+##  [7] &quot;Fowlea_piscator_3&quot;                     
+##  [8] &quot;Fowlea_piscator_4&quot;                     
+##  [9] &quot;Hebius_andreae&quot;                        
+## [10] &quot;Hebius_atemporale_2&quot;                   
+## [11] &quot;Hebius_atemporale_3&quot;                   
+## [12] &quot;Hebius_atemporale_4&quot;                   
+## [13] &quot;Hebius_bitaeniatum_1&quot;                  
+## [14] &quot;Hebius_bitaeniatum_2&quot;                  
+## [15] &quot;Hebius_bitaeniatum_3&quot;                  
+## [16] &quot;Hebius_boulengeri_1&quot;                   
+## [17] &quot;Hebius_cf._boulengeri&quot;                 
+## [18] &quot;Hebius_concelarum&quot;                     
+## [19] &quot;Hebius_craspedogaster_1&quot;               
+## [20] &quot;Hebius_craspedogaster_3&quot;               
+## [21] &quot;Hebius_deschauenseei_1&quot;                
+## [22] &quot;Hebius_deschauenseei_2&quot;                
+## [23] &quot;Hebius_ishigakiensis&quot;                  
+## [24] &quot;Hebius_khasiense_2&quot;                    
+## [25] &quot;Hebius_khasiense_3&quot;                    
+## [26] &quot;Hebius_leucomystax&quot;                    
+## [27] &quot;Hebius_octolineatum_1&quot;                 
+## [28] &quot;Hebius_octolineatum_2&quot;                 
+## [29] &quot;Hebius_optatum_2&quot;                      
+## [30] &quot;Hebius_popei_1&quot;                        
+## [31] &quot;Hebius_pryeri_1&quot;                       
+## [32] &quot;Hebius_sangzhiensis&quot;                   
+## [33] &quot;Hebius_sauteri_2&quot;                      
+## [34] &quot;Hebius_sp&quot;                             
+## [35] &quot;Hebius_sp1&quot;                            
+## [36] &quot;Hebius_sp2&quot;                            
+## [37] &quot;Hebius_sp4&quot;                            
+## [38] &quot;Hebius_taronense&quot;                      
+## [39] &quot;Hebius_venningi_1&quot;                     
+## [40] &quot;Hebius_venningi_3&quot;                     
+## [41] &quot;Hebius_venningi_4&quot;                     
+## [42] &quot;Hebius_yanbianensis&quot;                   
+## [43] &quot;Herpetoreas_burbrinki&quot;                 
+## [44] &quot;Limnophis_branchi&quot;                     
+## [45] &quot;Natriciteres_olivacea_2&quot;               
+## [46] &quot;Natriciteres_sylvatica_2&quot;              
+## [47] &quot;Natriciteres_sylvatica_3&quot;              
+## [48] &quot;Natrix_helvatica&quot;                      
+## [49] &quot;Natrix_tessellata_1&quot;                   
+## [50] &quot;Opisthotropis_cheni&quot;                   
+## [51] &quot;Opisthotropis_daovantieni&quot;             
+## [52] &quot;Opisthotropis_durandi&quot;                 
+## [53] &quot;Opisthotropis_guangxiensis&quot;            
+## [54] &quot;Opisthotropis_haihaensis&quot;              
+## [55] &quot;Opisthotropis_hungtai&quot;                 
+## [56] &quot;Opisthotropis_kuatunensis&quot;             
+## [57] &quot;Opisthotropis_laui&quot;                    
+## [58] &quot;Opisthotropis_maculosa&quot;                
+## [59] &quot;Opisthotropis_maxwelli&quot;                
+## [60] &quot;Opisthotropis_shenzhenensis&quot;           
+## [61] &quot;Opisthotropis_voquyi&quot;                  
+## [62] &quot;Opisthotropis_zhaoermii&quot;               
+## [63] &quot;Rhabdophis_adleri_1&quot;                   
+## [64] &quot;Rhabdophis_adleri_2&quot;                   
+## [65] &quot;Rhabdophis_callichromus&quot;               
+## [66] &quot;Rhabdophis_formosanus&quot;                 
+## [67] &quot;Rhabdophis_guangdongensis&quot;             
+## [68] &quot;Rhabdophis_nuchalis_1&quot;                 
+## [69] &quot;Rhabdophis_nuchalis_2&quot;                 
+## [70] &quot;Rhabdophis_nuchalis_pentasupralabialis&quot;
+## [71] &quot;Rhabdophis_pentasupralabialis&quot;         
+## [72] &quot;Rhabdophis_swinhonis_2&quot;                
+## [73] &quot;Thamnophis_exsul_1&quot;                    
+## [74] &quot;Thamnophis_gigas&quot;                      
+## [75] &quot;Thamnophis_mendax&quot;                     
+## [76] &quot;Thamnophis_nigronuchalis&quot;              
+## [77] &quot;Thamnophis_ordinoides&quot;                 
+## [78] &quot;Thamnophis_scalaris_1&quot;                 
+## [79] &quot;Thamnophis_scaliger_2&quot;                 
+## [80] &quot;Trachischium_apteii&quot;                   
+## [81] &quot;Trachischium_monticola_2&quot;              
+## [82] &quot;Trimerodytes_praemaxillaris&quot;           
+## [83] &quot;Trimerodytes_yapingi&quot;                  
+## [84] &quot;Tropidonophis_dahlii&quot;                  
+## [85] &quot;Tropidonophis_dendrophiops&quot;            
+## [86] &quot;Tropidonophis_multiscutellatus_2&quot;      
+## [87] &quot;Tropidonophis_statisticus_2&quot;           
+## 
+## $data_not_tree
+##  [1] &quot;Amphiesma_stolatum&quot;                  
+##  [2] &quot;Amphiesma_stolatum_WII&quot;              
+##  [3] &quot;Aspidura_brachyorrhos&quot;               
+##  [4] &quot;Aspidura_copei&quot;                      
+##  [5] &quot;Fowlea_flavipunctatus&quot;               
+##  [6] &quot;Fowlea_melanzostus&quot;                  
+##  [7] &quot;Hebius_bitaeniatum_4&quot;                
+##  [8] &quot;Hebius_celabicus&quot;                    
+##  [9] &quot;Hebius_clerki&quot;                       
+## [10] &quot;Hebius_flavifrons&quot;                   
+## [11] &quot;Hebius_groundwateri&quot;                 
+## [12] &quot;Hebius_inas&quot;                         
+## [13] &quot;Hebius_petersi&quot;                      
+## [14] &quot;Hebius_sanguinea&quot;                    
+## [15] &quot;Hebius_sarasinorum&quot;                  
+## [16] &quot;Hebius_sarawacensis&quot;                 
+## [17] &quot;Hebius_vibakari_2&quot;                   
+## [18] &quot;Hebius_vibakari_ruthveni&quot;            
+## [19] &quot;Herpetoreas_sieboldi&quot;                
+## [20] &quot;Hydrablabes_periops&quot;                 
+## [21] &quot;Hydrablabes_prafrontalis&quot;            
+## [22] &quot;Hydraethiops_laevis&quot;                 
+## [23] &quot;Isanophis_boonsongi&quot;                 
+## [24] &quot;Opisthotropis_spenceri&quot;              
+## [25] &quot;Paratapinophis_praemaxillaris&quot;       
+## [26] &quot;R_lineatus&quot;                          
+## [27] &quot;Rhabdophis_barbouri&quot;                 
+## [28] &quot;Rhabdophis_chrysargoides&quot;            
+## [29] &quot;Rhabdophis_chrysargos&quot;               
+## [30] &quot;Smithophis_sp&quot;                       
+## [31] &quot;Storeria_hidalgoensis&quot;               
+## [32] &quot;Thamnophis_elegans_lineolata&quot;        
+## [33] &quot;Thamnophis_rossmani&quot;                 
+## [34] &quot;Thamnophis_rufipunctatus_unilabialis&quot;
+## [35] &quot;Trachischium_susantai&quot;               
+## [36] &quot;Tropidonophis_celebicus&quot;             
+## [37] &quot;Tropidonophis_elongatus&quot;             
+## [38] &quot;Tropidonophis_halmahericus&quot;          
+## [39] &quot;Tropidonophis_hypomelas&quot;             
+## [40] &quot;Tropidonophis_mairii_brongersmai&quot;    
+## [41] &quot;Tropidonophis_mcdowelli&quot;             
+## [42] &quot;Tropidonophis_novaeguinea&quot;           
+## [43] &quot;Tropidonophis_parkeri&quot;               
+## [44] &quot;Tropidonophis_truncatus&quot;</code></pre>
+<p>There are a lot of species in the tree that are not in the data and vice versa! But (you’ll have to take my word for it!) all the excluded species are excluded because they are genuinely missing, not because of any typos, so we can move on.</p>
+<div class="info">
+<p>
+Having a lot of species missing from trees and data is not uncommon. To build trees we usually need molecular data which may be absent for newly collected specimens, or for older specimens. Likewise, it can be really difficult to gather all the data required for all of the species in a group - we know very little about the natural history of some species for example. This is nothing to panic about in your own datasets, but knowing which species are in the tree could help you target species to collate extra data for.
+</p>
+</div>
+<p>Next we combine the tree and data to exclude species that are not in both, using the <code>treeplyr</code> function <code>make.treedata</code>.</p>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="macroevolutionary-models-for-continuous-traits.html#cb257-1"></a><span class="co"># Combine and match the tree and data</span></span>
+<span id="cb257-2"><a href="macroevolutionary-models-for-continuous-traits.html#cb257-2"></a>snakestuff &lt;-<span class="st"> </span><span class="kw">make.treedata</span>(<span class="dt">tree =</span> snaketree,  <span class="dt">data =</span> snakedata, </span>
+<span id="cb257-3"><a href="macroevolutionary-models-for-continuous-traits.html#cb257-3"></a>                              <span class="dt">name_column =</span> <span class="st">&quot;Species&quot;</span>)</span>
+<span id="cb257-4"><a href="macroevolutionary-models-for-continuous-traits.html#cb257-4"></a></span>
+<span id="cb257-5"><a href="macroevolutionary-models-for-continuous-traits.html#cb257-5"></a><span class="co"># Look at the tree</span></span>
+<span id="cb257-6"><a href="macroevolutionary-models-for-continuous-traits.html#cb257-6"></a>snakestuff<span class="op">$</span>phy</span></code></pre></div>
+<pre><code>## 
+## Phylogenetic tree with 162 tips and 161 internal nodes.
+## 
+## Tip labels:
+##   Rhabdophis_leonardi, Rhabdophis_nuchalis_3, Rhabdophis_swinhonis_1, Rhabdophis_nigrocinctus, Rhabdophis_tigrinus, Rhabdophis_tigrinus_lateralis, ...
+## 
+## Rooted; includes branch lengths.</code></pre>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="macroevolutionary-models-for-continuous-traits.html#cb259-1"></a><span class="co"># Look at the data</span></span>
+<span id="cb259-2"><a href="macroevolutionary-models-for-continuous-traits.html#cb259-2"></a><span class="kw">glimpse</span>(snakestuff<span class="op">$</span>dat)</span></code></pre></div>
+<pre><code>## Rows: 162
+## Columns: 8
+## $ Ecomorph         &lt;fct&gt; Semiaquatic, Terrestrial, Semiaquatic, Terrestr…
+## $ Diet             &lt;fct&gt; unknown, generalist, anurans, generalist, gener…
+## $ ReproductiveMode &lt;fct&gt; Oviparous, Oviparous, Oviparous, Oviparous, Ovi…
+## $ HeadLength       &lt;dbl&gt; 25.640, 14.590, 18.030, 26.685, 23.760, 34.135,…
+## $ HeadWidth        &lt;dbl&gt; 13.72, 7.42, 8.58, 14.62, 13.94, 19.33, 11.79, …
+## $ HeadHeight       &lt;dbl&gt; 10.81, 5.79, 6.68, 9.83, 8.88, 12.90, 8.46, 8.6…
+## $ EyeDistance      &lt;dbl&gt; 8.16, 5.17, 5.74, 9.50, 7.89, 10.39, 8.27, 8.43…
+## $ TotalLength      &lt;int&gt; 120, 79, 123, 262, 132, 199, 226, 224, NA, NA, …</code></pre>
+<p>Overall we have 162 species in the data and the tree.</p>
+<p>Then we replace the removed species names column, and save the data as a data frame for later analyses.</p>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="macroevolutionary-models-for-continuous-traits.html#cb261-1"></a><span class="co"># Make a new column called tiplabel with the tip labels in it</span></span>
+<span id="cb261-2"><a href="macroevolutionary-models-for-continuous-traits.html#cb261-2"></a>snakestuff<span class="op">$</span>dat<span class="op">$</span>tiplabel &lt;-<span class="st"> </span>snakestuff<span class="op">$</span>phy<span class="op">$</span>tip.label</span>
+<span id="cb261-3"><a href="macroevolutionary-models-for-continuous-traits.html#cb261-3"></a><span class="co"># Force mydata to be a data frame</span></span>
+<span id="cb261-4"><a href="macroevolutionary-models-for-continuous-traits.html#cb261-4"></a>mydata &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(snakestuff<span class="op">$</span>dat)</span></code></pre></div>
+<p>Finally we save the tree:</p>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="macroevolutionary-models-for-continuous-traits.html#cb262-1"></a><span class="co"># Save tree as mytree</span></span>
+<span id="cb262-2"><a href="macroevolutionary-models-for-continuous-traits.html#cb262-2"></a>mytree &lt;-<span class="st"> </span>snakestuff<span class="op">$</span>phy</span></code></pre></div>
+<p>Now we’re ready to run our analyses!</p>
+</div>
+<div id="models-of-evolution-for-continuous-traits" class="section level2">
+<h2><span class="header-section-number">7.3</span> Models of evolution for continuous traits</h2>
+<p>For fitting models of evolution to continuous data we will use the <code>fitContinuous</code> function in the R package <code>geiger</code>. <code>fitContinuous</code> is a likelihood based method, so the output will give the maximum likelihood (ML) estimates of the parameters. Bayesian methods are becoming preferred for these kinds of analyses and <code>fitContinuousMCMC</code> will perform these analyses, but I’m not going to cover it here.</p>
+<p>As an example, let’s look at the evolution of head length in our snake data. Snake head shape is closely related to the ecology of the species, so we are interested in understanding how it evolves. These first analyses are quite simple, but would be the first step in a more detailed analysis.</p>
+<div id="loook-at-the-data" class="section level3">
+<h3><span class="header-section-number">7.3.1</span> loook at the data????</h3>
+</div>
+<div id="fitting-the-brownian-motion-and-ou-models-of-evolution-using-fitcontinuous" class="section level3">
+<h3><span class="header-section-number">7.3.2</span> Fitting the Brownian motion and OU models of evolution using <code>fitContinuous</code></h3>
+<p>We’ll fit two commonly used evolutionary models to the data; the Brownian motion (BM) model and the single peak Ornstein-Uhlenbeck (OU) model.</p>
+<p>As a quick reminder, the BM model is a so called “random walk” model where traits change gradually through time. The model has two parameters, the Brownian rate parameter, <span class="math inline">\(\sigma^2\)</span> and the state of the root at time zero, <span class="math inline">\(z(0)\)</span>.</p>
+<p>The OU model is a random walk where trait values are pulled back towards some “optimal” value with an attraction strength proportional to the “rubber-band” parameter <span class="math inline">\(\alpha\)</span>. The OU model has four parameters the Brownian rate parameter, <span class="math inline">\(\sigma^2\)</span>, the state of the root at time zero, <span class="math inline">\(z(0)\)</span>, the long-term mean, <span class="math inline">\(\mu\)</span>, and the strength of evolutionary force that returns traits back towards the long-term mean if they evolve away from it, <span class="math inline">\(\alpha\)</span>. If <span class="math inline">\(\alpha\)</span> is close to zero then evolution is approximately Brownian.</p>
+<p>For more details on these models please see the <em>Primer</em>.</p>
+<div class="detail">
+<p>
+<code>fitContinuous</code> can also fit several other models. For more details look at the help file by typing: <code>?fitContinuous</code>
+</p>
+</div>
+<p>We are going to use the package <code>geiger</code> to fit models in this exercise, which means there is an important additional preparation step that you may remember from when we used the package <code>phytools</code> and the function <code>phylosig</code> when were looking at phylogenetic signal in <code>05-PhyloSignal</code>.</p>
+<div class="info">
+<p>
+At this point you may be thinking, argh why can’t all R packages work in the same way? This is because different packages were written by different people. We all have different programming styles, preferences and biases (some people <em>really</em> hate the <code>tidyverse</code> and <code>ggplot2</code> for example!) and these feed into the code we write. My advice is to follow these tutorials (and others) carefully, and don’t worry about the differences too much. To put a positive spin on this, yes there may be lots of different ways to do things in R but at least they exist! Back in the day people published methods without the accompanying R packages. If you were lucky you might get some FORTRAN or C++ or C code, but generally you’d be expected to program the new methods yourself if you wanted to use them. Dealing with the idiosyncrasies of different people’s R packages is a breeze compared to that!
+</p>
+</div>
+<p>The first thing we need to do is to create an object in R that only contains the variable required, and the species names (so we can match it up to the tree).</p>
+<p>We can use the function <code>pull</code> to extract just the head length values, and we can log transform all these numbers using <code>log</code> if we want to work with log head length values.</p>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="macroevolutionary-models-for-continuous-traits.html#cb263-1"></a><span class="co"># Create logHL containing just log head length length values</span></span>
+<span id="cb263-2"><a href="macroevolutionary-models-for-continuous-traits.html#cb263-2"></a>logHL &lt;-<span class="st"> </span><span class="kw">log</span>(<span class="kw">pull</span>(mydata, HeadLength))</span>
+<span id="cb263-3"><a href="macroevolutionary-models-for-continuous-traits.html#cb263-3"></a><span class="co"># Look at the first few rows</span></span>
+<span id="cb263-4"><a href="macroevolutionary-models-for-continuous-traits.html#cb263-4"></a><span class="kw">head</span>(logHL)</span></code></pre></div>
+<pre><code>## [1] 3.244154 2.680336 2.892037 3.284102 3.168003 3.530323</code></pre>
+<p>Notice that this is currently just a long list of numbers. We can then name these values with the species names from <code>mydata</code> using the function <code>names</code>. Note that this requires the trait data is in the <em>same order</em> as the tree tip labels, but luckily <code>make.treedata</code> does this automatically.</p>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="macroevolutionary-models-for-continuous-traits.html#cb265-1"></a><span class="co"># Give log head length names = species names at the tips of the phylogeny</span></span>
+<span id="cb265-2"><a href="macroevolutionary-models-for-continuous-traits.html#cb265-2"></a><span class="kw">names</span>(logHL) &lt;-<span class="st"> </span>mydata<span class="op">$</span>tiplabel</span>
+<span id="cb265-3"><a href="macroevolutionary-models-for-continuous-traits.html#cb265-3"></a><span class="co"># Look at the first few rows</span></span>
+<span id="cb265-4"><a href="macroevolutionary-models-for-continuous-traits.html#cb265-4"></a><span class="kw">head</span>(logHL)</span></code></pre></div>
+<pre><code>##           Rhabdophis_leonardi         Rhabdophis_nuchalis_3 
+##                      3.244154                      2.680336 
+##        Rhabdophis_swinhonis_1       Rhabdophis_nigrocinctus 
+##                      2.892037                      3.284102 
+##           Rhabdophis_tigrinus Rhabdophis_tigrinus_lateralis 
+##                      3.168003                      3.530323</code></pre>
+<p>Now we have a list of values with associated species names.</p>
+<p>To fit the Brownian model we can then use the code below.</p>
+<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="macroevolutionary-models-for-continuous-traits.html#cb267-1"></a>BM &lt;-<span class="st"> </span><span class="kw">fitContinuous</span>(mytree, logHL, <span class="dt">model =</span> <span class="kw">c</span>(<span class="st">&quot;BM&quot;</span>))</span></code></pre></div>
+<p>To look at the output type:</p>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="macroevolutionary-models-for-continuous-traits.html#cb268-1"></a>BM</span></code></pre></div>
+<pre><code>## GEIGER-fitted comparative model of continuous data
+##  fitted &#39;BM&#39; model parameters:
+##  sigsq = 0.036973
+##  z0 = 2.854226
+## 
+##  model summary:
+##  log-likelihood = -153.103148
+##  AIC = 310.206296
+##  AICc = 310.281767
+##  free parameters = 2
+## 
+## Convergence diagnostics:
+##  optimization iterations = 100
+##  failed iterations = 0
+##  number of iterations with same best fit = 100
+##  frequency of best fit = 1.00
+## 
+##  object summary:
+##  &#39;lik&#39; -- likelihood function
+##  &#39;bnd&#39; -- bounds for likelihood search
+##  &#39;res&#39; -- optimization iteration summary
+##  &#39;opt&#39; -- maximum likelihood parameter estimates</code></pre>
+<p>The maximum likelihood estimates of the model parameters are found near the top of the output. In a Brownian motion (BM) model we estimate the Brownian rate parameter, <span class="math inline">\(\sigma^2\)</span> or <code>sigsq</code> in the output above, which is <code>0.037</code> and the value of the trait at the root of the tree, <span class="math inline">\(z(0)\)</span> or <code>z0</code> in the output above, which is <code>2.854</code>.</p>
+<p>Other useful things in the output are the maximum-likelihood estimate of the model (log-likelihood), the Akaike Information Criterion (<code>AIC</code>), sample-size corrected AIC (<code>AICc</code>) and the number of model parameters (free parameters) also known as <span class="math inline">\(k\)</span> in the literature. We will return to the AIC values below.</p>
+<p>To fit an Ornstein-Uhlenbeck model we only need to change the model in the formula we used above:</p>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="macroevolutionary-models-for-continuous-traits.html#cb270-1"></a>OU &lt;-<span class="st"> </span><span class="kw">fitContinuous</span>(mytree, logHL, <span class="dt">model =</span> <span class="kw">c</span>(<span class="st">&quot;OU&quot;</span>))</span></code></pre></div>
+<pre><code>## Warning in fitContinuous(mytree, logHL, model = c(&quot;OU&quot;)): 
+## Parameter estimates appear at bounds:
+##  alpha</code></pre>
+<p>This gives us a warning message (it doesn’t say <code>Error</code> so it’s not an error message). This means the analysis has run, but there’s something we should be aware of. This warning is telling us something about the bounds of the parameter estimates, specifically the alpha or “rubber-band” parameter.</p>
+<div class="detail">
+<p>
+<strong>What’s the deal with bounds?</strong> These BM and OU models are fitted using Maximum Likelihood. We talk more about this in the <em>Primer</em>. But as a quick reminder, to get the Maximum Likelihood for a model, we need to find the values of the parameters that maximise the likelihood function. Rather than trying every possible combination of parameter values we instead use some kind of <em>optimisation</em> procedure. Optimisations are often described in terms of hills and valleys. If you’re in the mountains looking for the highest peak, you could wander around the whole area, recording the height at each point, or we can make the process faster by always walking towards higher ground. If we did this we’d spend less time in the valleys and more time climbing towards the highest peaks. This is optimisation. To prevent us from spending lots of time looking in the wrong place, we could also define the boundaries of our search area, so we only look within a certain region. Our models do this by having <em>bounds</em> on the parameter values. So, for example, instead of looking at models with all possible values of <span class="math inline"><span class="math inline">\(\alpha\)</span></span> in an OU model, <code>fitContinuous</code> constrains the values of <span class="math inline"><span class="math inline">\(\alpha\)</span></span> to be between exp(-500) and exp(1).
+</p>
+</div>
+<p>To fix this issue we just change the bounds and refit the model. If you check out the help file for <code>fitContinuous</code> it tells us:</p>
+<blockquote>
+<p>Default bounds are alpha = c(min = exp(-500), max = exp(1))</p>
+</blockquote>
+<p>We can see what the value of alpha was in the model we fitted as follows:</p>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="macroevolutionary-models-for-continuous-traits.html#cb272-1"></a>OU<span class="op">$</span>opt<span class="op">$</span>alpha</span></code></pre></div>
+<pre><code>## [1] 2.718282</code></pre>
+<p>This is the same as <code>exp(1)</code>. So alpha is the same as the upper bound, meaning that is the bound we need to change. We can do that as follows:</p>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="macroevolutionary-models-for-continuous-traits.html#cb274-1"></a>OU &lt;-<span class="st"> </span><span class="kw">fitContinuous</span>(mytree, logHL, <span class="dt">model =</span> <span class="kw">c</span>(<span class="st">&quot;OU&quot;</span>), </span>
+<span id="cb274-2"><a href="macroevolutionary-models-for-continuous-traits.html#cb274-2"></a>                    <span class="dt">bounds =</span> <span class="kw">list</span>(<span class="dt">alpha =</span> <span class="kw">c</span>(<span class="kw">exp</span>(<span class="op">-</span><span class="dv">500</span>), <span class="dv">10</span>)))</span></code></pre></div>
+<p>We don’t get any kind of message this time so it looks like we fixed the problem!</p>
+<p>To look at the output type:</p>
+<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="macroevolutionary-models-for-continuous-traits.html#cb275-1"></a>OU</span></code></pre></div>
+<pre><code>## GEIGER-fitted comparative model of continuous data
+##  fitted &#39;OU&#39; model parameters:
+##  alpha = 9.013855
+##  sigsq = 2.512294
+##  z0 = 2.968916
+## 
+##  model summary:
+##  log-likelihood = -69.215721
+##  AIC = 144.431442
+##  AICc = 144.583341
+##  free parameters = 3
+## 
+## Convergence diagnostics:
+##  optimization iterations = 100
+##  failed iterations = 0
+##  number of iterations with same best fit = 39
+##  frequency of best fit = 0.39
+## 
+##  object summary:
+##  &#39;lik&#39; -- likelihood function
+##  &#39;bnd&#39; -- bounds for likelihood search
+##  &#39;res&#39; -- optimization iteration summary
+##  &#39;opt&#39; -- maximum likelihood parameter estimates</code></pre>
+<p>As for Brownian motion, the maximum likelihood estimates of the model parameters are found near the top of the output. In an Ornstein-Uhlenbeck (OU) model we estimate the Brownian rate parameter, <span class="math inline">\(\sigma^2\)</span> or <code>sigsq</code> in the output above, the value of the trait at the root of the tree, <span class="math inline">\(z(0)\)</span> or <code>z0</code> in the output above, and the “rubber-band” parameter, <span class="math inline">\(\alpha\)</span> or <code>alpha</code> in the output above.</p>
+<p>As <code>alpha = 9.014</code> here, it suggests that there is evolution towards a particular head length.</p>
+<div class="detail">
+<p>
+I mentioned above that the OU model has four parameters, <span class="math inline"><span class="math inline">\(\sigma^2\)</span></span>, <span class="math inline"><span class="math inline">\(z(0)\)</span></span>, <span class="math inline"><span class="math inline">\(\mu\)</span></span> and <span class="math inline"><span class="math inline">\(\alpha\)</span></span>. But only three appear on the output above. This is because <code>fitContinuous</code> only estimates <span class="math inline"><span class="math inline">\(\sigma^2\)</span></span>, <span class="math inline"><span class="math inline">\(z(0)\)</span></span>, and <span class="math inline"><span class="math inline">\(\alpha\)</span></span>. It does not estimate <span class="math inline"><span class="math inline">\(\mu\)</span></span> but in this implementation of the model, <span class="math inline"><span class="math inline">\(\mu\)</span></span> is equivalent to <span class="math inline"><span class="math inline">\(X(0)\)</span></span>.
+</p>
+</div>
+<div class="info">
+<p>
+Sometimes these models will tell you they have <strong>not converged</strong>. This just means the model has failed to find the optimal values for the parameters. This is most common in the OU model, and tends to happen when the likelihood surface for the parameter has long flat ridges that cause the likelihood search to get “stuck” and unable to find the peak (in our mountain climbing analogy it’s like getting stuck in a massive flat valley when it’s foggy and you can’t see the mountains around you to work out how to get to higher ground). If this happens, try changing the bounds on the alpha parameter. Moving the lower bound away from zero can help, as can increasing the upper bound.
+</p>
+</div>
+</div>
+<div id="comparing-models-of-evolution-using-aic" class="section level3">
+<h3><span class="header-section-number">7.3.3</span> Comparing models of evolution using AIC</h3>
+<p>Often we want to know which of the models fits our variable best. We can use <code>fitContinuous</code> to fit the models we are interested in and can then compare them using AIC. We can extract the AICs from the models we fitted above as follows:</p>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="macroevolutionary-models-for-continuous-traits.html#cb277-1"></a>BM<span class="op">$</span>opt<span class="op">$</span>aic</span></code></pre></div>
+<pre><code>## [1] 310.2063</code></pre>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="macroevolutionary-models-for-continuous-traits.html#cb279-1"></a>OU<span class="op">$</span>opt<span class="op">$</span>aic</span></code></pre></div>
+<pre><code>## [1] 144.4314</code></pre>
+<p>The “best” model is the one with the smallest AIC, in this case the OU model.
+There is much debate about how big of a difference in AIC values can be classed as substantial improvement to a model fit (it usually ranges from 2-10 AIC units). Generally we use 4 units, so OU fits this data substantially better than BM.</p>
+<p>Alternatively we can use <span class="math inline">\(\Delta\)</span>AIC or AIC weights to compare our models using the following code and the <code>geiger</code> function <code>aicw</code>:</p>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="macroevolutionary-models-for-continuous-traits.html#cb281-1"></a>aic.scores &lt;-<span class="st"> </span><span class="kw">setNames</span>(<span class="kw">c</span>(BM<span class="op">$</span>opt<span class="op">$</span>aic, OU<span class="op">$</span>opt<span class="op">$</span>aic), <span class="kw">c</span>(<span class="st">&quot;BM&quot;</span>,<span class="st">&quot;OU&quot;</span>))</span>
+<span id="cb281-2"><a href="macroevolutionary-models-for-continuous-traits.html#cb281-2"></a><span class="kw">aicw</span>(aic.scores)</span></code></pre></div>
+<pre><code>##         fit    delta            w
+## BM 310.2063 165.7749 1.005653e-36
+## OU 144.4314   0.0000 1.000000e+00</code></pre>
+<p><code>aicw</code> outputs the AIC (<code>fit</code>), <span class="math inline">\(\Delta\)</span>AIC (<code>delta</code>) and AIC weights (<code>w</code>) for each of the models we fitted. The best model is the model with <span class="math inline">\(\Delta\)</span>AIC = 0 or with AICw closest to 1. Using <span class="math inline">\(\Delta\)</span>AIC we can conclude that the OU model is the best fit to the data.</p>
+</div>
+</div>
+<div id="summary-5" class="section level2">
+<h2><span class="header-section-number">7.4</span> Summary</h2>
+<p>You should now know how to fit simple BM and OU models of evolution to continuous trait data in R.</p>
+</div>
+<div id="practical-exercises-2" class="section level2">
+<h2><span class="header-section-number">7.5</span> Practical exercises</h2>
+<p>In the data folder there is another tree (<code>primate-tree.nex</code>) and dataset (<code>primate-data.csv</code>) for investigating the evolution of primate life-history variables. These data come from the PanTHERIA database <span class="citation">(Jones et al. <a href="#ref-jones2009pantheria" role="doc-biblioref">2009</a>)</span> and 10kTrees <span class="citation">(Arnold, Matthews, and Nunn <a href="#ref-arnold201010ktrees" role="doc-biblioref">2010</a>)</span>.</p>
+<p>Read in the tree and data, then prepare them for a PCM analysis (you may have already done this in a previous exercise which should save you some time). Fit Brownian and OU models to log adult body mass for Primates (<code>AdultBodyMass_g</code>). Then answer the following questions.</p>
+<ol style="list-style-type: decimal">
+<li>Which model fits best?</li>
+<li>What is the rate of evolution for the Brownian model?</li>
+<li>What is the strength of pull towards the long-term mean in the OU model? What does this value suggest?</li>
+</ol>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-arnold201010ktrees">
+<p>Arnold, Christian, Luke J Matthews, and Charles L Nunn. 2010. “The 10kTrees Website: A New Online Resource for Primate Phylogeny.” <em>Evolutionary Anthropology: Issues, News, and Reviews</em> 19 (3): 114–18.</p>
+</div>
+<div id="ref-jones2009pantheria">
+<p>Jones, Kate E, Jon Bielby, Marcel Cardillo, Susanne A Fritz, Justin O’Dell, C David L Orme, Kamran Safi, et al. 2009. “PanTHERIA: A Species-Level Database of Life History, Ecology, and Geography of Extant and Recently Extinct Mammals: Ecological Archives E090-184.” <em>Ecology</em> 90 (9): 2648–8.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="phylogenetic-generalised-least-squares-pgls-in-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="macroevolutionary-models-for-discrete-traits.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/07-ModelsContinuous.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["pcm-primer.pdf", "pcm-primer.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
