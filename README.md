@@ -8,7 +8,7 @@ The exercises are versions of materials I've developed over the years, but this 
 
 The *Primer* is a work in progress but we are hoping it will be published in 2021/22. This repo is for people who want to use the materials now. As such not all sections are fully completed, for example some references are not included because the papers are still in prep! There will eventually be a nice fully completed version of these materials to go with the *Primer*! 
 
-> If you spot any errors, issues, mistakes, omissions etc. Please email me (natalie.cooper@nhm.ac.uk) or add an issue to the repo and I'll try and fix it.
+> If you spot any errors, issues, mistakes, omissions etc. Please email me (natalie.cooper@nhm.ac.uk) or add an issue to the repo and I'll try and fix it. I am aware of the lack of velociraptors! :)
 
 All practical exercises use R (R Core Team 2020), so some knowledge of R is required. I have provided the basics in the first chapter. The online workbook focuses on practical implementations of methods for the most part. For information on the theoretical underpinnings of the topics covered here please refer to the lectures and/or *Primer*. 
 
