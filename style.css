@@ -26,7 +26,7 @@ pre code {
 }
 
 .rmdwarning {
-  background-image: url("../images/warning.jpg");
+  background-image: url("warning.jpg");
 }
 
 .rmddetail {
@@ -50,7 +50,7 @@ pre code {
 }
 
 .warning {
-  background-image: url("../images/warning2.jpg");
+  background-image: url("warning2.jpg");
 }
 
 .detail {
