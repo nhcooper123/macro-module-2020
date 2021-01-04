@@ -32,7 +32,7 @@ The *Primer* is a work in progress but we are hoping it will be published in 202
 All practical exercises use R [@rcoreteam2020], so some knowledge of R is required. I have provided the basics in the first chapter. The online workbook focuses on practical implementations of methods for the most part. For information on the theoretical underpinnings of the topics covered here please refer to the lectures and/or *Primer*. 
 
 ## Datasets and scripts {-}
-All datasets, trees, R scripts (as R Markdown/.Rmd files), and an R Project (`.Rproj`) file for each exercise are available for download as a ZIP from [here](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/nhcooper123/macro-module-2020/tree/master/Cooper_Macro_Practicals). When you click this link it will take you to a website and the download should start automatically. **Don't forget to **unzip** this before starting.** The data/trees and scripts are in the appropriate folder for each practical exercise. Note that there is a folder for each of the exercises in the workbook.
+All datasets, trees, R scripts (as R Markdown/.Rmd files), and an R Project (`.Rproj`) file for each exercise are available HERE: https://drive.google.com/drive/folders/1MY1Q9aymrcviaaePdyb-vWmywK2eYSqq?usp=sharing. You will need to download the "Cooper_Macro_Practicals" folder to run the R practicals. The data/trees and scripts are in the appropriate folder for each practical exercise. Note that there is a folder for each of the exercises in the workbook.
 
 ## How to use these materials {-}
 It is possible to use these materials in a number of ways.
